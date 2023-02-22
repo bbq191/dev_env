@@ -45,6 +45,6 @@ lvim.transparent_window = true
 ````
 It's perfect for me.
 
-![screenshot]{./Screenshot 2023-02-22 at 11.17.58 AM.png}
+![screenshot](./sc1.png)
 
 Thanks!
