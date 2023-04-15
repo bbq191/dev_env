@@ -3,7 +3,6 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pe", vim.cmd.Ex) -- project exploer
 vim.keymap.set("n", "<leader>w", ":w<cr>") -- save current buffer
 vim.keymap.set("n", "<leader>!", ":q!<cr>") -- save and quit current buffer
-vim.keymap.set("n", "<leader>ss", ":so<CR>") -- source current buffer
 vim.keymap.set("n", "<leader>q", ":q<CR>") -- source current buffer
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

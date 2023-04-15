@@ -17,10 +17,12 @@ vim.opt.smartindent = true
 -- line wrapping
 vim.opt.wrap = false
 
+-- system performance
 vim.opt.swapfile = false
 vim.opt.backup = false
--- TODO: change to xdghome
+
 vim.opt.undodir = os.getenv("XDG_CONFIG_HOME") .. "/nvim/undodir"
+vim.opt.directory = os.getenv("XDG_CONFIG_HOME") .. "/nvim/tmp"
 vim.opt.undofile = true
 
 -- searching
