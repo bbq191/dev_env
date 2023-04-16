@@ -1,4 +1,4 @@
-# Personal dev enviement configuration
+# Personal dev enviroment configuration
 
 1. This is my MBP [dev env](mbp/MacOS_Developer_Setup.md) suggestion.
 
