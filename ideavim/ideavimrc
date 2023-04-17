@@ -1,0 +1,20 @@
+" leaderkey """""""""""""""""""""
+let mapleader=" "
+
+" editor setting """"""""""""""""""
+set clipboard+=unnamed
+set ignorecase
+set scrolloff=30
+set history=100
+
+set number
+set relativenumber
+
+set incsearch
+set hlsearch
+set keep-english-in-normal
+
+" key map """""""""""""""
+nmap <leader>pf <action>(GotoFile)
+
+nmap <leader>e <action>(ActivateProjectToolWindow)

@@ -6,4 +6,4 @@
 
 3. Add my personal nvim [configuration](nvim/readme.me).
 
-4. Begine to config emacs.
+4. Begine to config CLion.
