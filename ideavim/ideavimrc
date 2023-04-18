@@ -1,20 +1,75 @@
-" leaderkey """""""""""""""""""""
-let mapleader=" "
-
-" editor setting """"""""""""""""""
+""""""""""""""""""" basic config begin from here """""""""""""""""""""""""""""""
+""" Editing and Reloading the Config
 set clipboard+=unnamed
+""" The Escape button
+map <C-c> <Esc>
+""" The Leader Key
+let mapleader=" "
+""" editor setting
 set ignorecase
 set scrolloff=30
 set history=100
-
 set number
 set relativenumber
-
 set incsearch
 set hlsearch
 set keep-english-in-normal
+set showmode
+""" Idea specific settings
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
 
-" key map """""""""""""""
+""""""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
+""" Basic operate
+nmap <leader>w :w<CR>
+nmap <leader>q :q!<CR>
+nmap <leader>x :wq<CR>
+""" Code operate
+vnoremap < <gv
+vnoremap > >gv
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+nnoremap zc :action CollapseRegion<CR>
+nnoremap zo :action ExpandRegion<CR>
+nnoremap gs :action GotoSymbol<CR>
+nnoremap gc :action GotoClass<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gd :action GotToDeclaration<CR>
+nnoremap gp :action GotToSuperMethod<CR>
+nnoremap gt :action GotoTest<CR>
+nnoremap gb :action Back<CR>
+nnoremap gf :action Forward<CR>
+nnoremap <leader>zc :action CollapseAllRegions<CR>
+nnoremap <leader>zo :action ExpandAllRegions<CR>
+nnoremap <leader>c :action CommentByLineComment<CR>
+nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Leader>=  :action ReformatCode<CR>
+nnoremap <c-r> :action RecentFiles<CR>
+nnoremap <leader>l :action RecentLocations<CR>
+nnoremap <leader>h  :action LocalHistory.ShowHistory<CR>
+nnoremap ge :action GotoNextError<CR>
+nnoremap gE :action GotoPreviousError<CR>
+nmap <leader>f <action>(ReformatCode) \| <action>(OptimizeImports)
+map <leader>ri <Action>(RenameElement)
+map <leader>a <Action>(Annotate)
+nmap <leader>r :action RunClass<CR>
+""" Distraction Free Mode
+nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
+""" Terminal
+nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>t :action Terminal.OpenInTerminal<CR> " open a new terminal
+""" Navigation
+nnoremap <leader>sv :action SplitVertically<CR>
+nnoremap <leader>sh :action SplitHorizontally<CR>
+nnoremap <leader>sx :action Unsplit<CR>
+nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
+""" In project operate
 nmap <leader>pf <action>(GotoFile)
+nmap <leader>pl <action>(SelectInProjectView)
+nmap <leader>pt <action>(FindInPath)
+""" Git
+nmap <leader>gd <action>(Vcs.ShowTabbedFileHistory)
+""" IDE operate
+nmap <leader>fc <action>(GotoAction)
 
-nmap <leader>e <action>(ActivateProjectToolWindow)
