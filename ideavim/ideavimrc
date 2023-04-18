@@ -1,37 +1,65 @@
 """"""""""""""""""" basic config begin from here """""""""""""""""""""""""""""""
 """ Editing and Reloading the Config
 set clipboard+=unnamed
+set clipboard+=ideaput
+nnoremap \e :e ~/.config/ideavim/ideavimrc<CR>
+nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
 """ The Escape button
 map <C-c> <Esc>
 """ The Leader Key
 let mapleader=" "
 """ editor setting
 set ignorecase
-set scrolloff=30
+set scrolloff=8
 set history=100
 set number
 set relativenumber
-set incsearch
-set hlsearch
+
 set keep-english-in-normal
 set showmode
-""" Idea specific settings
-set ideajoin
-set ideastatusicon=gray
-set idearefactormode=keep
 
 """"""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
 """ Basic operate
-nmap <leader>w :w<CR>
-nmap <leader>q :q!<CR>
-nmap <leader>x :wq<CR>
+nnoremap <leader>w :action SaveAll<CR>
+""" Navigation
+nnoremap <leader>sv :action SplitVertically<CR>
+nnoremap <leader>sh :action SplitHorizontally<CR>
+nnoremap <leader>sx :action Unsplit<CR>
+nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <Leader>en :action EditSourceInNewWindow<CR>
+nnoremap <Leader>n :action NextWindow<CR>
+nnoremap <Leader>q :action CloseContent<CR>
+nnoremap <Leader>qa :action CloseAllEditors<CR>
 """ Code operate
+set ideajoin
+set idearefactormode=keep
 vnoremap < <gv
 vnoremap > >gv
 nnoremap [[ :action MethodUp<CR>
 nnoremap ]] :action MethodDown<CR>
 nnoremap zc :action CollapseRegion<CR>
 nnoremap zo :action ExpandRegion<CR>
+nnoremap <leader>zc :action CollapseAllRegions<CR>
+nnoremap <leader>zo :action ExpandAllRegions<CR>
+nnoremap <leader>c :action CommentByLineComment<CR>
+nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+nnoremap <leader>ri :action RenameElement<CR>
+nnoremap <Leader>f  :action ReformatCode<CR>
+nnoremap <leader>o :action OptimizeImports<CR>
+nnoremap <leader>l :action RecentLocations<CR>
+nnoremap <leader>h  :action LocalHistory.ShowHistory<CR>
+""" Searching and Source Code Navigation
+set incsearch
+set hlsearch
+nnoremap <leader>pt :action FindInPath<CR>
+nnoremap <c-a> :action GotoAction<CR>
+nnoremap <leader>pf :action GotoFile<CR>
+nnoremap <leader>pr :action RecentFiles<CR>
+nnoremap <leader>u :action FindUsages<CR>
+nnoremap <leader>s :action GotoRelated<CR>
+nnoremap <leader>h :action CallHierarchy<CR>
+nnoremap <leader>b :action ShowNavBar<CR>
+nnoremap <c-s> :action FileStructurePopup<CR>
 nnoremap gs :action GotoSymbol<CR>
 nnoremap gc :action GotoClass<CR>
 nnoremap gi :action GotoImplementation<CR>
@@ -40,36 +68,23 @@ nnoremap gp :action GotToSuperMethod<CR>
 nnoremap gt :action GotoTest<CR>
 nnoremap gb :action Back<CR>
 nnoremap gf :action Forward<CR>
-nnoremap <leader>zc :action CollapseAllRegions<CR>
-nnoremap <leader>zo :action ExpandAllRegions<CR>
-nnoremap <leader>c :action CommentByLineComment<CR>
-nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
-nnoremap <Leader>=  :action ReformatCode<CR>
-nnoremap <c-r> :action RecentFiles<CR>
-nnoremap <leader>l :action RecentLocations<CR>
-nnoremap <leader>h  :action LocalHistory.ShowHistory<CR>
-nnoremap ge :action GotoNextError<CR>
-nnoremap gE :action GotoPreviousError<CR>
-nmap <leader>f <action>(ReformatCode) \| <action>(OptimizeImports)
-map <leader>ri <Action>(RenameElement)
 map <leader>a <Action>(Annotate)
-nmap <leader>r :action RunClass<CR>
+""" Running and Debugging
+nnoremap ,r :action ContextRun<CR>
+nnoremap ,c :action RunClass<CR>
+nnoremap ,f :action ChooseRunConfiguration<CR>
+nnoremap ,t :action ActivateRunToolWindow<CR>
+nnoremap ,u :action Rerun<CR>
+nnoremap ,f :action RerunFailedTests<CR>
+nnoremap ,b :action ToggleLineBreakpoint<CR>
+nnoremap ,d :action ContextDebug<CR>
+nnoremap ,n :action ActivateDebugToolWindow<CR>
 """ Distraction Free Mode
 nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
+nnoremap <c-p> :action JumpToLastWindow<CR>
+nnoremap <c-x> :action HideAllWindows<CR>
 """ Terminal
 nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
 nnoremap <leader>t :action Terminal.OpenInTerminal<CR> " open a new terminal
-""" Navigation
-nnoremap <leader>sv :action SplitVertically<CR>
-nnoremap <leader>sh :action SplitHorizontally<CR>
-nnoremap <leader>sx :action Unsplit<CR>
-nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
-""" In project operate
-nmap <leader>pf <action>(GotoFile)
-nmap <leader>pl <action>(SelectInProjectView)
-nmap <leader>pt <action>(FindInPath)
 """ Git
 nmap <leader>gd <action>(Vcs.ShowTabbedFileHistory)
-""" IDE operate
-nmap <leader>fc <action>(GotoAction)
-

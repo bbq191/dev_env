@@ -4,6 +4,6 @@
 
 2. And my Personal theme [config](mbp/My_Personal_Like.md).
 
-3. Add my personal nvim [configuration](nvim/readme.me).
+3. Add my personal nvim [configuration](nvim/readme.md).
 
-4. Begine to config CLion.
+4. Begine to config [ideavim](ideavim/readme.md) for CLion.
