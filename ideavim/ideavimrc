@@ -60,6 +60,7 @@ nnoremap <leader>s :action GotoRelated<CR>
 nnoremap <leader>h :action CallHierarchy<CR>
 nnoremap <leader>b :action ShowNavBar<CR>
 nnoremap <c-s> :action FileStructurePopup<CR>
+nnoremap ge :action GotoNextError<CR>
 nnoremap gs :action GotoSymbol<CR>
 nnoremap gc :action GotoClass<CR>
 nnoremap gi :action GotoImplementation<CR>

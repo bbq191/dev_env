@@ -52,7 +52,7 @@ if vim.g.neovide then
     vim.g.neovide_padding_right = 0
     vim.g.neovide_padding_left = 0
 
-    vim.o.guifont = "CaskaydiaCove NFM:h14" -- text below applies for VimScript
+    vim.o.guifont = "CaskaydiaCove NFM:h16" -- text below applies for VimScript
     vim.g.neovide_remember_window_size = true
     -- Helper function for transparency formatting
     local alpha = function()
