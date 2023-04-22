@@ -2,8 +2,6 @@
 """ Editing and Reloading the Config
 set clipboard+=unnamed
 set clipboard+=ideaput
-nnoremap \e :e ~/.config/ideavim/ideavimrc<CR>
-nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
 """ The Escape button
 map <C-c> <Esc>
 """ The Leader Key
@@ -15,7 +13,6 @@ set history=100
 set number
 set relativenumber
 
-set keep-english-in-normal
 set showmode
 
 """"""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
