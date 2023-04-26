@@ -37,7 +37,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "100"
+vim.opt.colorcolumn = "120"
 
 -- cursor line
 vim.opt.cursorline = true -- highlight the current cursor line
@@ -52,7 +52,7 @@ if vim.g.neovide then
     vim.g.neovide_padding_right = 0
     vim.g.neovide_padding_left = 0
 
-    vim.o.guifont = "CaskaydiaCove NFM:h14" -- text below applies for VimScript
+    vim.o.guifont = "CaskaydiaCove NFM:h15" -- text below applies for VimScript
     vim.g.neovide_remember_window_size = true
     -- Helper function for transparency formatting
     local alpha = function()
