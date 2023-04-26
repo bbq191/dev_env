@@ -1,0 +1,5 @@
+[user]
+	email = xsiyuan@gmail.com
+	name = Vinci Xu
+[core]
+	excludesfile = /Users/vinci/.config/git/gitignore_global
