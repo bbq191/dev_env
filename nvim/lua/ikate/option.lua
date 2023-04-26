@@ -1,5 +1,5 @@
 -- i never use
-local o = vim.opt -- for conciseness
+-- local o = vim.opt -- for conciseness
 
 vim.opt.guicursor = ""
 
@@ -15,7 +15,7 @@ vim.opt.expandtab = true -- expand tab to spaces
 vim.opt.smartindent = true
 
 -- line wrapping
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 -- system performance
 vim.opt.swapfile = false
@@ -52,7 +52,7 @@ if vim.g.neovide then
     vim.g.neovide_padding_right = 0
     vim.g.neovide_padding_left = 0
 
-    vim.o.guifont = "CaskaydiaCove NFM:h16" -- text below applies for VimScript
+    vim.o.guifont = "CaskaydiaCove NFM:h14" -- text below applies for VimScript
     vim.g.neovide_remember_window_size = true
     -- Helper function for transparency formatting
     local alpha = function()
@@ -61,6 +61,6 @@ if vim.g.neovide then
     end
     -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
     vim.g.neovide_transparency = 0.0
-    vim.g.transparency = 0.4
+    vim.g.transparency = 0.8
     vim.g.neovide_background_color = "#0f1117" .. alpha()
 end
