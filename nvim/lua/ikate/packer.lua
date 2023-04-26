@@ -17,6 +17,11 @@ return require('packer').startup(function(use)
     use({ 'rose-pine/neovim', as = 'rose-pine' })
     vim.cmd('colorscheme rose-pine')
 
+    -- using catppuccin theme
+    use { 'catppuccin/nvim', as = 'catppuccin' }
+    vim.cmd('colorscheme catppuccin')
+
+
     -- Using treesitter
     use { 'nvim-treesitter/nvim-treesitter',
         run = function()
