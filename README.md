@@ -10,9 +10,9 @@
 
 5. Add fish [enviroment](fish/readme.md).
 
-6. Add oh my fish plugin(omf/readme.md).
+6. Add oh my fish [plugin](omf/readme.md).
 
 7. Add starship terminal [plugin](starship/readme.md).
 
-8. Move git config to here(git/readme.md).
+8. Move git config [together](git/readme.md).
 
