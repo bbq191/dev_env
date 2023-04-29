@@ -16,3 +16,6 @@
 
 8. Move git config [together](git/readme.md).
 
+9. Add vscode user setting file.
+
+In every editor using almost same keybinding as neovim. But I also suggested use naive nvim in your terminal. It's so nice.
