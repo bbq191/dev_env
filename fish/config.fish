@@ -19,6 +19,9 @@ set -x LESSHISTFILE -
 set -x CARGO_HOME $HOME/.config/cargo
 set -x RUSTUP_HOME $HOME/.config/rustup
 
+# neovim
+set -x NEOVIM_HOME $HOME/.config/neovim
+
 # starship
 set -x STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 # end customer setting #########################################################
