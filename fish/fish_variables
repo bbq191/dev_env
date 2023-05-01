@@ -43,4 +43,4 @@ SETUVAR fish_pager_color_selected_background:\x1d
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/opt/homebrew/opt/curl/bin\x1e/opt/homebrew\x1e/Users/vinci/\x2elocal/share/go/bin\x1e/opt/homebrew/opt/llvm/bin\x1e/Users/vinci/\x2econfig/cargo/bin\x1e/opt/homebrew/sbin\x1e/Users/vinci/\x2econfig/rustup/toolchains/nightly\x2daarch64\x2dapple\x2ddarwin/bin\x1e/Users/vinci/\x2elocal/bin\x1e/opt/homebrew/bin
+SETUVAR fish_user_paths:/Users/vinci/\x2econfig/neovim/bin\x1e/opt/homebrew/opt/curl/bin\x1e/opt/homebrew\x1e/Users/vinci/\x2elocal/share/go/bin\x1e/opt/homebrew/opt/llvm/bin\x1e/Users/vinci/\x2econfig/cargo/bin\x1e/opt/homebrew/sbin\x1e/Users/vinci/\x2econfig/rustup/toolchains/nightly\x2daarch64\x2dapple\x2ddarwin/bin\x1e/Users/vinci/\x2elocal/bin\x1e/opt/homebrew/bin
