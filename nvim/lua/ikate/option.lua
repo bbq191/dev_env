@@ -42,9 +42,6 @@ vim.opt.colorcolumn = "120"
 -- cursor line
 vim.opt.cursorline = true -- highlight the current cursor line
 
--- clipboard
--- vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
-
 -- neovide config
 if vim.g.neovide then
     vim.g.neovide_padding_top = 0
@@ -52,6 +49,9 @@ if vim.g.neovide then
     vim.g.neovide_padding_right = 0
     vim.g.neovide_padding_left = 0
 
+
+    -- clipboard
+    vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
     vim.o.guifont = "CaskaydiaCove NFM:h13" -- text below applies for VimScript
     vim.g.neovide_remember_window_size = true
     -- Helper function for transparency formatting
