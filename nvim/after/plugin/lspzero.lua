@@ -3,7 +3,7 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({ "vimdoc", "javascript", "typescript", "c", "lua", "rust" })
+lsp.ensure_installed({ "vimdoc", "javascript", "tsserver", "c", "lua_ls", "rust_analyzer" })
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
