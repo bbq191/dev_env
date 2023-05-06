@@ -84,7 +84,7 @@ nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 nnoremap <c-p> :action JumpToLastWindow<CR>
 nnoremap <c-x> :action HideAllWindows<CR>
 """ Terminal
-nnoremap <leader>t :action ActivateTerminalToolWindow<CR>
+nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
 """nnoremap <leader>t :action Terminal.OpenInTerminal<CR> " open a new terminal
 """ Git
 nmap <leader>gd <action>(Vcs.ShowTabbedFileHistory)

@@ -25,6 +25,8 @@ vim.keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current tab
 vim.keymap.set("n", "<leader>tn", ":tabn<CR>")     -- go to next tab
 vim.keymap.set("n", "<leader>tp", ":tabp<CR>")     -- go to previous tab
 
+vim.keymap.set("n", "<C-t>", ":terminal<CR>")     -- go to previous tab
+
 -- replays with copy
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
