@@ -18,4 +18,6 @@
 
 9. Add vscode user setting file.
 
+10. Add alacritty config [support](alacritty/readme.md).
+
 In every editor using almost same keybinding as neovim. But I also suggested use naive nvim in your terminal. It's so nice.
