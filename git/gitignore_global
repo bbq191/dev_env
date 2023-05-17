@@ -106,3 +106,4 @@ tags
 .idea/
 output/
 target/
+.gitignore
