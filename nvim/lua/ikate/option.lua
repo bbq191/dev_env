@@ -37,7 +37,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "120"
+vim.opt.colorcolumn = "100"
 
 -- cursor line
 vim.opt.cursorline = true -- highlight the current cursor line
