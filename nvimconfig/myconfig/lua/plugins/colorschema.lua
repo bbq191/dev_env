@@ -1,18 +1,11 @@
--- lugins/telescope.lua:
+-- Set up default color scheme
 return {
-{
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
-      dependencies = { 'nvim-lua/plenary.nvim' },
-},
-    -- Using RosePine theme
-    { 'rose-pine/neovim', name = 'rose-pine',
+ 'rose-pine/neovim', name = 'rose-pine',
  lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
   config = function()
       -- load the colorscheme here
       vim.cmd([[colorscheme rose-pine]])
     end,
-},
-
 }
 
