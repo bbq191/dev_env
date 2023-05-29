@@ -1,7 +1,6 @@
 require("ikate.option")
 require("ikate.remap")
--- todo: require("ikate.packer")
-require("ikate.lazy")
+require("ikate.packer")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
