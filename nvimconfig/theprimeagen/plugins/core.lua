@@ -1,10 +1,18 @@
--- plugins/telescope.lua:
+-- lugins/telescope.lua:
 return {
 {
     'nvim-telescope/telescope.nvim', tag = '0.1.1',
-      dependencies = { 'nvim-lua/plenary.nvim' }
+      dependencies = { 'nvim-lua/plenary.nvim' },
 },
-
+    -- Using RosePine theme
+    { 'rose-pine/neovim', name = 'rose-pine',
+ lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+  config = function()
+      -- load the colorscheme here
+      vim.cmd([[colorscheme rose-pine]])
+    end,
+},
     -- Using treesitter
    { 'nvim-treesitter/nvim-treesitter',
         build = function()
@@ -23,6 +31,7 @@ return {
   -- your configuration comes here
   -- or leave it empty to use the default settings
   -- refer to the configuration section below
+ },
  },
     -- Using Harpoon
     {'theprimeagen/harpoon'},
@@ -59,10 +68,11 @@ return {
             { 'L3MON4D3/LuaSnip' },             -- Required
             { 'rafamadriz/friendly-snippets' }, --Optional
         }
-    }
+    },
 
     -- Optional
     -- use("github/copilot.vim") -- i've no money
     {"eandrju/cellular-automaton.nvim"}, -- really funny
     {"laytan/cloak.nvim"},              -- allows you to overlay *'s (or any other character) over defined patterns in defined files.
-    }
+}
+
