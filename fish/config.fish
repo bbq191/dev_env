@@ -25,3 +25,7 @@ set -x NEOVIM_HOME $HOME/.config/neovim
 # starship
 set -x STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 # end customer setting #########################################################
+
+# some useful shortcut
+abbr --add gcm git commit -m
+abbr --add gA git add -A
