@@ -1,7 +1,7 @@
 # proxy
 set -x https_proxy http://127.0.0.1:6152
 set -x http_proxy http://127.0.0.1:6152
-set -x all_proxy socks5://127.0.0.1:6152
+set -x all_proxy socks5://127.0.0.1:6153
 
 set -x XDG_CONFIG_HOME $HOME/.config
 
