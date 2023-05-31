@@ -1,2 +1,4 @@
+package gh
 package https://github.com/catppuccin/fish
+package neovim
 theme default
