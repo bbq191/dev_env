@@ -26,6 +26,11 @@ set -x NEOVIM_HOME $HOME/.local/neovim
 set -x STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 # end customer setting #########################################################
 
+# subshell
+if status is-interactive
+  printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
+end
+
 # some useful shortcut
 abbr --add gcm git commit -m
 abbr --add gA git add -A
