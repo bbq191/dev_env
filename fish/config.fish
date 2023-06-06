@@ -34,3 +34,5 @@ end
 # some useful shortcut
 abbr --add gcm git commit -m
 abbr --add gA git add -A
+
+tmux_chooser
