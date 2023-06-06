@@ -1,13 +1,13 @@
 # Use custom format
 command_timeout = 30000
-palette = "catppuccin_latte"
+palette = "catppuccin_mocha"
 
 [character]
-# success_symbol = '[⋊>](bold green)'
-# error_symbol = '[⋊>](bold red)'
-success_symbol = "[[♥](green) ❯](maroon)"
-error_symbol = "[❯](red)"
-vicmd_symbol = "[❮](green)"
+success_symbol = '[⋊>](bold green)'
+error_symbol = '[⋊>](bold red)'
+# success_symbol = "[[♥](green) ❯](maroon)"
+# error_symbol = "[❯](red)"
+# vicmd_symbol = "[❮](green)"
 
 # Git
 [git_branch]
