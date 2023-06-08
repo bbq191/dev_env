@@ -35,5 +35,3 @@ end
 abbr --add gcm git commit -m
 abbr --add gA git add -A
 
-# custome my function 
-tmux_chooser
