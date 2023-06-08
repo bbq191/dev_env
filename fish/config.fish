@@ -1,7 +1,7 @@
 # proxy
 set -x https_proxy http://127.0.0.1:6152
 set -x http_proxy http://127.0.0.1:6152
-set -x all_proxy socks5://127.0.0.1:6153
+set -x all_proxy socks5://127.0.0.1:6152
 
 set -x XDG_CONFIG_HOME $HOME/.config
 set fish_greeting ""
@@ -16,8 +16,8 @@ set -x LESSHISTFILE -
 
 # customer setting #############################################################
 # Rust config
-set -x CARGO_HOME $HOME/.config/cargo
-set -x RUSTUP_HOME $HOME/.config/rustup
+set -x CARGO_HOME $HOME/.local/cargo
+set -x RUSTUP_HOME $HOME/.local/rustup
 
 # neovim
 set -x NEOVIM_HOME $HOME/.local/neovim
