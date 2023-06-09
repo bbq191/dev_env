@@ -33,7 +33,7 @@ end
 
 # some useful shortcut
 abbr --add gcm git commit -m
-abbr --add gA git add -A
+abbr --add gaa git add -A
 abbr --add gpu git push
 abbr --add gpl git pull
 
