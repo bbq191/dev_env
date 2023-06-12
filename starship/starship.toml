@@ -3,15 +3,13 @@ command_timeout = 30000
 palette = "catppuccin_mocha"
 
 format = """
-$username\
+$username的\
 $hostname\
 $directory\
 $git_branch\
 $git_state\
 $git_status\
 $cmd_duration\
-$line_break\
-$python\
 $character"""
 
 [character]
@@ -20,10 +18,12 @@ error_symbol = '[⋊>](bold red)'
 # success_symbol = "[[♥](green) ❯](maroon)"
 # error_symbol = "[❯](red)"
 # vicmd_symbol = "[❮](green)"
+[username]
+format = '[$user]($style)'
+show_always = true
 
 [directory]
-truncation_length = 8
-truncation_symbol = '…/'
+truncation_length = 6
 read_only = " 󰌾"
 
 [git_branch]
@@ -75,7 +75,6 @@ symbol = " "
 [fossil_branch]
 symbol = " "
 
-
 [golang]
 symbol = " "
 
@@ -92,6 +91,8 @@ symbol = "⌘ "
 symbol = " "
 
 [hostname]
+format = '[$hostname](bold red) '
+ssh_only = false
 ssh_symbol = " "
 
 [java]
