@@ -27,8 +27,6 @@ truncation_symbol = '…/'
 read_only = " 󰌾"
 
 [git_branch]
-format = "[$branch]($style)"
-style = "bright-black"
 symbol = " "
 
 [git_status]
