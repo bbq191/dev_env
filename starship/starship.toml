@@ -3,8 +3,8 @@ command_timeout = 30000
 palette = "catppuccin_mocha"
 
 format = """
-$username的\
 $hostname\
+at \
 $directory\
 $git_branch\
 $git_state\
@@ -13,32 +13,29 @@ $cmd_duration\
 $character"""
 
 [character]
-success_symbol = '[⋊>](bold green)'
-error_symbol = '[⋊>](bold red)'
+success_symbol = '[run](bold green)'
+error_symbol = '[err](bold red)'
+# success_symbol = '[⋊>](bold green)'
+# error_symbol = '[⋊>](bold red)'
 # success_symbol = "[[♥](green) ❯](maroon)"
 # error_symbol = "[❯](red)"
 # vicmd_symbol = "[❮](green)"
 [username]
-format = '[$user]($style)'
+format = '[$user](bold purple)'
 show_always = true
+truncation_symbol = '…/'
 
 [directory]
-truncation_length = 6
+truncation_length = 2
 read_only = " 󰌾"
+
 
 [git_branch]
 symbol = " "
 
 [git_status]
-# format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
 style = "cyan"
-conflicted = ""
-untracked = ""
-modified = ""
-staged = ""
-renamed = ""
-deleted = ""
-stashed = "≡"
 
 [git_state]
 format = '\([$state($progress_current/$progress_total)]($style)\) '
