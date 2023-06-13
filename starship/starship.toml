@@ -4,7 +4,6 @@ palette = "catppuccin_mocha"
 
 format = """
 $hostname\
-at \
 $directory\
 $git_branch\
 $git_state\
@@ -20,15 +19,11 @@ error_symbol = '[err](bold red)'
 # success_symbol = "[[♥](green) ❯](maroon)"
 # error_symbol = "[❯](red)"
 # vicmd_symbol = "[❮](green)"
-[username]
-format = '[$user](bold purple)'
-show_always = true
-truncation_symbol = '…/'
-
 [directory]
-truncation_length = 2
+truncation_length = 5
+truncate_to_repo = false
 read_only = " 󰌾"
-
+truncation_symbol = '…/'
 
 [git_branch]
 symbol = " "
@@ -36,6 +31,7 @@ symbol = " "
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
 style = "cyan"
+staged = '[++\($count\)]($style)'
 
 [git_state]
 format = '\([$state($progress_current/$progress_total)]($style)\) '
