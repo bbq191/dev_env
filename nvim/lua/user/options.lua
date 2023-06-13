@@ -33,9 +33,7 @@ o.isfname:append("@-@")
 
 o.updatetime = 50
 
-o.colorcolumn = "100"
+o.colorcolumn = "80"
 
 -- cursor line
 o.cursorline = true -- highlight the current cursor line
-
-
