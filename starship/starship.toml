@@ -8,8 +8,9 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
-$cmd_duration\
-$character"""
+$character\
+$cmd_duration
+"""
 
 [character]
 success_symbol = '[run](bold green)'
