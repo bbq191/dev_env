@@ -11,6 +11,7 @@ starship init fish | source
 fnm env --use-on-cd | source
 # zoxide
 zoxide init fish | source
+thefuck --alias | source
 # lesshst
 set -x LESSHISTFILE -
 
