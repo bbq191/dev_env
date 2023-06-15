@@ -10,21 +10,6 @@ These are some settings I immediately set:
 * set turn display off after 20 mins while on battery 30 mins while charging
 * turn on night shift
 
-### Open DP on your macOs without profile
-
-This is dangerous CLI, make sure your needs!
-
-```shell
-#Enroll DP
-sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil enroll DeveloperSeed
-
-# Unenroll seed
-sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil unenroll
-
-# See enrolled seed
-sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil current
-```
-
 ## Finder
 
 There are a few tweaks to Finder that I think are necessary for it to be useable at all for a developer.
@@ -32,16 +17,6 @@ There are a few tweaks to Finder that I think are necessary for it to be useable
 Check out this video at the timestamp provided for all of the updates: [video](https://youtu.be/2_ZbslLnshw?t=3017)
 
 Not adapted for everyone, tweak as you wish.
-
-### Keyboard modify
-
-I use Karabiner-Elements to change my key as i like. It's a very powerfull tool.
-But i only changed:
-
-- set capslock to escape
-- set escape to capslock
-
-Escape is too far for me and i need click capslock to change my inpurt method. 
 
 ### HostName
 
@@ -303,19 +278,6 @@ I install Neovim from source you can probably just:
 ```
 brew install neovim
 ```
-
-### Install Lunarvim
-
-The best IDE layer for Neovim:
-
-```
-bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
-brew install stylua
-
-```
-
-Watch these videos [LunarVim](https://www.youtube.com/playlist?list=PLhoH5vyxr6QqGu0i7tt_XoVK9v-KvZ3m6)
-[[LunarVim notes]] 
 
 ## Github CLI
 
