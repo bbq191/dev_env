@@ -3,4 +3,4 @@
 undodir/
 .zsh_sessions/
 .zcompdump
-.zsh_history
+zsh/.zsh_history
