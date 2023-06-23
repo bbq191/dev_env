@@ -1,4 +1,5 @@
 .git/
+.gitignore
 .zsh_sessions/
-.zcompdump
-.zsh_history
+zsh/.zcompdump
+zsh/.zsh_history
