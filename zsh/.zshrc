@@ -1,9 +1,12 @@
+# First of all
+export https_proxy=http://127.0.0.1:6152 http_proxy=http://127.0.0.1:6152 all_proxy=socks5://127.0.0.1:6153
+
 # Created by Zap installer
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 
 # source
-plug "$HOME/.config/aliases.zsh"
-plug "$HOME/.config/exports.zsh"
+plug "$XDG_CONFIG_HOME/zsh/aliases.zsh"
+plug "$XDG_CONFIG_HOME/zsh/exports.zsh"
 # plugins
 plug "zap-zsh/supercharge"
 plug "esc/conda-zsh-completion"

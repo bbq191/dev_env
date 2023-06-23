@@ -1,0 +1,3 @@
+: 1687493671:0;export https_proxy=http://127.0.0.1:6152;export http_proxy=http://127.0.0.1:6152;export all_proxy=socks5://127.0.0.1:6153
+: 1687493640:75;zsh
+: 1687493728:0;exit
