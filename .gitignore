@@ -1,4 +1,6 @@
 .git/
 /plugin/
 undodir/
-
+.zsh_sessions/
+.zcompdump
+.zsh_history
