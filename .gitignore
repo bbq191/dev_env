@@ -1,6 +1,4 @@
 .git/
-/plugin/
-undodir/
 .zsh_sessions/
 .zcompdump
-zsh/.zsh_history
+.zsh_history
