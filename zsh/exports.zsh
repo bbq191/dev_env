@@ -8,12 +8,14 @@ SAVEHIST=1000000
 export EDITOR="nvim"
 export TERMINAL="kitty"
 export BROWSER="safari"
-export PATH="$HOME/.local/bin":$PATH
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
-# export PATH="$HOME/.local/cargo/bin":$PATH
-# export PATH="$HOME/.local/rustup/toolchains/nightly-aarch64-apple-darwin/bin":$PATH
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+
+export PATH="$CARGO_HOME/bin":$PATH
+# export PATH="$HOME/.local/bin":$PATH
 # eval "$(thefuck --alias)"
 # eval "$(fnm env)"
 eval "$(zoxide init zsh)"
