@@ -2,6 +2,6 @@
 	email = xsiyuan@gmail.com
 	name = Vinci Xu
 [core]
-	excludesfile = /Users/vinci/.config/git/gitignore_global
+	excludesfile = /Users/vincixu/.config/git/gitignore_global
 [pull]
 	rebase = false
