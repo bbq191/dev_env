@@ -22,6 +22,6 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 export PATH="$CARGO_HOME/bin":$PATH
 # export PATH="$HOME/.local/bin":$PATH
 # eval "$(thefuck --alias)"
-# eval "$(fnm env)"
+eval "$(fnm env)"
 eval "$(zoxide init zsh)"
 
