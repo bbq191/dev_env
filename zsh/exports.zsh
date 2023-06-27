@@ -1,6 +1,7 @@
 #!/bin/s
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+export NV_THEME="rosepine"
 export HISTFILE="$ZDOTDIR/.zhistory"
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -24,4 +25,3 @@ export PATH="$CARGO_HOME/bin":$PATH
 # eval "$(thefuck --alias)"
 eval "$(fnm env)"
 eval "$(zoxide init zsh)"
-
