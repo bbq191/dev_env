@@ -1,7 +1,7 @@
 return {
 
   -- add rose-pine
-  { "rose-pine/neovim",           name = "rose-pine" },
+  { "rose-pine/neovim", name = "rose-pine" },
 
   -- load github nvim theme
   { "projekt0n/github-nvim-theme" },
@@ -41,9 +41,10 @@ return {
           nvim_theme.setup(colorscheme)
         else
           require("tokyonight").load() -- fallback to tokyo night if not otherwise specified
+          -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+          -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
         end
-      end
+      end,
     },
   },
-
 }
