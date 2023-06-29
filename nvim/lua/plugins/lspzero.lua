@@ -4,6 +4,11 @@ return {
     dependencies = {
         -- LSP Support
         { 'neovim/nvim-lspconfig' }, -- Required
+        { 'simrat39/rust-tools.nvim' },
+
+        -- Debugging
+        { 'nvim-lua/plenary.nvim' },
+        { 'mfussenegger/nvim-dap' },
         {
             -- Optional
             'williamboman/mason.nvim',
