@@ -25,9 +25,9 @@ vim.keymap.set("n", "<leader>tx", ":tabclose<CR>")  -- close current tab
 vim.keymap.set("n", "<leader>tn", ":tabn<CR>")      -- go to next tab
 vim.keymap.set("n", "<leader>tp", ":tabp<CR>")      -- go to previous tab
 
-vim.keymap.set("n", "<leader>bx", ":bd<CR>")        -- close current buffer
-vim.keymap.set("n", "<leader>bn", ":bnext<CR>")     -- go to next buffer
-vim.keymap.set("n", "<leader>bp", ":bprevious<CR>") -- go to previous buffer
+vim.keymap.set("n", "<leader>bd", ":bd<CR>")        -- close current buffer
+vim.keymap.set("n", "<S-l>", ":bnext<CR>")          -- go to next buffer
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>")      -- go to previous buffer
 vim.keymap.set("n", "<leader>bl", ":ls<CR>")        -- go to previous buffer
 
 vim.keymap.set("n", "<C-t>", ":terminal<CR>")       -- open  terminal window
