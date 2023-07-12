@@ -14,7 +14,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = function()
-        local colorscheme = os.getenv("NV_THEME") or "dark"
+        local colorscheme = os.getenv("NV_THEME") or "light"
         local theme = ""
         if colorscheme ~= nil then
           if string.match(colorscheme, "[G|g]it[H|h]ub") ~= nil then
