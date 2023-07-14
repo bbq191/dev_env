@@ -7,7 +7,7 @@ function M.setup()
       --- @usage 'auto'|'main'|'moon'|'dawn'
       variant = "auto",
       --- @usage 'main'|'moon'|'dawn'
-      dark_variant = "dawn",
+      dark_variant = "main",
       bold_vert_split = false,
       dim_nc_background = false,
       disable_background = true,
@@ -54,7 +54,7 @@ function M.setup()
     },
   }
   theme.setup(opts)
-  vim.o.background = "light"
+  vim.o.background = "dark"
   vim.cmd("colorscheme rose-pine")
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
