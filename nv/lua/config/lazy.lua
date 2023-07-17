@@ -25,7 +25,7 @@ require("lazy").setup({
     -- lazyvim project extension modules
     { import = "lazyvim.plugins.extras.util.project" },
     -- lazyvim vscode extension modules
-    -- { import = "lazyvim.plugins.extras.vscode" },
+    { import = "lazyvim.plugins.extras.vscode" },
     -- import/override with your plugins
     { import = "plugins" },
   },
