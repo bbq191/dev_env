@@ -52,7 +52,10 @@ return {
       {
         "<leader>de",
         function()
-          require("dap.ui.widgets").centered_float(require("dap.ui.widgets").expression, { border = "none" })
+          require("dap.ui.widgets").centered_float(
+            require("dap.ui.widgets").expression,
+            { border = "none" }
+          )
         end,
         desc = "Eval",
         mode = { "n", "v" },
@@ -60,27 +63,37 @@ return {
       {
         "<leader>dwf",
         function()
-          require("dap.ui.widgets").centered_float(require("dap.ui.widgets").frames, { border = "none" })
+          require("dap.ui.widgets").centered_float(
+            require("dap.ui.widgets").frames,
+            { border = "none" }
+          )
         end,
         desc = "Frames",
       },
       {
         "<leader>dws",
         function()
-          require("dap.ui.widgets").centered_float(require("dap.ui.widgets").scopes, { border = "none" })
+          require("dap.ui.widgets").centered_float(
+            require("dap.ui.widgets").scopes,
+            { border = "none" }
+          )
         end,
         desc = "Scopes",
       },
       {
         "<leader>dwt",
         function()
-          require("dap.ui.widgets").centered_float(require("dap.ui.widgets").threads, { border = "none" })
+          require("dap.ui.widgets").centered_float(
+            require("dap.ui.widgets").threads,
+            { border = "none" }
+          )
         end,
         desc = "Threads",
       },
     },
     opts = function(_, opts)
-      require("dap").defaults.fallback.terminal_win_cmd = "enew | set filetype=dap-terminal"
+      require("dap").defaults.fallback.terminal_win_cmd =
+        "enew | set filetype=dap-terminal"
     end,
   },
 
@@ -90,6 +103,7 @@ return {
   -- { import = "lazyvim.plugins.extras.lang.go" },
   { import = "lazyvim.plugins.extras.dap.nlua" },
   { import = "lazyvim.plugins.extras.lang.rust" },
+  { import = "lazyvim.plugins.extras.lang.clangd" },
 
   -- custom language specific extension modules
   -- { import = "plugins.extras.lang.java" },
