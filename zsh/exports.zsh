@@ -12,6 +12,10 @@ export BROWSER="safari"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
+# llvm config
+export LLVM_PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
+
 # rust config
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
@@ -20,7 +24,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
 # path append
-export PATH="$CARGO_HOME/bin":$PATH
+export PATH="$CARGO_HOME/bin":"$LLVM_PATH":$PATH
 # export PATH="$HOME/.local/bin":$PATH
 # eval "$(thefuck --alias)"
 eval "$(fnm env)"
