@@ -1,237 +1,287 @@
 {
-  // workbench
-  "workbench.colorTheme": "Catppuccin Mocha",
-  "workbench.sideBar.location": "right",
-  "workbench.editor.tabCloseButton": "off",
-  "workbench.iconTheme": "catppuccin-mocha",
-  // editor
-  "editor.fontFamily": "'CaskaydiaCove NFM'",
-  "editor.cursorStyle": "block",
-  "editor.stickyScroll.enabled": true,
-  "editor.cursorBlinking": "solid",
-  "editor.scrollBeyondLastLine": false,
-  "editor.minimap.enabled": false,
-  "editor.fontSize": 13,
-  "editor.lineNumbers": "relative",
-  // terminal
-  "terminal.integrated.copyOnSelection": true,
-  "terminal.integrated.fontSize": 13,
-  // extersion
-  "git.autofetch": true,
-  "rust-analyzer.check.command": "clippy",
-  // VIM Begins here ---------------------------------------------------------
-  // 绑定vim前导键
-  "vim.leader": "<space>",
-  // 启用easymotion插件
-  "vim.easymotion": true,
-  // 启用系统粘贴板作为vim寄存器
-  "vim.useSystemClipboard": true,
-  // 由vim接管ctrl+any的按键，而不是vscode
-  "vim.useCtrlKeys": true,
-  // 突出显示与当前搜索匹配的所有文本
-  "vim.hlsearch": true,
-  // 普通模式下的非递归按键绑定
-  "vim.normalModeKeyBindingsNonRecursive": [
-    // Basic operate
-    {
-      "before": [
-        ":"
-      ],
-      "commands": [
-        "workbench.action.showCommands",
-      ],
-      "silent": true
+    "window.zoomLevel": -1,
+    "workbench.startupEditor": "none",
+    "workbench.colorTheme": "Rosé Pine Moon",
+    "workbench.iconTheme": "rose-pine-icons",
+    "explorer.confirmDelete": false,
+    "editor.cursorBlinking": "solid",
+    "editor.cursorStyle": "block",
+    "editor.fontFamily": "'Cascadia Code', 'Source Han Serif SC VF', 'Symbols Nerd Font'",
+    // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
+    "editor.fontLigatures": "'calt','zero','ss01'",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.fontSize": 13,
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "relative",
+    "editor.dragAndDrop": false,
+    // turn on wrap ruler and color it
+    "editor.rulers": [
+        {
+            "column": 80,
+            "color": "#faa5a588"
+        },
+        {
+            "column": 100,
+            "color": "#faa5a588"
+        }
+    ],
+    // 启用 font featyre
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "name": "italic font",
+                "scope": [
+                    "support",
+                    "entity",
+                    "comment",
+                    "string.quoted",
+                    "constant", //String, Number, Boolea, this, super
+                    "storage", //static keyword
+                    "keyword", //import, export, return
+                ],
+                "settings": {
+                    "fontStyle": "italic",
+                }
+            },
+        ]
     },
-    {
-      "before": [
-        "<C-a>"
-      ],
-      "after": [
-        "^"
-      ]
+    "editor.scrollBeyondLastLine": false,
+    "editor.snippetSuggestions": "bottom",
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "editor.parameterHints.enabled": false, // 关闭自动传参建议，使用按键手动触发
+    "terminal.integrated.gpuAcceleration": "on",
+    "terminal.integrated.bellDuration": 100000,
+    "terminal.integrated.fontSize": 13,
+    "explorer.confirmDragAndDrop": false,
+    "telemetry.telemetryLevel": "off",
+    // rust config
+    "rust-analyzer.check.command": "clippy",
+    // c/cpp config
+    "cmake.configureOnOpen": true,
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build"
+    ],
+    // vim 基本控制
+    "vim.leader": "<space>", // 绑定vim前导键
+    "vim.easymotion": true, // 启用easymotion插件
+    "vim.useSystemClipboard": true, // 启用系统粘贴板作为vim寄存器
+    "vim.useCtrlKeys": true, // 由vim接管ctrl+any的按键，而不是vscode
+    "vim.hlsearch": true, // 突出显示与当前搜索匹配的所有文本
+    // 下面定义的按键将交由vscode进行处理，而不是vscode-vim插件
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
     },
-    {
-      "before": [
-        "<C-e>"
-      ],
-      "after": [
-        "$"
-      ]
-    },
-    {
-      "before": [
-        "leader",
-        "w"
-      ],
-      "commands": [
-        "workbench.action.files.save",
-      ]
-    },
-    // Navigation
-    {
-      "before": [
-        "leader",
-        "t",
-        "n"
-      ],
-      "commands": [
-        "workbench.action.nextEditor"
-      ]
-    },
-    {
-      "before": [
-        "leader",
-        "t",
-        "p"
-      ],
-      "commands": [
-        "workbench.action.previousEditor"
-      ]
-    },
-    {
-      "before": [
-        "leader",
-        "q"
-      ],
-      "commands": [
-        "workbench.action.closeActiveEditor"
-      ]
-    },
-    {
-      "before": [
-        "leader",
-        "q",
-        "a"
-      ],
-      "commands": [
-        "workbench.action.closeAllEditors"
-      ]
-    },
-    {
-      "before": [
-        "leader",
-        "s",
-        "v"
-      ],
-      "commands": [
-        "workbench.action.splitEditorRight"
-      ]
-    },
-    {
-      "before": [
-        "leader",
-        "s",
-        "h"
-      ],
-      "commands": [
-        "workbench.action.splitEditorDown"
-      ]
-    },
-    // Code operate
-    {
-      "before": [
-        "leader",
-        "f"
-      ],
-      "commands": [
-        "editor.action.formatDocument",
-      ]
-    },
-    {
-      "before": [
-        "leader",
-        "c"
-      ],
-      "commands": [
-        "editor.action.commentLine",
-      ]
-    },
-    {
-      "before": [
-        "z",
-        "c",
-      ],
-      "commands": [
-        "editor.toggleFold"
-      ]
-    },
-    // Searching and Source Code Navigation
-    {
-      "before": [
-        "leader",
-        "p",
-        "f"
-      ],
-      "commands": [
-        "workbench.action.quickOpen",
-      ]
-    },
-    {
-      "before": [
-        "[",
-        "e",
-      ],
-      "commands": [
-        "editor.action.marker.prevInFiles"
-      ]
-    },
-    {
-      "before": [
-        "]",
-        "e",
-      ],
-      "commands": [
-        "editor.action.marker.nextInFiles"
-      ]
-    },
-    {
-      "before": [
-        "g",
-        "d",
-      ],
-      "commands": [
-        "editor.action.revealDeclaration"
-      ]
-    },
-    {
-      "before": [
-        "g",
-        "i",
-      ],
-      "commands": [
-        "editor.action.goToImplementation"
-      ]
-    },
-    // Terminal
-    {
-      "before": [
-        "<C-t>"
-      ],
-      "commands": [
-        "workbench.action.terminal.toggleTerminal"
-      ]
-    },
-  ],
-  "vim.insertModeKeyBindings": [],
-  "vim.visualModeKeyBindings": [
-    // Code operate
-    {
-      "before": [
-        ">"
-      ],
-      "commands": [
-        "editor.action.indentLines"
-      ]
-    },
-    {
-      "before": [
-        "<"
-      ],
-      "commands": [
-        "editor.action.outdentLines"
-      ]
-    },
-  ],
-  // 命令模式下的非递归按键绑定
-  "vim.commandLineModeKeyBindingsNonRecursive": [],
+    // 普通模式下的非递归按键绑定
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                ":"
+            ],
+            "commands": [
+                "workbench.action.showCommands",
+            ],
+            "silent": true
+        },
+        {
+            "before": [
+                "leader",
+                "w"
+            ],
+            "commands": [
+                "workbench.action.files.save",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "w",
+                "a"
+            ],
+            "commands": [
+                "workbench.action.files.saveAll",
+            ]
+        },
+        {
+            "before": [
+                "[",
+                "b",
+            ],
+            "commands": [
+                "workbench.action.nextEditor"
+            ]
+        },
+        {
+            "before": [
+                "]",
+                "b",
+            ],
+            "commands": [
+                "workbench.action.previousEditor"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "b",
+                "d"
+            ],
+            "commands": [
+                "workbench.action.closeActiveEditor"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "s",
+                "v"
+            ],
+            "commands": [
+                "workbench.action.splitEditorRight"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "s",
+                "h"
+            ],
+            "commands": [
+                "workbench.action.splitEditorDown"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "c"
+            ],
+            "commands": [
+                "editor.action.commentRangeForeground",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatDocument",
+            ]
+        },
+        {
+            "before": [
+                "H"
+            ],
+            "after": [
+                "^"
+            ]
+        },
+        {
+            "before": [
+                "L"
+            ],
+            "after": [
+                "$"
+            ]
+        },
+        {
+            "before": [
+                "z",
+                "c",
+            ],
+            "commands": [
+                "editor.toggleFold"
+            ]
+        },
+        {
+            "before": [
+                "[",
+                "e",
+            ],
+            "commands": [
+                "editor.action.marker.prevInFiles"
+            ]
+        },
+        {
+            "before": [
+                "]",
+                "e",
+            ],
+            "commands": [
+                "editor.action.marker.nextInFiles"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "f",
+                "f"
+            ],
+            "commands": [
+                "workbench.action.quickOpen",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "f",
+                "r"
+            ],
+            "commands": [
+                "workbench.action.openRecent",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "f",
+                "n"
+            ],
+            "commands": [
+                "welcome.showNewFileEntries",
+            ]
+        },
+    ],
+    // 插入模式下的非递归按键绑定
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        },
+        {
+            "before": [
+                "k",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        },
+    ],
+    // 命令模式下的非递归按键绑定
+    "vim.commandLineModeKeyBindingsNonRecursive": [],
+    // 可视模式下的非递归按键绑定
+    "vim.operatorPendingModeKeyBindings": [
+        {
+            "before": [
+                ">"
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ]
+        },
+        {
+            "before": [
+                "<"
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ]
+        },
+    ],
 }
