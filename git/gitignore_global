@@ -102,8 +102,10 @@ tags
 
 ######################################
 # IDE
+.git/
 .vscode/
 .idea/
 output/
 target/
 .gitignore
+build/
