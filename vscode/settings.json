@@ -170,7 +170,7 @@
         },
         {
             "before": [
-                "H"
+                "<S-h>"
             ],
             "after": [
                 "^"
@@ -178,7 +178,7 @@
         },
         {
             "before": [
-                "L"
+                "<S-l>"
             ],
             "after": [
                 "$"
@@ -213,6 +213,22 @@
         },
         {
             "before": [
+                "<S-j>",
+            ],
+            "commands": [
+                "editor.action.moveLinesUpAction"
+            ]
+        },
+        {
+            "before": [
+                "<S-k>",
+            ],
+            "commands": [
+                "editor.action.moveLinesDownAction"
+            ]
+        },
+        {
+            "before": [
                 "leader",
                 "f",
                 "f"
@@ -239,6 +255,77 @@
             ],
             "commands": [
                 "welcome.showNewFileEntries",
+            ]
+        },
+        // debug keymap
+        {
+            "before": [
+                "leader",
+                "c",
+                "d"
+            ],
+            "commands": [
+                "workbench.action.debug.start",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "b"
+            ],
+            "commands": [
+                "editor.debug.action.toggleBreakpoint",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "c"
+            ],
+            "commands": [
+                "workbench.action.debug.continue",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.debug.stop",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "i"
+            ],
+            "commands": [
+                "workbench.action.debug.stepInto",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "O"
+            ],
+            "commands": [
+                "workbench.action.debug.stepOut",
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "d",
+                "o"
+            ],
+            "commands": [
+                "workbench.action.debug.stepOver",
             ]
         },
     ],
@@ -284,4 +371,7 @@
             ]
         },
     ],
+    "editor.unicodeHighlight.allowedLocales": {
+        "zh-hant": true
+    },
 }
