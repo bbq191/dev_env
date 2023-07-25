@@ -32,3 +32,7 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.clipboard = "unnamed"
 
+--忽略大小写
+vim.opt.ignorecase = true
+--涉及包含大写智能匹配
+vim.opt.smartcase = true
