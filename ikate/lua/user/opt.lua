@@ -30,7 +30,7 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.opt.clipboard = "unnamed"
+-- vim.opt.clipboard = "unnamed"
 
 --忽略大小写
 vim.opt.ignorecase = true
