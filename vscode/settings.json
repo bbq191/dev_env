@@ -3,6 +3,7 @@
   "workbench.startupEditor": "none",
   "workbench.colorTheme": "Rosé Pine",
   "workbench.iconTheme": "rose-pine-icons",
+  "workbench.panel.defaultLocation": "right",
   "explorer.confirmDelete": false,
   "files.autoSave": "afterDelay",
   "files.autoGuessEncoding": true,
@@ -195,6 +196,10 @@
     {
       "before": ["leader", "c", "d"],
       "commands": ["workbench.action.debug.start"]
+    },
+    {
+      "before": ["leader", "c", "r"],
+      "commands": ["workbench.action.debug.run"]
     },
     {
       "before": ["leader", "d", "b"],

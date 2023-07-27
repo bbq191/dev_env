@@ -4,6 +4,7 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
     'cmake',
+    'prettier',
     'lua_ls',
     'tsserver',
     'rust_analyzer',
