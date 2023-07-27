@@ -4,8 +4,6 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
 	"cmake",
-	"lua_ls",
-	"tsserver",
 	"rust_analyzer",
 	"clangd",
 })
@@ -80,7 +78,7 @@ lsp.format_mapping("gq", {
 		timeout_ms = 10000,
 	},
 	servers = {
-		["null-ls"] = { "yaml", "toml" },
+		["null-ls"] = { "yaml", "toml", "json" },
 	},
 })
 
@@ -94,17 +92,17 @@ null_ls.setup({
 		-- Replace these with the tools you want to install
 		-- make sure the source name is supported by null-ls
 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-		null_ls.builtins.formatting.prettier,
+		null_ls.builtins.formatting.prettierd,
 		null_ls.builtins.formatting.stylua,
 	},
 })
 
 -- See mason-null-ls.nvim's documentation for more details:
 -- https://github.com/jay-babu/mason-null-ls.nvim#setup
--- require('mason-null-ls').setup({
---     ensure_installed = nil,
---     automatic_installation = true,
--- })
+require("mason-null-ls").setup({
+	ensure_installed = { "prettierd", "stylua" },
+	automatic_installation = true,
+})
 
 vim.diagnostic.config({
 	virtual_text = true,
