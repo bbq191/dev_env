@@ -2,7 +2,7 @@
   //begin ------ ui config
   "workbench.activityBar.visible": false,
   "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Tokyo Night",
+  "workbench.colorTheme": "Rosé Pine",
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.panel.defaultLocation": "right",
   "explorer.confirmDelete": false,
@@ -93,23 +93,27 @@
   },
   "editor.acceptSuggestionOnEnter": "smart",
   "editor.suggestSelection": "recentlyUsed",
-  //begin ------ prettier config
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "editor.guides.bracketPairs": "active",
   //begin ------ terminal config
   "terminal.integrated.gpuAcceleration": "on",
   "terminal.integrated.bellDuration": 100000,
   "terminal.integrated.fontSize": 13,
   //begin ------ coding config
   "debug.showBreakpointsInOverviewRuler": true,
-  //begin ------ rust config
+  "errorLens.fontStyleItalic": true,
+  "errorLens.fontWeight": "200",
+  "errorLens.fontSize": "12",
+  "errorLens.severityText": ["E", "W", "I", "H"],
+  "errorLens.messageBackgroundMode": "message",
   "rust-analyzer.check.command": "clippy",
-  //begin ------ c/cpp config
   "cmake.configureOnOpen": true,
   "doxdocgen.generic.authorName": "Vinci Xu",
   "doxdocgen.generic.authorEmail": "i@ikate.com",
   "clangd.arguments": ["--compile-commands-dir=${workspaceFolder}/build"],
+  "clangd.checkUpdates": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   // vim ------ 基本控制
   "vim.neovimPath": "/opt/homebrew/bin/nvim",
   "vim.neovimConfigPath": "~/.config/nvim/init.lua",
