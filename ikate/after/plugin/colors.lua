@@ -1,13 +1,22 @@
-require('rose-pine').setup({
-    disable_background = true
+require("rose-pine").setup({
+	disable_background = true,
 })
 
 function ColorMyPencils(color)
-    color = color or "rose-pine"
-    vim.cmd.colorscheme(color)
+	color = color or "rose-pine"
+	vim.cmd.colorscheme(color)
 
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 ColorMyPencils()
+
+-- add mini indenet line
+require("mini.indentscope").setup({
+	-- Options which control scope computation
+	options = {
+		try_as_border = true,
+	},
+	symbol = "│",
+})

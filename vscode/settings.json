@@ -4,6 +4,7 @@
   "workbench.startupEditor": "none",
   "workbench.colorTheme": "Rosé Pine",
   "workbench.iconTheme": "rose-pine-icons",
+  "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
   "explorer.confirmDelete": false,
   "files.autoSave": "afterDelay",
@@ -65,7 +66,7 @@
       "color": "#faa5a588"
     }
   ],
-  // 启用 font featyre
+  // 启用 font feature
   "editor.tokenColorCustomizations": {
     "textMateRules": [
       {
@@ -97,12 +98,10 @@
   //begin ------ terminal config
   "terminal.integrated.gpuAcceleration": "on",
   "terminal.integrated.bellDuration": 100000,
-  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.fontSize": 15,
   //begin ------ coding config
   "debug.showBreakpointsInOverviewRuler": true,
   "errorLens.fontStyleItalic": true,
-  "errorLens.fontWeight": "200",
-  "errorLens.fontSize": "12",
   "errorLens.severityText": ["E", "W", "I", "H"],
   "errorLens.messageBackgroundMode": "message",
   "rust-analyzer.check.command": "clippy",
@@ -279,5 +278,7 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ]
+  ],
+  "errorLens.removeLinebreaks": false,
+  "vsicons.dontShowNewVersionMessage": true
 }
