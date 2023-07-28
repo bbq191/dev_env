@@ -5,4 +5,5 @@ return {
 	{ "mbbill/undotree" },
 	{ "tpope/vim-fugitive" },
 	{ "echasnovski/mini.nvim", version = false },
+	{ "nvim-lualine/lualine.nvim" },
 }
