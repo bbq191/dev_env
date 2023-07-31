@@ -2,7 +2,7 @@
   //begin ------ ui config
   "workbench.activityBar.visible": false,
   "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Rosé Pine",
+  "workbench.colorTheme": "Tokyo Night Storm",
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
@@ -11,6 +11,7 @@
   "files.autoGuessEncoding": true,
   "window.zoomLevel": -1,
   "explorer.confirmDragAndDrop": false,
+  "vsicons.dontShowNewVersionMessage": true,
   "telemetry.telemetryLevel": "off",
   "git.openRepositoryInParentFolders": "always",
   "window.dialogStyle": "custom",
@@ -72,12 +73,11 @@
       {
         "name": "italic font",
         "scope": [
-          // "support",
-          "entity",
-          "comment"
-          // "constant", //String, Number, Boolea, this, super
-          // "storage", //static keyword
-          // "keyword", //import, export, return
+          "entity.name.function",
+          "meta.attribute",
+          "meta.use",
+          "entity.name.namespace",
+          "variable.other"
         ],
         "settings": {
           "fontStyle": "italic"
@@ -104,6 +104,7 @@
   "errorLens.fontStyleItalic": true,
   "errorLens.severityText": ["E", "W", "I", "H"],
   "errorLens.messageBackgroundMode": "message",
+  "errorLens.removeLinebreaks": false,
   "rust-analyzer.check.command": "clippy",
   "cmake.configureOnOpen": true,
   "doxdocgen.generic.authorName": "Vinci Xu",
@@ -279,6 +280,4 @@
       "after": ["\"", "_", "d"]
     }
   ],
-  "errorLens.removeLinebreaks": false,
-  "vsicons.dontShowNewVersionMessage": true
 }
