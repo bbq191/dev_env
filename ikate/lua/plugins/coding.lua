@@ -1,22 +1,15 @@
 return {
-	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.2",
-		-- or                              , branch = '0.1.x',
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			icons = false,
-		},
-	},
-	{ "nvim-treesitter/playground" },
-	{ "theprimeagen/harpoon" },
-	{ "theprimeagen/refactoring.nvim" },
-	{ "nvim-treesitter/nvim-treesitter-context" },
+    -- Snippets
+    { "rafamadriz/friendly-snippets" },
+
+    -- Autocompletion
+    { "hrsh7th/cmp-buffer" },
+    { "hrsh7th/cmp-path" },
+    { "saadparwaiz1/cmp_luasnip" },
+    { "hrsh7th/cmp-nvim-lua" },
+
+    -- lspzero dependences
+    { "hrsh7th/nvim-cmp" },     -- Required
+    { "hrsh7th/cmp-nvim-lsp" }, -- Required
+    { "L3MON4D3/LuaSnip" },
 }
