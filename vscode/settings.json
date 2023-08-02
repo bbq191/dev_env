@@ -77,7 +77,8 @@
           "meta.attribute",
           "meta.use",
           "entity.name.namespace",
-          "variable.other"
+          "variable.other",
+          "variable.parameter"
         ],
         "settings": {
           "fontStyle": "italic"
@@ -279,5 +280,5 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ],
+  ]
 }
