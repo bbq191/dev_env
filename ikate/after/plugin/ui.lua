@@ -22,6 +22,31 @@ require("lualine").setup({
     end
 
     opts.sections = vim.tbl_deep_extend("force", opts.sections, {
+      lualine_x = {
+        {
+          require("noice").api.status.message.get_hl,
+          cond = require("noice").api.status.message.has,
+        },
+        {
+          require("noice").api.status.command.get,
+          cond = require("noice").api.status.command.has,
+          color = { fg = "#ff9e64" },
+        },
+        {
+          require("noice").api.status.mode.get,
+          cond = require("noice").api.status.mode.has,
+          color = { fg = "#ff9e64" },
+        },
+        {
+          require("noice").api.status.search.get,
+          cond = require("noice").api.status.search.has,
+          color = { fg = "#ff9e64" },
+        },
+        {
+          "diff",
+          symbols = { added = "+", modified = "~", removed = "-" },
+        },
+      },
       lualine_y = {
         {
           lsp_name,
@@ -86,6 +111,15 @@ require("mini.indentscope").setup({
 })
 
 -- noice
+vim.keymap.set("n", "<leader>nl", function()
+  require("noice").cmd("last")
+end)
+vim.keymap.set("n", "<leader>nt", function()
+  require("noice").cmd("telescope")
+end)
+vim.keymap.set("n", "<leader>nh", function()
+  require("noice").cmd("history")
+end)
 require("noice").setup({
   lsp = {
     override = {
@@ -113,76 +147,10 @@ require("noice").setup({
     long_message_to_split = true,
     inc_rename = true,
   },
-  keys = {
-    {
-      "<S-Enter>",
-      function()
-        require("noice").redirect(vim.fn.getcmdline())
-      end,
-      mode = "c",
-      desc = "Redirect Cmdline",
-    },
-    {
-      "<leader>nl",
-      function()
-        require("noice").cmd("last")
-      end,
-      desc = "Noice Last Message",
-    },
-    {
-      "<leader>nh",
-      function()
-        require("noice").cmd("history")
-      end,
-      desc = "Noice History",
-    },
-    {
-      "<leader>na",
-      function()
-        require("noice").cmd("all")
-      end,
-      desc = "Noice All",
-    },
-    {
-      "<leader>nd",
-      function()
-        require("noice").cmd("dismiss")
-      end,
-      desc = "Dismiss All",
-    },
-    {
-      "<c-f>",
-      function()
-        if not require("noice.lsp").scroll(4) then
-          return "<c-f>"
-        end
-      end,
-      silent = true,
-      expr = true,
-      desc = "Scroll forward",
-      mode = {
-        "i",
-        "n",
-        "s",
-      },
-    },
-    {
-      "<c-b>",
-      function()
-        if not require("noice.lsp").scroll(-4) then
-          return "<c-b>"
-        end
-      end,
-      silent = true,
-      expr = true,
-      desc = "Scroll backward",
-      mode = {
-        "i",
-        "n",
-        "s",
-      },
-    },
-  },
+})
+
+require("notify").setup({
+  background_colour = "#000000",
 })
 
 require("mini.animate").setup()
