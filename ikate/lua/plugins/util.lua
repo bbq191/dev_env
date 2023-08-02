@@ -1,5 +1,4 @@
 return {
-    { "eandrju/cellular-automaton.nvim" },
-    { "laytan/cloak.nvim" },
+  { "eandrju/cellular-automaton.nvim" },
+  { "laytan/cloak.nvim" },
 }
-
