@@ -1,6 +1,6 @@
 return {
-	-- add rose-pine
 	{ "rose-pine/neovim", name = "rose-pine" },
+	{ "folke/tokyonight.nvim", lazy = true, opts = { style = "moon" } },
 	{ "folke/zen-mode.nvim" },
 	{ "mbbill/undotree" },
 	{ "tpope/vim-fugitive" },
