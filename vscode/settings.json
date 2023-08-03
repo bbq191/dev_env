@@ -214,11 +214,15 @@
     },
     {
       "before": ["leader", "p", "f"],
-      "commands": ["workbench.action.files.openFile"]
+      "commands": ["workbench.action.quickOpen"]
     },
     {
       "before": ["leader", "p", "s"],
       "commands": ["workbench.action.findInFiles"]
+    },
+    {
+      "before": ["leader", "q"],
+      "commands": ["workbench.action.closeWindow"]
     },
     // coding keymap
     {

@@ -2,7 +2,7 @@
 [
   // 聚集道编辑器中
   {
-    "key": "ctrl+e",
+    "key": "ctrl+h",
     "command": "workbench.action.focusFirstEditorGroup"
   },
   // -- 侧边栏命令
@@ -96,7 +96,7 @@
   },
   // 显示终端
   {
-    "key": "ctrl+p t",
+    "key": "ctrl+l",
     "command": "workbench.action.terminal.toggleTerminal",
     "when": "terminal.active"
   },
@@ -109,22 +109,22 @@
   // --- 编辑区命令
   // 将光标向上动1屏
   {
-    "key": "ctrl+k",
+    "key": "alt+k",
     "command": "workbench.action.focusAboveGroup"
   },
   // 将光标向下动1屏
   {
-    "key": "ctrl+j",
+    "key": "alt+j",
     "command": "workbench.action.focusBelowGroup"
   },
   // 将光标向左移动1屏
   {
-    "key": "ctrl+h",
+    "key": "alt+h",
     "command": "workbench.action.focusLeftGroup"
   },
   // 将光标向右移动1屏
   {
-    "key": "ctrl+l",
+    "key": "alt+l",
     "command": "workbench.action.focusRightGroup"
   },
   // --- 代码编辑命令
