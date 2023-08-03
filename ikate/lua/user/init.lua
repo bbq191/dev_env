@@ -1,6 +1,8 @@
 require("user.opt")
 require("user.remap")
 require("user.lazy")
+require("user.util")
+require("user.config")
 
 local augroup = vim.api.nvim_create_augroup
 local iKateGroup = augroup("iKate", {})
@@ -32,3 +34,12 @@ autocmd({ "BufWritePre" }, {
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
+
+local M = {}
+
+---@param opts? LazyVimConfig
+function M.setup(opts)
+  require("user.config").setup(opts)
+end
+
+return M
