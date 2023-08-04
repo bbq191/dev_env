@@ -130,7 +130,7 @@
   // --- 代码编辑命令
   // 触发帮助提示
   {
-    "key": "shift+k",
+    "key": "alt+k",
     "command": "editor.action.showHover",
     "when": "editorTextFocus"
   },

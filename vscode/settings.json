@@ -2,14 +2,14 @@
   //begin ------ ui config
   "workbench.activityBar.visible": false,
   "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Rosé Pine Dawn",
+  "workbench.colorTheme": "Tokyo Night Light",
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
   "explorer.confirmDelete": false,
   "files.autoSave": "afterDelay",
   "files.autoGuessEncoding": true,
-  "window.zoomLevel": -1,
+  "window.zoomLevel": 0,
   "explorer.confirmDragAndDrop": false,
   "vsicons.dontShowNewVersionMessage": true,
   "telemetry.telemetryLevel": "off",
@@ -52,18 +52,14 @@
   "editor.fontFamily": "'Cascadia Code', 'Source Han Serif SC VF', 'Symbols Nerd Font'",
   "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.wordWrap": "on",
-  "editor.fontSize": 15,
+  "editor.fontSize": 13,
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "editor.dragAndDrop": false,
   // turn on wrap ruler and color it
   "editor.rulers": [
     {
-      "column": 80,
-      "color": "#faa5a588"
-    },
-    {
-      "column": 120,
+      "column": 100,
       "color": "#faa5a588"
     }
   ],
@@ -99,13 +95,9 @@
   //begin ------ terminal config
   "terminal.integrated.gpuAcceleration": "on",
   "terminal.integrated.bellDuration": 100000,
-  "terminal.integrated.fontSize": 15,
-  //begin ------ coding config
-  "debug.showBreakpointsInOverviewRuler": true,
-  "errorLens.fontStyleItalic": true,
+  "terminal.integrated.fontSize": 13,
   "errorLens.severityText": ["E", "W", "I", "H"],
   "errorLens.messageBackgroundMode": "message",
-  "errorLens.removeLinebreaks": false,
   "rust-analyzer.check.command": "clippy",
   "cmake.configureOnOpen": true,
   "doxdocgen.generic.authorName": "Vinci Xu",
@@ -119,7 +111,7 @@
   "vim.neovimPath": "/opt/homebrew/bin/nvim",
   "vim.neovimConfigPath": "~/.config/nvim/init.lua",
   "vim.useSystemClipboard": true,
-  "vim.surround": false,
+  "vim.surround": true,
   "vim.showMarksInGutter": true,
   "vim.highlightedyank.enable": true,
   "vim.enableNeovim": true,
@@ -136,11 +128,7 @@
       "silent": true
     },
     {
-      "before": ["leader", "w"],
-      "commands": ["workbench.action.files.save"]
-    },
-    {
-      "before": ["leader", "w", "a"],
+      "before": ["<C-s>"],
       "commands": ["workbench.action.files.saveAll"]
     },
     {
@@ -189,7 +177,7 @@
       "commands": ["workbench.action.splitEditorDown"]
     },
     {
-      "before": ["leader", "f"],
+      "before": ["leader", "c", "f"],
       "commands": ["editor.action.formatDocument"]
     },
     {
@@ -213,15 +201,15 @@
       "commands": ["workbench.files.action.focusFilesExplorer"]
     },
     {
-      "before": ["leader", "p", "f"],
+      "before": ["leader", "f", "f"],
       "commands": ["workbench.action.quickOpen"]
     },
     {
-      "before": ["leader", "p", "s"],
+      "before": ["leader", "f", "s"],
       "commands": ["workbench.action.findInFiles"]
     },
     {
-      "before": ["leader", "q"],
+      "before": ["leader", "q", "q"],
       "commands": ["workbench.action.closeWindow"]
     },
     // coding keymap
@@ -230,7 +218,7 @@
       "commands": ["editor.action.quickFix"]
     },
     {
-      "before": ["leader", "c", "d"],
+      "before": ["leader", "d", "r"],
       "commands": ["workbench.action.debug.start"]
     },
     {
@@ -284,5 +272,17 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ]
+  ],
+  "editor.renderWhitespace": "boundary",
+  "rust-analyzer.hover.actions.references.enable": true,
+  "rust-analyzer.lens.references.enumVariant.enable": true,
+  "rust-analyzer.lens.references.adt.enable": true,
+  "rust-analyzer.lens.references.method.enable": true,
+  "rust-analyzer.lens.references.trait.enable": true,
+  "rust-analyzer.rustfmt.rangeFormatting.enable": true,
+  "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
+  "rust-analyzer.semanticHighlighting.punctuation.enable": true,
+  "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
+  "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
+  "workbench.statusBar.visible": false,
 }
