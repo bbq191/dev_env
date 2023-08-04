@@ -2,7 +2,7 @@
   //begin ------ ui config
   "workbench.activityBar.visible": false,
   "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Tokyo Night Storm",
+  "workbench.colorTheme": "Rosé Pine Dawn",
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
