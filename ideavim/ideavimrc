@@ -1,26 +1,35 @@
 """"""""""""""""""" basic config begin from here """""""""""""""""""""""""""""""
 """ Editing and Reloading the Config
-set clipboard+=unnamed
-set clipboard+=ideaput
+""" set clipboard+=unnamed
+""" set clipboard+=ideaput
+
 """ The Escape button
 map <C-c> <Esc>
 """ The Leader Key
 let mapleader=" "
 """ editor setting
-set ignorecase
 set scrolloff=8
 set history=100
 set number
 set relativenumber
+set ignorecase smartcase
 set showmode
+
+""" vim remap
+noremap <leader>y "+y
+noremap <leader>Y "+Y
+noremap <leader>d "_d
+noremap x "_x
+noremap <leader><leader> :action IdeaVim.ReloadVimRc.reload<CR>
 
 """"""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
 """ Basic operate
-nnoremap nfr :action Rust.NewRustFile<CR>
-nnoremap <c-s> :action SaveAll<CR>
+map <leader>fn :action NewElement<CR>
 """ Navigation
-nnoremap <leader>sv :action SplitVertically<CR>
-nnoremap <leader>sh :action SplitHorizontally<CR>
+nnoremap <s-h> :bprevious<cr>
+nnoremap <s-l> :bnext<cr>
+nnoremap <leader>| :action SplitVertically<CR>
+nnoremap <leader>- :action SplitHorizontally<CR>
 nnoremap <leader>sx :action Unsplit<CR>
 nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <Leader>en :action EditSourceInNewWindow<CR>
@@ -30,6 +39,8 @@ nnoremap <Leader>qa :action CloseAllEditors<CR>
 """ Code operate
 set ideajoin
 set idearefactormode=keep
+vnoremap <a-j> :action MoveLineDown<cr>
+vnoremap <a-k> :action MoveLineUp<cr>
 vnoremap < <gv
 vnoremap > >gv
 nnoremap [[ :action MethodUp<CR>
@@ -38,10 +49,10 @@ nnoremap zc :action CollapseRegion<CR>
 nnoremap zo :action ExpandRegion<CR>
 nnoremap <leader>zc :action CollapseAllRegions<CR>
 nnoremap <leader>zo :action ExpandAllRegions<CR>
-nnoremap <leader>c :action CommentByLineComment<CR>
+nnoremap gcc :action CommentByLineComment<CR>
 nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
 nnoremap <leader>ri :action RenameElement<CR>
-nnoremap <Leader>f  :action ReformatCode<CR>
+nnoremap <Leader>cf  :action ReformatCode<CR>
 nnoremap <leader>o :action OptimizeImports<CR>
 nnoremap <leader>l :action RecentLocations<CR>
 nnoremap <leader>h  :action LocalHistory.ShowHistory<CR>
