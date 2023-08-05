@@ -12,13 +12,12 @@ set scrolloff=8
 set history=100
 set number
 set relativenumber
-
 set showmode
 
 """"""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
 """ Basic operate
 nnoremap nfr :action Rust.NewRustFile<CR>
-nnoremap <leader>w :action SaveAll<CR>
+nnoremap <c-s> :action SaveAll<CR>
 """ Navigation
 nnoremap <leader>sv :action SplitVertically<CR>
 nnoremap <leader>sh :action SplitHorizontally<CR>
@@ -51,8 +50,8 @@ set incsearch
 set hlsearch
 nnoremap <leader>pt :action FindInPath<CR>
 nnoremap <c-a> :action GotoAction<CR>
-nnoremap <leader>pf :action GotoFile<CR>
-nnoremap <leader>pr :action RecentFiles<CR>
+nnoremap <leader>ff :action GotoFile<CR>
+nnoremap <leader>fr :action RecentFiles<CR>
 nnoremap <leader>u :action FindUsages<CR>
 nnoremap <leader>s :action GotoRelated<CR>
 nnoremap <leader>h :action CallHierarchy<CR>

@@ -6,8 +6,8 @@
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
+  "workbench.statusBar.visible": false,
   "explorer.confirmDelete": false,
-  "files.autoSave": "afterDelay",
   "files.autoGuessEncoding": true,
   "window.zoomLevel": 0,
   "explorer.confirmDragAndDrop": false,
@@ -99,6 +99,16 @@
   "errorLens.severityText": ["E", "W", "I", "H"],
   "errorLens.messageBackgroundMode": "message",
   "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.hover.actions.references.enable": true,
+  "rust-analyzer.lens.references.enumVariant.enable": true,
+  "rust-analyzer.lens.references.adt.enable": true,
+  "rust-analyzer.lens.references.method.enable": true,
+  "rust-analyzer.lens.references.trait.enable": true,
+  "rust-analyzer.rustfmt.rangeFormatting.enable": true,
+  "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
+  "rust-analyzer.semanticHighlighting.punctuation.enable": true,
+  "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
+  "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
   "cmake.configureOnOpen": true,
   "doxdocgen.generic.authorName": "Vinci Xu",
   "doxdocgen.generic.authorEmail": "i@ikate.com",
@@ -126,10 +136,6 @@
       "before": [":"],
       "commands": ["workbench.action.showCommands"],
       "silent": true
-    },
-    {
-      "before": ["<C-s>"],
-      "commands": ["workbench.action.files.saveAll"]
     },
     {
       "before": ["<leader>", "y"],
@@ -189,15 +195,11 @@
       "commands": ["editor.action.marker.nextInFiles"]
     },
     {
-      "before": ["<S-j>"],
-      "commands": ["editor.action.moveLinesUpAction"]
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
     },
     {
-      "before": ["<S-k>"],
-      "commands": ["editor.action.moveLinesDownAction"]
-    },
-    {
-      "before": ["leader", "p", "v"],
+      "before": ["leader", "e"],
       "commands": ["workbench.files.action.focusFilesExplorer"]
     },
     {
@@ -212,7 +214,7 @@
       "before": ["leader", "q", "q"],
       "commands": ["workbench.action.closeWindow"]
     },
-    // coding keymap
+    // coding keymaps
     {
       "before": ["leader", "x", "q"],
       "commands": ["editor.action.quickFix"]
@@ -265,6 +267,10 @@
       "commands": ["editor.action.outdentLines"]
     },
     {
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
+    },
+    {
       "before": ["<leader>", "y"],
       "after": ["\"", "+", "y"]
     },
@@ -272,17 +278,5 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ],
-  "editor.renderWhitespace": "boundary",
-  "rust-analyzer.hover.actions.references.enable": true,
-  "rust-analyzer.lens.references.enumVariant.enable": true,
-  "rust-analyzer.lens.references.adt.enable": true,
-  "rust-analyzer.lens.references.method.enable": true,
-  "rust-analyzer.lens.references.trait.enable": true,
-  "rust-analyzer.rustfmt.rangeFormatting.enable": true,
-  "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
-  "rust-analyzer.semanticHighlighting.punctuation.enable": true,
-  "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
-  "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
-  "workbench.statusBar.visible": false,
+  ]
 }

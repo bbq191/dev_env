@@ -37,7 +37,7 @@
   // --- 资源管理器中对文件或目录的操作
   // 新建文件
   {
-    "key": "5",
+    "key": "a",
     "command": "explorer.newFile",
     "when": " explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus "
   },
@@ -128,11 +128,20 @@
     "command": "workbench.action.focusRightGroup"
   },
   // --- 代码编辑命令
-  // 触发帮助提示
+  {
+    "key": "alt+j",
+    "command": "editor.action.moveLinesDownAction",
+    "when": "editorTextFocus"
+  },
   {
     "key": "alt+k",
-    "command": "editor.action.showHover",
+    "command": "editor.action.moveLinesUpAction",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "workbench.action.files.saveAll"
+    //  "when": "editorTextFocus"
   },
   // 触发参数提示
   {
