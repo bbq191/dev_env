@@ -55,7 +55,7 @@
   },
   // 删除文件或目录
   {
-    "key": "D",
+    "key": "shift+d",
     "command": "deleteFile",
     "when": " explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus "
   },
