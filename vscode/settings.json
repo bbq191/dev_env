@@ -1,6 +1,4 @@
 {
-  //begin ------ ui config
-  "workbench.activityBar.visible": false,
   "workbench.startupEditor": "none",
   "workbench.colorTheme": "Tokyo Night Light",
   "workbench.iconTheme": "rose-pine-icons",
@@ -284,5 +282,10 @@
   },
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "files.autoSave": "afterDelay",
+  "sqltools.connections": [
+    
+  
+  ]
 }
