@@ -4,7 +4,6 @@
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
-  "workbench.statusBar.visible": false,
   "explorer.confirmDelete": false,
   "files.autoGuessEncoding": true,
   "window.zoomLevel": 0,
@@ -50,7 +49,7 @@
   "editor.fontFamily": "'Cascadia Code', 'Source Han Serif SC VF', 'Symbols Nerd Font'",
   "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.wordWrap": "on",
-  "editor.fontSize": 13,
+  "editor.fontSize": 15,
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "editor.dragAndDrop": false,
@@ -115,6 +114,13 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "sqltools.connections": [],
   // vim ------ 基本控制
   "vim.neovimPath": "/opt/homebrew/bin/nvim",
   "vim.neovimConfigPath": "~/.config/nvim/init.lua",
@@ -127,6 +133,7 @@
   "vim.leader": "<space>", // 绑定vim前导键
   "vim.useCtrlKeys": true, // 由vim接管ctrl+any的按键，而不是vscode
   "vim.hlsearch": true, // 突出显示与当前搜索匹配的所有文本
+  "vim.startInInsertMode": true,
   // vim ------ keybinding
   "vim.normalModeKeyBindingsNonRecursive": [
     // editor
@@ -251,7 +258,13 @@
     }
   ],
   // 插入模式下的非递归按键绑定
-  "vim.insertModeKeyBindings": [],
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"],
+      "commands": ["workbench.action.files.save"],
+    }
+  ],
   // 命令模式下的非递归按键绑定
   "vim.commandLineModeKeyBindingsNonRecursive": [],
   // 可视模式下的非递归按键绑定
@@ -276,16 +289,5 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ],
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "files.autoSave": "afterDelay",
-  "sqltools.connections": [
-    
-  
   ]
 }

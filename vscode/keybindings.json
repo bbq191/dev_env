@@ -19,7 +19,7 @@
   // 显示debug
   {
     "key": "ctrl+n d",
-    "command": "workbench.view.debug",
+    "command": "workbench.view.extension.sqltoolsActivityBarContainer",
     "when": "viewContainer.workbench.view.debug.enabled"
   },
   // 显示版本控制
@@ -79,10 +79,10 @@
   },
   // --- 面板命令
   // 切换面板显示状态
-  {
-    "key": "ctrl+]",
-    "command": "workbench.action.togglePanel"
-  },
+  // {
+  //   "key": "ctrl+]",
+  //   "command": "workbench.action.togglePanel"
+  // },
   // 显示问题
   {
     "key": "ctrl+p p",
@@ -140,8 +140,8 @@
   },
   {
     "key": "ctrl+s",
-    "command": "workbench.action.files.saveAll"
-    //  "when": "editorTextFocus"
+    "command": "workbench.action.files.saveAll",
+     "when": "editorTextFocus"
   },
   // 触发参数提示
   {
