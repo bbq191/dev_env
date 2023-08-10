@@ -1,6 +1,6 @@
 {
   "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Tokyo Night Light",
+  "workbench.colorTheme": "Rosé Pine Dawn",
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
@@ -49,7 +49,7 @@
   "editor.fontFamily": "'Cascadia Code', 'Source Han Serif SC VF', 'Symbols Nerd Font'",
   "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.wordWrap": "on",
-  "editor.fontSize": 15,
+  "editor.fontSize": 13,
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "editor.dragAndDrop": false,
@@ -120,6 +120,9 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
   "sqltools.connections": [],
   // vim ------ 基本控制
   "vim.neovimPath": "/opt/homebrew/bin/nvim",
@@ -133,7 +136,6 @@
   "vim.leader": "<space>", // 绑定vim前导键
   "vim.useCtrlKeys": true, // 由vim接管ctrl+any的按键，而不是vscode
   "vim.hlsearch": true, // 突出显示与当前搜索匹配的所有文本
-  "vim.startInInsertMode": true,
   // vim ------ keybinding
   "vim.normalModeKeyBindingsNonRecursive": [
     // editor
@@ -212,7 +214,7 @@
       "commands": ["workbench.action.quickOpen"]
     },
     {
-      "before": ["leader", "f", "s"],
+      "before": ["leader", "s", "b"],
       "commands": ["workbench.action.findInFiles"]
     },
     {
@@ -289,5 +291,5 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ]
+  ],
 }
