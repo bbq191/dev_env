@@ -2,6 +2,7 @@ return {
   -- disabled
   { "nvim-neo-tree/neo-tree.nvim", enabled = false },
   { "echasnovski/mini.bufremove", enabled = false },
+  { "nvim-pack/nvim-spectre", enabled = false },
   -- customize file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
