@@ -1,62 +1,31 @@
 {
   "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Rosé Pine Dawn",
+  "workbench.colorTheme": "Rosé Pine Moon",
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
   "explorer.confirmDelete": false,
   "files.autoGuessEncoding": true,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": -1,
   "explorer.confirmDragAndDrop": false,
   "vsicons.dontShowNewVersionMessage": true,
   "telemetry.telemetryLevel": "off",
   "git.openRepositoryInParentFolders": "always",
   "window.dialogStyle": "custom",
-  "workbench.colorCustomizations": {
-    "[Tokyo Night]": {
-      "editorCodeLens.foreground": "#7982a9", // Preferred hex color
-      "window.activeBorder": "#ff0000",
-      "window.inactiveBorder": "#0000ff",
-      "foreground": "#959cbd",
-      "panelTitle.activeBorder": "#3d59a1",
-      "panelTitle.activeForeground": "#bdc7f0",
-      "panelTitle.inactiveForeground": "#959cbd",
-      "tab.activeForeground": "#bdc7f0",
-      "tab.inactiveForeground": "#959cbd",
-      "breadcrumb.foreground": "#959cbd",
-      "breadcrumb.focusForeground": "#bdc7f0",
-      "breadcrumb.activeSelectionForeground": "#bdc7f0",
-      "statusBar.foreground": "#bdc7f0",
-      "list.focusForeground": "#bdc7f0",
-      "list.hoverForeground": "#bdc7f0",
-      "list.activeSelectionForeground": "#bdc7f0",
-      "list.inactiveSelectionForeground": "#bdc7f0",
-      "list.inactiveSelectionBackground": "#202330",
-      "sideBar.foreground": "#959cbd",
-      "dropdown.foreground": "#959cbd",
-      "menu.foreground": "#bdc7f0",
-      "menubar.selectionForeground": "#bdc7f0",
-      "input.foreground": "#959cbd",
-      "input.placeholderForeground": "#959cbd",
-      "activityBar.foreground": "#bdc7f0",
-      "activityBar.inactiveForeground": "#787c99",
-      "gitDecoration.ignoredResourceForeground": "#696d87"
-    }
-  },
   //begin ------ editor config
   "editor.cursorBlinking": "solid",
   "editor.cursorStyle": "block",
-  "editor.fontFamily": "'Cascadia Code', 'Source Han Serif SC VF', 'Symbols Nerd Font'",
+  "editor.fontFamily": "'Cascadia Code', 'Source Han Sans CN', 'Symbols Nerd Font'",
   "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.wordWrap": "on",
-  "editor.fontSize": 13,
+  "editor.fontSize": 15,
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "editor.dragAndDrop": false,
   // turn on wrap ruler and color it
   "editor.rulers": [
     {
-      "column": 100,
+      "column": 90,
       "color": "#faa5a588"
     }
   ],
@@ -93,8 +62,12 @@
   "terminal.integrated.gpuAcceleration": "on",
   "terminal.integrated.bellDuration": 100000,
   "terminal.integrated.fontSize": 13,
-  "errorLens.severityText": ["E", "W", "I", "H"],
-  "errorLens.messageBackgroundMode": "message",
+  "errorLens.severityText": [
+    "E",
+    "W",
+    "I",
+    "H"
+  ],
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.hover.actions.references.enable": true,
   "rust-analyzer.lens.references.enumVariant.enable": true,

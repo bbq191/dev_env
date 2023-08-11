@@ -19,8 +19,7 @@
   // 显示debug
   {
     "key": "ctrl+n d",
-    "command": "workbench.view.extension.sqltoolsActivityBarContainer",
-    "when": "viewContainer.workbench.view.debug.enabled"
+    "command": "workbench.view.extension.sqltoolsActivityBarContainer"
   },
   // 显示版本控制
   {
@@ -140,8 +139,11 @@
   },
   {
     "key": "ctrl+s",
-    "command": "workbench.action.files.saveAll",
-     "when": "editorTextFocus"
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": ["workbench.action.files.save", "extension.vim_escape"]
+    },
+    "when": "editorTextFocus"
   },
   // 触发参数提示
   {
