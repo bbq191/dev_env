@@ -16,6 +16,7 @@
   "editor.cursorBlinking": "solid",
   "editor.cursorStyle": "block",
   "editor.fontFamily": "'Cascadia Code', 'Source Han Sans CN', 'Symbols Nerd Font'",
+  "editor.inlayHints.fontFamily": "'Cascadia Code', 'Source Han Sans CN', 'Symbols Nerd Font'",
   "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.wordWrap": "on",
   "editor.fontSize": 15,
@@ -58,27 +59,16 @@
   "editor.acceptSuggestionOnEnter": "smart",
   "editor.suggestSelection": "recentlyUsed",
   "editor.guides.bracketPairs": "active",
-  //begin ------ terminal config
-  "terminal.integrated.gpuAcceleration": "on",
   "terminal.integrated.bellDuration": 100000,
-  "terminal.integrated.fontSize": 13,
-  "errorLens.severityText": [
-    "E",
-    "W",
-    "I",
-    "H"
-  ],
+  "terminal.integrated.fontSize": 15,
+  // coding config
+  "errorLens.severityText": ["E", "W", "I", "H"],
   "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  "rust-analyzer.inlayHints.typeHints.enable": false,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
   "rust-analyzer.hover.actions.references.enable": true,
-  "rust-analyzer.lens.references.enumVariant.enable": true,
-  "rust-analyzer.lens.references.adt.enable": true,
-  "rust-analyzer.lens.references.method.enable": true,
-  "rust-analyzer.lens.references.trait.enable": true,
-  "rust-analyzer.rustfmt.rangeFormatting.enable": true,
-  "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
-  "rust-analyzer.semanticHighlighting.punctuation.enable": true,
-  "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
-  "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
   "cmake.configureOnOpen": true,
   "doxdocgen.generic.authorName": "Vinci Xu",
   "doxdocgen.generic.authorEmail": "i@ikate.com",
@@ -237,7 +227,7 @@
     {
       "before": ["j", "k"],
       "after": ["<Esc>"],
-      "commands": ["workbench.action.files.save"],
+      "commands": ["workbench.action.files.save"]
     }
   ],
   // 命令模式下的非递归按键绑定
@@ -264,5 +254,5 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ],
+  ]
 }
