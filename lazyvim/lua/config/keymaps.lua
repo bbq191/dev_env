@@ -3,6 +3,7 @@
 -- Add any additional keymaps here
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>bd", ":bd<CR>") -- close current buffer
+vim.keymap.set("n", "<leader>bl", ":ls<CR>") -- go to previous buffer
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

@@ -1,11 +1,10 @@
 return {
   -- disabled
-  { "nvim-neo-tree/neo-tree.nvim", enabled = false },
   { "echasnovski/mini.bufremove", enabled = false },
   { "nvim-pack/nvim-spectre", enabled = false },
-  -- customize file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
     opts = {
       close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       filesystem = {

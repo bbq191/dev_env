@@ -1,4 +1,5 @@
 return {
+  { "catppuccin/nvim", enable = false },
   {
     "rose-pine/neovim",
     name = "rose-pine",
