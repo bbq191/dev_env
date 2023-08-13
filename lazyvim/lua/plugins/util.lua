@@ -1,1 +1,4 @@
-return { { "folke/persistence.nvim", enable = false } }
+return {
+  -- disabled
+  { "folke/persistence.nvim", enable = false },
+}
