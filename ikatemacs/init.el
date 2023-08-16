@@ -44,6 +44,15 @@
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
 (require 'init-base)
+(require 'init-ui)
+(require 'init-tool)
+(require 'init-osx)
+(require 'init-lsp)
+(require 'init-git)
+(require 'init-dev)
+(require 'init-dired)
+(require 'init-minibuffer)
+(require 'init-shell)
 
 (when (file-exists-p custom-file)
   (load custom-file))

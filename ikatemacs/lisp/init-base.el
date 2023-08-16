@@ -186,12 +186,6 @@
   (repeat-exit-timeout 3)
   (repeat-exit-key (kbd "RET")))
 
-;; Server mode.
-;; Use emacsclient to connect
-(use-package server
-  :ensure nil
-  :hook (after-init . server-mode))
-
 ;; Workaround with minified source files
 (use-package so-long
   :ensure nil
