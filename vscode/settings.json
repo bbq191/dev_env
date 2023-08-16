@@ -6,7 +6,7 @@
   "workbench.panel.defaultLocation": "right",
   "explorer.confirmDelete": false,
   "files.autoGuessEncoding": true,
-  "window.zoomLevel": -1,
+  "window.zoomLevel": 0,
   "explorer.confirmDragAndDrop": false,
   "vsicons.dontShowNewVersionMessage": true,
   "telemetry.telemetryLevel": "off",
@@ -254,5 +254,8 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ]
+  ],
+  "editor.stickyScroll.enabled": true,
+  "workbench.activityBar.visible": false,
+  "workbench.statusBar.visible": false
 }
