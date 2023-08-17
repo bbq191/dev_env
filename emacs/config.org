@@ -5,6 +5,8 @@
 - [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#general-keybindings][General Keybindings]]
+- [[#all-the-icons][ALL THE ICONS]]
+- [[#buffer-move][BUFFER-MOVE]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting The Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
@@ -12,16 +14,17 @@
   - [[#基本界面设置菜单工具滚动条等][基本界面设置，菜单，工具滚动条等]]
   - [[#行号相对行号及视觉行而不是逻辑行][行号，相对行号及视觉行而不是逻辑行]]
   - [[#双向文字排版][双向文字排版]]
+- [[#ivy-counsel][IVY (COUNSEL)]]
 - [[#org-mode][ORG MODE]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
-  - [[#关闭-electric-indent][关闭 electric indent]]
+  - [[#关闭-electric-indent][关闭 Electric Indent]]
   - [[#代码段快捷展开][代码段快捷展开]]
 - [[#reload-emacs][RELOAD EMACS]]
+- [[#theme][THEME]]
 - [[#which-key][WHICH-KEY]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
-
 ** Elpaca Package Manager
 #+begin_src emacs-lisp
 (defvar elpaca-installer-version 0.4)
@@ -90,9 +93,96 @@
 
 ** General Keybindings
 
+* ALL THE ICONS
+图标字符集
+  
+#+begin_src emacs-lisp
+(use-package all-the-icons
+  :ensure t
+  :if (display-graphic-p))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+#+end_src
+
+
+* BUFFER-MOVE
+Creating some functions to allow us to easily move windows (splits) around.  The following block of code was taken from buffer-move.el found on the EmacsWiki:
+https://www.emacswiki.org/emacs/buffer-move.el
+
+#+begin_src emacs-lisp
+(require 'windmove)
+
+;;;###autoload
+(defun buf-move-up ()
+  "Swap the current buffer and the buffer above the split.
+If there is no split, ie now window above the current one, an
+error is signaled."
+;;  "Switches between the current buffer, and the buffer above the
+;;  split, if possible."
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'up))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No window above this one")
+      ;; swap top with this one
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      ;; move this one to top
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+;;;###autoload
+(defun buf-move-down ()
+"Swap the current buffer and the buffer under the split.
+If there is no split, ie now window under the current one, an
+error is signaled."
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'down))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (or (null other-win) 
+            (string-match "^ \\*Minibuf" (buffer-name (window-buffer other-win))))
+        (error "No window under this one")
+      ;; swap top with this one
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      ;; move this one to top
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+;;;###autoload
+(defun buf-move-left ()
+"Swap the current buffer and the buffer on the left of the split.
+If there is no split, ie now window on the left of the current
+one, an error is signaled."
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'left))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No left split")
+      ;; swap top with this one
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      ;; move this one to top
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+;;;###autoload
+(defun buf-move-right ()
+"Swap the current buffer and the buffer on the right of the split.
+If there is no split, ie now window on the right of the current
+one, an error is signaled."
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'right))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No right split")
+      ;; swap top with this one
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      ;; move this one to top
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+#+end_src
+
 
 * FONTS
-
 ** Setting The Font Face
 
 #+begin_src emacs-lisp
@@ -100,22 +190,22 @@
   (set-face-attribute 'default nil
       :font "Cascadia Code"
       :height 130
-      :weight 'medium)
+      :weight 'regular)
   (set-face-attribute 'variable-pitch nil
-      :font "Cascadia Code"
+      :font "Symbols Nerd Font"
       :height 130
       :weight 'medium)
   (set-face-attribute 'fixed-pitch nil
       :font "Cascadia Code"
       :height 130
-      :weight 'medium)
+      :weight 'regular)
 
   (set-face-attribute 'font-lock-keyword-face nil
       :slant 'italic)
   (set-face-attribute 'font-lock-comment-face nil
       :slant 'italic)
 
-  (add-to-list 'default-frame-alist '(font . "Cascadia Code-13"))
+  (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-13"))
   (setq-default line-spacing 0.12)
 
 #+end_src
@@ -128,8 +218,8 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 (global-set-key (kbd "C--") 'text-scale-decrease)
 #+end_src
 
-* GRAPHICAL USER INTERFACE TWEAKS
 
+* GRAPHICAL USER INTERFACE TWEAKS
 ** 基本界面设置，菜单，工具滚动条等
 #+begin_src emacs-lisp
   (menu-bar-mode -1)
@@ -157,6 +247,48 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 (setq bidi-inhibit-bpa t)
 #+end_src
 
+
+* IVY (COUNSEL)
++ Ivy, a generic completion mechanism for Emacs.
++ Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
++ Ivy-rich allows us to add descriptions alongside the commands in M-x.
+
+#+begin_src emacs-lisp
+  (use-package counsel
+    :after ivy
+    :config (counsel-mode))
+  
+  (use-package ivy
+    :bind
+    ;; ivy-resume resumes the last Ivy-based completion.
+    (("C-c C-r" . ivy-resume)
+     ("C-x B" . ivy-switch-buffer-other-window))
+    :custom
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    (setq enable-recursive-minibuffers t)
+    :config
+    (ivy-mode))
+
+  (use-package all-the-icons-ivy-rich
+    :ensure t
+    :init (all-the-icons-ivy-rich-mode 1))
+
+  (use-package ivy-rich
+    :after ivy
+    :ensure t
+    :init (ivy-rich-mode 1) ;; this gets us descriptions in M-x.
+    :custom
+    (ivy-virtual-abbreviate 'full
+     ivy-rich-switch-buffer-align-virtual-buffer t
+     ivy-rich-path-style 'abbrev)
+    :config
+    (ivy-set-display-transformer 'ivy-switch-buffer
+                                 'ivy-rich-switch-buffer-transformer))
+
+#+end_src
+
+
 * ORG MODE
 ** Enabling Table of Contents
 #+begin_src emacs-lisp
@@ -174,7 +306,7 @@ Org-bullets gives us attractive bullets rather than asterisks.
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
-** 关闭 electric indent
+** 关闭 Electric Indent
 完全关闭 electric indent 自动缩进功能,防止自动缩进带来的意外问题。
 #+begin_src emacs-list
 (electric-indent-mode -1)
@@ -212,6 +344,16 @@ This is just an example of how to create a simple function in Emacs.  Use this f
   (load-file user-init-file))
 #+end_src
 
+
+* THEME
+加载我最喜欢的 theme
+
+#+begin_src emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+  (load-theme 'zenburn t)
+#+end_src
+
+
 * WHICH-KEY
 #+begin_src emacs-lisp
   (use-package which-key
@@ -231,4 +373,5 @@ This is just an example of how to create a simple function in Emacs.  Use this f
 	  which-key-allow-imprecise-window-fit t
 	  which-key-separator " → " ))
 #+end_src
+
 
