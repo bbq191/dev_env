@@ -387,7 +387,7 @@ The modeline is the bottom status bar that appears in Emacs windows.  While you 
 #+begin_src emacs-lisp
 
 #+end_src
-
+	
 ** TRANSPARENCY
 29 新特性，设置透明度百分比 （0=100）
 

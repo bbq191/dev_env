@@ -1,33 +1,11 @@
-#+TITLE: VC's GNU Emacs configure
-#+AUTHOR: Vinci Xu (VC)
+#+TITLE: Personal GNU Emacs Config
+#+AUTHOR: Vinci Xu & Kate Ma
+#+DESCRIPTION: Vinci & Kate's personal Emacs config
+#+OPTIONS: toc:2
+
 
 * TABLE OF CONTENTS :toc:
-- [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
-  - [[#elpaca-package-manager][Elpaca Package Manager]]
-  - [[#general-keybindings][General Keybindings]]
-- [[#diminish][DIMINISH]]
-- [[#all-the-icons][ALL THE ICONS]]
-- [[#buffer-move][BUFFER-MOVE]]
-- [[#fonts][FONTS]]
-  - [[#setting-the-font-face][Setting The Font Face]]
-  - [[#zooming-inout][Zooming In/Out]]
-- [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
-  - [[#基本界面设置菜单工具滚动条等][基本界面设置，菜单，工具滚动条等]]
-  - [[#行号相对行号及视觉行而不是逻辑行][行号，相对行号及视觉行而不是逻辑行]]
-  - [[#双向文字排版][双向文字排版]]
-- [[#ivy-counsel][IVY (COUNSEL)]]
-- [[#org-mode][ORG MODE]]
-  - [[#enabling-table-of-contents][Enabling Table of Contents]]
-  - [[#enabling-org-bullets][Enabling Org Bullets]]
-  - [[#关闭-electric-indent][关闭 Electric Indent]]
-  - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
-  - [[#代码段快捷展开][代码段快捷展开]]
-- [[#reload-emacs][RELOAD EMACS]]
-- [[#theme][THEME]]
-  - [[#doomtheme-与自加载-theme][DOOMTHEME 与自加载 THEME]]
-  - [[#modeline][MODELINE]]
-  - [[#transparency][TRANSPARENCY]]
-- [[#which-key][WHICH-KEY]]
+
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
 ** Elpaca Package Manager
@@ -80,17 +58,26 @@
 (elpaca-wait)
 #+end_src
 
-** TRANSPARENCY
-29 新特性，设置透明度百分比 （0=100）
+** User Func and Const
+*** Function
+**** Reload Init
+This is just an example of how to create a simple function in Emacs.
+Use this function to reload Emacs after adding changes to the config.
+Yes, I am loading the user-init-file twice in this function, which is a hack because for some reason,
+just loading the user-init-file once does not work properly.
 
 #+begin_src emacs-lisp
-(defconst *is-a-mac* (eq system-type 'darwin))
+(defun reload-init-file ()
+  (interactive)
+  (load-file user-init-file)
+  (load-file user-init-file))
+#+end_src
 
-(let ((no-border '(internal-border-width . 0)))
-  (add-to-list 'default-frame-alist no-border)
-  (add-to-list 'initial-frame-alist no-border))
+**** Adjust Opacity
+This function from purcell.
 
-(defun sanityinc/adjust-opacity (frame incr)
+#+begin_src emacs-lisp
+(defun ikate/adjust-opacity (frame incr)
   "Adjust the background opacity of FRAME by increment INCR."
   (unless (display-graphic-p frame)
     (error "Cannot adjust opacity of this frame"))
@@ -101,17 +88,121 @@
          (newalpha (+ incr oldalpha)))
     (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
       (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
+#+end_src
 
-(when (and *is-a-mac* (fboundp 'toggle-frame-fullscreen))
+*** Const
+**** Is Mac
+#+begin_src emacs-lisp
+(defconst macsys (eq system-type 'darwin))
+#+end_src
+
+** Neecessory Configes
+*** Gabage Collect
+Adjust garbage collection thresholds during startup, and thereafter
+
+#+begin_src emacs-lisp
+(let ((normal-gc-cons-threshold (* 512 1024 1024))
+      (init-gc-cons-threshold (* 1024 1024 1024)))
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'emacs-startup-hook
+            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+#+end_src
+
+*** Global Keybinding
+#+begin_src emacs-lisp
+(with-no-warnings
+  ;; Key Modifiers
+  (setq mac-option-modifier 'meta
+        mac-command-modifier 'super)
+  (bind-keys ([(super a)] . mark-whole-buffer)
+              ([(super c)] . kill-ring-save)
+              ([(super l)] . goto-line)
+              ([(super q)] . save-buffers-kill-emacs)
+              ([(super s)] . save-buffer)
+              ([(super v)] . yank)
+              ([(super w)] . delete-frame)
+              ([(super z)] . undo)))
+#+end_src
+
+** Necessory Packages
+*** General Keybindings
+
+*** DIMINISH
+This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes.
+With this package installed, you can add ':diminish' to any use-package block to hide that particular mode in the modeline.
+
+#+begin_src emacs-lisp
+(use-package diminish)
+#+end_src
+
+
+* GRAPHICAL USER INTERFACE TWEAKS 
+** Fonts
+** Transparency
+Emacs 最新 True Transparency 模式 +(add-to-list 'default-frame-alist '(alpha-background . 90))+ 在 Mac 下并不生效，
+
+#+begin_src emacs-lisp
+(when (and macsys (fboundp 'toggle-frame-fullscreen))
   ;; Command-Option-f to toggle fullscreen mode
   ;; Hint: Customize `ns-use-native-fullscreen'
   (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
 
 ;; TODO: use seethru package instead?
-(global-set-key (kbd "M-C-8") (lambda () (interactive) (sanityinc/adjust-opacity nil -2)))
-(global-set-key (kbd "M-C-9") (lambda () (interactive) (sanityinc/adjust-opacity nil 2)))
+(global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
+(global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
 #+end_src
 
 
+* ORG MODE
+** Enabling Table of Contents
+#+begin_src emacs-lisp
+(use-package toc-org
+    :commands toc-org-enable
+    :init (add-hook 'org-mode-hook 'toc-org-enable))
+#+end_src
+
+** Enabling Org Bullets
+Org-bullets gives us attractive bullets rather than asterisks.
+
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook 'org-indent-mode)
+(use-package org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+** Disable Electric Indent
+完全关闭 electric indent 自动缩进功能,防止自动缩进带来的意外问题。
+
+#+begin_src emacs-list
+(electric-indent-mode -1)
+(setq org-edit-src-content-indentation 0)
+#+end_src
+
+** Diminish Org Indent Mode
+Removes "Ind" from showing in the modeline.
+
+#+begin_src emacs-lisp
+(eval-after-load 'org-indent '(diminish 'org-indent-mode))
+#+end_src
+
+** Org Tag Expands Quick
+其他快捷展开示例:
+
+| Typing the below + TAB | Expands to ...                          |
+|------------------------+-----------------------------------------|
+| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
+| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |
+| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
+| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |
+| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |
+| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |
+| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |
+| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |
+| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
+| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
+
+#+begin_src emacs-lisp 
+(require 'org-tempo)
+#+end_src
 
