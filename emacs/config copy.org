@@ -1,0 +1,420 @@
+#+TITLE: VC's GNU Emacs configure
+#+AUTHOR: Vinci Xu (VC)
+
+* TABLE OF CONTENTS :toc:
+- [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
+  - [[#elpaca-package-manager][Elpaca Package Manager]]
+  - [[#general-keybindings][General Keybindings]]
+- [[#diminish][DIMINISH]]
+- [[#all-the-icons][ALL THE ICONS]]
+- [[#buffer-move][BUFFER-MOVE]]
+- [[#fonts][FONTS]]
+  - [[#setting-the-font-face][Setting The Font Face]]
+  - [[#zooming-inout][Zooming In/Out]]
+- [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
+  - [[#基本界面设置菜单工具滚动条等][基本界面设置，菜单，工具滚动条等]]
+  - [[#行号相对行号及视觉行而不是逻辑行][行号，相对行号及视觉行而不是逻辑行]]
+  - [[#双向文字排版][双向文字排版]]
+- [[#ivy-counsel][IVY (COUNSEL)]]
+- [[#org-mode][ORG MODE]]
+  - [[#enabling-table-of-contents][Enabling Table of Contents]]
+  - [[#enabling-org-bullets][Enabling Org Bullets]]
+  - [[#关闭-electric-indent][关闭 Electric Indent]]
+  - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
+  - [[#代码段快捷展开][代码段快捷展开]]
+- [[#reload-emacs][RELOAD EMACS]]
+- [[#theme][THEME]]
+  - [[#doomtheme-与自加载-theme][DOOMTHEME 与自加载 THEME]]
+  - [[#modeline][MODELINE]]
+  - [[#transparency][TRANSPARENCY]]
+- [[#which-key][WHICH-KEY]]
+
+* IMPORTANT PROGRAMS TO LOAD FIRST
+** Elpaca Package Manager
+#+begin_src emacs-lisp
+(defvar elpaca-installer-version 0.5)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil
+                              :files (:defaults (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (< emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                 ((zerop (call-process "git" nil buffer t "clone"
+                                       (plist-get order :repo) repo)))
+                 ((zerop (call-process "git" nil buffer t "checkout"
+                                       (or (plist-get order :ref) "--"))))
+                 (emacs (concat invocation-directory invocation-name))
+                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                 ((require 'elpaca))
+                 ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
+
+;; Install use-package support
+(elpaca elpaca-use-package
+  ;; Enable :elpaca use-package keyword.
+  (elpaca-use-package-mode)
+  ;; Assume :elpaca t unless otherwise specified.
+  (setq elpaca-use-package-by-default t))
+
+;; Block until current queue processed.
+(elpaca-wait)
+
+;;When installing a package which modifies a form used at the top-level
+;;(e.g. a package which adds a use-package key word),
+;;use `elpaca-wait' to block until that package has been installed/configured.
+;;For example:
+;;(use-package general :demand t)
+;;(elpaca-wait)
+
+;; Expands to: (elpaca evil (use-package evil :demand t))
+(use-package evil :demand t)
+
+;;Turns off elpaca-use-package-mode current declartion
+;;Note this will cause the declaration to be interpreted immediately (not deferred).
+;;Useful for configuring built-in emacs features.
+(use-package emacs :elpaca nil :config (setq ring-bell-function #'ignore))
+
+;; Don't install anything. Defer execution of BODY
+(elpaca nil (message "无需处理或安装包"))
+
+#+end_src
+
+** General Keybindings
+
+* DIMINISH
+This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes.  With this package installed, you can add ':diminish' to any use-package block to hide that particular mode in the modeline.
+
+#+begin_src emacs-lisp
+(use-package diminish)
+
+#+end_src
+
+
+* ALL THE ICONS
+图标字符集
+  
+#+begin_src emacs-lisp
+(use-package all-the-icons
+  :ensure t
+  :if (display-graphic-p))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+#+end_src
+
+
+* BUFFER-MOVE
+Creating some functions to allow us to easily move windows (splits) around.  The following block of code was taken from buffer-move.el found on the EmacsWiki:
+https://www.emacswiki.org/emacs/buffer-move.el
+
+#+begin_src emacs-lisp
+(require 'windmove)
+
+;;;###autoload
+(defun buf-move-up ()
+  "Swap the current buffer and the buffer above the split.
+If there is no split, ie now window above the current one, an
+error is signaled."
+;;  "Switches between the current buffer, and the buffer above the
+;;  split, if possible."
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'up))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No window above this one")
+      ;; swap top with this one
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      ;; move this one to top
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+;;;###autoload
+(defun buf-move-down ()
+"Swap the current buffer and the buffer under the split.
+If there is no split, ie now window under the current one, an
+error is signaled."
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'down))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (or (null other-win) 
+            (string-match "^ \\*Minibuf" (buffer-name (window-buffer other-win))))
+        (error "No window under this one")
+      ;; swap top with this one
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      ;; move this one to top
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+;;;###autoload
+(defun buf-move-left ()
+"Swap the current buffer and the buffer on the left of the split.
+If there is no split, ie now window on the left of the current
+one, an error is signaled."
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'left))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No left split")
+      ;; swap top with this one
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      ;; move this one to top
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+;;;###autoload
+(defun buf-move-right ()
+"Swap the current buffer and the buffer on the right of the split.
+If there is no split, ie now window on the right of the current
+one, an error is signaled."
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'right))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No right split")
+      ;; swap top with this one
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      ;; move this one to top
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+#+end_src
+
+
+* FONTS
+** Setting The Font Face
+
+#+begin_src emacs-lisp
+
+  (set-face-attribute 'default nil
+      :font "Cascadia Code"
+      :height 130
+      :weight 'regular)
+  (set-face-attribute 'variable-pitch nil
+      :font "Symbols Nerd Font"
+      :height 130
+      :weight 'medium)
+  (set-face-attribute 'fixed-pitch nil
+      :font "Cascadia Code"
+      :height 130
+      :weight 'regular)
+
+  (set-face-attribute 'font-lock-keyword-face nil
+      :slant 'italic)
+  (set-face-attribute 'font-lock-comment-face nil
+      :slant 'italic)
+
+  (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-13"))
+  (setq-default line-spacing 0.12)
+
+#+end_src
+
+** Zooming In/Out
+You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTRL plus the mouse wheel for zooming in/out.
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+#+end_src
+
+
+* GRAPHICAL USER INTERFACE TWEAKS
+** 基本界面设置，菜单，工具滚动条等
+#+begin_src emacs-lisp
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (setq use-file-dialog nil) ;; 关闭使用系统自带的文件选择对话框,使用Emacs自带的。
+  (setq use-dialog-box nil) ;; 关闭使用系统自带的消息框,使用Emacs自带的。
+  (setq inhibit-startup-screen t) ;; 阻止显示启动画面。
+  (setq inhibit-startup-message t) ;; 阻止显示启动消息。
+  (setq inhibit-startup-buffer-menu t) ;; 阻止显示启动缓冲区菜单。
+  (setq window-resize-pixelwise t) ;; 设置窗口调整大小时以像素为单位。
+  (setq frame-resize-pixelwise t);; 设置框架调整大小时以像素为单位。
+#+end_src
+
+** 行号，相对行号及视觉行而不是逻辑行
+#+begin_src emacs-lisp
+  (global-display-line-numbers-mode 1)
+  (global-visual-line-mode t)
+  (setq display-line-numbers-type 'relative)
+#+end_src
+
+** 双向文字排版
+#+begin_src emacs-list
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+#+end_src
+
+
+* IVY (COUNSEL)
++ Ivy, a generic completion mechanism for Emacs.
++ Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
++ Ivy-rich allows us to add descriptions alongside the commands in M-x.
+
+#+begin_src emacs-lisp
+  (use-package counsel
+    :after ivy
+    :config (counsel-mode))
+  
+  (use-package ivy
+    :bind
+    ;; ivy-resume resumes the last Ivy-based completion.
+    (("C-c C-r" . ivy-resume)
+     ("C-x B" . ivy-switch-buffer-other-window))
+    :custom
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    (setq enable-recursive-minibuffers t)
+    :config
+    (ivy-mode))
+
+  (use-package all-the-icons-ivy-rich
+    :ensure t
+    :init (all-the-icons-ivy-rich-mode 1))
+
+  (use-package ivy-rich
+    :after ivy
+    :ensure t
+    :init (ivy-rich-mode 1) ;; this gets us descriptions in M-x.
+    :custom
+    (ivy-virtual-abbreviate 'full
+     ivy-rich-switch-buffer-align-virtual-buffer t
+     ivy-rich-path-style 'abbrev)
+    :config
+    (ivy-set-display-transformer 'ivy-switch-buffer
+                                 'ivy-rich-switch-buffer-transformer))
+
+#+end_src
+
+
+* ORG MODE
+** Enabling Table of Contents
+#+begin_src emacs-lisp
+  (use-package toc-org
+      :commands toc-org-enable
+      :init (add-hook 'org-mode-hook 'toc-org-enable))
+#+end_src
+
+** Enabling Org Bullets
+Org-bullets gives us attractive bullets rather than asterisks.
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  (use-package org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+** 关闭 Electric Indent
+完全关闭 electric indent 自动缩进功能,防止自动缩进带来的意外问题。
+#+begin_src emacs-list
+(electric-indent-mode -1)
+(setq org-edit-src-content-indentation 0)
+#+end_src
+
+** Diminish Org Indent Mode
+Removes "Ind" from showing in the modeline.
+
+#+begin_src emacs-lisp
+(eval-after-load 'org-indent '(diminish 'org-indent-mode))
+
+#+end_src
+
+** 代码段快捷展开
+其他快捷展开示例:
+
+| Typing the below + TAB | Expands to ...                          |
+|------------------------+-----------------------------------------|
+| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
+| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |
+| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
+| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |
+| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |
+| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |
+| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |
+| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |
+| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
+| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
+
+
+#+begin_src emacs-lisp 
+(require 'org-tempo)
+#+end_src
+
+
+* RELOAD EMACS
+This is just an example of how to create a simple function in Emacs.  Use this function to reload Emacs after adding changes to the config.  Yes, I am loading the user-init-file twice in this function, which is a hack because for some reason, just loading the user-init-file once does not work properly.
+
+#+begin_src emacs-lisp
+(defun reload-init-file ()
+  (interactive)
+  (load-file user-init-file)
+  (load-file user-init-file))
+#+end_src
+
+
+* THEME
+** DOOMTHEME 与自加载 THEME
+加载我最喜欢的 theme
+
+#+begin_src emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+
+  (load-theme 'zenburn t)
+#+end_src
+
+** MODELINE
+The modeline is the bottom status bar that appears in Emacs windows.  While you can create your own custom modeline, why go to the trouble when Doom Emacs already has a nice modeline package available.  For more information on what is available to configure in the Doom modeline, check out: [[https://github.com/seagle0128/doom-modeline][Doom Modeline]]
+
+#+begin_src emacs-lisp
+
+#+end_src
+
+** TRANSPARENCY
+29 新特性，设置透明度百分比 （0=100）
+
+#+begin_src emacs-lisp
+(set-frame-parameter nil 'alpha-background 70)
+(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
+#+end_src
+
+
+* WHICH-KEY
+#+begin_src emacs-lisp
+  (use-package which-key
+    :init
+      (which-key-mode 1)
+    :config
+    (setq which-key-side-window-location 'bottom
+	  which-key-sort-order #'which-key-key-order-alpha
+	  which-key-sort-uppercase-first nil
+	  which-key-add-column-padding 1
+	  which-key-max-display-columns nil
+	  which-key-min-display-lines 6
+	  which-key-side-window-slot -10
+	  which-key-side-window-max-height 0.25
+	  which-key-idle-delay 0.8
+	  which-key-max-description-length 25
+	  which-key-allow-imprecise-window-fit t
+	  which-key-separator " → " ))
+#+end_src
+
+
