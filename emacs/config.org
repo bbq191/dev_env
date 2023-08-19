@@ -3,9 +3,22 @@
 #+DESCRIPTION: Vinci & Kate's personal Emacs config
 #+OPTIONS: toc:2
 
-
 * TABLE OF CONTENTS :toc:
-
+- [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
+  - [[#elpaca-package-manager][Elpaca Package Manager]]
+  - [[#speed-up-startup][Speed up startup]]
+  - [[#user-func-and-const][User Func and Const]]
+  - [[#neecessory-configes][Neecessory Configes]]
+  - [[#necessory-packages][Necessory Packages]]
+- [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
+  - [[#fonts][Fonts]]
+  - [[#transparency][Transparency]]
+- [[#org-mode][ORG MODE]]
+  - [[#enabling-table-of-contents][Enabling Table of Contents]]
+  - [[#enabling-org-bullets][Enabling Org Bullets]]
+  - [[#disable-electric-indent][Disable Electric Indent]]
+  - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
+  - [[#org-tag-expands-quick][Org Tag Expands Quick]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
 ** Elpaca Package Manager
@@ -58,6 +71,19 @@
 (elpaca-wait)
 #+end_src
 
+** Speed up startup
+
+#+begin_src emacs-lisp
+  ;; Defer garbage collection further back in the startup process
+  (setq gc-cons-threshold most-positive-fixnum)
+
+  ;; Prevent flashing of unstyled modeline at startup
+  (setq-default mode-line-format nil)
+
+  ;; Don't pass case-insensitive to `auto-mode-alist'
+  (setq auto-mode-case-fold nil)
+#+end_src
+
 ** User Func and Const
 *** Function
 **** Reload Init
@@ -90,6 +116,17 @@ This function from purcell.
       (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
 #+end_src
 
+**** Fix fullscreen
+Fix blank screen issue on macOS.
+
+#+begin_src emacs-lisp
+  (defun fix-fullscreen ()
+    "Address blank screen issue with child-frame in fullscreen.
+  This issue has been addressed in 28."
+    (and macsys
+         (bound-and-true-p ns-use-native-fullscreen)
+         (setq ns-use-native-fullscreen nil)))
+#+end_src
 *** Const
 **** Is Mac
 #+begin_src emacs-lisp
@@ -97,31 +134,27 @@ This function from purcell.
 #+end_src
 
 ** Neecessory Configes
-*** Gabage Collect
-Adjust garbage collection thresholds during startup, and thereafter
-
-#+begin_src emacs-lisp
-(let ((normal-gc-cons-threshold (* 512 1024 1024))
-      (init-gc-cons-threshold (* 1024 1024 1024)))
-  (setq gc-cons-threshold init-gc-cons-threshold)
-  (add-hook 'emacs-startup-hook
-            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
-#+end_src
-
 *** Global Keybinding
 #+begin_src emacs-lisp
-(with-no-warnings
-  ;; Key Modifiers
-  (setq mac-option-modifier 'meta
-        mac-command-modifier 'super)
-  (bind-keys ([(super a)] . mark-whole-buffer)
-              ([(super c)] . kill-ring-save)
-              ([(super l)] . goto-line)
-              ([(super q)] . save-buffers-kill-emacs)
-              ([(super s)] . save-buffer)
-              ([(super v)] . yank)
-              ([(super w)] . delete-frame)
-              ([(super z)] . undo)))
+  (with-no-warnings
+    ;; Key Modifiers
+    (setq mac-option-modifier 'meta
+	  mac-command-modifier 'super)
+    (bind-keys ([(super a)] . mark-whole-buffer)
+	       ([(super c)] . kill-ring-save)
+	       ([(super l)] . goto-line)
+	       ([(super q)] . save-buffers-kill-emacs)
+	       ([(super s)] . save-buffer)
+	       ([(super v)] . yank)
+	       ([(super w)] . delete-frame)
+	       ([(super z)] . undo)))
+  ;; reload init
+  (bind-keys ("C-c r" . reload-init-file))
+
+  ;; 调整界面 opacity
+  (global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
+  (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
+  (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
 #+end_src
 
 ** Necessory Packages
@@ -138,21 +171,39 @@ With this package installed, you can add ':diminish' to any use-package block to
 
 * GRAPHICAL USER INTERFACE TWEAKS 
 ** Fonts
+设置自己喜欢的字体
+
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil
+      :font "Cascadia Code"
+      :height 130
+      :weight 'regular)
+  (set-face-attribute 'variable-pitch nil
+      :font "Symbols Nerd Font"
+      :height 130
+      :weight 'medium)
+  (set-face-attribute 'fixed-pitch nil
+      :font "FiraCode Nerd Font"
+      :height 130
+      :weight 'regular)
+
+  (set-face-attribute 'font-lock-keyword-face nil
+      :slant 'italic)
+  (set-face-attribute 'font-lock-comment-face nil
+      :slant 'italic)
+
+  (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-13"))
+  (setq-default line-spacing 0.12)
+#+end_src
+
 ** Transparency
 Emacs 最新 True Transparency 模式 +(add-to-list 'default-frame-alist '(alpha-background . 90))+ 在 Mac 下并不生效，
 
 #+begin_src emacs-lisp
-(when (and macsys (fboundp 'toggle-frame-fullscreen))
-  ;; Command-Option-f to toggle fullscreen mode
-  ;; Hint: Customize `ns-use-native-fullscreen'
-  (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
-
-;; TODO: use seethru package instead?
-(global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
-(global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
-(global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
+  (when (display-graphic-p)
+    (add-hook 'window-setup-hook #'fix-fullscreen)
+    (and macsys (bind-key "C-s-f" #'toggle-frame-fullscreen)))
 #+end_src
-
 
 * ORG MODE
 ** Enabling Table of Contents
@@ -205,4 +256,3 @@ Removes "Ind" from showing in the modeline.
 #+begin_src emacs-lisp 
 (require 'org-tempo)
 #+end_src
-

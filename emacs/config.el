@@ -45,6 +45,15 @@
 ;; Block until current queue processed.
 (elpaca-wait)
 
+;; Defer garbage collection further back in the startup process
+(setq gc-cons-threshold most-positive-fixnum)
+
+;; Prevent flashing of unstyled modeline at startup
+(setq-default mode-line-format nil)
+
+;; Don't pass case-insensitive to `auto-mode-alist'
+(setq auto-mode-case-fold nil)
+
 (defun reload-init-file ()
   (interactive)
   (load-file user-init-file)
@@ -64,36 +73,60 @@
 
 (defconst macsys (eq system-type 'darwin))
 
-(let ((normal-gc-cons-threshold (* 512 1024 1024))
-      (init-gc-cons-threshold (* 1024 1024 1024)))
-  (setq gc-cons-threshold init-gc-cons-threshold)
-  (add-hook 'emacs-startup-hook
-            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
-
 (with-no-warnings
   ;; Key Modifiers
   (setq mac-option-modifier 'meta
-        mac-command-modifier 'super)
+	mac-command-modifier 'super)
   (bind-keys ([(super a)] . mark-whole-buffer)
-              ([(super c)] . kill-ring-save)
-              ([(super l)] . goto-line)
-              ([(super q)] . save-buffers-kill-emacs)
-              ([(super s)] . save-buffer)
-              ([(super v)] . yank)
-              ([(super w)] . delete-frame)
-              ([(super z)] . undo)))
+	     ([(super c)] . kill-ring-save)
+	     ([(super l)] . goto-line)
+	     ([(super q)] . save-buffers-kill-emacs)
+	     ([(super s)] . save-buffer)
+	     ([(super v)] . yank)
+	     ([(super w)] . delete-frame)
+	     ([(super z)] . undo)))
+;; reload init
+(bind-keys ("C-c r" . reload-init-file))
 
-(use-package diminish)
-
-(when (and macsys (fboundp 'toggle-frame-fullscreen))
-  ;; Command-Option-f to toggle fullscreen mode
-  ;; Hint: Customize `ns-use-native-fullscreen'
-  (global-set-key (kbd "M-ƒ") 'toggle-frame-fullscreen))
-
-;; TODO: use seethru package instead?
+;; 调整界面 opacity
 (global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
 (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
+
+(use-package diminish)
+
+(set-face-attribute 'default nil
+    :font "Cascadia Code"
+    :height 130
+    :weight 'regular)
+(set-face-attribute 'variable-pitch nil
+    :font "Symbols Nerd Font"
+    :height 130
+    :weight 'medium)
+(set-face-attribute 'fixed-pitch nil
+    :font "FiraCode Nerd Font"
+    :height 130
+    :weight 'regular)
+
+(set-face-attribute 'font-lock-keyword-face nil
+    :slant 'italic)
+(set-face-attribute 'font-lock-comment-face nil
+    :slant 'italic)
+
+(add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-13"))
+(setq-default line-spacing 0.12)
+
+;; fix blank screen issue on macOS.
+(defun fix-fullscreen ()
+  "Address blank screen issue with child-frame in fullscreen.
+This issue has been addressed in 28."
+  (and macsys
+       (bound-and-true-p ns-use-native-fullscreen)
+       (setq ns-use-native-fullscreen nil)))
+
+(when (display-graphic-p)
+  (add-hook 'window-setup-hook #'fix-fullscreen)
+  (and macsys (bind-key "C-s-f" #'toggle-frame-fullscreen)))
 
 (use-package toc-org
     :commands toc-org-enable
