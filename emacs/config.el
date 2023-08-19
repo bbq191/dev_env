@@ -54,6 +54,9 @@
 ;; Don't pass case-insensitive to `auto-mode-alist'
 (setq auto-mode-case-fold nil)
 
+;; Load `custom-file'
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
 (defun reload-init-file ()
   (interactive)
   (load-file user-init-file)
@@ -71,7 +74,49 @@
     (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
       (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
 
+(defun fix-fullscreen ()
+  "Address blank screen issue with child-frame in fullscreen.
+This issue has been addressed in 28."
+  (and macsys
+       (bound-and-true-p ns-use-native-fullscreen)
+       (setq ns-use-native-fullscreen nil)))
+
 (defconst macsys (eq system-type 'darwin))
+
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (fset 'yes-or-no-p 'y-or-n-p))
+(setq-default major-mode 'text-mode
+              fill-column 80
+              tab-width 4
+              indent-tabs-mode nil)     ; Permanently indent with spaces, never with TABs
+
+(setq visible-bell t
+      inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
+      delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
+      make-backup-files nil             ; Forbide to make backup files
+      auto-save-default nil             ; Disable auto save
+
+      uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
+      adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+      adaptive-fill-first-line-regexp "^* *$"
+      sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+      sentence-end-double-space nil
+      word-wrap-by-category t)
+
+(desktop-save-mode 1)
+(save-place-mode 1)
+(savehist-mode 1)
+(setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+      history-length 1000
+      savehist-additional-variables '(mark-ring
+                                              global-mark-ring
+                                              search-ring
+                                              regexp-search-ring
+                                              extended-command-history)
+      savehist-autosave-interval 300)
+
+
 
 (with-no-warnings
   ;; Key Modifiers
@@ -115,14 +160,6 @@
 
 (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-13"))
 (setq-default line-spacing 0.12)
-
-;; fix blank screen issue on macOS.
-(defun fix-fullscreen ()
-  "Address blank screen issue with child-frame in fullscreen.
-This issue has been addressed in 28."
-  (and macsys
-       (bound-and-true-p ns-use-native-fullscreen)
-       (setq ns-use-native-fullscreen nil)))
 
 (when (display-graphic-p)
   (add-hook 'window-setup-hook #'fix-fullscreen)

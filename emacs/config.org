@@ -72,6 +72,7 @@
 #+end_src
 
 ** Speed up startup
+添加一些必要的设置尽可能快速启动
 
 #+begin_src emacs-lisp
   ;; Defer garbage collection further back in the startup process
@@ -82,6 +83,9 @@
 
   ;; Don't pass case-insensitive to `auto-mode-alist'
   (setq auto-mode-case-fold nil)
+
+  ;; Load `custom-file'
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 #+end_src
 
 ** User Func and Const
@@ -134,7 +138,57 @@ Fix blank screen issue on macOS.
 #+end_src
 
 ** Neecessory Configes
+*** Misc Config
+一些混合设置
+
+#+begin_src emacs-lisp
+  (if (boundp 'use-short-answers)
+      (setq use-short-answers t)
+    (fset 'yes-or-no-p 'y-or-n-p))
+  (setq-default major-mode 'text-mode
+                fill-column 80
+                tab-width 4
+                indent-tabs-mode nil)     ; Permanently indent with spaces, never with TABs
+
+  (setq visible-bell t
+        inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
+        delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
+        make-backup-files nil             ; Forbide to make backup files
+        auto-save-default nil             ; Disable auto save
+
+        uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
+        adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+        adaptive-fill-first-line-regexp "^* *$"
+        sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+        sentence-end-double-space nil
+        word-wrap-by-category t)
+#+end_src
+
+*** Part of GNU Emacs
+**** History
+
+#+begin_src emacs-lisp
+  (desktop-save-mode 1)
+  (save-place-mode 1)
+  (savehist-mode 1)
+  (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+        history-length 1000
+        savehist-additional-variables '(mark-ring
+                                                global-mark-ring
+                                                search-ring
+                                                regexp-search-ring
+                                                extended-command-history)
+        savehist-autosave-interval 300)
+#+end_src
+
+**** Simple
+
+#+begin_src emacs-lisp
+
+#+end_src
+
 *** Global Keybinding
+
 #+begin_src emacs-lisp
   (with-no-warnings
     ;; Key Modifiers
@@ -160,7 +214,7 @@ Fix blank screen issue on macOS.
 ** Necessory Packages
 *** General Keybindings
 
-*** DIMINISH
+*** Diminish
 This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes.
 With this package installed, you can add ':diminish' to any use-package block to hide that particular mode in the modeline.
 
