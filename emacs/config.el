@@ -86,6 +86,7 @@ This issue has been addressed in 28."
 (if (boundp 'use-short-answers)
     (setq use-short-answers t)
   (fset 'yes-or-no-p 'y-or-n-p))
+
 (setq-default major-mode 'text-mode
               fill-column 80
               tab-width 4
@@ -106,6 +107,7 @@ This issue has been addressed in 28."
 
 (desktop-save-mode 1)
 (save-place-mode 1)
+;; hist setting
 (savehist-mode 1)
 (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
       history-length 1000
@@ -115,30 +117,51 @@ This issue has been addressed in 28."
                                               regexp-search-ring
                                               extended-command-history)
       savehist-autosave-interval 300)
-
-
+;; recentf setting
+(recentf-mode 1)
+(setq recentf-max-saved-items 300)
+;; basic ui
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(setq use-file-dialog nil) ;; 关闭使用系统自带的文件选择对话框,使用Emacs自带的。
+(setq use-dialog-box nil) ;; 关闭使用系统自带的消息框,使用Emacs自带的。
+(setq inhibit-startup-screen t) ;; 阻止显示启动画面。
+(setq inhibit-startup-message t) ;; 阻止显示启动消息。
+(setq inhibit-startup-buffer-menu t) ;; 阻止显示启动缓冲区菜单。
+(setq window-resize-pixelwise t) ;; 设置窗口调整大小时以像素为单位。
+(setq frame-resize-pixelwise t);; 设置框架调整大小时以像素为单位。
+;; line number
+(global-display-line-numbers-mode 1)
+(global-visual-line-mode t)
+(setq display-line-numbers-type 'relative)
+;; 修改双向文字排版为从左到右
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
 
 (with-no-warnings
   ;; Key Modifiers
   (setq mac-option-modifier 'meta
-	mac-command-modifier 'super)
+    mac-command-modifier 'super)
   (bind-keys ([(super a)] . mark-whole-buffer)
-	     ([(super c)] . kill-ring-save)
-	     ([(super l)] . goto-line)
-	     ([(super q)] . save-buffers-kill-emacs)
-	     ([(super s)] . save-buffer)
-	     ([(super v)] . yank)
-	     ([(super w)] . delete-frame)
-	     ([(super z)] . undo)))
+         ([(super c)] . kill-ring-save)
+         ([(super l)] . goto-line)
+         ([(super q)] . save-buffers-kill-emacs)
+         ([(super s)] . save-buffer)
+         ([(super v)] . yank)
+         ([(super w)] . delete-frame)
+         ([(super z)] . undo)))
 ;; reload init
 (bind-keys ("C-c r" . reload-init-file))
-
+;; recent file
+(bind-keys ("C-x C-r" . recentf-open-files))
+;; zooming in/out
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 ;; 调整界面 opacity
 (global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
 (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
-
-(use-package diminish)
 
 (set-face-attribute 'default nil
     :font "Cascadia Code"
