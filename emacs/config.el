@@ -46,7 +46,13 @@
 (elpaca-wait)
 
 ;; Defer garbage collection further back in the startup process
-(setq gc-cons-threshold most-positive-fixnum)
+;;(setq gc-cons-threshold most-positive-fixnum)
+;; Adjust garbage collection thresholds during startup, and thereafter
+(let ((normal-gc-cons-threshold (* 1024 1024 1024))
+      (init-gc-cons-threshold (* 2048 1024 1024)))
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'elpaca-after-init-hook
+    (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
 
 ;; Prevent flashing of unstyled modeline at startup
 (setq-default mode-line-format nil)
@@ -56,6 +62,7 @@
 
 ;; Load `custom-file'
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(add-hook 'elpaca-after-init-hook (lambda () (load custom-file 'noerror)))
 
 (defun reload-init-file ()
   (interactive)
@@ -162,6 +169,28 @@ This issue has been addressed in 28."
 (global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
 (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
+
+(use-package general :demand t)
+(elpaca-wait)
+
+(use-package marginalia
+  :general
+  (:keymaps 'minibuffer-local-map
+            "M-A" 'marginalia-cycle)
+  :custom
+  (marginalia-max-relative-age 0)
+  (marginalia-align 'right)
+  :init
+  (marginalia-mode))
+
+(use-package all-the-icons
+  :ensure t
+  :if (display-graphic-p))
+
+(use-package all-the-icons-completion
+  :after (marginalia all-the-icons)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init (all-the-icons-completion-mode))
 
 (set-face-attribute 'default nil
     :font "Cascadia Code"

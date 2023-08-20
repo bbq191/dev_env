@@ -1,7 +1,7 @@
 #+TITLE: Personal GNU Emacs Config
 #+AUTHOR: Vinci Xu & Kate Ma
 #+DESCRIPTION: Vinci & Kate's personal Emacs config
-#+OPTIONS: toc:2
+#+OPTIONS: toc:5
 
 * TABLE OF CONTENTS :toc:
 - [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
@@ -13,6 +13,7 @@
 - [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
   - [[#fonts][Fonts]]
   - [[#transparency][Transparency]]
+  - [[#vertico][Vertico]]
 - [[#org-mode][ORG MODE]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -76,8 +77,14 @@
 
 #+begin_src emacs-lisp
   ;; Defer garbage collection further back in the startup process
-  (setq gc-cons-threshold most-positive-fixnum)
-
+  ;;(setq gc-cons-threshold most-positive-fixnum)
+  ;; Adjust garbage collection thresholds during startup, and thereafter
+  (let ((normal-gc-cons-threshold (* 1024 1024 1024))
+        (init-gc-cons-threshold (* 2048 1024 1024)))
+    (setq gc-cons-threshold init-gc-cons-threshold)
+    (add-hook 'elpaca-after-init-hook
+      (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+  
   ;; Prevent flashing of unstyled modeline at startup
   (setq-default mode-line-format nil)
 
@@ -86,6 +93,7 @@
 
   ;; Load `custom-file'
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (add-hook 'elpaca-after-init-hook (lambda () (load custom-file 'noerror)))
 #+end_src
 
 ** User Func and Const
@@ -234,8 +242,42 @@ Fix blank screen issue on macOS.
 #+end_src
 
 ** Necessory Packages
-*** General Keybindings
+*** General Keybinding
+使用general进行按键绑定
 
+#+begin_src emacs-lisp
+  (use-package general :demand t)
+  (elpaca-wait)
+#+end_src
+
+*** Marginalia
+Marginalia is painless to set up
+
+#+begin_src emacs-lisp
+  (use-package marginalia
+    :general
+    (:keymaps 'minibuffer-local-map
+              "M-A" 'marginalia-cycle)
+    :custom
+    (marginalia-max-relative-age 0)
+    (marginalia-align 'right)
+    :init
+    (marginalia-mode))
+#+end_src
+
+*** Icons Completion
+Note: All-the-icons-completion depends on an already installed all-the-icons.
+
+#+begin_src emacs-lisp
+  (use-package all-the-icons
+    :ensure t
+    :if (display-graphic-p))
+
+  (use-package all-the-icons-completion
+    :after (marginalia all-the-icons)
+    :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+    :init (all-the-icons-completion-mode))
+#+end_src
 
 * GRAPHICAL USER INTERFACE TWEAKS 
 ** Fonts
@@ -272,6 +314,9 @@ Emacs 最新 True Transparency 模式 +(add-to-list 'default-frame-alist '(alpha
     (add-hook 'window-setup-hook #'fix-fullscreen)
     (and macsys (bind-key "C-s-f" #'toggle-frame-fullscreen)))
 #+end_src
+
+** Vertico
+
 
 * ORG MODE
 ** Enabling Table of Contents
