@@ -8,6 +8,7 @@ return {
   -- notify customization
   {
     "rcarriga/nvim-notify",
+    enabled = false,
     opts = {
       stages = "slide",
       timeout = 3000,
