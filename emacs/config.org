@@ -5,14 +5,16 @@
 
 * TABLE OF CONTENTS :toc:
 - [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
-  - [[#straight-package-manager][Straight Package Manager]]
   - [[#speed-up-startup][Speed up startup]]
+  - [[#straight-package-manager][Straight Package Manager]]
   - [[#user-func-and-const][User Func and Const]]
   - [[#neecessory-configes][Neecessory Configes]]
   - [[#necessory-packages][Necessory Packages]]
 - [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
   - [[#fonts][Fonts]]
   - [[#transparency][Transparency]]
+  - [[#doom-theme][Doom Theme]]
+  - [[#doom-mode-line][Doom Mode Line]]
   - [[#vertico][Vertico]]
   - [[#orderless][Orderless]]
   - [[#corfu][Corfu]]
@@ -24,6 +26,30 @@
   - [[#org-tag-expands-quick][Org Tag Expands Quick]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
+** Speed up startup
+添加一些必要的设置尽可能快速启动
+
+#+begin_src emacs-lisp
+  ;; Defer garbage collection further back in the startup process
+  ;;(setq gc-cons-threshold most-positive-fixnum)
+  ;; Adjust garbage collection thresholds during startup, and thereafter
+  (let ((normal-gc-cons-threshold (* 1024 1024 1024))
+        (init-gc-cons-threshold (* 2048 1024 1024)))
+    (setq gcr-cons-threshold init-gc-cons-threshold)
+    (add-hook 'emacs-startup-hook
+      (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+  
+  ;; Prevent flashing of unstyled modeline at startup
+  (setq-default mode-line-format nil)
+
+  ;; Don't pass case-insensitive to `auto-mode-alist'
+  (setq auto-mode-case-fold nil)
+
+  ;; Load `custom-file'
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (add-hook 'after-init-hook (lambda () (load custom-file 'noerror)))
+#+end_src
+
 ** Straight Package Manager
 #+begin_src emacs-lisp
   (setq straight-repository-branch "develop")
@@ -49,30 +75,6 @@
   (use-package straight
     :custom
     (straight-use-package-by-default t))
-#+end_src
-
-** Speed up startup
-添加一些必要的设置尽可能快速启动
-
-#+begin_src emacs-lisp
-  ;; Defer garbage collection further back in the startup process
-  ;;(setq gc-cons-threshold most-positive-fixnum)
-  ;; Adjust garbage collection thresholds during startup, and thereafter
-  (let ((normal-gc-cons-threshold (* 1024 1024 1024))
-        (init-gc-cons-threshold (* 2048 1024 1024)))
-    (setq gcr-cons-threshold init-gc-cons-threshold)
-    (add-hook 'emacs-startup-hook
-      (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
-  
-  ;; Prevent flashing of unstyled modeline at startup
-  (setq-default mode-line-format nil)
-
-  ;; Don't pass case-insensitive to `auto-mode-alist'
-  (setq auto-mode-case-fold nil)
-
-  ;; Load `custom-file'
-  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-  (add-hook 'after-init-hook (lambda () (load custom-file 'noerror)))
 #+end_src
 
 ** User Func and Const
@@ -256,6 +258,13 @@ Marginalia is painless to set up
     (marginalia-mode))
 #+end_src
 
+*** Completion
+Auto completed for corfu config.
+
+#+begin_src emacs-lisp
+  (use-package company)
+  (use-package yasnippet)
+#+end_src
 *** Icons Completion
 Note: All-the-icons-completion depends on an already installed all-the-icons.
 
@@ -305,6 +314,34 @@ Emacs 最新 True Transparency 模式 +(add-to-list 'default-frame-alist '(alpha
     (add-hook 'window-setup-hook #'fix-fullscreen)
     (and macsys (bind-key "C-s-f" #'toggle-frame-fullscreen)))
 #+end_src
+
+** Doom Theme
+
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;; Sets the default theme to load!!! 
+  (load-theme 'doom-one t)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  ;; s(doom-themes-neotree-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+#+END_SRC
+
+** Doom Mode Line
+
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config
+  (setq doom-modeline-height 35      ;; sets modeline height
+        doom-modeline-bar-width 5    ;; sets right bar width
+        doom-modeline-persp-name t   ;; adds perspective name to modeline
+        doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
+#+END_SRC
 
 ** Vertico
 Vertico is a minibuffer interface, that is, it changes the minibuffer looks and how you interact with it.
@@ -635,6 +672,7 @@ Cape is to corfu as company-backends are to company
     :custom (cape-dabbrev-min-length 3)
     :init
     ;; Elisp
+    (require 'company-yasnippet)
     (defun kb/cape-capf-ignore-keywords-elisp (cand)
       "Ignore keywords with forms that begin with \":\" (e.g.
   :history)."
@@ -652,7 +690,7 @@ Cape is to corfu as company-backends are to company
       (add-to-list 'completion-at-point-functions #'cape-symbol)
       ;; I prefer this being early/first in the list
       (add-to-list 'completion-at-point-functions #'cape-file)
-      (require 'company-yasnippet)
+      ;; (require 'company-yasnippet)
       (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet)))
 
     ;; LSP
