@@ -136,7 +136,7 @@ This issue has been addressed in 28."
          ([(super w)] . delete-frame)
          ([(super z)] . undo)))
 ;; reload init
-(bind-keys ("C-c r" . reload-init-file))
+(bind-keys ("C-c C-r" . reload-init-file))
 ;; recent file
 (bind-keys ("C-x C-r" . recentf-open-files))
 ;; zooming in/out

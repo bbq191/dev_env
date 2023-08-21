@@ -27,6 +27,7 @@
 - [[#developer][Developer]]
   - [[#lsp-mode][LSP Mode]]
   - [[#language][Language]]
+  - [[#flychecker][FlyChecker]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
 ** Speed up startup
@@ -213,7 +214,7 @@ Fix blank screen issue on macOS.
            ([(super w)] . delete-frame)
            ([(super z)] . undo)))
   ;; reload init
-  (bind-keys ("C-c r" . reload-init-file))
+  (bind-keys ("C-c C-r" . reload-init-file))
   ;; recent file
   (bind-keys ("C-x C-r" . recentf-open-files))
   ;; zooming in/out
@@ -281,6 +282,7 @@ Note: All-the-icons-completion depends on an already installed all-the-icons.
     :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
     :init (all-the-icons-completion-mode))
 #+end_src
+
 
 * GRAPHICAL USER INTERFACE TWEAKS 
 ** Fonts
@@ -917,4 +919,36 @@ Removes "Ind" from showing in the modeline.
   (use-package cargo
     :ensure t
     :hook (rust-mode . cargo-minor-mode))
+#+end_src
+
+*** C/C++
+
+#+begin_src emacs-lisp
+#+end_src
+
+*** XML
+
+#+begin_src emacs-lisp
+  ;; XML
+  (use-package nxml-mode
+    :ensure nil
+    :mode (("\\.xml\\'" . nxml-mode)
+           ("\\.rss\\'" . nxml-mode))
+    :custom
+    (nxml-slash-auto-complete-flag t)
+    (nxml-auto-insert-xml-declaration-flag t))
+#+end_src
+
+*** Yaml
+
+#+begin_src emacs-lisp
+  ;; Config files mode
+  (use-package yaml-mode
+    :ensure t
+    :mode ("\\.ya?ml\\'" . yaml-mode))
+#+end_src
+
+** FlyChecker
+
+#+begin_src emacs-lisp
 #+end_src
