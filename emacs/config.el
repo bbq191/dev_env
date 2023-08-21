@@ -622,3 +622,96 @@ Additionally, add `cape-file' as early as possible to the list."
  '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
 
 (require 'org-tempo)
+
+;; lsp-mode
+(use-package lsp-mode
+  :ensure t
+  :hook (prog-mode . lsp-deferred)
+  :bind (:map lsp-mode-map
+         ("C-c f" . lsp-format-region)
+         ("C-c d" . lsp-describe-thing-at-point)
+         ("C-c a" . lsp-execute-code-action)
+         ("C-c r" . lsp-rename))
+  ;; :config
+  ;; (with-no-warnings
+    ;; (lsp-enable-which-key-integration t))
+  :custom
+  (lsp-keymap-prefix "C-c l")
+  (lsp-enable-links nil)                    ;; no clickable links
+  (lsp-enable-folding nil)                  ;; use `hideshow' instead
+  (lsp-enable-snippet nil)                  ;; no snippets, it requires `yasnippet'
+  (lsp-enable-file-watchers nil)            ;; performance matters
+  (lsp-enable-text-document-color nil)      ;; as above
+  (lsp-enable-symbol-highlighting nil)      ;; as above
+  (lsp-enable-on-type-formatting nil)       ;; as above
+  (lsp-semantic-tokens-enable nil)          ;; optional
+  (lsp-semantic-tokens-apply-modifiers nil) ;; don't override token faces
+  (lsp-headerline-breadcrumb-enable nil)    ;; keep headline clean
+  (lsp-modeline-code-actions-enable nil)    ;; keep modeline clean
+  (lsp-modeline-diagnostics-enable nil)     ;; as above
+  (lsp-log-io nil)                          ;; debug only
+  (lsp-auto-guess-root t)                   ;; Yes, I'm using projectile
+  (lsp-completion-provider :none)           ;; don't add `company-capf' to `company-backends'
+  (lsp-keep-workspace-alive nil)            ;; auto kill lsp server
+  (lsp-eldoc-enable-hover nil))             ;; disable eldoc hover
+
+;; eglot
+(use-package eglot
+  :disabled
+  :hook (prog-mode . eglot-ensure)
+  :bind (:map eglot-mode-map
+         ("C-c f" . eglot-format)
+         ("C-c d" . eldoc-doc-buffer)
+         ("C-c a" . eglot-code-actions)
+         ("C-c r" . eglot-rename)
+         ("C-c l" . eglot-command-map))
+  :config
+  (defvar-keymap eglot-command-map
+    :prefix 'eglot-command-map
+    ;; workspaces
+    "w q" #'eglot-shutdown
+    "w r" #'eglot-reconnect
+    "w s" #'eglot
+    "w d" #'eglot-show-workspace-configuration
+
+    ;; formatting
+    "= =" #'eglot-format-buffer
+    "= r" #'eglot-format
+
+    ;; goto
+    "g a" #'xref-find-apropos
+    "g d" #'eglot-find-declaration
+    "g g" #'xref-find-definitions
+    "g i" #'eglot-find-implementation
+    "g r" #'xref-find-references
+    "g t" #'eglot-find-typeDefinition
+
+    ;; actions
+    "a q" #'eglot-code-action-quickfix
+    "a r" #'eglot-code-action-rewrite
+    "a i" #'eglot-code-action-inline
+    "a e" #'eglot-code-action-extract
+    "a o" #'eglot-code-action-organize-imports)
+  :custom
+  (eglot-sync-connect 0)
+  (eglot-autoshutdown t)
+  (eglot-extend-to-xref t)
+  (eglot-events-buffer-size 0)
+  (eglot-ignored-server-capabilities '(:documentLinkProvider
+                                       :documentOnTypeFormattingProvider)))
+
+(use-package rust-mode
+  :ensure t
+  :mode ("\\.rs\\'" . rust-mode)
+  :config
+  (with-no-warnings
+    (with-eval-after-load 'lsp-mode
+      (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-extern-crate"])))
+  :custom
+  (rust-format-show-buffer nil)
+  (rust-format-on-save (executable-find "rustfmt")))
+
+;; Cargo integration
+(use-package cargo
+  :ensure t
+  :hook (rust-mode . cargo-minor-mode))
