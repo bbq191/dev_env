@@ -112,7 +112,7 @@ This issue has been addressed in 28."
 (setq frame-resize-pixelwise t);; 设置框架调整大小时以像素为单位。
 ;; line number
 (global-display-line-numbers-mode 1)
-(global-visual-line-mode t)
+;; (global-visual-line-mode t)
 ;; (setq display-line-numbers-type 'relative)
 (setq-default bidi-paragraph-direction 'left-to-right) ; 修改双向文字排版为从左到右
 (setq bidi-inhibit-bpa t)
@@ -710,6 +710,16 @@ Additionally, add `cape-file' as early as possible to the list."
   (lsp-completion-provider :none)           ;; don't add `company-capf' to `company-backends'
   (lsp-keep-workspace-alive nil)            ;; auto kill lsp server
   (lsp-eldoc-enable-hover nil)              ;; disable eldoc hover
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  (lsp-rust-analyzer-server-display-inlay-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (lsp-rust-analyzer-display-chaining-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (lsp-rust-analyzer-display-closure-return-type-hints t)
+  (lsp-rust-analyzer-display-parameter-hints nil)
+  (lsp-rust-analyzer-display-reborrow-hints nil)
+
+
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
@@ -784,17 +794,8 @@ Additionally, add `cape-file' as early as possible to the list."
   ;; (setq lsp-eldoc-hook nil)
   ;; (setq lsp-enable-symbol-highlighting nil)
   ;; (setq lsp-signature-auto-activate nil)
-  (setq lsp-rust-analyzer-server-command
-        (list (string-trim (shell-command-to-string "rustup which rust-analyzer"))))
-  (setq lsp-rust-analyzer-cargo-watch-command "clippy")
-  (setq lsp-rust-analyzer-server-display-inlay-hints t)
-  (setq lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
-  (setq lsp-rust-analyzer-display-chaining-hints t)
-  (setq lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
-  (setq lsp-rust-analyzer-display-closure-return-type-hints t)
-  (setq lsp-rust-analyzer-display-parameter-hints nil)
-  (setq lsp-rust-analyzer-display-reborrow-hints nil)
-
+  (setq rustic-analyzer-command '("~/.local/share/cargo/bin/rust-analyzer"))
+  (setq rustic-flycheck-clippy-params "--message-format=json -Zunstable-options")
   ;; comment to disable rustfmt on save
   (add-hook 'rustic-mode-hook 'kv/rustic-mode-hook))
 
@@ -832,6 +833,6 @@ Additionally, add `cape-file' as early as possible to the list."
 (with-eval-after-load 'flycheck
   (add-hook 'flycheck-mode-hook #'flycheck-inline-mode))
 ;; for rust
-(use-package flycheck-rust)
-(with-eval-after-load 'rust-mode
+(use-package flycheck-rust
+  :init
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
