@@ -1,11 +1,5 @@
 ;; Defer garbage collection further back in the startup process
-;;(setq gc-cons-threshold most-positive-fixnum)
-;; Adjust garbage collection thresholds during startup, and thereafter
-(let ((normal-gc-cons-threshold (* 1024 1024 1024))
-      (init-gc-cons-threshold (* 2048 1024 1024)))
-  (setq gcr-cons-threshold init-gc-cons-threshold)
-  (add-hook 'emacs-startup-hook
-    (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+(setq gc-cons-threshold most-positive-fixnum)
 
 ;; Prevent flashing of unstyled modeline at startup
 (setq-default mode-line-format nil)
@@ -41,6 +35,8 @@
   :custom
   (straight-use-package-by-default t))
 
+(defconst vk/macsys (eq system-type 'darwin))
+
 (defun reload-init-file ()
   (interactive)
   (load-file user-init-file)
@@ -61,11 +57,9 @@
 (defun fix-fullscreen ()
   "Address blank screen issue with child-frame in fullscreen.
 This issue has been addressed in 28."
-  (and macsys
+  (and vk/macsys
        (bound-and-true-p ns-use-native-fullscreen)
        (setq ns-use-native-fullscreen nil)))
-
-(defconst macsys (eq system-type 'darwin))
 
 (if (boundp 'use-short-answers)
     (setq use-short-answers t)
@@ -81,7 +75,8 @@ This issue has been addressed in 28."
       delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
       make-backup-files nil             ; Forbide to make backup files
       auto-save-default nil             ; Disable auto save
-
+      ring-bell-function 'ignore        ; No annoying bell
+      blink-cursor-mode nil             ; No eyes distraction
       uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
       adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
       adaptive-fill-first-line-regexp "^* *$"
@@ -118,9 +113,8 @@ This issue has been addressed in 28."
 ;; line number
 (global-display-line-numbers-mode 1)
 (global-visual-line-mode t)
-(setq display-line-numbers-type 'relative)
-;; 修改双向文字排版为从左到右
-(setq-default bidi-paragraph-direction 'left-to-right)
+;; (setq display-line-numbers-type 'relative)
+(setq-default bidi-paragraph-direction 'left-to-right) ; 修改双向文字排版为从左到右
 (setq bidi-inhibit-bpa t)
 
 (with-no-warnings
@@ -136,7 +130,7 @@ This issue has been addressed in 28."
          ([(super w)] . delete-frame)
          ([(super z)] . undo)))
 ;; reload init
-(bind-keys ("C-c C-r" . reload-init-file))
+(bind-keys ("C-s-r" . reload-init-file))
 ;; recent file
 (bind-keys ("C-x C-r" . recentf-open-files))
 ;; zooming in/out
@@ -153,6 +147,11 @@ This issue has been addressed in 28."
 
 (use-package no-littering)
 
+(use-package exec-path-from-shell
+  :ensure t
+  :when (eq system-type 'darwin)
+  :hook (after-init . exec-path-from-shell-initialize))
+
 (use-package marginalia
   :general
   (:keymaps 'minibuffer-local-map
@@ -164,7 +163,12 @@ This issue has been addressed in 28."
   (marginalia-mode))
 
 (use-package company)
-(use-package yasnippet)
+(use-package yasnippet
+  :ensure
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
+  (add-hook 'text-mode-hook 'yas-minor-mode))
 
 (use-package all-the-icons
   :ensure t
@@ -177,15 +181,15 @@ This issue has been addressed in 28."
 
 (set-face-attribute 'default nil
     :font "Cascadia Code"
-    :height 130
+    :height 150
     :weight 'regular)
 (set-face-attribute 'variable-pitch nil
     :font "Symbols Nerd Font"
-    :height 130
+    :height 150
     :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
     :font "FiraCode Nerd Font"
-    :height 130
+    :height 150
     :weight 'regular)
 
 (set-face-attribute 'font-lock-keyword-face nil
@@ -193,12 +197,12 @@ This issue has been addressed in 28."
 (set-face-attribute 'font-lock-comment-face nil
     :slant 'italic)
 
-(add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-13"))
+(add-to-list 'default-frame-alist '(font . "Cascadia Code-15"))
 (setq-default line-spacing 0.12)
 
 (when (display-graphic-p)
   (add-hook 'window-setup-hook #'fix-fullscreen)
-  (and macsys (bind-key "C-s-f" #'toggle-frame-fullscreen)))
+  (and vk/macsys (bind-key "C-s-f" #'toggle-frame-fullscreen)))
 
 (use-package doom-themes
 :config
@@ -322,6 +326,51 @@ This issue has been addressed in 28."
                                                "  ")
                                              cand))))
 
+(use-package embark
+  :ensure t
+  :bind (:map minibuffer-local-map
+         ("M-o"     . embark-act)
+         ("C-c C-c" . embark-export)
+         ("C-c C-o" . embark-collect)))
+
+(use-package consult
+  :ensure t
+  :bind (([remap imenu]                  . consult-imenu)
+         ([remap goto-line]              . consult-goto-line)
+         ([remap bookmark-jump]          . consult-bookmark)
+         ([remap recentf-open-files]     . consult-recent-file)
+         ([remap repeat-complex-command] . consult-complex-command)
+         ([remap jump-to-register]       . consult-register-load)
+         ([remap point-to-register]      . consult-register-store))
+  :config
+  (with-no-warnings
+    (consult-customize consult-ripgrep consult-git-grep consult-grep
+                       consult-bookmark
+                       consult-recent-file
+                       consult-buffer
+                       :preview-key nil))
+
+  ;; Optionally configure the register formatting. This improves the register
+  ;; preview for `consult-register', `consult-register-load',
+  ;; `consult-register-store' and the Emacs built-ins.
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  ;; Optionally tweak the register preview window.
+  ;; This adds thin lines, sorting and hides the mode line of the window.
+  (advice-add #'register-preview :override #'consult-register-window)
+  :custom
+  (consult-fontify-preserve nil)
+  (consult-async-min-input 2)
+  (consult-async-refresh-delay 0.15)
+  (consult-async-input-throttle 0.2)
+  (consult-async-input-debounce 0.1))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t
+  :after embark consult)
+
 (use-package orderless
   :custom
   (completion-styles '(orderless))
@@ -405,7 +454,7 @@ parses its input."
    "C-p" #'corfu-previous
    "<escape>" #'corfu-quit
    "<return>" #'corfu-insert
-   "H-SPC" #'corfu-insert-separator
+   "M-s-SPC" #'corfu-insert-separator
    ;; "SPC" #'corfu-insert-separator ; Use when `corfu-quit-at-boundary' is non-nil
    "M-d" #'corfu-show-documentation
    "C-g" #'corfu-quit
@@ -475,29 +524,29 @@ default lsp-passthrough."
           '(orderless))))
 
 (use-package kind-icon
-:after corfu
-:custom
-(kind-icon-use-icons t)
-(kind-icon-default-face 'corfu-default) ; Have background color be the same as `corfu' face background
-(kind-icon-blend-background nil)  ; Use midpoint color between foreground and background colors ("blended")?
-(kind-icon-blend-frac 0.08)
+  :after corfu
+  :custom
+  (kind-icon-use-icons t)
+  (kind-icon-default-face 'corfu-default) ; Have background color be the same as `corfu' face background
+  (kind-icon-blend-background nil)  ; Use midpoint color between foreground and background colors ("blended")?
+  (kind-icon-blend-frac 0.08)
 
-;; NOTE 2022-02-05: `kind-icon' depends `svg-lib' which creates a cache
-;; directory that defaults to the `user-emacs-directory'. Here, I change that
-;; directory to a location appropriate to `no-littering' conventions, a
-;; package which moves directories of other packages to sane locations.
-(svg-lib-icons-dir (no-littering-expand-var-file-name "svg-lib/cache/")) ; Change cache dir
-:config
-(add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter) ; Enable `kind-icon'
+  ;; NOTE 2022-02-05: `kind-icon' depends `svg-lib' which creates a cache
+  ;; directory that defaults to the `user-emacs-directory'. Here, I change that
+  ;; directory to a location appropriate to `no-littering' conventions, a
+  ;; package which moves directories of other packages to sane locations.
+  (svg-lib-icons-dir (no-littering-expand-var-file-name "svg-lib/cache/")) ; Change cache dir
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter) ; Enable `kind-icon'
 
-;; Add hook to reset cache so the icon colors match my theme
-;; NOTE 2022-02-05: This is a hook which resets the cache whenever I switch
-;; the theme using my custom defined command for switching themes. If I don't
-;; do this, then the backgound color will remain the same, meaning it will not
-;; match the background color corresponding to the current theme. Important
-;; since I have a light theme and dark theme I switch between. This has no
-;; function unless you use something similar
-(add-hook 'kb/themes-hooks #'(lambda () (interactive) (kind-icon-reset-cache))))
+  ;; Add hook to reset cache so the icon colors match my theme
+  ;; NOTE 2022-02-05: This is a hook which resets the cache whenever I switch
+  ;; the theme using my custom defined command for switching themes. If I don't
+  ;; do this, then the backgound color will remain the same, meaning it will not
+  ;; match the background color corresponding to the current theme. Important
+  ;; since I have a light theme and dark theme I switch between. This has no
+  ;; function unless you use something similar
+  (add-hook 'kb/themes-hooks #'(lambda () (interactive) (kind-icon-reset-cache))))
 
 (use-package cape
   :hook ((emacs-lisp-mode .  kb/cape-capf-setup-elisp)
@@ -507,25 +556,28 @@ default lsp-passthrough."
          (git-commit-mode . kb/cape-capf-setup-git-commit)
          (sh-mode . kb/cape-capf-setup-sh))
   :general (:prefix "M-p"               ; Particular completion function
-            "p" 'completion-at-point
-            "t" 'complete-tag           ; etags
-            "d" 'cape-dabbrev           ; or dabbrev-completion
-            "f" 'cape-file
-            "k" 'cape-keyword
-            "s" 'cape-symbol
-            "a" 'cape-abbrev
-            "i" 'cape-ispell
-            "l" 'cape-line
-            "w" 'cape-dict
-            "\\"'cape-tex
-            "_" 'cape-tex
-            "^" 'cape-tex
-            "&" 'cape-sgml
-            "r" 'cape-rfc1345)
+                    "p" 'completion-at-point
+                    "t" 'complete-tag           ; etags
+                    "d" 'cape-dabbrev           ; or dabbrev-completion
+                    "f" 'cape-file
+                    "k" 'cape-keyword
+                    "s" 'cape-lisp-symbol
+                    "a" 'cape-abbrev
+                    "i" 'cape-ispell
+                    "l" 'cape-line
+                    "w" 'cape-dict
+                    "\\"'cape-tex
+                    "_" 'cape-tex
+                    "^" 'cape-tex
+                    "&" 'cape-sgml
+                    "r" 'cape-rfc1345)
   :custom (cape-dabbrev-min-length 3)
   :init
+  ;; Add to the global default value of `completion-at-point-functions' which is
+  ;; used by `completion-at-point'.  The order of the functions matters, the
+  ;; first function returning a result wins.  Note that the list of buffer-local
+  ;; completion functions takes precedence over the global list.
   ;; Elisp
-  (require 'company-yasnippet)
   (defun kb/cape-capf-ignore-keywords-elisp (cand)
     "Ignore keywords with forms that begin with \":\" (e.g.
 :history)."
@@ -540,10 +592,10 @@ variable entirely, or adding to list).
 Additionally, add `cape-file' as early as possible to the list."
     (setf (elt (cl-member 'elisp-completion-at-point completion-at-point-functions) 0)
           #'elisp-completion-at-point)
-    (add-to-list 'completion-at-point-functions #'cape-symbol)
+    (add-to-list 'completion-at-point-functions #'cape-lisp-symbol)
     ;; I prefer this being early/first in the list
     (add-to-list 'completion-at-point-functions #'cape-file)
-    ;; (require 'company-yasnippet)
+    (require 'company-yasnippet)
     (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet)))
 
   ;; LSP
@@ -565,18 +617,16 @@ Additionally, add `cape-file' as early as possible to the list."
         (org-roam--register-completion-functions-h)
       (let (result)
         (dolist (element (list
-                          (cape-super-capf #'cape-ispell #'cape-dabbrev)
+                          (cape-capf-super #'cape-ispell #'cape-dabbrev)
                           (cape-company-to-capf #'company-yasnippet))
                          result)
-          (add-to-list 'completion-at-point-functions element)))
-      ))
+          (add-to-list 'completion-at-point-functions element)))))
 
   ;; Eshell
   (defun kb/cape-capf-setup-eshell ()
     (let ((result))
       (dolist (element '(pcomplete-completions-at-point cape-file) result)
-        (add-to-list 'completion-at-point-functions element))
-      ))
+        (add-to-list 'completion-at-point-functions element))))
 
   ;; Git-commit
   (defun kb/cape-capf-setup-git-commit ()
@@ -592,20 +642,26 @@ Additionally, add `cape-file' as early as possible to the list."
   (defun kb/cape-capf-setup-sh ()
     (require 'company-shell)
     (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-shell)))
-  :config
-  ;; For pcomplete. For now these two advices are strongly recommended to
-  ;; achieve a sane Eshell experience. See
-  ;; https://github.com/minad/corfu#completing-with-corfu-in-the-shell-or-eshell
+    :config
+    ;; For pcomplete. For now these two advices are strongly recommended to
+    ;; achieve a sane Eshell experience. See
+    ;; https://github.com/minad/corfu#completing-with-corfu-in-the-shell-or-eshell
+    ;; Silence the pcomplete capf, no errors or messages!
+    (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+    ;; Ensure that pcomplete does not write to the buffer and behaves as a pure
+    ;; `completion-at-point-function'.
+    (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 
-  ;; Silence the pcomplete capf, no errors or messages!
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-  ;; Ensure that pcomplete does not write to the buffer and behaves as a pure
-  ;; `completion-at-point-function'.
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map)))
 
 (use-package toc-org
-    :commands toc-org-enable
-    :init (add-hook 'org-mode-hook 'toc-org-enable))
+  :commands toc-org-enable
+  :init (add-hook 'org-mode-hook 'toc-org-enable))
 
 (add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
@@ -628,13 +684,13 @@ Additionally, add `cape-file' as early as possible to the list."
   :ensure t
   :hook (prog-mode . lsp-deferred)
   :bind (:map lsp-mode-map
-         ("C-c f" . lsp-format-region)
-         ("C-c d" . lsp-describe-thing-at-point)
-         ("C-c a" . lsp-execute-code-action)
-         ("C-c r" . lsp-rename))
+              ("C-c f" . lsp-format-region)
+              ("C-c d" . lsp-describe-thing-at-point)
+              ("C-c a" . lsp-execute-code-action)
+              ("C-c r" . lsp-rename))
   ;; :config
   ;; (with-no-warnings
-    ;; (lsp-enable-which-key-integration t))
+  ;; (lsp-enable-which-key-integration t))
   :custom
   (lsp-keymap-prefix "C-c l")
   (lsp-enable-links nil)                    ;; no clickable links
@@ -642,29 +698,30 @@ Additionally, add `cape-file' as early as possible to the list."
   (lsp-enable-snippet nil)                  ;; no snippets, it requires `yasnippet'
   (lsp-enable-file-watchers nil)            ;; performance matters
   (lsp-enable-text-document-color nil)      ;; as above
-  (lsp-enable-symbol-highlighting nil)      ;; as above
+  (lsp-enable-symbol-highlighting t)        ;; as above
   (lsp-enable-on-type-formatting nil)       ;; as above
   (lsp-semantic-tokens-enable nil)          ;; optional
   (lsp-semantic-tokens-apply-modifiers nil) ;; don't override token faces
   (lsp-headerline-breadcrumb-enable nil)    ;; keep headline clean
   (lsp-modeline-code-actions-enable nil)    ;; keep modeline clean
-  (lsp-modeline-diagnostics-enable nil)     ;; as above
+  (lsp-modeline-diagnostics-enable t)       ;; as above
   (lsp-log-io nil)                          ;; debug only
   (lsp-auto-guess-root t)                   ;; Yes, I'm using projectile
   (lsp-completion-provider :none)           ;; don't add `company-capf' to `company-backends'
   (lsp-keep-workspace-alive nil)            ;; auto kill lsp server
-  (lsp-eldoc-enable-hover nil))             ;; disable eldoc hover
+  (lsp-eldoc-enable-hover nil)              ;; disable eldoc hover
+  :config
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
-;; eglot
 (use-package eglot
   :disabled
   :hook (prog-mode . eglot-ensure)
   :bind (:map eglot-mode-map
-         ("C-c f" . eglot-format)
-         ("C-c d" . eldoc-doc-buffer)
-         ("C-c a" . eglot-code-actions)
-         ("C-c r" . eglot-rename)
-         ("C-c l" . eglot-command-map))
+              ("C-c f" . eglot-format)
+              ("C-c d" . eldoc-doc-buffer)
+              ("C-c a" . eglot-code-actions)
+              ("C-c r" . eglot-rename)
+              ("C-c l" . eglot-command-map))
   :config
   (defvar-keymap eglot-command-map
     :prefix 'eglot-command-map
@@ -700,18 +757,81 @@ Additionally, add `cape-file' as early as possible to the list."
   (eglot-ignored-server-capabilities '(:documentLinkProvider
                                        :documentOnTypeFormattingProvider)))
 
-(use-package rust-mode
-  :ensure t
-  :mode ("\\.rs\\'" . rust-mode)
-  :config
-  (with-no-warnings
-    (with-eval-after-load 'lsp-mode
-      (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-extern-crate"])))
+(use-package lsp-ui
+  :ensure
+  :commands lsp-ui-mode
   :custom
-  (rust-format-show-buffer nil)
-  (rust-format-on-save (executable-find "rustfmt")))
+  (lsp-ui-peek-always-show t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-doc-enable nil))
 
-;; Cargo integration
-(use-package cargo
+(use-package rustic
+  :ensure
+  :bind (:map rustic-mode-map
+              ("M-j" . lsp-ui-imenu)
+              ("M-?" . lsp-find-references)
+              ("C-c C-c l" . flycheck-list-errors)
+              ("C-c C-c a" . lsp-execute-code-action)
+              ("C-c C-c r" . lsp-rename)
+              ("C-c C-c q" . lsp-workspace-restart)
+              ("C-c C-c Q" . lsp-workspace-shutdown)
+              ("C-c C-c s" . lsp-rust-analyzer-status)
+              ("C-c C-c e" . lsp-rust-analyzer-expand-macro)
+              ("C-c C-c d" . dap-hydra)
+              ("C-c C-c h" . lsp-ui-doc-glance))
+  :config
+  ;; uncomment for less flashiness
+  ;; (setq lsp-eldoc-hook nil)
+  ;; (setq lsp-enable-symbol-highlighting nil)
+  ;; (setq lsp-signature-auto-activate nil)
+  (setq lsp-rust-analyzer-server-command
+        (list (string-trim (shell-command-to-string "rustup which rust-analyzer"))))
+  (setq lsp-rust-analyzer-cargo-watch-command "clippy")
+  (setq lsp-rust-analyzer-server-display-inlay-hints t)
+  (setq lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (setq lsp-rust-analyzer-display-chaining-hints t)
+  (setq lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (setq lsp-rust-analyzer-display-closure-return-type-hints t)
+  (setq lsp-rust-analyzer-display-parameter-hints nil)
+  (setq lsp-rust-analyzer-display-reborrow-hints nil)
+
+  ;; comment to disable rustfmt on save
+  (add-hook 'rustic-mode-hook 'kv/rustic-mode-hook))
+
+(defun kv/rustic-mode-hook ()
+  ;; so that run C-c C-c C-r works without having to confirm, but don't try to
+  ;; save rust buffers that are not file visiting. Once
+  ;; https://github.com/brotzeit/rustic/issues/253 has been resolved this should
+  ;; no longer be necessary.
+  (when buffer-file-name
+    (setq-local buffer-save-without-query t))
+  (add-hook 'before-save-hook 'lsp-format-buffer nil t))
+
+(use-package rust-playground :ensure)
+
+(use-package toml-mode :ensure)
+
+
+
+;; Config files mode
+(use-package yaml-mode
   :ensure t
-  :hook (rust-mode . cargo-minor-mode))
+  :mode ("\\.ya?ml\\'" . yaml-mode))
+
+(use-package flycheck
+  :ensure t
+  :hook (prog-mode . flycheck-mode)
+  :custom
+  (flycheck-temp-prefix ".flycheck")
+  (flycheck-check-syntax-automatically '(save mode-enabled))
+  (flycheck-emacs-lisp-load-path 'inherit)
+  (flycheck-indication-mode 'right-fringe))
+
+;; inline
+(use-package flycheck-inline)
+(with-eval-after-load 'flycheck
+  (add-hook 'flycheck-mode-hook #'flycheck-inline-mode))
+;; for rust
+(use-package flycheck-rust)
+(with-eval-after-load 'rust-mode
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
