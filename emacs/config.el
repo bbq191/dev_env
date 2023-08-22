@@ -654,10 +654,25 @@ Additionally, add `cape-file' as early as possible to the list."
 
 (use-package projectile
   :ensure t
-  :init
-  (projectile-mode +1)
+  :hook (after-init . projectile-mode)
   :bind (:map projectile-mode-map
-              ("C-c p" . projectile-command-map)))
+         ("C-c p" . projectile-command-map))
+  :config
+  (dolist (dir '("bazel-bin"
+                 "bazel-out"
+                 "bazel-testlogs"))
+    (add-to-list 'projectile-globally-ignored-directories dir))
+  :custom
+  (projectile-use-git-grep t)
+  (projectile-indexing-method 'alien)
+  (projectile-kill-buffers-filter 'kill-only-files)
+  ;; Ignore uninteresting files. It has no effect when using alien mode.
+  (projectile-globally-ignored-files '("TAGS" "tags" ".DS_Store"))
+  (projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o" ".swp" ".so" ".a"))
+  (projectile-ignored-projects `("~/"
+                                 "/tmp/"
+                                 "/private/tmp/"
+                                 ,package-user-dir)))
 
 (use-package toc-org
   :commands toc-org-enable
@@ -695,7 +710,7 @@ Additionally, add `cape-file' as early as possible to the list."
   (lsp-keymap-prefix "C-c l")
   (lsp-enable-links nil)                    ;; no clickable links
   (lsp-enable-folding nil)                  ;; use `hideshow' instead
-  (lsp-enable-snippet nil)                  ;; no snippets, it requires `yasnippet'
+  (lsp-enable-snippet t)                    ;; no snippets, it requires `yasnippet'
   (lsp-enable-file-watchers nil)            ;; performance matters
   (lsp-enable-text-document-color nil)      ;; as above
   (lsp-enable-symbol-highlighting t)        ;; as above
@@ -718,7 +733,6 @@ Additionally, add `cape-file' as early as possible to the list."
   (lsp-rust-analyzer-display-closure-return-type-hints t)
   (lsp-rust-analyzer-display-parameter-hints nil)
   (lsp-rust-analyzer-display-reborrow-hints nil)
-
 
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
@@ -772,7 +786,10 @@ Additionally, add `cape-file' as early as possible to the list."
   :commands lsp-ui-mode
   :custom
   (lsp-ui-peek-always-show t)
-  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-sideline-show-hover nil)
+
+
+  (lsp-ui-sideline-enable nil)
   (lsp-ui-doc-enable nil))
 
 (use-package rustic
@@ -794,8 +811,10 @@ Additionally, add `cape-file' as early as possible to the list."
   ;; (setq lsp-eldoc-hook nil)
   ;; (setq lsp-enable-symbol-highlighting nil)
   ;; (setq lsp-signature-auto-activate nil)
-  (setq rustic-analyzer-command '("~/.local/share/cargo/bin/rust-analyzer"))
-  (setq rustic-flycheck-clippy-params "--message-format=json -Zunstable-options")
+  (push 'rustic-clippy flycheck-checkers)
+  :custom
+  (rustic-analyzer-command '("~/.local/share/cargo/bin/rust-analyzer"))
+  (rustic-flycheck-clippy-params "--message-format=json -Zunstable-options")
   ;; comment to disable rustfmt on save
   (add-hook 'rustic-mode-hook 'kv/rustic-mode-hook))
 
@@ -836,3 +855,22 @@ Additionally, add `cape-file' as early as possible to the list."
 (use-package flycheck-rust
   :init
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+(use-package which-key
+  :init
+    (which-key-mode 1)
+  :diminish
+  :config
+  (setq which-key-side-window-location 'bottom
+      which-key-sort-order #'which-key-key-order-alpha
+      which-key-allow-imprecise-window-fit nil
+      which-key-sort-uppercase-first nil
+      which-key-add-column-padding 1
+      which-key-max-display-columns nil
+      which-key-min-display-lines 6
+      which-key-side-window-slot -10
+      which-key-side-window-max-height 0.25
+      which-key-idle-delay 0.8
+      which-key-max-description-length 25
+      which-key-allow-imprecise-window-fit nil
+      which-key-separator " → " ))
