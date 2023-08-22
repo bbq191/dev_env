@@ -37,6 +37,12 @@
 
 (defconst vk/macsys (eq system-type 'darwin))
 
+(defun vk/newline-at-end-of-line ()
+  "Move to end of line, enter a newline, and reindent."
+  (interactive)
+  (move-end-of-line 1)
+  (newline-and-indent))
+
 (defun reload-init-file ()
   (interactive)
   (load-file user-init-file)
@@ -61,6 +67,7 @@ This issue has been addressed in 28."
        (bound-and-true-p ns-use-native-fullscreen)
        (setq ns-use-native-fullscreen nil)))
 
+(add-hook 'window-setup-hook #'toggle-frame-maximized)
 (if (boundp 'use-short-answers)
     (setq use-short-answers t)
   (fset 'yes-or-no-p 'y-or-n-p))
@@ -68,21 +75,27 @@ This issue has been addressed in 28."
 (setq-default major-mode 'text-mode
               fill-column 80
               tab-width 4
-              indent-tabs-mode nil)     ; Permanently indent with spaces, never with TABs
-
-(setq visible-bell t
-      inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
-      delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
-      make-backup-files nil             ; Forbide to make backup files
-      auto-save-default nil             ; Disable auto save
-      ring-bell-function 'ignore        ; No annoying bell
-      blink-cursor-mode nil             ; No eyes distraction
-      uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
-      adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
-      adaptive-fill-first-line-regexp "^* *$"
-      sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
-      sentence-end-double-space nil
-      word-wrap-by-category t)
+              display-line-numbers-width 3
+              indicate-buffer-boundaries 'left
+              display-fill-column-indicator-character ?\u254e
+              indent-tabs-mode nil     ; Permanently indent with spaces, never with TABs
+              visible-bell t
+              inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
+              delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
+              make-backup-files nil             ; Forbide to make backup files
+              auto-save-default nil             ; Disable auto save
+              ring-bell-function 'ignore        ; No annoying bell
+              blink-cursor-mode nil             ; No eyes distraction
+              uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
+              adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+              adaptive-fill-first-line-regexp "^* *$"
+              sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+              sentence-end-double-space nil
+              create-lockfiles nil
+              word-wrap-by-category t
+              truncate-lines nil
+              truncate-partial-width-windows nil
+              save-interprogram-paste-before-kill t)
 
 (desktop-save-mode 1)
 (save-place-mode 1)
@@ -140,6 +153,15 @@ This issue has been addressed in 28."
 (global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
 (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
+;; Insert new line
+(global-set-key (kbd "S-<return>") 'vk/newline-at-end-of-line)
+
+(use-package move-dup)
+(global-set-key [M-S-up] 'move-dup-move-lines-up)
+(global-set-key [M-S-down] 'move-dup-move-lines-down)
+
+(global-set-key (kbd "C-c d") 'move-dup-duplicate-down)
+(global-set-key (kbd "C-c u") 'move-dup-duplicate-up)
 
 (use-package diminish)
 
@@ -179,17 +201,21 @@ This issue has been addressed in 28."
   :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
   :init (all-the-icons-completion-mode))
 
+(use-package page-break-lines
+  :hook (after-init . global-page-break-lines-mode)
+  :init (diminish 'page-break-lines-mode))
+
 (set-face-attribute 'default nil
     :font "Cascadia Code"
-    :height 150
+    :height 130
     :weight 'regular)
 (set-face-attribute 'variable-pitch nil
     :font "Symbols Nerd Font"
-    :height 150
+    :height 130
     :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
     :font "FiraCode Nerd Font"
-    :height 150
+    :height 130
     :weight 'regular)
 
 (set-face-attribute 'font-lock-keyword-face nil
@@ -198,6 +224,10 @@ This issue has been addressed in 28."
     :slant 'italic)
 
 (add-to-list 'default-frame-alist '(font . "Cascadia Code-15"))
+
+;; 中文字体修正
+(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "Source Han Sans CN" :size 12) nil 'prepend)
+
 (setq-default line-spacing 0.12)
 
 (when (display-graphic-p)
@@ -703,9 +733,8 @@ Additionally, add `cape-file' as early as possible to the list."
               ("C-c d" . lsp-describe-thing-at-point)
               ("C-c a" . lsp-execute-code-action)
               ("C-c r" . lsp-rename))
-  ;; :config
-  ;; (with-no-warnings
-  ;; (lsp-enable-which-key-integration t))
+  :config (with-no-warnings
+          (lsp-enable-which-key-integration t))
   :custom
   (lsp-keymap-prefix "C-c l")
   (lsp-enable-links nil)                    ;; no clickable links
@@ -725,7 +754,8 @@ Additionally, add `cape-file' as early as possible to the list."
   (lsp-completion-provider :none)           ;; don't add `company-capf' to `company-backends'
   (lsp-keep-workspace-alive nil)            ;; auto kill lsp server
   (lsp-eldoc-enable-hover nil)              ;; disable eldoc hover
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  ;; 指定 flycheck 使用 clippy
+  ;; (lsp-rust-analyzer-cargo-watch-command "clippy")
   (lsp-rust-analyzer-server-display-inlay-hints t)
   (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
   (lsp-rust-analyzer-display-chaining-hints t)

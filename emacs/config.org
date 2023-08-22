@@ -11,6 +11,7 @@
     - [[#const][Const]]
       - [[#is-mac][Is Mac]]
     - [[#function][Function]]
+      - [[#new-line][New Line]]
       - [[#reload-init][Reload Init]]
       - [[#adjust-opacity][Adjust Opacity]]
       - [[#fix-fullscreen][Fix fullscreen]]
@@ -19,6 +20,8 @@
     - [[#part-of-gnu-emacs][Part of GNU Emacs]]
       - [[#basic-setting][Basic Setting]]
     - [[#global-keybinding][Global Keybinding]]
+      - [[#basic][Basic]]
+      - [[#move-updown][Move Up/Down]]
   - [[#necessory-packages][Necessory Packages]]
     - [[#diminish][Diminish]]
     - [[#general-keybinding][General Keybinding]]
@@ -28,6 +31,7 @@
     - [[#completion][Completion]]
     - [[#icons-completion][Icons Completion]]
 - [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
+  - [[#page-break-lines][Page Break Lines]]
   - [[#fonts][Fonts]]
   - [[#transparency][Transparency]]
   - [[#doom-theme][Doom Theme]]
@@ -115,6 +119,17 @@
 #+end_src
 
 *** Function
+**** New Line
+Newline behaviour
+
+#+begin_src emacs-lisp
+  (defun vk/newline-at-end-of-line ()
+    "Move to end of line, enter a newline, and reindent."
+    (interactive)
+    (move-end-of-line 1)
+    (newline-and-indent))
+#+end_src
+
 **** Reload Init
 This is just an example of how to create a simple function in Emacs.
 Use this function to reload Emacs after adding changes to the config.
@@ -162,28 +177,35 @@ Fix blank screen issue on macOS.
 一些混合设置
 
 #+begin_src emacs-lisp
-    (if (boundp 'use-short-answers)
-        (setq use-short-answers t)
-      (fset 'yes-or-no-p 'y-or-n-p))
-  
-    (setq-default major-mode 'text-mode
-                  fill-column 80
-                  tab-width 4
-                  indent-tabs-mode nil)     ; Permanently indent with spaces, never with TABs
+  (add-hook 'window-setup-hook #'toggle-frame-maximized)
+  (if (boundp 'use-short-answers)
+      (setq use-short-answers t)
+    (fset 'yes-or-no-p 'y-or-n-p))
 
-    (setq visible-bell t
-          inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
-          delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
-          make-backup-files nil             ; Forbide to make backup files
-          auto-save-default nil             ; Disable auto save
-          ring-bell-function 'ignore        ; No annoying bell
-          blink-cursor-mode nil             ; No eyes distraction
-          uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
-          adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
-          adaptive-fill-first-line-regexp "^* *$"
-          sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
-          sentence-end-double-space nil
-          word-wrap-by-category t)
+  (setq-default major-mode 'text-mode
+                fill-column 80
+                tab-width 4
+                display-line-numbers-width 3
+                indicate-buffer-boundaries 'left
+                display-fill-column-indicator-character ?\u254e
+                indent-tabs-mode nil     ; Permanently indent with spaces, never with TABs
+                visible-bell t
+                inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
+                delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
+                make-backup-files nil             ; Forbide to make backup files
+                auto-save-default nil             ; Disable auto save
+                ring-bell-function 'ignore        ; No annoying bell
+                blink-cursor-mode nil             ; No eyes distraction
+                uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
+                adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+                adaptive-fill-first-line-regexp "^* *$"
+                sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+                sentence-end-double-space nil
+                create-lockfiles nil
+                word-wrap-by-category t
+                truncate-lines nil
+                truncate-partial-width-windows nil
+                save-interprogram-paste-before-kill t)
 #+end_src
 
 *** Part of GNU Emacs
@@ -226,6 +248,7 @@ Fix blank screen issue on macOS.
 #+end_src
 
 *** Global Keybinding
+**** Basic
 
 #+begin_src emacs-lisp
   (with-no-warnings
@@ -251,6 +274,19 @@ Fix blank screen issue on macOS.
   (global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
   (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
   (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
+  ;; Insert new line
+  (global-set-key (kbd "S-<return>") 'vk/newline-at-end-of-line)
+#+end_src
+
+**** Move Up/Down
+
+#+begin_src emacs-lisp
+  (use-package move-dup)
+  (global-set-key [M-S-up] 'move-dup-move-lines-up)
+  (global-set-key [M-S-down] 'move-dup-move-lines-down)
+
+  (global-set-key (kbd "C-c d") 'move-dup-duplicate-down)
+  (global-set-key (kbd "C-c u") 'move-dup-duplicate-up)
 #+end_src
 
 ** Necessory Packages
@@ -310,6 +346,7 @@ Auto completed for corfu config.
     (add-hook 'prog-mode-hook 'yas-minor-mode)
     (add-hook 'text-mode-hook 'yas-minor-mode))
 #+end_src
+
 *** Icons Completion
 Note: All-the-icons-completion depends on an already installed all-the-icons.
 
@@ -325,22 +362,30 @@ Note: All-the-icons-completion depends on an already installed all-the-icons.
 #+end_src
 
 
-* GRAPHICAL USER INTERFACE TWEAKS 
+* GRAPHICAL USER INTERFACE TWEAKS
+** Page Break Lines
+
+#+begin_src emacs-lisp
+  (use-package page-break-lines
+    :hook (after-init . global-page-break-lines-mode)
+    :init (diminish 'page-break-lines-mode))
+#+end_src
+
 ** Fonts
 设置自己喜欢的字体
 
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
       :font "Cascadia Code"
-      :height 150
+      :height 130
       :weight 'regular)
   (set-face-attribute 'variable-pitch nil
       :font "Symbols Nerd Font"
-      :height 150
+      :height 130
       :weight 'medium)
   (set-face-attribute 'fixed-pitch nil
       :font "FiraCode Nerd Font"
-      :height 150
+      :height 130
       :weight 'regular)
 
   (set-face-attribute 'font-lock-keyword-face nil
@@ -349,6 +394,10 @@ Note: All-the-icons-completion depends on an already installed all-the-icons.
       :slant 'italic)
 
   (add-to-list 'default-frame-alist '(font . "Cascadia Code-15"))
+
+  ;; 中文字体修正
+  (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "Source Han Sans CN" :size 12) nil 'prepend)
+
   (setq-default line-spacing 0.12)
 #+end_src
 
@@ -917,18 +966,18 @@ Removes "Ind" from showing in the modeline.
 ** Org Tag Expands Quick
 其他快捷展开示例:
 
-| Typing the below + TAB | Expands to ...                          |
-|------------------------+-----------------------------------------|
-| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
-| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |
-| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
-| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |
-| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |
-| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |
-| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |
-| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |
-| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
-| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
+| Typing the below + TAB | Expands to ...                          |   |   |   |
+|------------------------+-----------------------------------------+---+---+---|
+| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |   |   |   |
+| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |   |   |   |
+| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |   |   |   |
+| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |   |   |   |
+| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |   |   |   |
+| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |   |   |   |
+| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |   |   |   |
+| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |   |   |   |
+| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |   |   |   |
+| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |   |   |   |
 
 #+begin_src emacs-lisp 
 (require 'org-tempo)
@@ -949,9 +998,8 @@ Removes "Ind" from showing in the modeline.
                 ("C-c d" . lsp-describe-thing-at-point)
                 ("C-c a" . lsp-execute-code-action)
                 ("C-c r" . lsp-rename))
-    ;; :config
-    ;; (with-no-warnings
-    ;; (lsp-enable-which-key-integration t))
+    :config (with-no-warnings
+            (lsp-enable-which-key-integration t))
     :custom
     (lsp-keymap-prefix "C-c l")
     (lsp-enable-links nil)                    ;; no clickable links
@@ -971,7 +1019,8 @@ Removes "Ind" from showing in the modeline.
     (lsp-completion-provider :none)           ;; don't add `company-capf' to `company-backends'
     (lsp-keep-workspace-alive nil)            ;; auto kill lsp server
     (lsp-eldoc-enable-hover nil)              ;; disable eldoc hover
-    (lsp-rust-analyzer-cargo-watch-command "clippy")
+    ;; 指定 flycheck 使用 clippy
+    ;; (lsp-rust-analyzer-cargo-watch-command "clippy")
     (lsp-rust-analyzer-server-display-inlay-hints t)
     (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
     (lsp-rust-analyzer-display-chaining-hints t)
@@ -1164,3 +1213,5 @@ Cargo.toml and other config files
         which-key-allow-imprecise-window-fit nil
         which-key-separator " → " ))
 #+end_src
+
+
