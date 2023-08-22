@@ -25,7 +25,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
 # path append
-export PATH="$CARGO_HOME/bin:$LLVM_PATH:$LDFLAGS:$POSTGRES:$PRETTIERD_DEFAULT_CONFIG:$PATH"
+export PATH="$CARGO_HOME/bin:$RUSTUP_HOME/bin:$LLVM_PATH:$LDFLAGS:$POSTGRES:$PRETTIERD_DEFAULT_CONFIG:$PATH"
 # export PATH="$HOME/.local/bin":$PATH
 # eval "$(thefuck --alias)"
 eval "$(fnm env)"

@@ -754,6 +754,7 @@ Additionally, add `cape-file' as early as possible to the list."
   (lsp-completion-provider :none)           ;; don't add `company-capf' to `company-backends'
   (lsp-keep-workspace-alive nil)            ;; auto kill lsp server
   (lsp-eldoc-enable-hover nil)              ;; disable eldoc hover
+  (lsp-enable-suggest-server-download nil)
   ;; 指定 flycheck 使用 clippy
   ;; (lsp-rust-analyzer-cargo-watch-command "clippy")
   (lsp-rust-analyzer-server-display-inlay-hints t)
