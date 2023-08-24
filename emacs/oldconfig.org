@@ -3,250 +3,7 @@
 #+DESCRIPTION: Vinci & Kate's personal Emacs config
 #+OPTIONS: toc:4
 
-* TABLE OF CONTENTS :toc_5:
-- [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
-  - [[#speed-up-startup][Speed up startup]]
-  - [[#straight-package-manager][Straight Package Manager]]
-  - [[#user-func-and-const][User Func and Const]]
-    - [[#const][Const]]
-      - [[#is-mac][Is Mac]]
-    - [[#function][Function]]
-      - [[#new-line][New Line]]
-      - [[#reload-init][Reload Init]]
-      - [[#adjust-opacity][Adjust Opacity]]
-      - [[#fix-fullscreen][Fix fullscreen]]
-  - [[#neecessory-configes][Neecessory Configes]]
-    - [[#misc-config][Misc Config]]
-    - [[#part-of-gnu-emacs][Part of GNU Emacs]]
-      - [[#basic-setting][Basic Setting]]
-    - [[#global-keybinding][Global Keybinding]]
-      - [[#basic][Basic]]
-      - [[#move-updown][Move Up/Down]]
-  - [[#necessory-packages][Necessory Packages]]
-    - [[#diminish][Diminish]]
-    - [[#general-keybinding][General Keybinding]]
-    - [[#no-littering][No Littering]]
-    - [[#fix-exec-path-for-mac][Fix Exec Path for Mac]]
-    - [[#marginalia][Marginalia]]
-    - [[#completion][Completion]]
-    - [[#icons-completion][Icons Completion]]
-- [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
-  - [[#page-break-lines][Page Break Lines]]
-  - [[#fonts][Fonts]]
-  - [[#transparency][Transparency]]
-  - [[#doom-theme][Doom Theme]]
-  - [[#doom-mode-line][Doom Mode Line]]
-  - [[#vertico][Vertico]]
-  - [[#embark-with-consult][Embark with Consult]]
-  - [[#orderless][Orderless]]
-  - [[#corfu][Corfu]]
-    - [[#kind-icon][Kind icon]]
-    - [[#cape][Cape]]
-    - [[#projectile][Projectile]]
-- [[#org-mode][ORG MODE]]
-  - [[#enabling-table-of-contents][Enabling Table of Contents]]
-  - [[#enabling-org-bullets][Enabling Org Bullets]]
-  - [[#disable-electric-indent][Disable Electric Indent]]
-  - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
-  - [[#org-tag-expands-quick][Org Tag Expands Quick]]
-- [[#developer][Developer]]
-  - [[#lsp][LSP]]
-    - [[#lsp-mode][Lsp Mode]]
-    - [[#eglot][Eglot]]
-    - [[#lsp-ui][LSP Ui]]
-  - [[#language][Language]]
-    - [[#rust][Rust]]
-      - [[#rustic][Rustic]]
-      - [[#rust-playground][Rust Playground]]
-      - [[#toml][Toml]]
-    - [[#cc][C/C++]]
-    - [[#yaml][Yaml]]
-  - [[#flycheck][Flycheck]]
-    - [[#flycheck-extensions][Flycheck Extensions]]
-- [[#which-key][Which Key]]
-
-* IMPORTANT PROGRAMS TO LOAD FIRST
-** Speed up startup
-添加一些必要的设置尽可能快速启动
-
-#+begin_src emacs-lisp
-  ;; Defer garbage collection further back in the startup process
-  (setq gc-cons-threshold most-positive-fixnum)
-  
-  ;; Prevent flashing of unstyled modeline at startup
-  (setq-default mode-line-format nil)
-
-  ;; Don't pass case-insensitive to `auto-mode-alist'
-  (setq auto-mode-case-fold nil)
-
-  ;; Load `custom-file'
-  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-  (add-hook 'after-init-hook (lambda () (load custom-file 'noerror)))
-#+end_src
-
-** Straight Package Manager
-#+begin_src emacs-lisp
-  (setq straight-repository-branch "develop")
-
-  ;; Install straight.el
-  (defvar bootstrap-version)
-  (let ((bootstrap-file
-         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-        (bootstrap-version 6))
-    (unless (file-exists-p bootstrap-file)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-           'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-
-  ;; Install use-package
-  (straight-use-package 'use-package)
-
-  ;; Configure use-package to use straight.el by default
-  (use-package straight
-    :custom
-    (straight-use-package-by-default t))
-#+end_src
-
-** User Func and Const
-*** Const
-**** Is Mac
-#+begin_src emacs-lisp
-(defconst vk/macsys (eq system-type 'darwin))
-#+end_src
-
-*** Function
-**** New Line
-Newline behaviour
-
-#+begin_src emacs-lisp
-  (defun vk/newline-at-end-of-line ()
-    "Move to end of line, enter a newline, and reindent."
-    (interactive)
-    (move-end-of-line 1)
-    (newline-and-indent))
-#+end_src
-
-**** Reload Init
-This is just an example of how to create a simple function in Emacs.
-Use this function to reload Emacs after adding changes to the config.
-Yes, I am loading the user-init-file twice in this function, which is a hack because for some reason,
-just loading the user-init-file once does not work properly.
-
-#+begin_src emacs-lisp
-(defun reload-init-file ()
-  (interactive)
-  (load-file user-init-file)
-  (load-file user-init-file))
-#+end_src
-
-**** Adjust Opacity
-This function from purcell.
-
-#+begin_src emacs-lisp
-(defun ikate/adjust-opacity (frame incr)
-  "Adjust the background opacity of FRAME by increment INCR."
-  (unless (display-graphic-p frame)
-    (error "Cannot adjust opacity of this frame"))
-  (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
-         ;; The 'alpha frame param became a pair at some point in
-         ;; emacs 24.x, e.g. (100 100)
-         (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
-         (newalpha (+ incr oldalpha)))
-    (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
-      (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
-#+end_src
-
-**** Fix fullscreen
-Fix blank screen issue on macOS.
-
-#+begin_src emacs-lisp
-  (defun fix-fullscreen ()
-    "Address blank screen issue with child-frame in fullscreen.
-  This issue has been addressed in 28."
-    (and vk/macsys
-         (bound-and-true-p ns-use-native-fullscreen)
-         (setq ns-use-native-fullscreen nil)))
-#+end_src
-
 ** Neecessory Configes
-*** Misc Config
-一些混合设置
-
-#+begin_src emacs-lisp
-  (add-hook 'window-setup-hook #'toggle-frame-maximized)
-  (if (boundp 'use-short-answers)
-      (setq use-short-answers t)
-    (fset 'yes-or-no-p 'y-or-n-p))
-
-  (setq-default major-mode 'text-mode
-                fill-column 80
-                tab-width 4
-                display-line-numbers-width 3
-                indicate-buffer-boundaries 'left
-                display-fill-column-indicator-character ?\u254e
-                indent-tabs-mode nil     ; Permanently indent with spaces, never with TABs
-                visible-bell t
-                inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
-                delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
-                make-backup-files nil             ; Forbide to make backup files
-                auto-save-default nil             ; Disable auto save
-                ring-bell-function 'ignore        ; No annoying bell
-                blink-cursor-mode nil             ; No eyes distraction
-                uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
-                adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
-                adaptive-fill-first-line-regexp "^* *$"
-                sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
-                sentence-end-double-space nil
-                create-lockfiles nil
-                word-wrap-by-category t
-                truncate-lines nil
-                truncate-partial-width-windows nil
-                save-interprogram-paste-before-kill t)
-#+end_src
-
-*** Part of GNU Emacs
-**** Basic Setting
-这些基础设置可以让我用的更顺手
-
-#+begin_src emacs-lisp
-  (desktop-save-mode 1)
-  (save-place-mode 1)
-  ;; hist setting
-  (savehist-mode 1)
-  (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-        history-length 1000
-        savehist-additional-variables '(mark-ring
-                                                global-mark-ring
-                                                search-ring
-                                                regexp-search-ring
-                                                extended-command-history)
-        savehist-autosave-interval 300)
-  ;; recentf setting
-  (recentf-mode 1)
-  (setq recentf-max-saved-items 300)
-  ;; basic ui
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (setq use-file-dialog nil) ;; 关闭使用系统自带的文件选择对话框,使用Emacs自带的。
-  (setq use-dialog-box nil) ;; 关闭使用系统自带的消息框,使用Emacs自带的。
-  (setq inhibit-startup-screen t) ;; 阻止显示启动画面。
-  (setq inhibit-startup-message t) ;; 阻止显示启动消息。
-  (setq inhibit-startup-buffer-menu t) ;; 阻止显示启动缓冲区菜单。
-  (setq window-resize-pixelwise t) ;; 设置窗口调整大小时以像素为单位。
-  (setq frame-resize-pixelwise t);; 设置框架调整大小时以像素为单位。
-  ;; line number
-  (global-display-line-numbers-mode 1)
-  ;; (global-visual-line-mode t)
-  ;; (setq display-line-numbers-type 'relative)
-  (setq-default bidi-paragraph-direction 'left-to-right) ; 修改双向文字排版为从左到右
-  (setq bidi-inhibit-bpa t)
-#+end_src
-
 *** Global Keybinding
 **** Basic
 
@@ -264,179 +21,49 @@ Fix blank screen issue on macOS.
            ([(super w)] . delete-frame)
            ([(super z)] . undo)))
   ;; reload init
-  (bind-keys ("C-s-r" . reload-init-file))
+
   ;; recent file
   (bind-keys ("C-x C-r" . recentf-open-files))
   ;; zooming in/out
   (global-set-key (kbd "C-=") 'text-scale-increase)
   (global-set-key (kbd "C--") 'text-scale-decrease)
-  ;; 调整界面 opacity
-  (global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
-  (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
-  (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
-  ;; Insert new line
-  (global-set-key (kbd "S-<return>") 'vk/newline-at-end-of-line)
+    ;; Insert new line
+  
 #+end_src
 
-**** Move Up/Down
+
+** Shackle
+Customize popwin behavior
 
 #+begin_src emacs-lisp
-  (use-package move-dup)
-  (global-set-key [M-S-up] 'move-dup-move-lines-up)
-  (global-set-key [M-S-down] 'move-dup-move-lines-down)
-
-  (global-set-key (kbd "C-c d") 'move-dup-duplicate-down)
-  (global-set-key (kbd "C-c u") 'move-dup-duplicate-up)
-#+end_src
-
-** Necessory Packages
-*** Diminish
-
-#+begin_src emacs-lisp
-  (use-package diminish)
-#+end_src
-
-*** General Keybinding
-使用general进行按键绑定
-
-#+begin_src emacs-lisp
-  (use-package general)
-#+end_src
-
-*** No Littering
-Help keeping ~/.config/emacs clean
-
-#+begin_src emacs-lisp
-  (use-package no-littering)
-#+end_src
-
-*** Fix Exec Path for Mac
-
-#+begin_src emacs-lisp
-  (use-package exec-path-from-shell
+  (use-package shackle
     :ensure t
-    :when (eq system-type 'darwin)
-    :hook (after-init . exec-path-from-shell-initialize))
-#+end_src
-
-*** Marginalia
-Marginalia is painless to set up
-
-#+begin_src emacs-lisp
-  (use-package marginalia
-    :general
-    (:keymaps 'minibuffer-local-map
-              "M-A" 'marginalia-cycle)
+    :hook (after-init . shackle-mode)
     :custom
-    (marginalia-max-relative-age 0)
-    (marginalia-align 'right)
-    :init
-    (marginalia-mode))
+    (shackle-default-size 0.5)
+    (shackle-default-alignment 'below)
+    (shackle-rules '((magit-status-mode    :select t :inhibit-window-quit t :same t)
+                     (magit-log-mode       :select t :inhibit-window-quit t :same t)
+                     (vc-annotate-mode     :select t :inhibit-window-quit t :same t)
+                     ("*quickrun*"         :select t :inhibit-window-quit t :same t)
+                     (profiler-report-mode :select t)
+                     (xwidget-webkit-mode  :select t :same t)
+                     (comint-mode          :select t :align t :size 0.4)
+                     (grep-mode            :select t :align t)
+                     (rg-mode              :select t :align t)
+                     ;; See also `help-window-select'
+                     (apropos-mode         :select nil :align t :size 0.4)
+                     (help-mode            :select nil :align t :size 0.4)
+                     ("*Flycheck errors*"         :select t   :align t :size 10)
+                     ("*Backtrace*"               :select t   :align t :size 15)
+                     ("*Shell Command Output*"    :select nil :align t :size 0.4)
+                     ("*Async Shell Command*"     :select nil :align t :size 0.4)
+                     ("*Org-Babel Error Output*"  :select nil :align t :size 0.3)
+                     ("*package update results*"  :select nil :align t :size 10)
+                     ("*Process List*"            :select t   :align t :size 0.3)
+                     ("*Occur*"                   :select t   :align t)
+                     ("\\*eldoc\\( for \\)?.*\\*" :select nil :align t :size 15 :regexp t))))
 #+end_src
-
-*** Completion
-Auto completed for corfu config.
-
-#+begin_src emacs-lisp
-  (use-package company)
-  (use-package yasnippet
-    :ensure
-    :config
-    (yas-reload-all)
-    (add-hook 'prog-mode-hook 'yas-minor-mode)
-    (add-hook 'text-mode-hook 'yas-minor-mode))
-#+end_src
-
-*** Icons Completion
-Note: All-the-icons-completion depends on an already installed all-the-icons.
-
-#+begin_src emacs-lisp
-  (use-package all-the-icons
-    :ensure t
-    :if (display-graphic-p))
-
-  (use-package all-the-icons-completion
-    :after (marginalia all-the-icons)
-    :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
-    :init (all-the-icons-completion-mode))
-#+end_src
-
-
-* GRAPHICAL USER INTERFACE TWEAKS
-** Page Break Lines
-
-#+begin_src emacs-lisp
-  (use-package page-break-lines
-    :hook (after-init . global-page-break-lines-mode)
-    :init (diminish 'page-break-lines-mode))
-#+end_src
-
-** Fonts
-设置自己喜欢的字体
-
-#+begin_src emacs-lisp
-  (set-face-attribute 'default nil
-      :font "Cascadia Code"
-      :height 130
-      :weight 'regular)
-  (set-face-attribute 'variable-pitch nil
-      :font "Symbols Nerd Font"
-      :height 130
-      :weight 'medium)
-  (set-face-attribute 'fixed-pitch nil
-      :font "FiraCode Nerd Font"
-      :height 130
-      :weight 'regular)
-
-  (set-face-attribute 'font-lock-keyword-face nil
-      :slant 'italic)
-  (set-face-attribute 'font-lock-comment-face nil
-      :slant 'italic)
-
-  (add-to-list 'default-frame-alist '(font . "Cascadia Code-15"))
-
-  ;; 中文字体修正
-  (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "Source Han Sans CN" :size 12) nil 'prepend)
-
-  (setq-default line-spacing 0.12)
-#+end_src
-
-** Transparency
-Emacs 最新 True Transparency 模式 +(add-to-list 'default-frame-alist '(alpha-background . 90))+ 在 Mac 下并不生效，
-
-#+begin_src emacs-lisp
-  (when (display-graphic-p)
-    (add-hook 'window-setup-hook #'fix-fullscreen)
-    (and vk/macsys (bind-key "C-s-f" #'toggle-frame-fullscreen)))
-#+end_src
-
-** Doom Theme
-
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-  :config
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  ;; Sets the default theme to load!!! 
-  (load-theme 'doom-one t)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  ;; s(doom-themes-neotree-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-#+END_SRC
-
-** Doom Mode Line
-
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1)
-  :config
-  (setq doom-modeline-height 35      ;; sets modeline height
-        doom-modeline-bar-width 5    ;; sets right bar width
-        doom-modeline-persp-name t   ;; adds perspective name to modeline
-        doom-modeline-persp-icon t)) ;; adds folder icon next to persp name
-#+END_SRC
 
 ** Vertico
 Vertico is a minibuffer interface, that is, it changes the minibuffer looks and how you interact with it.
@@ -923,67 +550,6 @@ Projectile is a project interaction library for Emacs
 #+END_SRC
 
 
-* ORG MODE
-** Enabling Table of Contents
-#+begin_src emacs-lisp
-  (use-package toc-org
-    :commands toc-org-enable
-    :init (add-hook 'org-mode-hook 'toc-org-enable))
-#+end_src
-
-** Enabling Org Bullets
-Org-bullets gives us attractive bullets rather than asterisks.
-
-#+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'org-indent-mode)
-(use-package org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#+end_src
-
-** Disable Electric Indent
-完全关闭 electric indent 自动缩进功能,防止自动缩进带来的意外问题。
-
-#+begin_src emacs-list
-(electric-indent-mode -1)
-(setq org-edit-src-content-indentation 0)
-#+end_src
-
-** Diminish Org Indent Mode
-Removes "Ind" from showing in the modeline.
-
-#+begin_src emacs-lisp
-  (eval-after-load 'org-indent '(diminish 'org-indent-mode))
-  (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.6))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.4))))
-   '(org-level-5 ((t (:inherit outline-5 :height 1.3))))
-   '(org-level-6 ((t (:inherit outline-5 :height 1.2))))
-   '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
-#+end_src
-
-** Org Tag Expands Quick
-其他快捷展开示例:
-
-| Typing the below + TAB | Expands to ...                          |   |   |   |
-|------------------------+-----------------------------------------+---+---+---|
-| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |   |   |   |
-| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |   |   |   |
-| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |   |   |   |
-| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |   |   |   |
-| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |   |   |   |
-| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |   |   |   |
-| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |   |   |   |
-| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |   |   |   |
-| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |   |   |   |
-| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |   |   |   |
-
-#+begin_src emacs-lisp 
-(require 'org-tempo)
-#+end_src
-
-
 * Developer
 ** LSP
 *** Lsp Mode
@@ -1019,7 +585,6 @@ Removes "Ind" from showing in the modeline.
     (lsp-completion-provider :none)           ;; don't add `company-capf' to `company-backends'
     (lsp-keep-workspace-alive nil)            ;; auto kill lsp server
     (lsp-eldoc-enable-hover nil)              ;; disable eldoc hover
-    (lsp-enable-suggest-server-download nil)
     ;; 指定 flycheck 使用 clippy
     ;; (lsp-rust-analyzer-cargo-watch-command "clippy")
     (lsp-rust-analyzer-server-display-inlay-hints t)
@@ -1084,16 +649,13 @@ Removes "Ind" from showing in the modeline.
 
 *** LSP Ui
 #+begin_src emacs-lisp
-      (use-package lsp-ui
-        :ensure
-        :commands lsp-ui-mode
-        :custom
-        (lsp-ui-peek-always-show t)
-        (lsp-ui-sideline-show-hover nil)
-
-
-        (lsp-ui-sideline-enable nil)
-        (lsp-ui-doc-enable nil))
+  (use-package lsp-ui
+    :ensure
+    :commands lsp-ui-mode
+    :custom (lsp-ui-peek-always-show t)
+            (lsp-ui-sideline-show-hover nil)
+            (lsp-ui-sideline-enable nil)
+            (lsp-ui-doc-enable nil))
 #+end_src
 
 ** Language
@@ -1116,16 +678,18 @@ rustic = basic rust-mode + additions
                 ("C-c C-c e" . lsp-rust-analyzer-expand-macro)
                 ("C-c C-c d" . dap-hydra)
                 ("C-c C-c h" . lsp-ui-doc-glance))
-    :config
+    :config (push 'rustic-clippy flycheck-checkers)
+            (setq rustic-format-on-save t)
     ;; uncomment for less flashiness
     ;; (setq lsp-eldoc-hook nil)
     ;; (setq lsp-enable-symbol-highlighting nil)
     ;; (setq lsp-signature-auto-activate nil)
-    (push 'rustic-clippy flycheck-checkers)
-    :custom
-    (rustic-analyzer-command '("~/.local/share/cargo/bin/rust-analyzer"))
-    (rustic-flycheck-clippy-params "--message-format=json -Zunstable-options")
-    ;; comment to disable rustfmt on save
+    :custom (rustic-lsp-setup-p nil)
+            (rustic-analyzer-command '("~/.local/share/cargo/bin/rust-analyzer"))
+            (rustic-flycheck-clippy-params "--message-format=json -Zunstable-options")
+            (rustic-rustfmt-args "+nightly")
+            (rustic-rustfmt-config-alist '((hard_tabs . t) (skip_children . nil)))
+    
     (add-hook 'rustic-mode-hook 'kv/rustic-mode-hook))
 
   (defun kv/rustic-mode-hook ()
@@ -1190,6 +754,71 @@ Cargo.toml and other config files
     :init
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+end_src
+
+** Magit
+
+#+begin_src emacs-lisp
+  (use-package magit
+    :ensure t
+    :hook (git-commit-setup . git-commit-turn-on-flyspell)
+    :bind (("C-x g"   . magit-status)
+           ("C-x M-g" . magit-dispatch)
+           ("C-c M-g" . magit-file-dispatch))
+    :custom
+    (magit-diff-refine-hunk t)
+    (magit-diff-paint-whitespace nil)
+    (magit-ediff-dwim-show-on-hunks t))
+
+  ;; NOTE: `diff-hl' depends on `vc'
+  (use-package vc
+    :ensure nil
+    :custom
+    (vc-follow-symlinks t)
+    (vc-allow-async-revert t)
+    (vc-handled-backends '(Git)))
+
+  ;; Highlight uncommitted changes using VC
+  (use-package diff-hl
+    :ensure t
+    :hook ((after-init         . global-diff-hl-mode)
+           (dired-mode         . diff-hl-dired-mode-unless-remote)
+           (magit-pre-refresh  . diff-hl-magit-pre-refresh)
+           (magit-post-refresh . diff-hl-magit-post-refresh))
+    :config
+    ;; When Emacs runs in terminal, show the indicators in margin instead.
+    (unless (display-graphic-p)
+      (diff-hl-margin-mode)))
+
+  ;; Visual diff interface
+  (use-package ediff
+    :ensure nil
+    ;; Restore window config after quitting ediff
+    :hook ((ediff-before-setup . ediff-save-window-conf)
+           (ediff-quit         . ediff-restore-window-conf))
+    :config
+    (defvar local-ediff-saved-window-conf nil)
+
+    (defun ediff-save-window-conf ()
+      (setq local-ediff-saved-window-conf (current-window-configuration)))
+
+    (defun ediff-restore-window-conf ()
+      (when (window-configuration-p local-ediff-saved-window-conf)
+        (set-window-configuration local-ediff-saved-window-conf)))
+    :custom
+    (ediff-highlight-all-diffs t)
+    (ediff-window-setup-function 'ediff-setup-windows-plain)
+    (ediff-split-window-function 'split-window-horizontally)
+    (ediff-merge-split-window-function 'split-window-horizontally))
+
+  ;; Setup gitignore mode
+  (use-package conf-mode
+    :ensure nil
+    :mode (("\\.gitignore\\'"     . conf-unix-mode)
+           ("\\.gitconfig\\'"     . conf-unix-mode)
+           ("\\.gitattributes\\'" . conf-unix-mode)))
+#+end_src
+
+
 
 
 * Which Key
