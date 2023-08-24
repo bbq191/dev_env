@@ -22,8 +22,9 @@
 (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "Source Han Sans CN" :size 12) nil 'prepend)
 
 (use-package autothemer
-   :ensure t
-   :elpaca (:host github
-             :repo "jasonm23/autothemer"))
+   :ensure t)
+;;   :elpaca (:host github
+;;             :repo "jasonm23/autothemer"))
+(elpaca-wait)
 (add-to-list 'custom-theme-load-path "~/.config/emacs/theme/")
 (load-theme 'rose-pine t)

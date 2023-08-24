@@ -59,9 +59,6 @@
 ;;(use-package general :demand t)
 ;;(elpaca-wait)
 
-(provide 'elpaca-setup)
-
-
 ;; 可以不安装 org 包，但为了使用 org-load 这里必须提前安装 org-roam，安装 org-roam 会同时安装 org
 ;; 所以这里提前安装并设置了 org-mode
 (use-package org
@@ -116,7 +113,8 @@
   (org-refile-allow-creating-parent-nodes 'confirm)
   ;; goto. We use minibuffer to filter instead of isearch.
   (org-goto-auto-isearch nil)
-  (org-goto-interface 'outline-path-completion)
+  ;;todo:
+  ;;(org-goto-interface 'outline-path-completion)
   ;; tags, e.g. #+TAGS: keyword in your file
   (org-use-fast-tag-selection t)
   (org-fast-tag-selection-single-key t)
@@ -155,5 +153,7 @@
 
 ;; Block until current queue processed.
 (elpaca-wait)
+
+(provide 'elpaca-setup)
 
 ;;; elpaca-setup.el ends here

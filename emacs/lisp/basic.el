@@ -1,4 +1,5 @@
-(setq-default use-short-answers t
+(setq-default major-mode 'text-mode
+  use-short-answers t
   fill-column 80
   frame-resize-pixelwise t
   window-resize-pixelwise t
@@ -10,7 +11,7 @@
   display-fill-column-indicator-character ?\u254e
   indent-tabs-mode nil              ; Permanently indent with spaces, never with TABs
   visible-bell t
-  inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
+  inhibit-compacting-font-caches t  ; Don't compact font caches during GC
   delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
   make-backup-files nil             ; Forbide to make backup files
   auto-save-default nil             ; Disable auto save

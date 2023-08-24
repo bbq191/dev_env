@@ -8,7 +8,7 @@
 (use-package org-bullets
   :hook (org-mode-hook . (lambda () (org-bullets-mode 1))))
 
-(use-package org-tempo :elpaca nil)
+;;(require 'org-tempo)
 
 ;;完全关闭 electric indent 自动缩进功能,防止自动缩进带来的意外问题。
 (electric-indent-mode -1)

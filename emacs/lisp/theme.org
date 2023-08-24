@@ -46,9 +46,10 @@
 
 #+begin_src emacs-lisp
 (use-package autothemer
-   :ensure t
-   :elpaca (:host github
-             :repo "jasonm23/autothemer"))
+   :ensure t)
+;;   :elpaca (:host github
+;;             :repo "jasonm23/autothemer"))
+(elpaca-wait)
 (add-to-list 'custom-theme-load-path "~/.config/emacs/theme/")
 (load-theme 'rose-pine t)
 #+end_src

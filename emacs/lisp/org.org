@@ -54,7 +54,7 @@ Org-bullets gives us attractive bullets rather than asterisks.
 | <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |   |   |   |
 
 #+begin_src emacs-lisp
-(use-package org-tempo :elpaca nil)
+;;(require 'org-tempo)
 #+end_src
 
 ** 禁用电子缩进
