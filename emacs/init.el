@@ -25,6 +25,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'util-setup)
 (require 'minibuffer-setup)
+(require 'completion-setup)
+
 
 (provide 'init)
 

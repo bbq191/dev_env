@@ -1,4 +1,3 @@
-
 ;; init-base.el --- Better default configurations.	-*- lexical-binding: t -*-
 
 ;;; Commentary:
@@ -10,8 +9,8 @@
 ;; 变更默认参数
 ;; 基本配置设定，改变一些必要的默认参数
 (setq-default major-mode 'text-mode
-  use-short-answers t
-  fill-column 80
+              use-short-answers t
+              fill-column 90
   frame-resize-pixelwise t
   window-resize-pixelwise t
   gc-cons-threshold most-positive-fixnum ; Defer garbage collection further back in the startup process
@@ -54,7 +53,8 @@
 (column-number-mode 1)
 (global-auto-revert-mode 1)
   ;; (desktop-save-mode 1)
-  (save-place-mode 1)
+(save-place-mode 1)
+(delete-selection-mode 1)
   ;; basic ui
   (menu-bar-mode -1)
   (tool-bar-mode -1)

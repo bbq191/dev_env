@@ -34,16 +34,6 @@
 
 ;; TODO: need to move
 (use-package general)
-;; (elpaca wait)
-;; ;; Completion - Auto completed for corfu config.
-;; (use-package company)
-
-;; (use-package yasnippet
-;;     :demand t
-;;     :config
-;;     (yas-reload-all)
-;;     (add-hook 'prog-mode-hook 'yas-minor-mode)
-;;     (add-hook 'text-mode-hook 'yas-minor-mode))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
