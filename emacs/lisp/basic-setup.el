@@ -1,21 +1,18 @@
-#+TITLE: VK's GNU Emacs Config
-#+AUTHOR: Vinci XU & Kate Ma (VK)
-#+DESCRIPTION: VK's basic config.
-#+OPTIONS: toc:4
 
-* TABLE OF CONTENTS :toc_4:
-- [[#basic-config][Basic Config]]
-  - [[#变更默认参数][变更默认参数]]
-  - [[#模式命令][模式命令]]
+;; init-base.el --- Better default configurations.	-*- lexical-binding: t -*-
 
-* Basic Config
+;;; Commentary:
+;;
+;; Better defaults.
+;;
+;;; Code:
 
-** 变更默认参数
-基本配置设定，改变一些必要的默认参数
-#+begin_src emacs-lisp
+;; 变更默认参数
+;; 基本配置设定，改变一些必要的默认参数
 (setq-default major-mode 'text-mode
   use-short-answers t
   fill-column 80
+  display-fill-column-indicator-mode t
   frame-resize-pixelwise t
   window-resize-pixelwise t
   gc-cons-threshold most-positive-fixnum ; Defer garbage collection further back in the startup process
@@ -50,33 +47,29 @@
   bidi-paragraph-direction 'left-to-right
   bidi-inhibit-bpa t
   line-spacing 0.12) ; 修改双向文字排版为从左到右
-#+end_src
 
-** 模式命令
-模式命令设定，改变一些基本模式
-
-#+begin_src emacs-lisp
-    (global-display-line-numbers-mode 1)
-    ;; (desktop-save-mode 1)
-    (save-place-mode 1)
-    ;; basic ui
-    (menu-bar-mode -1)
-    (tool-bar-mode -1)
-    (scroll-bar-mode -1)
-    ;; hist setting
-    (savehist-mode 1)
-    (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-          history-length 1000
-          savehist-additional-variables '(mark-ring
-                                          global-mark-ring
-                                          search-ring
-                                          regexp-search-ring
-                                          extended-command-history)
-          savehist-autosave-interval 300)
-    ;; recentf setting
-    (recentf-mode 1)
-    (setq recentf-max-saved-items 300)
+;; 模式命令
+;; 模式命令设定，改变一些基本模式
+  (display-fill-column-indicator-mode 1)
+  (global-display-line-numbers-mode 1)
+  ;; (desktop-save-mode 1)
+  (save-place-mode 1)
+  ;; basic ui
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  ;; hist setting
+  (savehist-mode 1)
+  (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+        history-length 1000
+        savehist-additional-variables '(mark-ring
+                                        global-mark-ring
+                                        search-ring
+                                        regexp-search-ring
+                                        extended-command-history)
+        savehist-autosave-interval 300)
 
 (provide 'basic-setup)
-#+end_src
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-base.el ends here

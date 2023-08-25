@@ -1,20 +1,13 @@
-#+TITLE: Personal GNU Emacs Config
-#+AUTHOR: Vinci Xu & Kate Ma
-#+DESCRIPTION: Vinci & Kate's theme config
-#+OPTIONS: toc:4
+;; init-base.el --- GRAPHIC AND THEME configurations.	-*- lexical-binding: t -*-
 
-* TABLE OF CONTENTS :toc_4:
-- [[#graphic-and-theme][GRAPHIC AND THEME]]
-  - [[#fonts][Fonts]]
-  - [[#theme][Theme]]
-    - [[#rose-pine][Rose Pine]]
+;;; Commentary:
+;;
+;; GRAPHIC AND THEME
+;;
+;;; Code:
 
-* GRAPHIC AND THEME
-
-** Fonts
-设置自己喜欢的字体
-
-#+begin_src emacs-lisp
+;; Fonts
+;; 设置自己喜欢的字体
   (set-face-attribute 'default nil
       :font "Cascadia Code"
       :height 130
@@ -37,19 +30,15 @@
 
   ;; 中文字体修正
   (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "Source Han Sans CN" :size 12) nil 'prepend)
-#+end_src
 
-** Theme
-
-*** Rose Pine
-个人最喜欢的 theme
-
-#+begin_src emacs-lisp
-(use-package autothemer
-   :ensure t)
-;;   :elpaca (:host github
-;;             :repo "jasonm23/autothemer"))
+;; Theme
+;; Rose Pine - 个人最喜欢的 theme
+(use-package autothemer :ensure t)
 (elpaca-wait)
 (add-to-list 'custom-theme-load-path "~/.config/emacs/theme/")
 (load-theme 'rose-pine t)
-#+end_src
+
+(provide 'theme-setup)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-theme.el ends here

@@ -1,5 +1,17 @@
+;; init-base.el --- User define configurations.	-*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+;; User define function and counst
+;;
+;;; Code:
+
+;; Const
+;; 判断是否是 macOS
 (defconst is-macsys (eq system-type 'darwin))
 
+;; Function
+;; Newline behaviour
 (defun vk/newline-at-end-of-line ()
   "Move to end of line, enter a newline, and reindent."
   (interactive)
@@ -8,6 +20,7 @@
 ;; 按键绑定
 (global-set-key (kbd "S-<return>") 'vk/newline-at-end-of-line)
 
+;; Reload Init
 (defun vk/reload-init-file ()
   "需要两次 load-file，否则不生效。"
   (interactive)
@@ -15,6 +28,7 @@
   (load-file user-init-file))
 (global-set-key (kbd "C-c a r") 'vk/reload-init-file)
 
+;; Adjust Opacity - This function from purcell.
 (defun vk/adjust-opacity (frame incr)
   "Adjust the background opacity of FRAME by increment INCR."
   (unless (display-graphic-p frame)
@@ -30,3 +44,8 @@
 (global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
 (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
+
+(provide 'func-setup)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-funcs.el ends here
