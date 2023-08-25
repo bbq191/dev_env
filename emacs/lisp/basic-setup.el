@@ -12,7 +12,6 @@
 (setq-default major-mode 'text-mode
   use-short-answers t
   fill-column 80
-  display-fill-column-indicator-mode t
   frame-resize-pixelwise t
   window-resize-pixelwise t
   gc-cons-threshold most-positive-fixnum ; Defer garbage collection further back in the startup process
@@ -50,7 +49,7 @@
 
 ;; 模式命令
 ;; 模式命令设定，改变一些基本模式
-  (display-fill-column-indicator-mode 1)
+  (global-display-fill-column-indicator-mode 1)
   (global-display-line-numbers-mode 1)
   ;; (desktop-save-mode 1)
   (save-place-mode 1)

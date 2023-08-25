@@ -14,7 +14,7 @@
       :weight 'regular)
   (set-face-attribute 'variable-pitch nil
       :font "Symbols Nerd Font"
-      :height 130
+      :height 120
       :weight 'medium)
   (set-face-attribute 'fixed-pitch nil
       :font "FiraCode Nerd Font"

@@ -19,12 +19,12 @@
 (require 'elpaca-setup)
 (require 'basic-setup)
 (require 'func-setup)
-(require 'util-setup)
+(require 'theme-setup)
 
 ;; after base config
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'theme-setup)
-
+(require 'util-setup)
+(require 'minibuffer-setup)
 
 (provide 'init)
 
