@@ -24,7 +24,7 @@
 ;; after base config
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'util-setup)
-(require 'minibuffer-setup)
+;; (require 'minibuffer-setup)
 
 (provide 'init)
 
