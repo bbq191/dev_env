@@ -21,6 +21,11 @@
 (require 'func-setup)
 (require 'util-setup)
 
+;; after base config
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'theme-setup)
+
+
 (provide 'init)
 
 ;;; init.el ends here
