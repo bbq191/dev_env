@@ -1,4 +1,4 @@
-;; init-base.el --- Minibuffer configurations.	-*- lexical-binding: t -*-
+;; init-base.el --- Minibuffer configurations. -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
@@ -15,14 +15,12 @@
 ;; Embark with Consult
 ;; embark
 (use-package embark
-  :demand t
   :bind (:map minibuffer-local-map ("M-o"     . embark-act)
                                    ("C-c C-c" . embark-export)
                                    ("C-c C-o" . embark-collect)))
 
 ;; consult
 (use-package consult
-  :demand t
   :bind (([remap imenu]                  . consult-imenu)
          ([remap goto-line]              . consult-goto-line)
          ([remap bookmark-jump]          . consult-bookmark)

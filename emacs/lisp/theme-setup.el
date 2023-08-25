@@ -34,9 +34,8 @@
 ;; Theme
 ;; Rose Pine - 个人最喜欢的 theme
 (add-to-list 'custom-theme-load-path "~/.config/emacs/theme/")
-(use-package autothemer :ensure t
-  :after autothemer
-  :custom (load-theme 'rose-pine t))
+(use-package autothemer :ensure t)
+(load-theme 'rose-pine t)
 
 (provide 'theme-setup)
 

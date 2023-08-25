@@ -49,8 +49,10 @@
 
 ;; 模式命令
 ;; 模式命令设定，改变一些基本模式
-  (global-display-fill-column-indicator-mode 1)
-  (global-display-line-numbers-mode 1)
+(global-display-fill-column-indicator-mode 1)
+(global-display-line-numbers-mode 1)
+(column-number-mode 1)
+(global-auto-revert-mode 1)
   ;; (desktop-save-mode 1)
   (save-place-mode 1)
   ;; basic ui
