@@ -6,12 +6,12 @@
 
 ;; elisp-mode
 (use-package elisp-mode
-:elpaca nil
+  :elpaca nil
   :ensure nil
   :bind (:map emacs-lisp-mode-map
-         ("C-c C-c" . eval-to-comment)
-         :map lisp-interaction-mode-map
-         ("C-c C-c" . eval-to-comment))
+              ("C-c C-c" . eval-to-comment)
+              :map lisp-interaction-mode-map
+              ("C-c C-c" . eval-to-comment))
   :config
   (defconst eval-as-comment-prefix ";;=> ")
 

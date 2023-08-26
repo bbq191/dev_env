@@ -7,11 +7,10 @@
 ;;; Code:
 
 ;; Completion - Auto completed for corfu config.
-(use-package company   :ensure t)
+(use-package company :ensure t)
 (elpaca-wait)
 
 (use-package yasnippet
-   
   :ensure t
   :config
   (yas-reload-all)
@@ -21,6 +20,7 @@
 
 ;; Corfu is a text completion (e.g. completion-at-point, company-mode) package.
 (use-package corfu
+  :ensure t
   :elpaca (:files (:defaults "extensions/*"))
   :hook ((lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
          (kb/corfu-setup-lsp . corfu-popupinfo-mode))
@@ -102,7 +102,6 @@
 ;; Pretty Corfu
 ;; Kind-icon is essentially company-box-icons for corfu. It adds icons to the left margin of the corfu popup that represent the ‘function’ (e.g. variable, method, file) of that candidate.
 (use-package kind-icon
-   
   :ensure t
   :after corfu
   :custom
@@ -131,7 +130,6 @@
 
 ;; Cape is to corfu as company-backends are to company
 (use-package cape
-   
   :ensure t
   :hook ((emacs-lisp-mode .  kb/cape-capf-setup-elisp)
          (lsp-completion-mode . kb/cape-capf-setup-lsp)

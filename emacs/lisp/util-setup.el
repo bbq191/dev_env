@@ -6,11 +6,12 @@
 ;;; Code:
 
 ;; Diminish
-(use-package diminish   :ensure t)
+(use-package diminish :ensure t)
 (elpaca-wait)
 
 ;; Move Up/Down
-(use-package move-dup   :ensure t
+(use-package move-dup   
+  :ensure t
   :bind (([M-S-up] . move-dup-move-lines-up)
          ([M-S-down] . move-dup-move-lines-down)
          ("C-c d" . 'move-dup-duplicate-down)
@@ -25,16 +26,16 @@
 ;; recentf setting
 (use-package recentf
   :elpaca nil
-    
   :ensure t
   :init (recentf-mode)
   :config (setq recentf-max-saved-items 300)
   :hook (recentf-exclude . (recentf-expand-file-name no-littering-var-directory))
-          (recentf-exclude . (recentf-expand-file-name no-littering-etc-directory)))
+  (recentf-exclude . (recentf-expand-file-name no-littering-etc-directory)))
 (elpaca-wait)
 
 ;; Fix Exec Path for Mac
-(use-package exec-path-from-shell   :ensure t
+(use-package exec-path-from-shell  
+  :ensure t
   :when (eq system-type 'darwin)
   :hook (after-init . exec-path-from-shell-initialize))
 (elpaca-wait)
@@ -46,7 +47,6 @@
 
 ;; Projectile is a project interaction library for Emacs
 (use-package projectile
-   
   :ensure t
   :hook (after-init . projectile-mode)
   :bind (:map projectile-mode-map ("C-c p" . projectile-command-map))
@@ -69,22 +69,25 @@
 
 ;; Icons Completion
 ;; Note: All-the-icons-completion depends on an already installed all-the-icons.
-(use-package all-the-icons   :ensure t
+(use-package all-the-icons   
+  :ensure t
   :if (display-graphic-p))
 (elpaca-wait)
 
-(use-package all-the-icons-completion   :ensure t
+(use-package all-the-icons-completion
+  :ensure t
   :after (marginalia all-the-icons)
   :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
   :init (all-the-icons-completion-mode))
 (elpaca-wait)
 
 ;; Page Break Lines
-(use-package page-break-lines   :ensure t
+(use-package page-break-lines 
+  :ensure t
   :hook (after-init . global-page-break-lines-mode)
   :custom (set-fontset-font "fontset-default"
-                  (cons page-break-lines-char page-break-lines-char)
-                  (face-attribute 'default :family)))
+                            (cons page-break-lines-char page-break-lines-char)
+                            (face-attribute 'default :family)))
 (elpaca-wait)
 
 ;; ;; Which Key
