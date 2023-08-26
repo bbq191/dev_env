@@ -7,20 +7,25 @@
 
 ;; Marginalia - Marginalia is painless to set up
 (use-package marginalia
+  :ensure t
   :general (:keymaps 'minibuffer-local-map "M-A" 'marginalia-cycle)
   :custom (marginalia-max-relative-age 0)
           (marginalia-align 'right)
   :init (marginalia-mode))
+(elpaca-wait)
 
 ;; Embark with Consult
 ;; embark
 (use-package embark
+  :ensure t
   :bind (:map minibuffer-local-map ("M-o"     . embark-act)
                                    ("C-c C-c" . embark-export)
                                    ("C-c C-o" . embark-collect)))
+(elpaca-wait)
 
 ;; consult
 (use-package consult
+  :ensure t
   :bind (([remap imenu]                  . consult-imenu)
          ([remap goto-line]              . consult-goto-line)
          ([remap bookmark-jump]          . consult-bookmark)
@@ -49,16 +54,18 @@
           (consult-async-refresh-delay 0.15)
           (consult-async-input-throttle 0.2)
           (consult-async-input-debounce 0.1))
+(elpaca-wait)
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult :ensure t :after embark consult)
+(elpaca-wait)
 
 
 ;; Vertico is a minibuffer interface, that is, it changes the minibuffer looks
 ;; and how you interact with it.
 (use-package vertico
-  :demand t                           ; Otherwise won't get loaded immediately
-  :straight (:files (:defaults "extensions/*") ; Special recipe to load extensions conveniently
+  :ensure t                           ; Otherwise won't get loaded immediately
+  :elpaca (:files (:defaults "extensions/*") ; Special recipe to load extensions conveniently
              :includes (vertico-indexed
                         vertico-flat
                         vertico-grid
@@ -150,9 +157,11 @@
                                           (propertize "» " 'face 'vertico-current)
                                           "  ")
                                cand))))
+(elpaca-wait)
 
 ;; Orderless is an alternative and powerful completion style, that is, it is an alternative to Emacs’s basic candidate-filtering capacities.
 (use-package orderless
+  :ensure t
   :custom
   (completion-styles '(orderless))
   (completion-category-defaults nil)    ; I want to be in control!
@@ -223,6 +232,7 @@ It matches PATTERN _INDEX and _TOTAL according to how Orderless
 parses its input."
     (when (string-suffix-p "." pattern)
       `(orderless-flex . ,(substring pattern 0 -1)))))
+(elpaca-wait)
 
 
 (provide 'minibuffer-setup)
