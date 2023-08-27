@@ -2,7 +2,8 @@
 
 (let ((dir (locate-user-emacs-file "lisp")))
   (add-to-list 'load-path (file-name-as-directory dir))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir)))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "theme" dir))))
 
 ;; Bootstrap config
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
@@ -22,7 +23,7 @@
 
 ;; Increase how much is read from processes in a single chunk (default is 4kb).
 ;; `lsp-mode' benefits from that.
-(setq read-process-output-max (* 4 1024 1024))
+(setq read-process-output-max (* 512 1024 1024))
 
 ;; Setup proxy TODO: Add en/disable toggle
 (setq url-proxy-services

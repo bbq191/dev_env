@@ -12,11 +12,25 @@
 
 (use-package yasnippet
   :ensure t
-  :config
-  (yas-reload-all)
+  :config (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (add-hook 'text-mode-hook 'yas-minor-mode))
-;; 以上是Corfu必要依赖
+(elpaca-wait)
+
+;; doom snippet
+(use-package doom-snippets
+  :ensure t
+  :after yasnippet
+  :elpaca (doom-snippets :type git
+                         :host github
+                         :repo "doomemacs/snippets"
+                         :files ("*.el" "*"))
+  :config (setq yas-snippet-dirs
+                '("~/.config/emacs/etc/elpaca/repos/snippets/"))
+  (yas-reload-all))
+(elpaca-wait)
+
+;;; 以上是Corfu必要依赖 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Corfu is a text completion (e.g. completion-at-point, company-mode) package.
 (use-package corfu
