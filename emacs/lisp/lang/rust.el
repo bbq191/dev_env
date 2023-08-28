@@ -7,7 +7,6 @@
 ;;; Code:
 
 ;; rustic = basic rust-mode + additions
-
 (use-package rustic
   :ensure t
   :bind (:map rustic-mode-map
@@ -51,4 +50,6 @@
 ;; Cargo.toml and other config files
 (use-package toml-mode :ensure t)
 
+
+(provide 'rust)
 ;;; rust.el ends here

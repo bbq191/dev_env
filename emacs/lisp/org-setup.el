@@ -7,13 +7,14 @@
 ;;; Code:
 
 ;; Work Directory
-(setq org-directory (concat (getenv "HOME") "/Documents/org-notes/"))
+
 
 ;; 可以不安装 org 包，但为了使用 org-load 这里必须提前安装 org-roam，安装 org-roam 会同时安装 org
 ;; 所以这里提前安装并设置了 org-mode
 (use-package org
-  :ensure nil
+  :ensure t
   :hook (org-mode . visual-line-mode)
+  :config (setq org-directory (concat (getenv "HOME") "/Documents/org-notes/")
   :custom
   ;; prettify
   (org-startup-indented t)
@@ -78,17 +79,13 @@
                            ("Google" . "https://google.com/search?q=")
                            ("RFCs"   . "https://tools.ietf.org/html/")
                            ("LWN"    . "https://lwn.net/Articles/")
-                           ("WG21"   . "https://wg21.link/"))))
-
-;; Block until current queue processed.
-(elpaca-wait)
+                           ("WG21"   . "https://wg21.link/")))))
 
 
 ;; Org-roam is a plain-text knowledge management system. It brings some of Roam's more powerful features into the Org-mode ecosystem.
 ;; 为了与内建 org 不发生版本冲突，必须在使用 org-babel-load-file 前安装好 org-roam 包。
-(setq org-directory (concat (getenv "HOME") "/Documents/org-notes/"))
-
 (use-package org-roam
+  :ensure t
   :after org
   :hook (after-init . org-roam-mode)	
   :init (setq org-roam-v2-ack t) ;; Acknowledge V2 upgrade
@@ -103,8 +100,16 @@
                 ("C-c n a" . org-roam-alias-add)
                 ("C-c n l" . org-roam-buffer-toggle)))))
 
-;; Block until current queue processed.
-(elpaca-wait)
+;; Prettify UI
+(use-package org-modern
+  :hook ((org-mode . org-modern-mode)
+         (org-agenda-finalize . org-modern-agenda)
+         (org-modern-mode . (lambda ()
+                              "Adapt `org-modern-mode'."
+                              ;; Disable Prettify Symbols mode
+                              (setq prettify-symbols-alist nil)
+                              (prettify-symbols-mode -1)))))
+
 ;; Toc-org
 (use-package toc-org
   :commands toc-org-enable

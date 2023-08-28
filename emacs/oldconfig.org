@@ -65,12 +65,5 @@ Customize popwin behavior
                      ("\\*eldoc\\( for \\)?.*\\*" :select nil :align t :size 15 :regexp t))))
 #+end_src
 
-** Language
-#+end_src
 
-*** C/C++
 
-#+begin_src emacs-lisp
-#+end_src
-
-#+end_src

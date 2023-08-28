@@ -139,6 +139,7 @@
 (require 'completion-setup)
 (require 'lsp-setup)
 (require 'coding-setup)
+(require 'org-setup)
 
 ;; lang config
 (require 'markdown)

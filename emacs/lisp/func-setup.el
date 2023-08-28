@@ -45,7 +45,37 @@
 (global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
 
+;; Copy from seagle0128
+(defcustom vk/prettify-org-symbols-alist
+  '(("[ ]"            . ?)
+    ("[-]"            . ?)
+    ("[X]"            . ?)
+
+    (":PROPERTIES:"   . ?)
+    (":ID:"           . ?🪪)
+    (":END:"          . ?🔚)
+
+    ("#+ARCHIVE:"     . ?📦)
+    ("#+AUTHOR:"      . ?👤)
+    ("#+CREATOR:"     . ?💁)
+    ("#+DATE:"        . ?📆)
+    ("#+DESCRIPTION:" . ?⸙)
+    ("#+EMAIL:"       . ?📧)
+    ("#+HEADERS"      . ?☰)
+    ("#+OPTIONS:"     . ?⚙)
+    ("#+SETUPFILE:"   . ?⚒)
+    ("#+TAGS:"        . ?🏷)
+    ("#+TITLE:"       . ?📓)
+
+    ("#+BEGIN_SRC"    . ?✎)
+    ("#+END_SRC"      . ?□)
+    ("#+BEGIN_QUOTE"  . ?«)
+    ("#+END_QUOTE"    . ?»)
+    ("#+RESULTS:"     . ?💻))
+  "A list of symbol prettifications for `org-mode'."
+  :type '(alist :key-type string :value-type (choice character sexp)))
+
+
 (provide 'func-setup)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-funcs.el ends here
+;;; func-setup.el ends here
