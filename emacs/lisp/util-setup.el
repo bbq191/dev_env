@@ -9,6 +9,21 @@
 (use-package diminish :ensure t)
 (elpaca-wait)
 
+;; Jump to arbitrary positions
+(use-package avy
+  :ensure t
+  ;; integrate with isearch and others
+  ;; C-' to select isearch-candidate with avy
+  :hook (after-init . avy-setup-default)
+  :bind (("M-g M-l" . avy-goto-line)
+         ("M-g M-j" . avy-goto-char-timer))
+  :custom
+  (avy-background t)
+  (avy-all-windows nil)
+  (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?q ?w ?e ?r ?u ?i ?o ?p))
+  ;; overlay is used during isearch, `pre' style makes avy keys evident.
+  (avy-styles-alist '((avy-isearch . pre))))
+
 ;; Move Up/Down
 (use-package move-dup
   :ensure t

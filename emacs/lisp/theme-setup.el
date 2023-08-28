@@ -34,7 +34,7 @@
 ;; Theme
 ;; Rose Pine - 个人最喜欢的 theme
 (add-to-list 'custom-theme-load-path "~/.config/emacs/etc/theme/")
-(use-package autothemer   :ensure t)
+(use-package autothemer :ensure t)
 ;;(load-theme 'rose-pine t)
 
 ;; doomemacs themes
@@ -44,7 +44,7 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-nord-light t)
+  (load-theme 'doom-one-light t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -67,7 +67,7 @@
 
   ;; How tall the mode-line should be. It's only respected in GUI.
   ;; If the actual char height is larger, it respects the actual height.
-  (setq doom-modeline-height 35)
+  (setq doom-modeline-height 20)
 
   ;; How wide the mode-line bar should be. It's only respected in GUI.
   (setq doom-modeline-bar-width 4)
@@ -86,7 +86,7 @@
   ;; e.g. `projectile' doesn't handle symlink folders well, while `project' is unable
   ;; to hanle sub-projects.
   ;; You can specify one if you encounter the issue.
-  (setq doom-modeline-project-detection 'auto)
+  (setq doom-modeline-project-detection 'tuncate-nil)
 
   ;; Determines the style used by `doom-modeline-buffer-file-name'.
   ;;

@@ -14,7 +14,7 @@
 (use-package org
   :ensure t
   :hook (org-mode . visual-line-mode)
-  :config (setq org-directory (concat (getenv "HOME") "/Documents/org-notes/")
+  :config (setq org-directory (concat (getenv "HOME") "/Documents/org-notes/"))
   :custom
   ;; prettify
   (org-startup-indented t)
@@ -79,7 +79,7 @@
                            ("Google" . "https://google.com/search?q=")
                            ("RFCs"   . "https://tools.ietf.org/html/")
                            ("LWN"    . "https://lwn.net/Articles/")
-                           ("WG21"   . "https://wg21.link/")))))
+                           ("WG21"   . "https://wg21.link/"))))
 
 
 ;; Org-roam is a plain-text knowledge management system. It brings some of Roam's more powerful features into the Org-mode ecosystem.

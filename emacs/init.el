@@ -130,7 +130,7 @@
 ;; 如果不提前加载好 org 包会造成和 emacs 的 build-in 的 org 包冲突
 ;; (require 'elpaca-setup)
 (require 'basic-setup)
-(require 'func-setup)
+;; (require 'func-setup)
 (require 'theme-setup)
 
 ;; after base config

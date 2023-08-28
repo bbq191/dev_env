@@ -66,8 +66,8 @@
 
 ;; for rust
 (use-package flycheck-rust
-  :after (flycheck rustic)
-  :config
+  :after rustic-mode
+  :config 
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
 
