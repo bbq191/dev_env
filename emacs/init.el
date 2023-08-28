@@ -1,3 +1,7 @@
+;; init.el --- init configurations.	-*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
 ;;; Code:
 
 (let ((dir (locate-user-emacs-file "lisp")))
@@ -130,7 +134,6 @@
 (require 'theme-setup)
 
 ;; after base config
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'util-setup)
 (require 'minibuffer-setup)
 (require 'completion-setup)
@@ -138,8 +141,9 @@
 (require 'coding-setup)
 
 ;; lang config
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'markdown)
+(require 'rust)
+
 
 (provide 'init)
 
