@@ -113,8 +113,11 @@
 ;; Block until current queue processed.
 (elpaca-wait)
 
-(use-package no-littering :ensure t  )
+;; Modify these package integrated in init
+(use-package general :ensure t)
 (elpaca-wait)
+(use-package no-littering :ensure t)
+;; (elpaca-wait)
 (setq no-littering-etc-directory (expand-file-name "etc/" user-emacs-directory))
 (setq no-littering-var-directory (expand-file-name "var/" user-emacs-directory))
 

@@ -86,7 +86,6 @@ mermaid.initialize({
     (when-let ((credential (auth-source-user-and-password "api.github.com")))
       (setq grip-github-user (car credential)
             grip-github-password (cadr credential))))
-  (elpaca-wait)
 
   ;; Table of contents
   (use-package markdown-toc
@@ -110,10 +109,7 @@ mermaid.initialize({
           (eglot--manage-mode -1)
           (apply fn args)
           (eglot--manage-mode 1))
-         (t
-          (apply fn args))))))
-  (elpaca-wait))
-(elpaca-wait)
+         (t (apply fn args)))))))
 
 (provide 'markdown)
 

@@ -35,7 +35,6 @@
 ;; Rose Pine - 个人最喜欢的 theme
 (add-to-list 'custom-theme-load-path "~/.config/emacs/etc/theme/")
 (use-package autothemer   :ensure t)
-(elpaca-wait)
 ;;(load-theme 'rose-pine t)
 
 ;; doomemacs themes
@@ -54,7 +53,6 @@
   ;; (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
-(elpaca-wait)
 
 ;; doom-mode-line
 (use-package doom-modeline

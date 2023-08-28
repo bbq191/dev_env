@@ -12,7 +12,7 @@
   :custom (marginalia-max-relative-age 0)
   (marginalia-align 'right)
   :init (marginalia-mode))
-(elpaca-wait)
+
 
 ;; Embark with Consult
 ;; embark
@@ -21,7 +21,7 @@
   :bind (:map minibuffer-local-map ("M-o"     . embark-act)
               ("C-c C-c" . embark-export)
               ("C-c C-o" . embark-collect)))
-(elpaca-wait)
+
 
 ;; consult
 (use-package consult
@@ -54,11 +54,10 @@
   (consult-async-refresh-delay 0.15)
   (consult-async-input-throttle 0.2)
   (consult-async-input-debounce 0.1))
-(elpaca-wait)
+
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult :ensure t :after embark consult)
-(elpaca-wait)
 
 
 ;; Vertico is a minibuffer interface, that is, it changes the minibuffer looks
@@ -165,7 +164,7 @@
                    "  ")
                  cand))))
 
-(elpaca-wait)
+
 
 ;; Orderless is an alternative and powerful completion style, that is, it is an alternative to Emacs’s basic candidate-filtering capacities.
 (use-package orderless
@@ -240,7 +239,7 @@ It matches PATTERN _INDEX and _TOTAL according to how Orderless
 parses its input."
     (when (string-suffix-p "." pattern)
       `(orderless-flex . ,(substring pattern 0 -1)))))
-(elpaca-wait)
+
 
 
 (provide 'minibuffer-setup)

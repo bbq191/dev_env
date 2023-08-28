@@ -25,7 +25,7 @@
         (goto-char start)
         (forward-line 1)
         (insert eval-as-comment-prefix)))))
-(elpaca-wait)
+
 
 ;; Setup gitignore mode
 (use-package conf-mode
@@ -34,13 +34,13 @@
   :mode (("\\.gitignore\\'"     . conf-unix-mode)
          ("\\.gitconfig\\'"     . conf-unix-mode)
          ("\\.gitattributes\\'" . conf-unix-mode)))
-(elpaca-wait)
+
 
 ;; Config yaml files mode
 (use-package yaml-mode
   :ensure t
   :mode ("\\.ya?ml\\'" . yaml-mode))
-(elpaca-wait)
+
 
 ;; language helper
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -54,7 +54,7 @@
   (flycheck-check-syntax-automatically '(save mode-enabled))
   (flycheck-emacs-lisp-load-path 'inherit)
   (flycheck-indication-mode 'right-fringe))
-(elpaca-wait)
+
 
 ;; Flycheck Extensions
 ;; inline
@@ -62,14 +62,14 @@
   :after flycheck
   :config
   (add-hook 'flycheck-mode-hook #'flycheck-inline-mode))
-(elpaca-wait)
+
 
 ;; for rust
 (use-package flycheck-rust
   :after (flycheck rustic)
   :config
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-(elpaca-wait)
+
 
 ;; Magit tool
 (use-package magit
@@ -82,7 +82,7 @@
   (magit-diff-refine-hunk t)
   (magit-diff-paint-whitespace nil)
   (magit-ediff-dwim-show-on-hunks t))
-(elpaca-wait)
+
 
 ;; NOTE: `diff-hl' depends on `vc'
 (use-package vc
@@ -92,7 +92,7 @@
   (vc-follow-symlinks t)
   (vc-allow-async-revert t)
   (vc-handled-backends '(Git)))
-(elpaca-wait)
+
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
@@ -105,7 +105,7 @@
   ;; When Emacs runs in terminal, show the indicators in margin instead.
   (unless (display-graphic-p)
     (diff-hl-margin-mode)))
-(elpaca-wait)
+
 
 ;; Visual diff interface
 (use-package ediff
@@ -128,7 +128,7 @@
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (ediff-split-window-function 'split-window-horizontally)
   (ediff-merge-split-window-function 'split-window-horizontally))
-(elpaca-wait)
+
 
 ;; Automatically install and use tree-sitter major modes in Emacs 29+.
 (use-package treesit-auto
@@ -136,7 +136,7 @@
   :config
   (setq treesit-auto-install 'prompt)
   (global-treesit-auto-mode))
-(elpaca-wait)
+
 
 
 (provide 'coding-setup)

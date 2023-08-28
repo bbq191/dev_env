@@ -55,7 +55,7 @@
 
 ;;   :config
 ;;   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
-;; (elpaca-wait)
+;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -117,14 +117,13 @@
     (add-to-list 'lsp-language-id-configuration '(bash-ts-mode . "shellscript"))
 
     ;; Display icons
-    (when (icons-displayable-p)
       (defun my-lsp-icons-get-symbol-kind (fn &rest args)
-        (and (icons-displayable-p) (apply fn args)))
+        (and (apply fn args)))
       (advice-add #'lsp-icons-get-by-symbol-kind :around #'my-lsp-icons-get-symbol-kind)
 
       ;; For `lsp-headerline'
       (defun my-lsp-icons-get-by-file-ext (fn &rest args)
-        (and (icons-displayable-p) (apply fn args)))
+        (and (apply fn args)))
       (advice-add #'lsp-icons-get-by-file-ext :around #'my-lsp-icons-get-by-file-ext)
 
       (defun my-lsp-icons-get-by-file-ext (file-ext &optional feature)
@@ -164,8 +163,8 @@
       (advice-add #'lsp-icons-get-by-symbol-kind :override #'my-lsp-icons-get-by-symbol-kind)
 
       (setq lsp-headerline-arrow (nerd-icons-octicon "nf-oct-chevron_right"
-                                                     :face 'lsp-headerline-breadcrumb-separator-face)))))
-(elpaca-wait)
+                                                     :face 'lsp-headerline-breadcrumb-separator-face))))
+
 
 
 
@@ -177,7 +176,7 @@
 ;;   (lsp-ui-sideline-show-hover nil)
 ;;   (lsp-ui-sideline-enable nil)
 ;;   (lsp-ui-doc-enable nil))
-;; (elpaca-wait)
+
 
 (use-package lsp-ui
   :custom-face
@@ -263,7 +262,7 @@
               (propertize " " 'display '(space :height (1)))
               (and (not (equal after ?\n)) (propertize " \n" 'face '(:height 0.5)))))))))
     (advice-add #'lsp-ui-doc--handle-hr-lines :override #'my-lsp-ui-doc--handle-hr-lines)))
-(elpaca-wait)
+
 
 ;; Eglot - disabled
 (use-package eglot
@@ -309,7 +308,7 @@
   (eglot-events-buffer-size 0)
   (eglot-ignored-server-capabilities '(:documentLinkProvider
                                        :documentOnTypeFormattingProvider)))
-(elpaca-wait)
+
 
 
 (provide 'lsp-setup)

@@ -8,14 +8,14 @@
 
 ;; Completion - Auto completed for corfu config.
 (use-package company :ensure t)
-(elpaca-wait)
+
 
 (use-package yasnippet
   :ensure t
   :config (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (add-hook 'text-mode-hook 'yas-minor-mode))
-(elpaca-wait)
+
 
 ;; doom snippet
 (use-package doom-snippets
@@ -28,7 +28,7 @@
   :config (setq yas-snippet-dirs
                 '("~/.config/emacs/etc/elpaca/repos/snippets/"))
   (yas-reload-all))
-(elpaca-wait)
+
 
 ;;; 以上是Corfu必要依赖 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -111,7 +111,7 @@
   default lsp-passthrough."
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))))
-(elpaca-wait)
+
 
 ;; Pretty Corfu
 ;; Kind-icon is essentially company-box-icons for corfu. It adds icons to the left margin of the corfu popup that represent the ‘function’ (e.g. variable, method, file) of that candidate.
@@ -140,7 +140,7 @@
   ;; since I have a light theme and dark theme I switch between. This has no
   ;; function unless you use something similar
   (add-hook 'kb/themes-hooks #'(lambda () (interactive) (kind-icon-reset-cache))))
-(elpaca-wait)
+
 
 ;; Cape is to corfu as company-backends are to company
 (use-package cape
@@ -247,7 +247,7 @@
   ;; Ensure that pcomplete does not write to the buffer and behaves as a pure
   ;; `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
-(elpaca-wait)
+
 
 (provide 'completion-setup)
 
