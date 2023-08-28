@@ -67,6 +67,30 @@
                                  ,package-user-dir)))
 (elpaca-wait)
 
+;; undotree
+(use-package undo-tree
+  :ensure t
+  :init (global-undo-tree-mode)
+  :custom
+  (undo-tree-auto-save-history nil))
+(elpaca-wait)
+
+
+;; mwim stands for Move Where I Mean.
+(use-package mwim
+  :ensure t
+  :bind
+  ("C-a" . mwim-beginning-of-code-or-line)
+  ("C-e" . mwim-end-of-code-or-line))
+(elpaca-wait)
+
+;; The blazing grep tool
+;; Press C-c s to search
+(use-package rg
+  :ensure t
+  :hook (after-init . rg-enable-default-bindings))
+(elpaca-wait)
+
 ;; Icons Completion
 ;; Note: All-the-icons-completion depends on an already installed all-the-icons.
 (use-package all-the-icons   

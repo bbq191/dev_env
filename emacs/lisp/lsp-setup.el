@@ -10,9 +10,13 @@
 (use-package lsp-mode
   :ensure t
   :hook ((prog-mode . (lambda ()
-                        (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
+                        (unless (derived-mode-p 'emacs-lisp-mode 
+                        'lisp-mode
+                        'markdown-mode
+                        'makefile-mode 
+                        'snippet-mode)
                           (lsp-deferred))))
-         ((markdown-mode yaml-mode yaml-ts-mode) . lsp-deferred))    
+         ((yaml-mode yaml-ts-mode) . lsp-deferred))
   :bind (:map lsp-mode-map
               ("C-c f" . lsp-format-region)
               ("C-c d" . lsp-describe-thing-at-point)

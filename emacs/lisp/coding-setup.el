@@ -1,4 +1,4 @@
-;;; init-elisp.el --- elisp -*- lexical-binding: t -*-
+;;; init-elisp.el --- Dev tool and some lang -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; dev utils and some no need config lang
 
@@ -42,6 +42,9 @@
   :mode ("\\.ya?ml\\'" . yaml-mode))
 (elpaca-wait)
 
+;; language helper
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Flycheck and extensions
 (use-package flycheck
   :ensure t
@@ -54,7 +57,6 @@
 (elpaca-wait)
 
 ;; Flycheck Extensions
-
 ;; inline
 (use-package flycheck-inline
   :after flycheck
@@ -128,7 +130,7 @@
   (ediff-merge-split-window-function 'split-window-horizontally))
 (elpaca-wait)
 
-;; Automatically install and use tree-sitter major modes in Emacs 29+. 
+;; Automatically install and use tree-sitter major modes in Emacs 29+.
 (use-package treesit-auto
   :ensure t
   :config

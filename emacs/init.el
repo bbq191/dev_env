@@ -134,6 +134,10 @@
 (require 'lsp-setup)
 (require 'coding-setup)
 
+;; lang config
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'markdown)
+
 (provide 'init)
 
 ;;; init.el ends here
