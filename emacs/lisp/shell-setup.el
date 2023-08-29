@@ -7,7 +7,8 @@
 
 ;; the Emacs shell & friends
 (use-package eshell
-  :ensure nil
+  :elpaca nil
+  :ensure t
   :hook ((eshell-mode . (lambda ()
                           (shell-mode-common-init)
                           ;; Eshell is not fully functional
@@ -68,10 +69,12 @@ current directory."
   (eshell-cmpl-cycle-completions nil))
 
 (use-package em-rebind
+  :elpaca nil
   :ensure nil
   :commands eshell-delchar-or-maybe-eof)
 
 (use-package esh-mode
+  :elpaca nil
   :ensure nil
   :bind (:map eshell-mode-map
          ([remap kill-region] . backward-kill-word)
@@ -80,5 +83,8 @@ current directory."
   ;; Delete the last "word"
   (dolist (ch '(?_ ?- ?.))
     (modify-syntax-entry ch "w" eshell-mode-syntax-table)))
+
+
+(provide 'shell-setup)
 
 ;; shell-setup.el ends here

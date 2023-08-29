@@ -111,6 +111,13 @@
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
 
 
+;; about shell
+(defun shell-mode-common-init ()
+  "The common initialization procedure for term/shell."
+  (setq-local scroll-margin 0)
+  (setq-local truncate-lines t)
+  (setq-local global-hl-line-mode nil))
+
 (provide 'basic-setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

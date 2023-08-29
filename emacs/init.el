@@ -140,6 +140,7 @@
 (require 'lsp-setup)
 (require 'coding-setup)
 (require 'org-setup)
+(require 'shell-setup)
 
 ;; lang config
 (require 'markdown)

@@ -47,13 +47,10 @@
   :hook (recentf-exclude . (recentf-expand-file-name no-littering-var-directory))
   (recentf-exclude . (recentf-expand-file-name no-littering-etc-directory)))
 
-
 ;; Fix Exec Path for Mac
-(use-package exec-path-from-shell
-  :ensure t
-  :when (eq system-type 'darwin)
-  :hook (after-init . exec-path-from-shell-initialize))
-
+(when (or (and (display-graphic-p) is-macsys) (daemonp))
+  (use-package exec-path-from-shell
+    :init (exec-path-from-shell-initialize)))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Projectile is a project interaction library for Emacs
