@@ -125,8 +125,9 @@
 (setq no-littering-etc-directory (expand-file-name "etc/" user-emacs-directory))
 (setq no-littering-var-directory (expand-file-name "var/" user-emacs-directory))
 
+;; base build-in config
 (require 'basic-setup)
-(require 'theme-setup)
+;; (require 'theme-setup)
 
 ;; after base config
 (require 'util-setup)
