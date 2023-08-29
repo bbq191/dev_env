@@ -1,4 +1,4 @@
-#!/bin/s
+#!/bin/sh
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export HISTFILE="$ZDOTDIR/.zhistory"

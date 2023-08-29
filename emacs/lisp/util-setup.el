@@ -44,6 +44,9 @@
 ;; Fix Exec Path for Mac
 (when (or (and (display-graphic-p) is-macsys) (daemonp))
   (use-package exec-path-from-shell
+  :config
+  (dolist (var '("CARGO_HOME"))
+  (add-to-list 'exec-path-from-shell-variables var))
     :init (exec-path-from-shell-initialize)))
 
 ;; Projectile is a project interaction library for Emacs
