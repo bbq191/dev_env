@@ -12,7 +12,7 @@
 
 (use-package yasnippet
   :ensure t
-  :config (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
+  :config ;; (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (add-hook 'text-mode-hook 'yas-minor-mode))
 
@@ -25,8 +25,8 @@
                          :host github
                          :repo "doomemacs/snippets"
                          :files ("*.el" "*"))
-  :config (setq yas-snippet-dirs
-                '("~/.config/emacs/etc/elpaca/repos/snippets/"))
+  ;;:config (setq yas-snippet-dirs
+  ;;              '("~/.config/emacs/my-snippets/"))
   (yas-reload-all))
 
 
