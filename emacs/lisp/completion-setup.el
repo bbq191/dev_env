@@ -25,8 +25,8 @@
                          :host github
                          :repo "doomemacs/snippets"
                          :files ("*.el" "*"))
-  ;;:config (setq yas-snippet-dirs
-  ;;              '("~/.config/emacs/my-snippets/"))
+  :config (setq yas-snippet-dirs
+               '("~/.config/emacs/etc/yasnippet/snippets/"))
   (yas-reload-all))
 
 

@@ -1,90 +1,120 @@
-;;; init-shell.el --- All about shell/term -*- lexical-binding: t -*-
+;; init-eshell.el --- Initialize eshell configurations.	-*- lexical-binding: t -*-
+
+;; Copyright (C) 2006-2023 Vincent Zhang
+
+;; Author: Vincent Zhang <seagle0128@gmail.com>
+;; URL: https://github.com/seagle0128/.emacs.d
+
+;; This file is not part of GNU Emacs.
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;;
 
 ;;; Commentary:
+;;
+;; Eshell configurations.
 ;;
 
 ;;; Code:
 
-;; the Emacs shell & friends
+;; Emacs command shell
 (use-package eshell
   :elpaca nil
-  :ensure t
-  :hook ((eshell-mode . (lambda ()
-                          (shell-mode-common-init)
-                          ;; Eshell is not fully functional
-                          (setenv "PAGER" "cat"))))
-  :config
-  ;; Prevent accident typing
-  (defalias 'eshell/vi 'find-file)
-  (defalias 'eshell/vim 'find-file)
-  (defalias 'eshell/nvim 'find-file)
-
-  (defun eshell/bat (file)
-    "cat FILE with syntax highlight."
-    (with-temp-buffer
-      (insert-file-contents file)
-      (let ((buffer-file-name file))
-        (delay-mode-hooks
-          (set-auto-mode)
-          (font-lock-ensure)))
-      (buffer-string)))
-
-  (defun eshell/f (filename &optional dir)
-    "Search for files matching FILENAME in either DIR or the
-current directory."
-    (let ((cmd (concat
-                (executable-find "find")
-                " " (or dir ".")
-                "      -not -path '*/.git*'"
-                " -and -not -path 'build'"    ;; the cmake build directory
-                " -and"
-                " -type f"
-                " -and"
-                " -iname '*" (format "%s" filename) "*'")))
-      (eshell-command-result cmd)))
-
-  (defun eshell/z ()
-    "cd to directory with completions."
-    (let ((dir (completing-read "Directory: " (delete-dups (ring-elements eshell-last-dir-ring)) nil t)))
-      (eshell/cd dir)))
-
-  (defun eshell/bd ()
-    "cd to parent directory with completions."
-    (let ((dir default-directory)
-          dirs)
-      (while (not (string-empty-p dir))
-        (push (file-name-directory dir) dirs)
-        (setq dir (substring dir 0 -1)))
-      (let ((dir (completing-read "Directory: " dirs nil t)))
-        (eshell/cd dir))))
-  :custom
-  (eshell-banner-message "")
-  ;; The following cmds will run on term.
-  (eshell-visual-commands '("top" "htop" "less" "more" "telnet"))
-  (eshell-visual-subcommands '(("git" "help" "lg" "log" "diff" "show")))
-  (eshell-visual-options '(("git" "--help" "--paginate")))
-  (eshell-destroy-buffer-when-process-dies t)
-  ;; Completion like bash
-  (eshell-cmpl-ignore-case t)
-  (eshell-cmpl-cycle-completions nil))
-
-(use-package em-rebind
-  :elpaca nil
   :ensure nil
-  :commands eshell-delchar-or-maybe-eof)
-
-(use-package esh-mode
-  :elpaca nil
-  :ensure nil
+  :defines eshell-prompt-function
   :bind (:map eshell-mode-map
-         ([remap kill-region] . backward-kill-word)
-         ([remap delete-char] . eshell-delchar-or-maybe-eof))
+         ([remap recenter-top-bottom] . eshell/clear))
   :config
-  ;; Delete the last "word"
-  (dolist (ch '(?_ ?- ?.))
-    (modify-syntax-entry ch "w" eshell-mode-syntax-table)))
+  (with-no-warnings
+    (defun eshell/clear ()
+      "Clear the eshell buffer."
+      (interactive)
+      (let ((inhibit-read-only t))
+        (erase-buffer)
+        (eshell-send-input)))
 
+    (defun eshell/emacs (&rest args)
+      "Open a file (ARGS) in Emacs.  Some habits die hard."
+      (if (null args)
+          ;; If I just ran "emacs", I probably expect to be launching
+          ;; Emacs, which is rather silly since I'm already in Emacs.
+          ;; So just pretend to do what I ask.
+          (bury-buffer)
+        ;; We have to expand the file names or else naming a directory in an
+        ;; argument causes later arguments to be looked for in that directory,
+        ;; not the starting directory
+        (mapc #'find-file (mapcar #'expand-file-name (flatten-tree (reverse args))))))
+    (defalias 'eshell/e #'eshell/emacs)
+    (defalias 'eshell/ec #'eshell/emacs)
+
+    (defun eshell/ebc (&rest args)
+      "Compile a file (ARGS) in Emacs. Use `compile' to do background make."
+      (if (eshell-interactive-output-p)
+          (let ((compilation-process-setup-function
+                 (list 'lambda nil
+                       (list 'setq 'process-environment
+                             (list 'quote (eshell-copy-environment))))))
+            (compile (eshell-flatten-and-stringify args))
+            (pop-to-buffer compilation-last-buffer))
+        (throw 'eshell-replace-command
+               (let ((l (eshell-stringify-list (flatten-tree args))))
+                 (eshell-parse-command (car l) (cdr l))))))
+    (put 'eshell/ebc 'eshell-no-numeric-conversions t)
+
+    (defun eshell-view-file (file)
+      "View FILE.  A version of `view-file' which properly rets the eshell prompt."
+      (interactive "fView file: ")
+      (unless (file-exists-p file) (error "%s does not exist" file))
+      (let ((buffer (find-file-noselect file)))
+        (if (eq (get (buffer-local-value 'major-mode buffer) 'mode-class)
+                'special)
+            (progn
+              (switch-to-buffer buffer)
+              (message "Not using View mode because the major mode is special"))
+          (let ((undo-window (list (window-buffer) (window-start)
+                                   (+ (window-point)
+                                      (length (funcall eshell-prompt-function))))))
+            (switch-to-buffer buffer)
+            (view-mode-enter (cons (selected-window) (cons nil undo-window))
+                             'kill-buffer)))))
+
+    (defun eshell/less (&rest args)
+      "Invoke `view-file' on a file (ARGS).
+
+\"less +42 foo\" will go to line 42 in the buffer for foo."
+      (while args
+        (if (string-match "\\`\\+\\([0-9]+\\)\\'" (car args))
+            (let* ((line (string-to-number (match-string 1 (pop args))))
+                   (file (pop args)))
+              (eshell-view-file file)
+              (forward-line line))
+          (eshell-view-file (pop args)))))
+    (defalias 'eshell/more #'eshell/less))
+
+  ;;  Display extra information for prompt
+  (use-package eshell-prompt-extras
+    :after esh-opt
+    :defines eshell-highlight-prompt
+    :autoload (epe-theme-lambda epe-theme-dakrone epe-theme-pipeline)
+    :init (setq eshell-highlight-prompt nil
+                eshell-prompt-function #'epe-theme-lambda)))
+
+  ;; `eldoc' support
 
 (provide 'shell-setup)
 
-;; shell-setup.el ends here
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; shell-setup.el ends here

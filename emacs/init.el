@@ -125,12 +125,7 @@
 (setq no-littering-etc-directory (expand-file-name "etc/" user-emacs-directory))
 (setq no-littering-var-directory (expand-file-name "var/" user-emacs-directory))
 
-
-;; 必须提前所有包之前加载的两个配置，org 也必须提前是因为后面使用 org-babel-load-file，
-;; 如果不提前加载好 org 包会造成和 emacs 的 build-in 的 org 包冲突
-;; (require 'elpaca-setup)
 (require 'basic-setup)
-;; (require 'func-setup)
 (require 'theme-setup)
 
 ;; after base config
@@ -140,7 +135,6 @@
 (require 'lsp-setup)
 (require 'coding-setup)
 (require 'org-setup)
-(require 'shell-setup)
 
 ;; lang config
 (require 'markdown)

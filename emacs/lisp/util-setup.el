@@ -32,12 +32,6 @@
          ("C-c d" . 'move-dup-duplicate-down)
          ("C-c u" . 'move-dup-duplicate-up)))
 
-;; No Littering - Help keeping ~/.config/emacs clean
-;; If you would like to use base directories different from what no-littering uses by default, then you have to set the respective variables before loading the feature.
-;; (use-package no-littering)
-;; (setq no-littering-etc-directory (expand-file-name "config/" user-emacs-directory))
-;; (setq no-littering-var-directory (expand-file-name "data/" user-emacs-directory))
-
 ;; recentf setting
 (use-package recentf
   :elpaca nil
@@ -51,7 +45,6 @@
 (when (or (and (display-graphic-p) is-macsys) (daemonp))
   (use-package exec-path-from-shell
     :init (exec-path-from-shell-initialize)))
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Projectile is a project interaction library for Emacs
 (use-package projectile
@@ -74,14 +67,12 @@
                                  "/private/tmp/"
                                  ,package-user-dir)))
 
-
 ;; undotree
 (use-package undo-tree
   :ensure t
   :init (global-undo-tree-mode)
   :custom
   (undo-tree-auto-save-history nil))
-
 
 ;; mwim stands for Move Where I Mean.
 (use-package mwim
@@ -97,20 +88,14 @@
   :ensure t
   :hook (after-init . rg-enable-default-bindings))
 
-
 ;; Icons Completion
 ;; Note: All-the-icons-completion depends on an already installed all-the-icons.
-(use-package all-the-icons
-  :ensure t
-  :if (display-graphic-p))
-
-
-(use-package all-the-icons-completion
-  :ensure t
-  :after (marginalia all-the-icons)
-  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
-  :init (all-the-icons-completion-mode))
-
+(use-package nerd-icons
+  :custom
+  ;; The Nerd Font you want to use in GUI
+  ;; "Symbols Nerd Font Mono" is the default and is recommended
+  ;; but you can use any other Nerd Font if you want
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 ;; Page Break Lines
 (use-package page-break-lines
@@ -127,7 +112,6 @@
   (aw-leading-char-face ((t (:inherit font-lock-keyword-face
                                       :foreground unspecified
                                       :bold t
-
                                       :height 3.0))))
   (aw-minibuffer-leading-char-face ((t (:inherit font-lock-keyword-face :bold t :height 1.0))))
   (aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t))))
@@ -159,9 +143,6 @@
             (if this-win-2nd (other-window 1))))
       (user-error "`toggle-window-split' only supports two windows")))
 
-  ;; Bind hydra to dispatch list
-  (add-to-list 'aw-dispatch-alist '(?w ace-window-hydra/body) t)
-
   ;; Select widnow via `M-1'...`M-9'
   (defun aw--select-window (number)
     "Slecet the specified window."
@@ -182,7 +163,6 @@
                 (interactive)
                 (aw--select-window (1+ n))))))
 
-
 ;; Multiple cursors
 (use-package multiple-cursors
   :ensure t
@@ -198,6 +178,7 @@
          ("C-|" . mc/vertical-align-with-space)))
 ;; Smartly select region, rectangle, multi cursors
 (use-package smart-region
+  :ensure t
   :hook (after-init . smart-region-on))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -220,5 +201,4 @@
 ;;                 which-key-separator " → " ))
 
 (provide 'util-setup)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-util.el ends here
+;;; util-setup.el ends here

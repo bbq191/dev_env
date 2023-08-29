@@ -3,30 +3,6 @@
 ;; dev utils and some no need config lang
 
 ;;; Code:
-
-;; elisp-mode
-(use-package elisp-mode
-  :elpaca nil
-  :ensure nil
-  :bind (:map emacs-lisp-mode-map
-              ("C-c C-c" . eval-to-comment)
-              :map lisp-interaction-mode-map
-              ("C-c C-c" . eval-to-comment))
-  :config
-  (defconst eval-as-comment-prefix ";;=> ")
-
-  ;; Imitate scala-mode
-  ;; from https://github.com/dakra/dmacs
-  (defun eval-to-comment (&optional arg)
-    (interactive "P")
-    (let ((start (point)))
-      (eval-print-last-sexp arg)
-      (save-excursion
-        (goto-char start)
-        (forward-line 1)
-        (insert eval-as-comment-prefix)))))
-
-
 ;; Setup gitignore mode
 (use-package conf-mode
   :elpaca nil
@@ -55,7 +31,6 @@
   (flycheck-emacs-lisp-load-path 'inherit)
   (flycheck-indication-mode 'right-fringe))
 
-
 ;; Flycheck Extensions
 ;; inline
 (use-package flycheck-inline
@@ -63,11 +38,10 @@
   :config
   (add-hook 'flycheck-mode-hook #'flycheck-inline-mode))
 
-
 ;; for rust
 (use-package flycheck-rust
   :after rustic-mode
-  :config 
+  :config
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
 
@@ -128,16 +102,6 @@
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (ediff-split-window-function 'split-window-horizontally)
   (ediff-merge-split-window-function 'split-window-horizontally))
-
-
-;; Automatically install and use tree-sitter major modes in Emacs 29+.
-(use-package treesit-auto
-  :ensure t
-  :config
-  (setq treesit-auto-install 'prompt)
-  (global-treesit-auto-mode))
-
-
 
 (provide 'coding-setup)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
