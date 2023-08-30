@@ -9,13 +9,22 @@
 ;; Completion - Auto completed for corfu config.
 (use-package company :ensure t)
 
-
 (use-package yasnippet
   :ensure t
-  :config ;; (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
-  (add-hook 'prog-mode-hook 'yas-minor-mode)
-  (add-hook 'text-mode-hook 'yas-minor-mode))
-
+  :hook ((prog-mode . yas-minor-mode)
+	 (org-mode . yas-minor-mode))
+  :init
+  :config
+  (progn (setq hippie-expand-try-functions-list
+	  '(yas/hippie-try-expand
+	    try-complete-file-name-partially
+	    try-expand-all-abbrevs
+	    try-expand-dabbrev
+	    try-expand-dabbrev-all-buffers
+	    try-expand-dabbrev-from-kill
+	    try-complete-lisp-symbol-partially
+	    try-complete-lisp-symbol))))
+(elpaca-wait)
 
 ;; doom snippet
 (use-package doom-snippets
@@ -25,8 +34,7 @@
                          :host github
                          :repo "doomemacs/snippets"
                          :files ("*.el" "*"))
-  :config (setq yas-snippet-dirs
-               '("~/.config/emacs/etc/yasnippet/snippets/"))
+  :config (setq yas-snippet-dirs '("~/.config/emacs/list/snippets/"))
   (yas-reload-all))
 
 

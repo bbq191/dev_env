@@ -74,6 +74,9 @@
 ;; Const
 ;; 判断是否是 macOS
 (defconst is-macsys (eq system-type 'darwin))
+(defcustom show-icon t
+  "Display icons or not."
+  :type 'boolean)
 
 ;; Font
 (defun font-installed-p (font-name)
@@ -179,7 +182,33 @@
 ;; Theme
 ;; Rose Pine - 个人最喜欢的 theme
 (add-to-list 'custom-theme-load-path "~/.config/emacs/lisp/theme/")
-(use-package autothemer :elpaca nil :ensure t)
+(use-package autothemer :ensure t)
+(elpaca-wait)
 (load-theme 'rose-pine t)
+
+;; Icons
+(use-package nerd-icons
+  :config
+  (when (not (font-installed-p nerd-icons-font-family)))
+    (nerd-icons-install-fonts t))
+
+;; Mode-line
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode)
+  :init
+  (setq doom-modeline-icon show-icon
+        doom-modeline-minor-modes t))
+
+(use-package hide-mode-line
+  :hook (((treemacs-mode
+           eshell-mode shell-mode
+           term-mode vterm-mode
+           embark-collect-mode
+           lsp-ui-imenu-mode
+           pdf-annot-list-mode) . hide-mode-line-mode)))
+
+;; A minor-mode menu for mode-line
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
 
 ;;; base-setup.el ends here

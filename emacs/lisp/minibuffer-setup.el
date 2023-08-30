@@ -164,7 +164,16 @@
                    "  ")
                  cand))))
 
+(use-package vertico-posframe
+  :hook (vertico-mode . vertico-posframe-mode)
+  :init (setq vertico-posframe-poshandler
+              #'posframe-poshandler-frame-center-near-bottom
+              vertico-posframe-parameters
+              '((left-fringe  . 8)
+                (right-fringe . 8))))
 
+(use-package nerd-icons-completion
+  :hook (vertico-mode . nerd-icons-completion-mode))
 
 ;; Orderless is an alternative and powerful completion style, that is, it is an alternative to Emacs’s basic candidate-filtering capacities.
 (use-package orderless

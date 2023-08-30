@@ -91,9 +91,10 @@
 
 ;; base build-in config
 (require 'basic-setup)
-
-;; after base config
 (require 'util-setup)
+(require 'window-setup)
+;; after base config
+
 (require 'minibuffer-setup)
 (require 'completion-setup)
 (require 'lsp-setup)
