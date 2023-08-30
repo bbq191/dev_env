@@ -189,8 +189,8 @@
 ;; Icons
 (use-package nerd-icons
   :config
-  (when (not (font-installed-p nerd-icons-font-family)))
-    (nerd-icons-install-fonts t))
+  (when (not (font-installed-p nerd-icons-font-family))
+    (nerd-icons-install-fonts t)))
 
 ;; Mode-line
 (use-package doom-modeline
