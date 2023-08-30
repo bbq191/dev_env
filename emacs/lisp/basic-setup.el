@@ -75,6 +75,11 @@
 ;; 判断是否是 macOS
 (defconst is-macsys (eq system-type 'darwin))
 
+;; Font
+(defun font-installed-p (font-name)
+  "Check if font with FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
+
 ;; Function
 ;; Newline behaviour
 (defun vk/newline-at-end-of-line ()
@@ -106,8 +111,8 @@
     (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
       (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
 ;; 调整界面 opacity
-(global-set-key (kbd "M-C-8") (lambda () (interactive) (ikate/adjust-opacity nil -2)))
-(global-set-key (kbd "M-C-9") (lambda () (interactive) (ikate/adjust-opacity nil 2)))
+(global-set-key (kbd "M-C-8") (lambda () (interactive) (vk/adjust-opacity nil -2)))
+(global-set-key (kbd "M-C-9") (lambda () (interactive) (vk/adjust-opacity nil 2)))
 (global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
 
 ;; about shell
@@ -121,33 +126,60 @@
 
 ;; theme ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 设置自己喜欢的字体
-(set-face-attribute 'default nil
-                    :font "Cascadia Code"
-                    :height 130
-                    :weight 'regular)
-(set-face-attribute 'variable-pitch nil
-                    :font "Symbols Nerd Font"
-                    :height 120
-                    :weight 'medium)
-(set-face-attribute 'fixed-pitch nil
-                    :font "FiraCode Nerd Font"
-                    :height 130
-                    :weight 'regular)
+;; Fonts -- todo  如何开启 otf 属性
+;; (set-fontset-font t 'latin (font-spec :family "Cascadia Code" :otf '(latn nil (calt zero ss01) nil)))
+(defun centaur-setup-fonts ()
+  "Setup fonts."
+  (when (display-graphic-p)
+    ;; Set default font
+    (cl-loop for font in '("Cascadia Code" "Source Code Pro")
+             when (font-installed-p font)
+             return (set-face-attribute 'default nil
+                                        :family font
+                                        :height (cond (is-macsys 130)
+                                                      (t 100))))
+    ;; latin -- open otf
+    (cl-loop for font in '("Cascadia Code")
+             when (font-installed-p font)
+             return (set-fontset-font t 'latin (font-spec :family font :otf '(latn nil (calt zero ss01) nil))))
+    
+    ;; Specify font for all unicode characters
+    (cl-loop for font in '("Symbols Nerd Font" "Symbols Nerd Font Mono" "Symbol")
+             when (font-installed-p font)
+             return (if (< emacs-major-version 27)
+                        (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
+                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
 
-(set-face-attribute 'font-lock-keyword-face nil
-                    :slant 'italic)
-(set-face-attribute 'font-lock-comment-face nil
-                    :slant 'italic)
+    ;; Emoji
+    (cl-loop for font in '("Apple Color Emoji" "Segoe UI Emoji")
+             when (font-installed-p font)
+             return (cond
+                     ((< emacs-major-version 27)
+                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
+                     ((< emacs-major-version 28)
+                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
+                     (t
+                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
 
-(add-to-list 'default-frame-alist '(font . "Cascadia Code-15"))
-
-;; 中文字体修正
-(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "Source Han Sans CN" :size 12) nil 'prepend)
+    ;; Specify font for Chinese characters
+    (cl-loop for font in '("Source Han Sans CN" "PingFang SC" "Microsoft Yahei" "STFangsong")
+             when (font-installed-p font)
+             return (progn
+                      (setq face-font-rescale-alist `((,font . 1.0)))
+                      (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
+(centaur-setup-fonts)
+(add-hook 'window-setup-hook #'centaur-setup-fonts)
+(add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (set-face-attribute 'font-lock-keyword-face nil
+;;                     :slant 'italic)
+;; (set-face-attribute 'font-lock-comment-face nil
+;;                     :slant 'italic)
 
 ;; Theme
 ;; Rose Pine - 个人最喜欢的 theme
-(add-to-list 'custom-theme-load-path "~/.config/emacs/etc/theme/")
-(use-package autothemer :ensure t)
-;;(load-theme 'rose-pine t)
+(add-to-list 'custom-theme-load-path "~/.config/emacs/lisp/theme/")
+(use-package autothemer :elpaca nil :ensure t)
+(load-theme 'rose-pine t)
 
-;;; init-base.el ends here
+;;; base-setup.el ends here
