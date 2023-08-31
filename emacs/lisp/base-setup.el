@@ -129,6 +129,7 @@
               savehist-autosave-interval 300))
 
 (use-package simple
+  :straight nil
   :ensure nil
   :hook ((after-init . size-indication-mode)
          (text-mode . visual-line-mode)
@@ -210,23 +211,21 @@
 
 ;; Frame
 (when (display-graphic-p)
-  ;; (add-hook 'window-setup-hook #'fix-fullscreen-cocoa)
-  (bind-key "S-s-<return>" #'toggle-frame-fullscreen)
-  (and vk-mac-gui (bind-key "C-s-f" #'toggle-frame-fullscreen))
+  (and vk-mac-gui (bind-key "C-M-f" #'toggle-frame-fullscreen))
 
   ;; Resize and re-position frames conveniently
   ;; Same keybindings as Rectangle on macOS
-  (bind-keys ("C-M-<return>"    . vk-frame-maximize)
-             ("C-M-<backspace>" . vk-frame-restore)
-             ("C-M-<left>"      . vk-frame-left-half)
-             ("C-M-<right>"     . vk-frame-right-half)
-             ("C-M-<up>"        . vk-frame-top-half)
-             ("C-M-<down>"      . vk-frame-bottom-half)))
+  (bind-keys ("C-M-<return>"    . vk/frame-maximize)
+             ("C-M-<backspace>" . vk/frame-restore)
+             ("C-M-<left>"      . vk/frame-left-half)
+             ("C-M-<right>"     . vk/frame-right-half)
+             ("C-M-<up>"        . vk/frame-top-half)
+             ("C-M-<down>"      . vk/frame-bottom-half)))
 
 ;; Global keybindings
-(bind-keys ("s-r"     . revert-this-buffer)
-           ("C-x K"   . delete-this-file)
-           ("C-c C-l" . reload-init-file))
+(bind-keys ("s-r"     . vk/revert-this-buffer)
+           ("C-x K"   . vk/delete-this-file)
+           ("C-c C-l" . vk/reload-init-file))
 
 ;; Sqlite
 (when (fboundp 'sqlite-open)

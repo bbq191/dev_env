@@ -37,6 +37,10 @@
 ;; Package management
 (require 'package-setup)
 
+;; Preferences
+(require 'base-setup)
+;; (require 'init-hydra)
+
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)
 ;; (elpaca-wait)
