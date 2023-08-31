@@ -25,7 +25,7 @@
   (let ((old-value file-name-handler-alist))
     (setq file-name-handler-alist nil)
     (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
-    (add-hook 'emacs-startup-hook
+    (add-hook 'emacs-cl-loop-hook
               (lambda ()
                 "Recover file name handlers."
                 (setq file-name-handler-alist
@@ -35,7 +35,7 @@
 (require 'custom-setup)
 (require 'func-setup)
 ;; Package management
-
+(require 'package-setup)
 
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)

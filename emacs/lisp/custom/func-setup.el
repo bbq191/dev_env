@@ -1,4 +1,5 @@
 ;; Suppress warnings
+(require 'cl-lib) ;; cl-loop dependence
 (eval-when-compile (require 'custom-setup))
 
 (defvar socks-noproxy)
@@ -203,15 +204,15 @@
   "Show HTTP/HTTPS proxy."
   (interactive)
   (if url-proxy-services
-      (message "Current HTTP proxy is `%s'" vk-proxy)
+      (message "Current HTTP proxy is %s" vk-http-proxy)
     (message "No HTTP proxy")))
 
 (defun vk/proxy-http-enable ()
   "Enable HTTP/HTTPS proxy."
   (interactive)
   (setq url-proxy-services
-        `(("http" . ,vk-proxy)
-          ("https" . ,vk-proxy)
+        `(("http" . ,vk-http-proxy)
+          ("https" . ,vk-http-proxy)
           ("no_proxy" . "^\\(localhost\\|192.168.*\\|10.*\\)")))
   (vk/proxy-http-show))
 

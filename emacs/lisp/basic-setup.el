@@ -6,103 +6,232 @@
 ;;
 ;;; Code:
 
-;; 变更默认参数
-;; 基本配置设定，改变一些必要的默认参数
-(setq-default use-short-answers t
-              fill-column 90
-              frame-resize-pixelwise t
-              window-resize-pixelwise t
-              gc-cons-threshold most-positive-fixnum ; Defer garbage collection further back in the startup process
-              auto-mode-case-fold nil       ;; Don't pass case-insensitive to `auto-mode-alist'
-              tab-width 4
-              display-line-numbers-width 3
-              indicate-buffer-boundaries 'left
-              display-fill-column-indicator-character ?\u254e
-              indent-tabs-mode nil              ; Permanently indent with spaces, never with TABs
-              visible-bell t
-              inhibit-compacting-font-caches t  ; Don't compact font caches during GC
-              delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
-              make-backup-files nil             ; Forbide to make backup files
-              auto-save-default nil             ; Disable auto save
-              create-lockfiles nil
-              ring-bell-function 'ignore        ; No annoying bell
-              blink-cursor-mode nil             ; No eyes distraction
-              uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
-              adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*" ; 设置自动换行的正则表达式，这里是断行在多个空格或制表符后
-              adaptive-fill-first-line-regexp "^* *$" ; 设置首行的自动换行正则表达式，这里是在注释开头断行
-              sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*" ; 设置句子的结束标点正则表达式，这里包括中文和英文的常见结束标点
-              sentence-end-double-space nil ; 句子结束后使用两个空格而不是一个
-              word-wrap-by-category t ;按词类换行而不是按单词换行
-              truncate-lines nil
-              truncate-partial-width-windows nil
-              save-interprogram-paste-before-kill t ; 在程序间粘贴前保存内容
-              use-file-dialog nil ; 关闭使用系统自带的文件选择对话框,使用Emacs自带的。
-              use-dialog-box nil ; 关闭使用系统自带的消息框,使用Emacs自带的。
-              inhibit-startup-screen t ; 阻止显示启动画面。
-              inhibit-startup-message t ; 阻止显示启动消息。
-              inhibit-startup-buffer-menu t ; 阻止显示启动缓冲区菜单。
-              bidi-paragraph-direction 'left-to-right   ; 修改双向文字排版为从左到右
-              bidi-inhibit-bpa t
-              line-spacing 0.12
-              initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+;; init-base.el --- Better default configurations.	-*- lexical-binding: t -*-
 
-;; 模式命令
-;; 模式命令设定，改变一些基本模式
-(global-display-fill-column-indicator-mode 1)
-(global-display-line-numbers-mode 1)
-(column-number-mode 1)
-(global-auto-revert-mode 1)
-;; (desktop-save-mode 1)
-(save-place-mode 1)
-(delete-selection-mode 1)
-;; basic ui
-;; (menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-;; hist setting
-(savehist-mode 1)
-(setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-      history-length 1000
-      savehist-additional-variables '(mark-ring
-                                      global-mark-ring
-                                      search-ring
-                                      regexp-search-ring
-                                      extended-command-history)
-      savehist-autosave-interval 300)
+;; Copyright (C) 2006-2023 Vincent Zhang
 
-(when is-macsys
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'none)
-  ;; Make mouse wheel / trackpad scrolling less jerky
-  (setq mouse-wheel-scroll-amount '(1
-                                    ((shift) . 5)
-                                    ((control)))))
+;; Author: Vincent Zhang <seagle0128@gmail.com>
+;; URL: https://github.com/seagle0128/.emacs.d
 
-;; theme ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 设置自己喜欢的字体
+;; This file is not part of GNU Emacs.
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;;
 
-;; Icons
-(use-package nerd-icons
-  :custom
-  (nerd-icons-font-family "Symbols Nerd Font Mono"))
+;;; Commentary:
+;;
+;; Better defaults.
+;;
 
-;; Mode-line
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-mode)
+;;; Code:
+
+(require 'subr-x)
+(require 'func-setup)
+
+;; Compatibility
+(use-package compat :demand t)
+
+(with-no-warnings
+  ;; Key Modifiers
+  (cond
+   (vk-mac-gui
+    ;; Compatible with Emacs Mac port
+    (setq mac-option-modifier nil
+          mac-command-modifier 'meta)
+    (bind-keys ([(super a)] . mark-whole-buffer)
+               ([(super c)] . kill-ring-save)
+               ([(super l)] . goto-line)
+               ([(super q)] . save-buffers-kill-emacs)
+               ([(super s)] . save-buffer)
+               ([(super v)] . yank)
+               ([(super w)] . delete-frame)
+               ([(super z)] . undo))))
+
+  ;; Optimization
+  (unless vk-mac
+    (setq command-line-ns-option-alist nil))
+
+  ;; Increase how much is read from processes in a single chunk (default is 4kb)
+  (setq read-process-output-max #x20000000)  ; 128mb
+
+  ;; Don't ping things that look like domain names.
+  (setq ffap-machine-p-known 'reject))
+
+;; Garbage Collector Magic Hack
+(use-package gcmh
+  :diminish
+  :hook (emacs-startup . gcmh-mode)
   :init
-  (setq doom-modeline-icon show-icon
-        doom-modeline-minor-modes t))
+  (setq gcmh-idle-delay 'auto
+        gcmh-auto-idle-delay-factor 10
+        gcmh-high-cons-threshold #x80000000)) ; 1028MB
 
-(use-package hide-mode-line
-  :hook (((treemacs-mode
-           eshell-mode shell-mode
-           term-mode vterm-mode
-           embark-collect-mode
-           lsp-ui-imenu-mode
-           pdf-annot-list-mode) . hide-mode-line-mode)))
+;; Set UTF-8 as the default coding system
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+(prefer-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(setq system-time-locale "C")
 
-;; A minor-mode menu for mode-line
-(use-package minions
-  :hook (doom-modeline-mode . minions-mode))
+;; Environment
+(when (or vk-mac-gui (daemonp))
+  (use-package exec-path-from-shell
+    :init (exec-path-from-shell-initialize)))
 
-;;; basic-setup.el ends here
+;; Start server
+(use-package server
+  :if vk-server
+  :hook (after-init . server-mode))
+
+;; History
+(use-package desktop
+  :hook (after-init . desktop-save-mode))
+
+(use-package saveplace
+  :hook (after-init . save-place-mode))
+
+(use-package recentf
+  :bind (("C-x C-r" . recentf-open-files))
+  :hook (after-init . recentf-mode)
+  :init (setq recentf-max-saved-items 300
+              recentf-exclude
+              '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+                "\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+                "\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+                "^/tmp/" "^/var/folders/.+$" "^/ssh:" "/persp-confs/"
+                (lambda (file) (file-in-directory-p file package-user-dir))))
+  :config
+  (push (expand-file-name recentf-save-file) recentf-exclude)
+  (add-to-list 'recentf-filename-handlers #'abbreviate-file-name))
+
+(use-package savehist
+  :hook (after-init . savehist-mode)
+  :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
+              history-length 1000
+              savehist-additional-variables '(mark-ring
+                                              global-mark-ring
+                                              search-ring
+                                              regexp-search-ring
+                                              extended-command-history)
+              savehist-autosave-interval 300))
+
+(use-package simple
+  :ensure nil
+  :hook ((after-init . size-indication-mode)
+         (text-mode . visual-line-mode)
+         ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
+  :init
+  (setq column-number-mode t
+        line-number-mode t
+        ;; kill-whole-line t               ; Kill line including '\n'
+        line-move-visual nil
+        track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
+        set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
+
+  ;; Visualize TAB, (HARD) SPACE, NEWLINE
+  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
+  (defun enable-trailing-whitespace ()
+    "Show trailing spaces and delete on saving."
+    (setq show-trailing-whitespace t)
+    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
+
+  ;; Prettify the process list
+  (with-no-warnings
+    (add-hook 'process-menu-mode-hook
+              (lambda ()
+                (setq tabulated-list-format
+                      (vconcat `(("" ,(if (icons-displayable-p) 2 0)))
+                               tabulated-list-format))))
+
+    (defun my-list-processes--prettify ()
+      "Prettify process list."
+      (when-let ((entries tabulated-list-entries))
+        (setq tabulated-list-entries nil)
+        (dolist (p (process-list))
+          (when-let* ((val (cadr (assoc p entries)))
+                      (icon (if (icons-displayable-p)
+                                (concat
+                                 " "
+                                 (nerd-icons-faicon "nf-fa-bolt" :face 'nerd-icons-lblue))
+                              " x"))
+                      (name (aref val 0))
+                      (pid (aref val 1))
+                      (status (aref val 2))
+                      (status (list status
+                                    'face
+                                    (if (memq status '(stop exit closed failed))
+                                        'error
+                                      'success)))
+                      (buf-label (aref val 3))
+                      (tty (list (aref val 4) 'face 'font-lock-doc-face))
+                      (thread (list (aref val 5) 'face 'font-lock-doc-face))
+                      (cmd (list (aref val 6) 'face 'completions-annotations)))
+            (push (list p (vector icon name pid status buf-label tty thread cmd))
+		          tabulated-list-entries)))))
+    (advice-add #'list-processes--refresh :after #'my-list-processes--prettify)))
+
+;; Misc
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (fset 'yes-or-no-p 'y-or-n-p))
+(setq-default major-mode 'text-mode
+              fill-column 80
+              tab-width 4
+              indent-tabs-mode nil)     ; Permanently indent with spaces, never with TABs
+
+(setq visible-bell t
+      inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
+      delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
+      make-backup-files nil             ; Forbide to make backup files
+      auto-save-default nil             ; Disable auto save
+
+      uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
+      adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+      adaptive-fill-first-line-regexp "^* *$"
+      sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+      sentence-end-double-space nil
+      word-wrap-by-category t
+      display-line-numbers-width 3
+              indicate-buffer-boundaries 'left
+              display-fill-column-indicator-character ?\u254e)
+
+;; Frame
+(when (display-graphic-p)
+  ;; (add-hook 'window-setup-hook #'fix-fullscreen-cocoa)
+  (bind-key "S-s-<return>" #'toggle-frame-fullscreen)
+  (and vk-mac-gui (bind-key "C-s-f" #'toggle-frame-fullscreen))
+
+  ;; Resize and re-position frames conveniently
+  ;; Same keybindings as Rectangle on macOS
+  (bind-keys ("C-M-<return>"    . vk-frame-maximize)
+             ("C-M-<backspace>" . vk-frame-restore)
+             ("C-M-<left>"      . vk-frame-left-half)
+             ("C-M-<right>"     . vk-frame-right-half)
+             ("C-M-<up>"        . vk-frame-top-half)
+             ("C-M-<down>"      . vk-frame-bottom-half)))
+
+;; Global keybindings
+(bind-keys ("s-r"     . revert-this-buffer)
+           ("C-x K"   . delete-this-file)
+           ("C-c C-l" . reload-init-file))
+
+;; Sqlite
+(when (fboundp 'sqlite-open)
+  (use-package emacsql-sqlite-builtin))
+
+(provide 'base-setup)
+
+;;; base-setup.el ends here

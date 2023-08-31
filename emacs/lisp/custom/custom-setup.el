@@ -16,7 +16,7 @@
   :group 'vk
   :type 'string)
 
-(defcustom vk-proxy "127.0.0.1:1087"
+(defcustom vk-http-proxy "127.0.0.1:1087"
   "Set HTTP/HTTPS proxy."
   :group 'vk
   :type 'string)
