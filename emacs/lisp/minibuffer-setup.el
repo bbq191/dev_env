@@ -18,7 +18,7 @@
 ;; embark
 (use-package embark
   :ensure t
-  :bind (:map minibuffer-local-map ("M-o"     . embark-act)
+  :bind (:map minibuffer-local-map ("M-o" . embark-act)
               ("C-c C-c" . embark-export)
               ("C-c C-o" . embark-collect)))
 
@@ -172,8 +172,14 @@
               '((left-fringe  . 8)
                 (right-fringe . 8))))
 
+
+;; nerd-icons-completion
 (use-package nerd-icons-completion
-  :hook (vertico-mode . nerd-icons-completion-mode))
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
 
 ;; Orderless is an alternative and powerful completion style, that is, it is an alternative to Emacs’s basic candidate-filtering capacities.
 (use-package orderless

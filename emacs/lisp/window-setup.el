@@ -94,13 +94,12 @@
 
 ;; Enforce rules for popups
 (use-package popper
-:elpaca nil
   :defines popper-echo-dispatch-actions
   :autoload popper-group-by-directory
   :bind (:map popper-mode-map
-         ("C-h z"     . popper-toggle-latest)
-         ("C-<tab>"   . popper-cycle)
-         ("C-M-<tab>" . popper-toggle-type))
+              ("C-h z"     . popper-toggle-latest)
+              ("C-<tab>"   . popper-cycle)
+              ("C-M-<tab>" . popper-toggle-type))
   :hook (emacs-startup . popper-mode)
   :init
   (setq popper-reference-buffers

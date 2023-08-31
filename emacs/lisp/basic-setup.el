@@ -74,10 +74,23 @@
 ;; Const
 ;; 判断是否是 macOS
 (defconst is-macsys (eq system-type 'darwin))
+
+(when is-macsys
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'none)
+  ;; Make mouse wheel / trackpad scrolling less jerky
+  (setq mouse-wheel-scroll-amount '(1
+                                    ((shift) . 5)
+                                    ((control)))))
+
 (defcustom show-icon t
   "Display icons or not."
   :type 'boolean)
-
+(defun icons-displayable-p ()
+  "Return non-nil if icons are displayable."
+  (and show-icon
+       (or (featurep 'nerd-icons)
+           (require 'nerd-icon nil t))))
 ;; Font
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
@@ -188,9 +201,8 @@
 
 ;; Icons
 (use-package nerd-icons
-  :config
-  (when (not (font-installed-p nerd-icons-font-family))
-    (nerd-icons-install-fonts t)))
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 ;; Mode-line
 (use-package doom-modeline
@@ -211,4 +223,4 @@
 (use-package minions
   :hook (doom-modeline-mode . minions-mode))
 
-;;; base-setup.el ends here
+;;; basic-setup.el ends here

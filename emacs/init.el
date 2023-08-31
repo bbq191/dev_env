@@ -94,9 +94,9 @@
 (require 'util-setup)
 (require 'window-setup)
 ;; after base config
-
 (require 'minibuffer-setup)
 (require 'completion-setup)
+(require 'workspace-setup)
 (require 'lsp-setup)
 (require 'coding-setup)
 (require 'org-setup)
