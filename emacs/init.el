@@ -6,104 +6,59 @@
 
 (let ((dir (locate-user-emacs-file "lisp")))
   (add-to-list 'load-path (file-name-as-directory dir))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "custom" dir)))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir)))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "theme" dir))))
 
-;; Bootstrap config
-;; (add-hook 'window-setup-hook #'toggle-frame-maximized)
+;; Defer garbage collection further back in the startup process
+(setq gc-cons-threshold most-positive-fixnum)
 
-;; --debug-init implies `debug-on-error'.
-(setq debug-on-error init-file-debug)
+;; Prevent flashing of unstyled modeline at startup
+(setq-default mode-line-format nil)
 
-;; Load `custom-file'
-(setq custom-file (expand-file-name "etc/custom.el" user-emacs-directory))
-(add-hook 'after-init-hook (lambda () (load custom-file 'noerror)))
+;; Don't pass case-insensitive to `auto-mode-alist'
+(setq auto-mode-case-fold nil)
 
-;; A big contributor to startup times is garbage collection. We up the gc
-;; threshold to temporarily prevent it from running, and then reset it by the
-;; `gcmh' package.
-(setq gc-cons-threshold most-positive-fixnum
-      gc-cons-percentage 0.6)
+(unless (or (daemonp) noninteractive init-file-debug)
+  ;; Suppress file handlers operations at startup
+  ;; `file-name-handler-alist' is consulted on each call to `require' and `load'
+  (let ((old-value file-name-handler-alist))
+    (setq file-name-handler-alist nil)
+    (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                "Recover file name handlers."
+                (setq file-name-handler-alist
+                      (delete-dups (append file-name-handler-alist old-value))))
+              101)))
+;; Requisites
+(require 'custom-setup)
+(require 'func-setup)
+;; Package management
 
-;; Increase how much is read from processes in a single chunk (default is 4kb).
-;; `lsp-mode' benefits from that.
-(setq read-process-output-max (* 512 1024 1024))
-
-;; Setup proxy TODO: Add en/disable toggle
-(setq url-proxy-services
-      '(("http" . "127.0.0.1:6152")
-        ("https" .  "127.0.0.1:6152")
-        ("no_proxy" . "^\\(localhost\\|192.168.*\\|10.*\\)")))
-
-;; elpaca package manager
-(defvar elpaca-installer-version 0.5)
-(defvar elpaca-directory (expand-file-name "etc/elpaca/" user-emacs-directory))
-(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
-(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                              :ref nil
-                              :files (:defaults (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
-       (build (expand-file-name "elpaca/" elpaca-builds-directory))
-       (order (cdr elpaca-order))
-       (default-directory repo))
-  (add-to-list 'load-path (if (file-exists-p build) build repo))
-  (unless (file-exists-p repo)
-    (make-directory repo t)
-    (when (< emacs-major-version 28) (require 'subr-x))
-    (condition-case-unless-debug err
-        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                 ((zerop (call-process "git" nil buffer t "clone"
-                                       (plist-get order :repo) repo)))
-                 ((zerop (call-process "git" nil buffer t "checkout"
-                                       (or (plist-get order :ref) "--"))))
-                 (emacs (concat invocation-directory invocation-name))
-                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                 ((require 'elpaca))
-                 ((elpaca-generate-autoloads "elpaca" repo)))
-            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
-          (error "%s" (with-current-buffer buffer (buffer-string))))
-      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-  (unless (require 'elpaca-autoloads nil t)
-    (require 'elpaca)
-    (elpaca-generate-autoloads "elpaca" repo)
-    (load "./elpaca-autoloads")))
-(add-hook 'after-init-hook #'elpaca-process-queues)
-(elpaca `(,@elpaca-order))
-
-;; Install use-package support
-(elpaca elpaca-use-package
-  ;; Enable :elpaca use-package keyword.
-  (elpaca-use-package-mode)
-  ;; Assume :elpaca t unless otherwise specified.
-  (setq elpaca-use-package-by-default t))
-;; Block until current queue processed.
-(elpaca-wait)
 
 ;; Modify these package integrated in init
-(use-package general :ensure t)
-(elpaca-wait)
-(use-package no-littering :ensure t)
-(setq no-littering-etc-directory (expand-file-name "etc/" user-emacs-directory))
-(setq no-littering-var-directory (expand-file-name "var/" user-emacs-directory))
+;; (use-package general :ensure t)
+;; (elpaca-wait)
+;; (use-package no-littering :ensure t)
+;; (setq no-littering-etc-directory (expand-file-name "etc/" user-emacs-directory))
+;; (setq no-littering-var-directory (expand-file-name "var/" user-emacs-directory))
 
-;; base build-in config
-(require 'basic-setup)
-(require 'util-setup)
-(require 'window-setup)
-;; after base config
-(require 'minibuffer-setup)
-(require 'completion-setup)
-(require 'workspace-setup)
-(require 'lsp-setup)
-(require 'coding-setup)
-(require 'org-setup)
+;; ;; base build-in config
+;; (require 'basic-setup)
+;; (require 'util-setup)
+;; (require 'window-setup)
+;; ;; after base config
+;; (require 'minibuffer-setup)
+;; (require 'completion-setup)
+;; (require 'workspace-setup)
+;; (require 'lsp-setup)
+;; (require 'coding-setup)
+;; (require 'org-setup)
 
-;; lang config
-(require 'markdown)
-(require 'rust)
+;; ;; lang config
+;; (require 'markdown)
+;; (require 'rust)
 
 
 (provide 'init)

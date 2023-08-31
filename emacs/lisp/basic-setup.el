@@ -70,11 +70,6 @@
                                       extended-command-history)
       savehist-autosave-interval 300)
 
-;; User functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Const
-;; 判断是否是 macOS
-(defconst is-macsys (eq system-type 'darwin))
-
 (when is-macsys
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'none)
@@ -83,121 +78,8 @@
                                     ((shift) . 5)
                                     ((control)))))
 
-(defcustom show-icon t
-  "Display icons or not."
-  :type 'boolean)
-(defun icons-displayable-p ()
-  "Return non-nil if icons are displayable."
-  (and show-icon
-       (or (featurep 'nerd-icons)
-           (require 'nerd-icon nil t))))
-;; Font
-(defun font-installed-p (font-name)
-  "Check if font with FONT-NAME is available."
-  (find-font (font-spec :name font-name)))
-
-;; Function
-;; Newline behaviour
-(defun vk/newline-at-end-of-line ()
-  "Move to end of line, enter a newline, and reindent."
-  (interactive)
-  (move-end-of-line 1)
-  (newline-and-indent))
-;; 按键绑定
-(global-set-key (kbd "S-<return>") 'vk/newline-at-end-of-line)
-
-;; Reload Init
-(defun vk/reload-init-file ()
-  "需要两次 load-file，否则不生效。"
-  (interactive)
-  (load-file user-init-file)
-  (load-file user-init-file))
-(global-set-key (kbd "C-c a r") 'vk/reload-init-file)
-
-;; Adjust Opacity - This function from purcell.
-(defun vk/adjust-opacity (frame incr)
-  "Adjust the background opacity of FRAME by increment INCR."
-  (unless (display-graphic-p frame)
-    (error "Cannot adjust opacity of this frame"))
-  (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
-         ;; The 'alpha frame param became a pair at some point in
-         ;; emacs 24.x, e.g. (100 100)
-         (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
-         (newalpha (+ incr oldalpha)))
-    (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
-      (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
-;; 调整界面 opacity
-(global-set-key (kbd "M-C-8") (lambda () (interactive) (vk/adjust-opacity nil -2)))
-(global-set-key (kbd "M-C-9") (lambda () (interactive) (vk/adjust-opacity nil 2)))
-(global-set-key (kbd "M-C-7") (lambda () (interactive) (modify-frame-parameters nil `((alpha . 100)))))
-
-;; about shell
-(defun shell-mode-common-init ()
-  "The common initialization procedure for term/shell."
-  (setq-local scroll-margin 0)
-  (setq-local truncate-lines t)
-  (setq-local global-hl-line-mode nil))
-
-(provide 'basic-setup)
-
 ;; theme ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 设置自己喜欢的字体
-;; Fonts -- todo  如何开启 otf 属性
-;; (set-fontset-font t 'latin (font-spec :family "Cascadia Code" :otf '(latn nil (calt zero ss01) nil)))
-(defun centaur-setup-fonts ()
-  "Setup fonts."
-  (when (display-graphic-p)
-    ;; Set default font
-    (cl-loop for font in '("Cascadia Code" "Source Code Pro")
-             when (font-installed-p font)
-             return (set-face-attribute 'default nil
-                                        :family font
-                                        :height (cond (is-macsys 130)
-                                                      (t 100))))
-    ;; latin -- open otf
-    (cl-loop for font in '("Cascadia Code")
-             when (font-installed-p font)
-             return (set-fontset-font t 'latin (font-spec :family font :otf '(latn nil (calt zero ss01) nil))))
-    
-    ;; Specify font for all unicode characters
-    (cl-loop for font in '("Symbols Nerd Font" "Symbols Nerd Font Mono" "Symbol")
-             when (font-installed-p font)
-             return (if (< emacs-major-version 27)
-                        (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
-                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
-
-    ;; Emoji
-    (cl-loop for font in '("Apple Color Emoji" "Segoe UI Emoji")
-             when (font-installed-p font)
-             return (cond
-                     ((< emacs-major-version 27)
-                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
-                     ((< emacs-major-version 28)
-                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
-                     (t
-                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
-
-    ;; Specify font for Chinese characters
-    (cl-loop for font in '("Source Han Sans CN" "PingFang SC" "Microsoft Yahei" "STFangsong")
-             when (font-installed-p font)
-             return (progn
-                      (setq face-font-rescale-alist `((,font . 1.0)))
-                      (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
-(centaur-setup-fonts)
-(add-hook 'window-setup-hook #'centaur-setup-fonts)
-(add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (set-face-attribute 'font-lock-keyword-face nil
-;;                     :slant 'italic)
-;; (set-face-attribute 'font-lock-comment-face nil
-;;                     :slant 'italic)
-
-;; Theme
-;; Rose Pine - 个人最喜欢的 theme
-(add-to-list 'custom-theme-load-path "~/.config/emacs/lisp/theme/")
-(use-package autothemer :ensure t)
-(elpaca-wait)
-(load-theme 'rose-pine t)
 
 ;; Icons
 (use-package nerd-icons
