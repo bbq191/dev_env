@@ -42,6 +42,12 @@ If Non-nil, save and restore the frame's geometry."
   :group 'vk
   :type 'boolean)
 
+(defcustom vk-completion-style 'childframe
+  "Completion display style."
+  :group 'vk
+  :type '(choice (const :tag "Minibuffer" minibuffer)
+                 (const :tag "Child Frame" childframe)))
+
 (defcustom vk-prettify-symbols-alist
   '(("lambda" . ?λ)
     ("<-"     . ?←)

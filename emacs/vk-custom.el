@@ -9,6 +9,7 @@
 (setq vk-server t)                      ; Enable `server-mode' or not: t or nil
 (setq vk-icon t)                        ; Display icons or not: t or nil
 (setq vk-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
+;; (setq vk-completion-style 'minibuffer)    ; Completion display style: minibuffer or childframe
 (setq vk-prettify-symbols-alist t)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
 (setq vk-prettify-org-symbols-alist t)  ; Alist of symbol prettifications for `org-mode'
 

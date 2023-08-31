@@ -39,7 +39,8 @@
 
 ;; Preferences
 (require 'base-setup)
-;; (require 'init-hydra)
+(require 'keybind-setup)
+(require 'hydra-setup)
 
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)

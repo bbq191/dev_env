@@ -36,6 +36,24 @@
     (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
       (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
 
+;; UI
+(defun vk/icons-displayable-p ()
+  "Return non-nil if icons are displayable."
+  (and vk-icon
+       (or (featurep 'nerd-icons)
+           (require 'nerd-icons nil t))))
+
+(defun vk/childframe-workable-p ()
+  "Whether childframe is workable."
+  (not (or noninteractive
+           emacs-basic-display
+           (not (display-graphic-p)))))
+
+(defun vk/childframe-completion-workable-p ()
+  "Whether childframe completion is workable."
+  (and (eq vk-completion-style 'childframe)
+       (vk/childframe-workable-p)))
+
 ;; File and buffer
 (defun vk/revert-this-buffer ()
   "Revert the current buffer."
