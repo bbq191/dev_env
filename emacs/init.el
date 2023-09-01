@@ -45,6 +45,10 @@
 (require 'edit-setup)
 (require 'completion-setup)
 (require 'corfu-setup)
+(require 'bookmark-setup)
+(require 'dired-setup)
+
+
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)
 ;; (elpaca-wait)

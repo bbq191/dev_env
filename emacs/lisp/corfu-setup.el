@@ -8,6 +8,7 @@
 ;;; Code:
 
 (use-package corfu
+:straight (corfu :files (:defaults "extensions/*"))
   :custom
   (corfu-auto t)
   (corfu-auto-prefix 2)
