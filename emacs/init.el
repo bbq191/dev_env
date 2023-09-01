@@ -47,6 +47,7 @@
 (require 'corfu-setup)
 (require 'bookmark-setup)
 (require 'dired-setup)
+(require 'highlight-setup)
 
 
 ;; Modify these package integrated in init
