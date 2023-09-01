@@ -1,6 +1,15 @@
+;; init-custom.el --- Define customizations.	-*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+;; Customization.
+;;
+
+;;; Code:
+
 ;; 判断是否是 macOS
 (defconst vk-mac (eq system-type 'darwin)
-                 "是否运行在 Mac 系统下?")
+  "是否运行在 Mac 系统下?")
 (defconst vk-mac-gui
   (and (display-graphic-p) vk-mac)
   "是否运行于 Mac 图形界面下?")
@@ -10,12 +19,51 @@
   (expand-file-name "vk-custom.el" user-emacs-directory)
   "Custom file of VK's Gnu Emacs.")
 
-;; Custom group
+;; Custom group;;;;;;;;;;;;;;;;;;;;;
+;; Theme;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defcustom vk-theme-alist
+  '((default . doom-one)
+    (pro     . doom-nord)
+    (dark    . doom-vibrant)
+    (light   . doom-one-light)
+    (warm    . doom-solarized-light)
+    (cold    . doom-palenight)
+    (day     . doom-tomorrow-day)
+    (night   . doom-tomorrow-night))
+  "List of themes mapped to internal themes."
+  :group 'vk
+  :type '(alist :key-type (symbol :tag "Theme")
+                :value-type (symbol :tag "Internal theme")))
+
+(defcustom vk-system-themes '((light . doom-one-light)
+				              (dark  . doom-one))
+  "List of themes related the system appearance.
+
+It's only available on macOS currently."
+  :group 'vk
+  :type '(alist :key-type (symbol :tag "Appearance")
+                :value-type (symbol :tag "Theme")))
+
+(defcustom vk-theme 'default
+  "The color theme."
+  :group 'vk
+  :type `(choice (const :tag "System" system)
+                 ,@(mapcar
+                    (lambda (item)
+                      (let ((name (car item)))
+                        (list 'const
+                              :tag (capitalize (symbol-name name))
+                              name)))
+                    vk-theme-alist)
+                 symbol))
+
+;; org;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom vk-org-directory (expand-file-name "~/Documents/org-notes")
   "Set org directory."
   :group 'vk
   :type 'string)
 
+;; proxy;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom vk-http-proxy "127.0.0.1:1087"
   "Set HTTP/HTTPS proxy."
   :group 'vk

@@ -1,3 +1,12 @@
+;; funcs-setup.el --- Define functions. -*- lexical-binding: t -*-
+
+;;; Commentary:
+;;
+;; Define functions.
+;;
+
+;;; Code:
+
 ;; Suppress warnings
 (require 'cl-lib) ;; cl-loop dependence
 (eval-when-compile (require 'custom-setup))
@@ -6,15 +15,102 @@
 (defvar socks-server)
 
 ;; Function
+;; Icon
 (defun vk/icons-displayable-p ()
   "Return non-nil if icons are displayable."
   (and vk-icon
        (or (featurep 'nerd-icons)
            (require 'nerd-icon nil t))))
+
+;; theme
+(defun vk/theme-name (theme)
+  "Return internal THEME name."
+  (or (alist-get theme vk-theme-alist) Theme 'doom-one))
+
+(defun vk/compatible-theme-p (theme)
+  "Check if the THEME is compatible. THEME is a symbol."
+  (or (memq theme '(auto random system))
+      (string-prefix-p "doom" (symbol-name (vk/theme-name theme)))))
+
+(defun vk/dark-theme-p ()
+  "Check if the current theme is a dark theme."
+  (eq (frame-parameter nil 'background-mode) 'dark))
+
+(defun vk/theme-enable-p (theme)
+  "The THEME is enabled or not."
+  (and theme
+       (not (memq vk-theme '(auto random system)))
+       (memq (vk/theme-name theme) custom-enabled-themes)))
+
+(defun vk/load-theme (theme)
+  "Disable others and enable new THEME."
+  (when-let ((theme (vk/theme-name theme)))
+    (mapc #'disable-theme custom-enabled-themes)
+    (load-theme theme t)))
+
+(defun vk/load-system-theme (appearance)
+  "Load theme, taking current system APPEARANCE into consideration."
+  (mapc #'disable-theme custom-enabled-themes)
+  (vk/load-theme (alist-get appearance vk-system-themes)))
+
+(defun vk/do-load-theme (theme &optional no-save)
+  "Load color THEME. Save to option `custom-file' if NO-SAVE is nil."
+  (interactive
+   (list
+    (intern
+     (completing-read "Load theme: "
+                      `(system
+                        ,@(mapcar #'car vk-theme-alist))))))
+
+  ;; Disable time-switching themes
+  (when (fboundp #'circadian-activate-latest-theme)
+    (cancel-function-timers #'circadian-activate-latest-theme))
+
+  ;; Disable system theme
+  (when (bound-and-true-p auto-dark-mode)
+    (setq auto-dark--last-dark-mode-state 'unknown)
+    (auto-dark-mode -1))
+
+  (pcase theme
+    ('system
+     ;; System-appearance themes
+     (use-package auto-dark
+       :ensure t
+       :diminish
+       :init
+       (setq auto-dark-light-theme (alist-get 'light vk-system-themes)
+             auto-dark-dark-theme (alist-get 'dark vk-system-themes))
+       (when (and vk-mac (not (display-graphic-p)))
+         (setq auto-dark-detection-method 'osascript))
+       (auto-dark-mode 1)))
+    (_
+     (vk/load-theme theme)))
+
+  ;; Set option
+  (vk/set-variable 'vk-theme theme no-save))
+
 ;; Font
 (defun vk/font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
   (find-font (font-spec :name font-name)))
+
+;; Misc
+(defun vk/set-variable (variable value &optional no-save)
+  "Set the VARIABLE to VALUE, and return VALUE.
+
+  Save to option `custom-file' if NO-SAVE is nil."
+  (customize-set-variable variable value)
+  (when (and (not no-save)
+             (file-writable-p custom-file))
+    (with-temp-buffer
+      (insert-file-contents custom-file)
+      (goto-char (point-min))
+      (while (re-search-forward
+              (format "^[\t ]*[;]*[\t ]*(setq %s .*)" variable)
+                               nil t)
+  (replace-match (format "(setq %s '%s)" variable value) nil nil))
+      (write-region nil nil custom-file)
+      (message "Saved %s (%s) to %s" variable value custom-file))))
 
 ;; Newline behaviour
 (defun vk/newline-at-end-of-line ()
@@ -37,6 +133,13 @@
       (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
 
 ;; UI
+(defvar vk/after-load-theme-hook nil
+  "Hook run after a color theme is loaded using `load-theme'.")
+(defun vk/run-after-load-theme-hook (&rest _)
+  "Run `after-load-theme-hook'."
+  (run-hooks 'vk/after-load-theme-hook))
+(advice-add #'load-theme :after #'vk/run-after-load-theme-hook)
+
 (defun vk/icons-displayable-p ()
   "Return non-nil if icons are displayable."
   (and vk-icon
@@ -285,3 +388,5 @@
     (vk/proxy-socks-enable)))
 
 (provide 'func-setup)
+
+;;; func-setup.el ends here

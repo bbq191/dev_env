@@ -183,16 +183,14 @@
       delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
       make-backup-files nil             ; Forbide to make backup files
       auto-save-default nil             ; Disable auto save
-
+      blink-cursor-mode nil             ; No eyes distraction
+      
       uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
       adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
       adaptive-fill-first-line-regexp "^* *$"
       sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil
-      word-wrap-by-category t
-      display-line-numbers-width 3
-              indicate-buffer-boundaries 'left
-              display-fill-column-indicator-character ?\u254e)
+      word-wrap-by-category t)
 
 ;; Sqlite
 (when (fboundp 'sqlite-open)

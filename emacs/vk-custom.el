@@ -4,6 +4,7 @@
 ;;;       Put your own configurations in custom-post.el to override default configurations.
 ;;; Code:
 
+(setq vk-theme 'pro)                    ; Color theme: auto, random, system, default, pro, dark, light, warm, cold, day or night
 (setq vk-http-proxy "127.0.0.1:6152")   ; HTTP/HTTPS proxy
 (setq vk-socks-proxy "127.0.0.1:6153")  ; SOCKS proxy
 (setq vk-server t)                      ; Enable `server-mode' or not: t or nil
@@ -16,6 +17,9 @@
 ;; Enable proxy
 ;; (vk/proxy-http-enable)
 ;; (vk/proxy-socks-enable)
+
+;; Display wrape line
+(global-display-fill-column-indicator-mode 1)
 
 ;; Fonts -- todo  如何开启 otf 属性
 ;; (set-fontset-font t 'latin (font-spec :family "Cascadia Code" :otf '(latn nil (calt zero ss01) nil)))
@@ -33,7 +37,7 @@
     (cl-loop for font in '("Cascadia Code")
              when (vk/font-installed-p font)
              return (set-fontset-font t 'latin (font-spec :family font :otf '(latn nil (calt zero ss01) nil))))
-    
+
     ;; Specify font for all unicode characters
     (cl-loop for font in '("Symbols Nerd Font" "Symbols Nerd Font Mono" "Symbol")
              when (vk/font-installed-p font)

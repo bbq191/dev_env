@@ -41,6 +41,7 @@
 (require 'base-setup)
 (require 'keybind-setup)
 (require 'hydra-setup)
+(require 'ui-setup)
 
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)

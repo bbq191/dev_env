@@ -24,7 +24,7 @@
                              :lines-truncate t
                              :poshandler posframe-poshandler-frame-center-near-bottom)))
       (hydra-set-posframe-show-params)
-      (add-hook 'after-load-theme-hook #'hydra-set-posframe-show-params t))))
+      (add-hook 'vk/after-load-theme-hook #'hydra-set-posframe-show-params t))))
 
 (use-package pretty-hydra
   :custom (pretty-hydra-default-title-body-format-spec (format "%s %%s\n%%s"

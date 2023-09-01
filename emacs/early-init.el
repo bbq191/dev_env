@@ -6,7 +6,8 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-(add-to-list 'default-frame-alist '(undecorated . t))
+;; Emacs 29 no board
+;; (add-to-list 'default-frame-alist '(undecorated . t))
 ;; (add-to-list 'default-frame-alist '(undecorated-round . t))
 
 ;; Faster to disable these here (before they've been initialized)
