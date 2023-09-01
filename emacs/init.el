@@ -42,7 +42,9 @@
 (require 'keybind-setup)
 (require 'hydra-setup)
 (require 'ui-setup)
-
+(require 'edit-setup)
+(require 'completion-setup)
+(require 'corfu-setup)
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)
 ;; (elpaca-wait)

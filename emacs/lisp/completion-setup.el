@@ -1,280 +1,236 @@
-;; init-base.el --- Corfor configurations.	-*- lexical-binding: t -*-
+;;; init-completion.el --- Initialize completion configurations.	-*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
-;; Corfu compelition
+;; Modern completion configuration.
 ;;
+
 ;;; Code:
 
-;; Completion - Auto completed for corfu config.
-(use-package company :ensure t)
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; TAB cycle if there are only few candidates
+  (setq completion-cycle-threshold 3)
 
+  ;; Only list the commands of the current modes
+  (when (boundp 'read-extended-command-predicate)
+    (setq read-extended-command-predicate
+          #'command-completion-default-include-p))
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete))
+
+;; Optionally use the `orderless' completion style.
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package vertico
+  :hook (after-init . vertico-mode))
+
+(when (vk/childframe-completion-workable-p)
+  (use-package vertico-posframe
+    :hook (vertico-mode . vertico-posframe-mode)
+    :init (setq vertico-posframe-poshandler
+                #'posframe-poshandler-frame-center-near-bottom
+                vertico-posframe-parameters
+                '((left-fringe  . 8)
+                  (right-fringe . 8)))))
+
+(use-package nerd-icons-completion
+  :when (vk/icons-displayable-p)
+  :hook (vertico-mode . nerd-icons-completion-mode))
+
+(use-package marginalia
+  :hook (after-init . marginalia-mode))
+
+(use-package consult
+  :bind (;; C-c bindings in `mode-specific-map'
+         ("C-c M-x" . consult-mode-command)
+         ("C-c h"   . consult-history)
+         ("C-c k"   . consult-kmacro)
+         ("C-c m"   . consult-man)
+         ("C-c i"   . consult-info)
+         ("C-c r"   . consult-ripgrep)
+
+         ([remap Info-search]        . consult-info)
+         ([remap imenu]              . consult-imenu)
+         ([remap isearch-forward]    . consult-line)
+         ([remap recentf-open-files] . consult-recent-file)
+
+         ;; C-x bindings in `ctl-x-map'
+         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+         ("C-x b"   . consult-buffer)              ;; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ;; Custom M-# bindings for fast register access
+         ("M-#"   . consult-register-load)
+         ("M-'"   . consult-register-store)        ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . consult-register)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ;; M-g bindings in `goto-map'
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark)
+         ("M-g i" . consult-imenu)
+         ("M-g I" . consult-imenu-multi)
+         ;; M-s bindings in `search-map'
+         ("M-s d" . consult-find)
+         ("M-s D" . consult-locate)
+         ("M-s g" . consult-grep)
+         ("M-s G" . consult-git-grep)
+         ("M-s r" . consult-ripgrep)
+         ("M-s l" . consult-line)
+         ("M-s L" . consult-line-multi)
+         ("M-s k" . consult-keep-lines)
+         ("M-s u" . consult-focus-lines)
+         ;; Isearch integration
+         ("M-s e" . consult-isearch-history)
+         :map isearch-mode-map
+         ("M-e"   . consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ;; Minibuffer history
+         :map minibuffer-local-map
+         ("C-s" . (lambda ()
+                    "Insert the currunt symbol."
+                    (interactive)
+                    (insert (save-excursion
+		                      (set-buffer (window-buffer (minibuffer-selected-window)))
+		                      (or (thing-at-point 'symbol t) "")))))
+         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+
+  ;; Enable automatic preview at point in the *Completions* buffer. This is
+  ;; relevant when you use the default completion UI.
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+
+  ;; The :init configuration is always executed (Not lazy)
+  :init
+  ;; Optionally configure the register formatting. This improves the register
+  ;; preview for `consult-register', `consult-register-load',
+  ;; `consult-register-store' and the Emacs built-ins.
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  ;; Optionally tweak the register preview window.
+  ;; This adds thin lines, sorting and hides the mode line of the window.
+  (advice-add #'register-preview :override #'consult-register-window)
+
+  ;; Use Consult to select xref locations with preview
+  (with-eval-after-load 'xref
+    (setq xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref))
+
+  :config
+  ;; Optionally configure preview. The default value
+  ;; is 'any, such that any key triggers the preview.
+  ;; (setq consult-preview-key 'any)
+  (setq consult-preview-key "M-.")
+  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
+  ;; For some commands and buffer sources it is useful to configure the
+  ;; :preview-key on a per-command basis using the `consult-customize' macro.
+  (consult-customize
+   consult-goto-line
+   consult-theme :preview-key '(:debounce 0.4 any))
+
+  ;; Optionally configure the narrowing key.
+  ;; Both < and C-+ work reasonably well.
+  (setq consult-narrow-key "<") ;; "C-+"
+
+  ;; Optionally make narrowing help available in the minibuffer.
+  ;; You may want to use `embark-prefix-help-command' or which-key instead.
+  (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help))
+
+(use-package consult-flyspell
+  :bind ("M-g s" . consult-flyspell))
+
+(use-package consult-yasnippet
+  :bind ("M-g y" . consult-yasnippet))
+
+(use-package embark
+  :bind (("s-." . embark-act)
+         ("M-." . embark-dwim)
+         ("M-s-." . xref-find-definitions)
+         ([remap describe-bindings] . embark-bindings))
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none))))
+  :config
+  (with-eval-after-load 'which-key
+    (defun embark-which-key-indicator ()
+      "An embark indicator that displays keymaps using which-key.
+The which-key help message will show the type and value of the
+current target followed by an ellipsis if there are further
+targets."
+      (lambda (&optional keymap targets prefix)
+        (if (null keymap)
+            (which-key--hide-popup-ignore-command)
+          (which-key--show-keymap
+           (if (eq (plist-get (car targets) :type) 'embark-become)
+               "Become"
+             (format "Act on %s '%s'%s"
+                     (plist-get (car targets) :type)
+                     (embark--truncate-target (plist-get (car targets) :target))
+                     (if (cdr targets) "…" "")))
+           (if prefix
+               (pcase (lookup-key keymap prefix 'accept-default)
+                 ((and (pred keymapp) km) km)
+                 (_ (key-binding prefix 'accept-default)))
+             keymap)
+           nil nil t (lambda (binding)
+                       (not (string-suffix-p "-argument" (cdr binding))))))))
+
+    (setq embark-indicators
+          '(embark-which-key-indicator
+            embark-highlight-indicator
+            embark-isearch-highlight-indicator))
+
+    (defun embark-hide-which-key-indicator (fn &rest args)
+      "Hide the which-key indicator immediately when using the completing-read prompter."
+      (which-key--hide-popup-ignore-command)
+      (let ((embark-indicators
+             (remq #'embark-which-key-indicator embark-indicators)))
+        (apply fn args)))
+
+    (advice-add #'embark-completing-read-prompter
+                :around #'embark-hide-which-key-indicator)))
+
+(use-package embark-consult
+  :bind (:map minibuffer-mode-map
+              ("C-c C-o" . embark-export))
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
+
+
+;; Yet another snippet extension
 (use-package yasnippet
-  :ensure t
-  :hook ((prog-mode . yas-minor-mode)
-	     (org-mode . yas-minor-mode))
-  :init
-  :config
-  (progn (setq hippie-expand-try-functions-list
-	           '(yas/hippie-try-expand
-	             try-complete-file-name-partially
-	             try-expand-all-abbrevs
-	             try-expand-dabbrev
-	             try-expand-dabbrev-all-buffers
-	             try-expand-dabbrev-from-kill
-	             try-complete-lisp-symbol-partially
-	             try-complete-lisp-symbol))))
-(elpaca-wait)
+  :diminish yas-minor-mode
+  :hook (after-init . yas-global-mode))
 
-;; doom snippet
-(use-package doom-snippets
-  :ensure t
-  :after yasnippet
-  :elpaca (doom-snippets :type git
-                         :host github
-                         :repo "doomemacs/snippets"
-                         :files ("*.el" "*"))
-  :config (setq yas-snippet-dirs '("~/.config/emacs/lisp/snippets"))
-  (yas-reload-all))
+;; Collection of yasnippet snippets
+(use-package yasnippet-snippets)
 
-
-;;; 以上是Corfu必要依赖 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Corfu is a text completion (e.g. completion-at-point, company-mode) package.
-(use-package corfu
-  :ensure t
-  :elpaca (:files (:defaults "extensions/*"))
-  :hook ((lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
-         (kb/corfu-setup-lsp . corfu-popupinfo-mode))
-  :general (:keymaps 'corfu-map
-                     :states 'insert
-                     "C-n" #'corfu-next
-                     "C-p" #'corfu-previous
-                     "<escape>" #'corfu-quit
-                     "<return>" #'corfu-insert
-                     "M-s-SPC" #'corfu-insert-separator
-                     ;; "SPC" #'corfu-insert-separator ; Use when `corfu-quit-at-boundary' is non-nil
-                     "M-d" #'corfu-show-documentation
-                     "C-g" #'corfu-quit
-                     "M-l" #'corfu-show-location)
-  :custom
-  ;; Works with `indent-for-tab-command'. Make sure tab doesn't indent when you
-  ;; want to perform completion
-  (tab-always-indent 'complete)
-  (completion-cycle-threshold nil)      ; Always show candidates in menu
-  
-  (corfu-auto nil)
-  (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.25)
-
-  (corfu-min-width 80)
-  (corfu-max-width corfu-min-width)     ; Always have the same width
-  (corfu-count 14)
-  (corfu-scroll-margin 4)
-  (corfu-cycle nil)
-
-  ;; `nil' means to ignore `corfu-separator' behavior, that is, use the older
-  ;; `corfu-quit-at-boundary' = nil behavior. Set this to separator if using
-  ;; `corfu-auto' = `t' workflow (in that case, make sure you also set up
-  ;; `corfu-separator' and a keybind for `corfu-insert-separator', which my
-  ;; configuration already has pre-prepared). Necessary for manual corfu usage with
-  ;; orderless, otherwise first component is ignored, unless `corfu-separator'
-  ;; is inserted.
-  (corfu-quit-at-boundary nil)
-  (corfu-separator ?\s)            ; Use space
-  (corfu-quit-no-match 'separator) ; Don't quit if there is `corfu-separator' inserted
-  (corfu-preview-current 'insert)  ; Preview first candidate. Insert on input if only one
-  (corfu-preselect-first t)        ; Preselect first candidate?
-
-  ;; Other
-  (corfu-echo-documentation nil)        ; Already use corfu-doc
-  (lsp-completion-provider :none)       ; Use corfu instead for lsp completions
-  :init (global-corfu-mode)
-  :config
-  ;; NOTE 2022-03-01: This allows for a more evil-esque way to have
-  ;; `corfu-insert-separator' work with space in insert mode without resorting to
-  ;; overriding keybindings with `general-override-mode-map'. See
-  ;; https://github.com/minad/corfu/issues/12#issuecomment-869037519
-  ;; Alternatively, add advice without `general.el':
-  ;; (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
-  ;; (advice-add 'corfu--teardown :after 'evil-normalize-keymaps)
-  ;; (general-add-advice '(corfu--setup corfu--teardown) :after 'evil-normalize-keymaps)
-  ;; (evil-make-overriding-map corfu-map)
-
-  ;; Enable Corfu more generally for every minibuffer, as long as no other
-  ;; completion UI is active. If you use Mct or Vertico as your main minibuffer
-  ;; completion UI. From
-  ;; https://github.com/minad/corfu#completing-with-corfu-in-the-minibuffer
-  (defun corfu-enable-always-in-minibuffer ()
-    "Enable Corfu in the minibuffer if Vertico/Mct are not active."
-    (unless (or (bound-and-true-p mct--active) ; Useful if I ever use MCT
-                (bound-and-true-p vertico--input))
-      (setq-local corfu-auto nil)       ; Ensure auto completion is disabled
-      (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
-
-  ;; Setup lsp to use corfu for lsp completion
-  (defun kb/corfu-setup-lsp ()
-    "Use orderless completion style with lsp-capf instead of the
-  default lsp-passthrough."
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))))
-
-
-;; Pretty Corfu
-;; Kind-icon is essentially company-box-icons for corfu. It adds icons to the left margin of the corfu popup that represent the ‘function’ (e.g. variable, method, file) of that candidate.
-(use-package kind-icon
-  :ensure t
-  :after corfu
-  :custom
-  (kind-icon-use-icons t)
-  (kind-icon-default-face 'corfu-default) ; Have background color be the same as `corfu' face background
-  (kind-icon-blend-background nil)  ; Use midpoint color between foreground and background colors ("blended")?
-  (kind-icon-blend-frac 0.08)
-
-  ;; NOTE 2022-02-05: `kind-icon' depends `svg-lib' which creates a cache
-  ;; directory that defaults to the `user-emacs-directory'. Here, I change that
-  ;; directory to a location appropriate to `no-littering' conventions, a
-  ;; package which moves directories of other packages to sane locations.
-  (svg-lib-icons-dir (no-littering-expand-var-file-name "svg-lib/cache/")) ; Change cache dir
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter) ; Enable `kind-icon'
-
-  ;; Add hook to reset cache so the icon colors match my theme
-  ;; NOTE 2022-02-05: This is a hook which resets the cache whenever I switch
-  ;; the theme using my custom defined command for switching themes. If I don't
-  ;; do this, then the backgound color will remain the same, meaning it will not
-  ;; match the background color corresponding to the current theme. Important
-  ;; since I have a light theme and dark theme I switch between. This has no
-  ;; function unless you use something similar
-  (add-hook 'kb/themes-hooks #'(lambda () (interactive) (kind-icon-reset-cache))))
-
-
-;; Cape is to corfu as company-backends are to company
-(use-package cape
-  :hook ((emacs-lisp-mode       kb/cape-capf-setup-elisp)
-         (lsp-completion-mode . kb/cape-capf-setup-lsp)
-         (org-mode            . kb/cape-capf-setup-org)
-         (eshell-mode         . kb/cape-capf-setup-eshell)
-         (git-commit-mode     . kb/cape-capf-setup-git-commit)
-         (LaTeX-mode          . kb/cape-capf-setup-latex)
-         (sh-mode             . kb/cape-capf-setup-sh))
-  :general (:prefix "M-p"               ; Particular completion function
-                    "p" 'completion-at-point
-                    "t" 'complete-tag           ; etags
-                    "d" 'cape-dabbrev           ; or dabbrev-completion
-                    "f" 'cape-file
-                    "k" 'cape-keyword
-                    "s" 'cape-symbol
-                    "a" 'cape-abbrev
-                    "i" 'cape-ispell
-                    "l" 'cape-line
-                    "w" 'cape-dict
-                    "\\" 'cape-tex
-                    "_" 'cape-tex
-                    "^" 'cape-tex
-                    "&" 'cape-sgml
-                    "r" 'cape-rfc1345)
-  :custom
-  (cape-dabbrev-min-length 3)
-  :init
-  ;; Elisp
-  (defun kb/cape-capf-ignore-keywords-elisp (cand)
-    "Ignore keywords with forms that begin with \":\" (e.g.
-:history)."
-    (or (not (keywordp cand))
-        (eq (char-after (car completion-in-region--data)) ?:)))
-  (defun kb/cape-capf-setup-elisp ()
-    "Replace the default `elisp-completion-at-point'
-completion-at-point-function. Doing it this way will prevent
-disrupting the addition of other capfs (e.g. merely setting the
-variable entirely, or adding to list).
-
-Additionally, add `cape-file' as early as possible to the list."
-    (setf (elt (cl-member 'elisp-completion-at-point completion-at-point-functions) 0)
-          #'elisp-completion-at-point)
-    (add-to-list 'completion-at-point-functions #'cape-symbol)
-    ;; I prefer this being early/first in the list
-    (add-to-list 'completion-at-point-functions #'cape-file)
-    (require 'company-yasnippet)
-    (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet)))
-
-  ;; LSP
-  (defun kb/cape-capf-setup-lsp ()
-    "Replace the default `lsp-completion-at-point' with its
-`cape-capf-buster' version. Also add `cape-file' and
-`company-yasnippet' backends."
-    (setf (elt (cl-member 'lsp-completion-at-point completion-at-point-functions) 0)
-          (cape-capf-buster #'lsp-completion-at-point))
-    ;; TODO 2022-02-28: Maybe use `cape-wrap-predicate' to have candidates
-    ;; listed when I want?
-    (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-yasnippet))
-    (add-to-list 'completion-at-point-functions #'cape-dabbrev t))
-
-  ;; Org
-  (defun kb/cape-capf-setup-org ()
-    (require 'org-roam)
-    (if (org-roam-file-p)
-        (org-roam--register-completion-functions-h)
-      (let (result)
-        (dolist (element (list
-                          (cape-super-capf #'cape-ispell #'cape-dabbrev)
-                          (cape-company-to-capf #'company-yasnippet))
-                         result)
-          (add-to-list 'completion-at-point-functions element)))
-      ))
-
-  ;; Eshell
-  (defun kb/cape-capf-setup-eshell ()
-    (let ((result))
-      (dolist (element '(pcomplete-completions-at-point cape-file) result)
-        (add-to-list 'completion-at-point-functions element))
-      ))
-
-  ;; Git-commit
-  (defun kb/cape-capf-setup-git-commit ()
-    (general-define-key
-     :keymaps 'local
-     :states 'insert
-     "<tab>" 'completion-at-point)      ; Keybinding for `completion-at-point'
-    (let ((result))
-      (dolist (element '(cape-dabbrev cape-symbol) result)
-        (add-to-list 'completion-at-point-functions element))))
-  ;; LaTeX
-  (defun kb/cape-capf-setup-latex ()
-    (require 'company-auctex)
-    (let ((result))
-      (dolist (element (list
-                        ;; First add `company-yasnippet'
-                        (cape-company-to-capf #'company-yasnippet)
-                        ;; Then add `cape-tex'
-                        #'cape-tex
-                        ;; Then add `company-auctex' in the order it adds its
-                        ;; backends.
-                        (cape-company-to-capf #'company-auctex-bibs)
-                        (cape-company-to-capf #'company-auctex-labels)
-                        (cape-company-to-capf
-                         (apply-partially #'company--multi-backend-adapter
-                                          '(company-auctex-macros company-auctex-symbols company-auctex-environments))))
-                       result)
-        (add-to-list 'completion-at-point-functions element))))
-  ;; Sh
-  (defun kb/cape-capf-setup-sh ()
-    (require 'company-shell)
-    (add-to-list 'completion-at-point-functions (cape-company-to-capf #'company-shell)))
-  :config
-  ;; For pcomplete. For now these two advices are strongly recommended to
-  ;; achieve a sane Eshell experience. See
-  ;; https://github.com/minad/corfu#completing-with-corfu-in-the-shell-or-eshell
-
-  ;; Silence the pcomplete capf, no errors or messages!
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-  ;; Ensure that pcomplete does not write to the buffer and behaves as a pure
-  ;; `completion-at-point-function'.
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
-
+;; Yasnippet Completion At Point Function
+(use-package yasnippet-capf
+  :init (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 (provide 'completion-setup)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; comeplition-setup.el ends here
+;;; completion-setup.el ends here

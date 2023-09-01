@@ -22,6 +22,12 @@
        (or (featurep 'nerd-icons)
            (require 'nerd-icon nil t))))
 
+(defun vk/treesit-available-p ()
+  "Check whether tree-sitter is available.
+Native tree-sitter is introduced since 29."
+  (and (fboundp 'treesit-available-p)
+       (treesit-available-p)))
+
 ;; theme
 (defun vk/theme-name (theme)
   "Return internal THEME name."
@@ -107,10 +113,16 @@
       (goto-char (point-min))
       (while (re-search-forward
               (format "^[\t ]*[;]*[\t ]*(setq %s .*)" variable)
-                               nil t)
-  (replace-match (format "(setq %s '%s)" variable value) nil nil))
+              nil t)
+        (replace-match (format "(setq %s '%s)" variable value) nil nil))
       (write-region nil nil custom-file)
       (message "Saved %s (%s) to %s" variable value custom-file))))
+
+(defun vk/too-long-file-p ()
+  "Check whether the file is too long."
+  (if (fboundp 'buffer-line-statistics)
+      (> (car (buffer-line-statistics)) 10000)
+    (> (buffer-size) 100000)))
 
 ;; Newline behaviour
 (defun vk/newline-at-end-of-line ()
