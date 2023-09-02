@@ -4,8 +4,9 @@
   ;; Key Modifiers
   (cond (vk-mac-gui
     ;; Compatible with Emacs Mac port
-    (setq mac-option-modifier nil
-          mac-command-modifier 'meta)
+    (setq mac-command-modifier 'meta
+          mac-option-modifier 'super
+          mac-right-option-modifier 'control)
     (bind-keys ([(super a)] . mark-whole-buffer)
                ([(super c)] . kill-ring-save)
                ([(super l)] . goto-line)

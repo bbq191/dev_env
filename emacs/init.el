@@ -6,9 +6,14 @@
 
 (let ((dir (locate-user-emacs-file "lisp")))
   (add-to-list 'load-path (file-name-as-directory dir))
+  ;; 自定义函数，变量及改建
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "custom" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "theme" dir))))
+  ;; 可以作为基本的编辑器的好用的配置
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "edit" dir)))
+  ;; 开发者基本配置
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "program" dir)))
+  ;; 开发语言专项配置
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
@@ -51,10 +56,8 @@
 (require 'ibuffer-setup)
 (require 'window-setup)
 (require 'workspace-setup)
-
 ;; Terminal
 (require 'shell-setup)
-
 ;; Writing
 (require 'writing-setup)
 (require 'util-setup)
@@ -62,7 +65,7 @@
 
 ;; Programming - no need;;;;;;;;;;;;;;;;;;;
 (require 'vcs-setup)
-;; (require 'init-flymake)
+(require 'flycheck-setup)
 ;; (require 'init-lsp)
 ;; (require 'init-prog)
 ;; Modify these package integrated in init
