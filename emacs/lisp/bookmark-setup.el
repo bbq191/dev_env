@@ -81,7 +81,7 @@ deletion, or > if it is flagged for displaying."
       (setq buffer-read-only t)
       (setq tabulated-list-format
             `[("" 1) ;; Space to add "*" for bookmark with annotation
-              ("" ,(if (icons-displayable-p) 2 0)) ;; Icons
+              ("" ,(if (vk/icons-displayable-p) 2 0)) ;; Icons
               ("Bookmark" ,bookmark-bmenu-file-column bookmark-bmenu--name-predicate)
               ("Type" 9)
               ,@(if bookmark-bmenu-toggle-filenames

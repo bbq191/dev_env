@@ -52,7 +52,11 @@
 (require 'window-setup)
 (require 'workspace-setup)
 
+;; Terminal
+(require 'shell-setup)
 
+;; Writing
+(require 'writing-setup)
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)
 ;; (elpaca-wait)

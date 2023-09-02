@@ -139,7 +139,7 @@
     (add-hook 'process-menu-mode-hook
               (lambda ()
                 (setq tabulated-list-format
-                      (vconcat `(("" ,(if (icons-displayable-p) 2 0)))
+                      (vconcat `(("" ,(if (vk/icons-displayable-p) 2 0)))
                                tabulated-list-format))))
 
     (defun my-list-processes--prettify ()
@@ -148,7 +148,7 @@
         (setq tabulated-list-entries nil)
         (dolist (p (process-list))
           (when-let* ((val (cadr (assoc p entries)))
-                      (icon (if (icons-displayable-p)
+                      (icon (if (vk/icons-displayable-p)
                                 (concat
                                  " "
                                  (nerd-icons-faicon "nf-fa-bolt" :face 'nerd-icons-lblue))
