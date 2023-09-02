@@ -141,7 +141,7 @@ FACE defaults to inheriting from default and highlight."
   :diminish
   :defines helpful-mode-map
   :bind (:map help-mode-map
-         ("w" . rainbow-mode))
+              ("w" . rainbow-mode))
   :hook ((html-mode php-mode helpful-mode) . rainbow-mode)
   :init (with-eval-after-load 'helpful
           (bind-key "w" #'rainbow-mode helpful-mode-map))
@@ -172,12 +172,12 @@ FACE defaults to inheriting from default and highlight."
   :custom-face
   (hl-todo ((t (:inherit default :height 0.9 :width condensed :weight bold :underline nil :inverse-video t))))
   :bind (:map hl-todo-mode-map
-         ([C-f3]    . hl-todo-occur)
-         ("C-c t p" . hl-todo-previous)
-         ("C-c t n" . hl-todo-next)
-         ("C-c t o" . hl-todo-occur)
-         ("C-c t r" . hl-todo-rg)
-         ("C-c t i" . hl-todo-insert))
+              ([C-f3]    . hl-todo-occur)
+              ("C-c t p" . hl-todo-previous)
+              ("C-c t n" . hl-todo-next)
+              ("C-c t o" . hl-todo-occur)
+              ("C-c t r" . hl-todo-rg)
+              ("C-c t i" . hl-todo-insert))
   :hook ((after-init . global-hl-todo-mode)
          (hl-todo-mode . (lambda ()
                            (add-hook 'flymake-diagnostic-functions
@@ -211,7 +211,7 @@ FACE defaults to inheriting from default and highlight."
   (diff-hl-insert ((t (:inherit diff-added :background unspecified))))
   (diff-hl-delete ((t (:inherit diff-removed :background unspecified))))
   :bind (:map diff-hl-command-map
-         ("SPC" . diff-hl-mark-hunk))
+              ("SPC" . diff-hl-mark-hunk))
   :hook ((after-init . global-diff-hl-mode)
          (after-init . global-diff-hl-show-hunk-mouse-mode)
          (dired-mode . diff-hl-dired-mode))
@@ -227,7 +227,7 @@ FACE defaults to inheriting from default and highlight."
     (defun my-diff-hl-fringe-bmp-function (_type _pos)
       "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
       (define-fringe-bitmap 'my-diff-hl-bmp
-        (vector (if sys/linuxp #b11111100 #b11100000))
+        (vector)
         1 8
         '(center t)))
     (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)

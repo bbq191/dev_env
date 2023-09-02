@@ -48,6 +48,9 @@
 (require 'bookmark-setup)
 (require 'dired-setup)
 (require 'highlight-setup)
+(require 'ibuffer-setup)
+(require 'window-setup)
+(require 'workspace-setup)
 
 
 ;; Modify these package integrated in init

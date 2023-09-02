@@ -1,101 +1,79 @@
-;; init-hydra.el --- Initialize hydra configurations.	-*- lexical-binding: t -*-
-
-;; Copyright (C) 2019-2023 Vincent Zhang
-
-;; Author: Vincent Zhang <seagle0128@gmail.com>
-;; URL: https://github.com/seagle0128/.emacs.d
+;;; init-workspace.el --- Initialize workspace configurations.	-*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
-;; Nice looking hydras.
+;; Workspace configurations.
 ;;
 
 ;;; Code:
 
-;; tab-bar
-(use-package tab-bar
-  :elpaca nil
-  :ensure nil
-  :init
-  (tab-bar-mode t)
-  (setq tab-bar-new-tab-choice "*scratch*") ;; buffer to show in new tabs
-  (setq tab-bar-close-button-show nil)      ;; hide tab close / X button
-  (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
-  (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
-
-  (custom-set-faces
-   '(tab-bar ((t (:inherit mode-line))))
-   '(tab-bar-tab ((t (:inherit mode-line :foreground "#993644"))))
-   '(tab-bar-tab-inactive ((t (:inherit mode-line-inactive :foreground "black")))))
-
-  (defvar ct/circle-numbers-alist
-    '((0 . "⓪")
-      (1 . "①")
-      (2 . "②")
-      (3 . "③")
-      (4 . "④")
-      (5 . "⑤")
-      (6 . "⑥")
-      (7 . "⑦")
-      (8 . "⑧")
-      (9 . "⑨"))
-    "Alist of integers to strings of circled unicode numbers.")
-
-  (defun ct/tab-bar-tab-name-format-default (tab i)
-    (let ((current-p (eq (car tab) 'current-tab))
-	  (tab-num (if (and tab-bar-tab-hints (< i 10))
-		       (alist-get i ct/circle-numbers-alist) "")))
-      (propertize
-       (concat tab-num
-	       " "
-	       (alist-get 'name tab)
-	       (or (and tab-bar-close-button-show
-			(not (eq tab-bar-close-button-show
-				 (if current-p 'non-selected 'selected)))
-			tab-bar-close-button)
-		   "")
-	       " ")
-       'face (funcall tab-bar-tab-face-function tab))))
-  (setq tab-bar-tab-name-format-function #'ct/tab-bar-tab-name-format-default)
-  (setq tab-bar-tab-hints t))
-
-;; tabspaces
 (use-package tabspaces
-  ;; use this next line only if you also use straight, otherwise ignore it.
+  :straight (:type git :host github :repo "mclear-tools/tabspaces")
   :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
   :commands (tabspaces-switch-or-create-workspace
-	     tabspaces-open-or-create-project-and-workspace)
+             tabspaces-open-or-create-project-and-workspace)
   :custom
+  (tab-bar-show nil)
   (tabspaces-use-filtered-buffers-as-default t)
   (tabspaces-default-tab "Default")
   (tabspaces-remove-to-default t)
   (tabspaces-include-buffers '("*scratch*"))
-  ;; maybe slow
+  ;; sessions
   (tabspaces-session t)
-  (tabspaces-session-auto-restore t)
+  (tabspaces-session-auto-restore t))
+
+;; A tree layout file explorer
+(use-package treemacs
+  :commands (treemacs-follow-mode
+             treemacs-filewatch-mode
+             treemacs-git-mode)
+  :custom-face
+  (cfrs-border-color ((t (:inherit posframe-border))))
+  :bind (([f8]        . treemacs)
+         ("M-0"       . treemacs-select-window)
+         ("C-x t 1"   . treemacs-delete-other-windows)
+         ("C-x t t"   . treemacs)
+         ("C-x t b"   . treemacs-bookmark)
+         ("C-x t C-t" . treemacs-find-file)
+         ("C-x t M-t" . treemacs-find-tag)
+         :map treemacs-mode-map
+         ([mouse-1]   . treemacs-single-click-expand-action))
   :config
-  ;; Filter Buffers for Consult-Buffer
+  (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
+        treemacs-missing-project-action  'remove
+        treemacs-sorting                 'alphabetic-asc
+        treemacs-follow-after-init       t
+        treemacs-width                   30
+        treemacs-no-png-images           (not vk-icon))
 
-  (with-eval-after-load 'consult
-    ;; hide full buffer list (still available with "b" prefix)
-    (consult-customize consult--source-buffer :hidden nil :default nil)
-    ;; set consult-workspace buffer list
-    (defvar consult--source-workspace
-      (list :name "Workspace Buffers"
-	    :narrow ?w
-	    :history 'buffer-name-history
-	    :category 'buffer
-	    :state #'consult--buffer-state
-	    :default t
-	    :items (lambda () (consult--buffer-query
-			       :predicate #'tabspaces--local-buffer-p
-			       :sort 'visibility
-			       :as #'buffer-name)))
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (pcase (cons (not (null (executable-find "git")))
+               (not (null (executable-find "python3"))))
+    (`(t . t)
+     (treemacs-git-mode 'deferred))
+    (`(t . _)
+     (treemacs-git-mode 'simple)))
 
-      "Set workspace buffer list for consult-buffer.")
-    (add-to-list 'consult-buffer-sources 'consult--source-workspace)))
+  (use-package treemacs-nerd-icons
+    :demand t
+    :when (vk/icons-displayable-p)
+    :custom-face
+    (treemacs-nerd-icons-root-face ((t (:inherit nerd-icons-green :height 1.3))))
+    (treemacs-nerd-icons-file-face ((t (:inherit nerd-icons-dsilver))))
+    :config (treemacs-load-theme "nerd-icons"))
+
+  (use-package treemacs-magit
+    :hook ((magit-post-commit
+            git-commit-post-finish
+            magit-post-stage
+            magit-post-unstage)
+           . treemacs-magit--schedule-update))
+
+  (use-package treemacs-tab-bar
+    :demand t
+    :config (treemacs-set-scope-type 'Tabs)))
 
 (provide 'workspace-setup)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; workspace-setup.el ends here
