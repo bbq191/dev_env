@@ -23,7 +23,7 @@
 ;; Theme;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom vk-theme-alist
   '((default . doom-one)
-    (pro     . doom-nord)
+    (pro     . doom-nord-light)
     (dark    . doom-vibrant)
     (light   . doom-one-light)
     (warm    . doom-solarized-light)
@@ -95,6 +95,29 @@ If Non-nil, save and restore the frame's geometry."
   :group 'vk
   :type '(choice (const :tag "Minibuffer" minibuffer)
                  (const :tag "Child Frame" childframe)))
+
+(defcustom vk-lsp 'eglot
+  "Set language server.
+
+`lsp-mode': See https://github.com/emacs-lsp/lsp-mode.
+`eglot': See https://github.com/joaotavora/eglot.
+nil means disabled."
+  :group 'vk
+  :type '(choice (const :tag "LSP Mode" lsp-mode)
+                 (const :tag "Eglot" eglot)
+                 (const :tag "Disable" nil)))
+
+(defcustom vk-lsp-format-on-save nil
+  "Auto format buffers on save."
+  :group 'vk
+  :type 'boolean)
+
+(defcustom vk-lsp-format-on-save-ignore-modes
+  '(c-mode c++-mode python-mode markdown-mode)
+  "The modes that don't auto format and organize imports while saving the buffers.
+`prog-mode' means ignoring all derived modes."
+  :group 'vk
+  :type '(repeat (symbol :tag "Major-Mode")))
 
 (defcustom vk-prettify-symbols-alist
   '(("lambda" . ?λ)

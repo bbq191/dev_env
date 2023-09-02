@@ -63,10 +63,10 @@
 (require 'util-setup)
 ;; Finish as a writer;;;;;;;;;;;;;;;;;;;;;
 
-;; Programming - no need;;;;;;;;;;;;;;;;;;;
+;; Programming - as a developer ;;;;;;;;;;;
 (require 'vcs-setup)
 (require 'flycheck-setup)
-;; (require 'init-lsp)
+(require 'lsp-setup)
 ;; (require 'init-prog)
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)
