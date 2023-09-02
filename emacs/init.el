@@ -31,13 +31,13 @@
                 (setq file-name-handler-alist
                       (delete-dups (append file-name-handler-alist old-value))))
               101)))
-;; Requisites
+;; Requisites;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'custom-setup)
 (require 'func-setup)
 ;; Package management
 (require 'package-setup)
 
-;; Preferences
+;; Preferences;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'base-setup)
 (require 'keybind-setup)
 (require 'hydra-setup)
@@ -57,6 +57,14 @@
 
 ;; Writing
 (require 'writing-setup)
+(require 'util-setup)
+;; Finish as a writer;;;;;;;;;;;;;;;;;;;;;
+
+;; Programming - no need;;;;;;;;;;;;;;;;;;;
+(require 'vcs-setup)
+;; (require 'init-flymake)
+;; (require 'init-lsp)
+;; (require 'init-prog)
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)
 ;; (elpaca-wait)
