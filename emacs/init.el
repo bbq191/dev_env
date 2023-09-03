@@ -11,9 +11,9 @@
   ;; 可以作为基本的编辑器的好用的配置
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "edit" dir)))
   ;; 开发者基本配置
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "program" dir)))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "util" dir)))
   ;; 开发语言专项配置
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "program" dir))))
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
@@ -56,6 +56,8 @@
 (require 'ibuffer-setup)
 (require 'window-setup)
 (require 'workspace-setup)
+;; Finish as a editor ;;;;;;;;;;;;;;;;;;;;
+
 ;; Terminal
 (require 'shell-setup)
 ;; Writing
@@ -63,13 +65,14 @@
 (require 'util-setup)
 ;; Finish as a writer;;;;;;;;;;;;;;;;;;;;;
 
-;; Programming - as a developer ;;;;;;;;;;;
+;; Programming
 (require 'vcs-setup)
 (require 'flycheck-setup)
 (require 'lsp-setup)
 (require 'progm-setup)
 ;; Lang
 (require 'elisp-setup)
+;; Finish as a developer ;;;;;;;;;;;
 
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)
