@@ -14,6 +14,11 @@
 (defvar socks-noproxy)
 (defvar socks-server)
 
+(declare-function circadian-activate-latest-theme 'xwidget)
+(declare-function nerd-icons-install-fonts 'nerd-icons)
+(declare-function xwidget-buffer 'xwidget)
+(declare-function xwidget-webkit-current-session 'xwidget)
+
 ;; Function
 ;; Icon
 (defun vk/icons-displayable-p ()
@@ -31,7 +36,7 @@ Native tree-sitter is introduced since 29."
 ;; theme
 (defun vk/theme-name (theme)
   "Return internal THEME name."
-  (or (alist-get theme vk-theme-alist) Theme 'doom-one))
+  (or (alist-get theme vk-theme-alist) theme 'doom-one))
 
 (defun vk/compatible-theme-p (theme)
   "Check if the THEME is compatible. THEME is a symbol."
@@ -172,12 +177,6 @@ Native tree-sitter is introduced since 29."
   (run-hooks 'vk/after-load-theme-hook))
 (advice-add #'load-theme :after #'vk/run-after-load-theme-hook)
 
-(defun vk/icons-displayable-p ()
-  "Return non-nil if icons are displayable."
-  (and vk-icon
-       (or (featurep 'nerd-icons)
-           (require 'nerd-icons nil t))))
-
 (defun vk/childframe-workable-p ()
   "Whether childframe is workable."
   (not (or noninteractive
@@ -267,7 +266,7 @@ Native tree-sitter is introduced since 29."
 (defun vk/save-buffer-gbk-as-utf8 ()
   "Revert a buffer with GBK and save as UTF-8."
   (interactive)
-  (save-buffer-as-utf8 'gbk))
+  (vk/save-buffer-as-utf8 'gbk))
 
 ;; Frame
 (defvar vk/frame--geometry nil)

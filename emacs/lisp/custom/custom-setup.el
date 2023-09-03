@@ -84,6 +84,7 @@ It's only available on macOS currently."
   :group 'vk
   :type 'boolean)
 
+;; frame;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom vk-restore-frame-geometry t
   "Restore the frame's geometry at startup.
 If Non-nil, save and restore the frame's geometry."
@@ -96,6 +97,7 @@ If Non-nil, save and restore the frame's geometry."
   :type '(choice (const :tag "Minibuffer" minibuffer)
                  (const :tag "Child Frame" childframe)))
 
+;; prog;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom vk-lsp 'eglot
   "Set language server.
 
@@ -118,6 +120,12 @@ nil means disabled."
 `prog-mode' means ignoring all derived modes."
   :group 'vk
   :type '(repeat (symbol :tag "Major-Mode")))
+
+(defcustom vk-tree-sitter t
+  "Enable tree-sitter or not.
+Native tree-sitter is introduced in 29."
+  :group 'vk
+  :type 'boolean)
 
 (defcustom vk-prettify-symbols-alist
   '(("lambda" . ?λ)

@@ -21,27 +21,27 @@
               sideline-backends-right '(sideline-flymake)))
 
 ;; Flycheck and extensions
-(use-package flycheck
-  :ensure t
-  :hook (prog-mode . flycheck-mode)
-  :custom
-  (flycheck-temp-prefix ".flycheck")
-  (flycheck-check-syntax-automatically '(save mode-enabled))
-  (flycheck-emacs-lisp-load-path 'inherit)
-  (flycheck-indication-mode 'right-fringe))
+;; (use-package flycheck
+;;   :ensure t
+;;   :hook (prog-mode . flycheck-mode)
+;;   :custom
+;;   (flycheck-temp-prefix ".flycheck")
+;;   (flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (flycheck-emacs-lisp-load-path 'inherit)
+;;   (flycheck-indication-mode 'right-fringe))
 
-;; Flycheck Extensions
-;; inline
-(use-package flycheck-inline
-  :after flycheck
-  :config
-  (add-hook 'flycheck-mode-hook #'flycheck-inline-mode))
+;; ;; Flycheck Extensions
+;; ;; inline
+;; (use-package flycheck-inline
+;;   :after flycheck
+;;   :config
+;;   (add-hook 'flycheck-mode-hook #'flycheck-inline-mode))
 
-;; for rust
-(use-package flycheck-rust
-  :after rustic-mode
-  :config
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+;; ;; for rust
+;; (use-package flycheck-rust
+;;   :after rustic-mode
+;;   :config
+;;   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
 (provide 'flycheck-setup)
 

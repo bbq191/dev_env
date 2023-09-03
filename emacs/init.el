@@ -67,7 +67,10 @@
 (require 'vcs-setup)
 (require 'flycheck-setup)
 (require 'lsp-setup)
-;; (require 'init-prog)
+(require 'progm-setup)
+;; Lang
+(require 'elisp-setup)
+
 ;; Modify these package integrated in init
 ;; (use-package general :ensure t)
 ;; (elpaca-wait)
