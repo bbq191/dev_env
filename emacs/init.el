@@ -72,30 +72,7 @@
 (require 'progm-setup)
 ;; Lang
 (require 'elisp-setup)
-;; Finish as a developer ;;;;;;;;;;;
-
-;; Modify these package integrated in init
-;; (use-package general :ensure t)
-;; (elpaca-wait)
-;; (use-package no-littering :ensure t)
-;; (setq no-littering-etc-directory (expand-file-name "etc/" user-emacs-directory))
-;; (setq no-littering-var-directory (expand-file-name "var/" user-emacs-directory))
-
-;; ;; base build-in config
-;; (require 'basic-setup)
-;; (require 'util-setup)
-;; (require 'window-setup)
-;; ;; after base config
-;; (require 'minibuffer-setup)
-;; (require 'completion-setup)
-;; (require 'workspace-setup)
-;; (require 'lsp-setup)
-;; (require 'coding-setup)
-;; (require 'org-setup)
-
-;; ;; lang config
-;; (require 'markdown)
-;; (require 'rust)
+(require 'rust-setup)
 
 
 (provide 'init)

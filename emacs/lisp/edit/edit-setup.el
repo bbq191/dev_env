@@ -14,7 +14,6 @@
 
 ;; Rectangle
 (use-package rect
-  :straight nil
   :ensure nil
   :bind (:map text-mode-map
               ("<C-return>" . rect-hydra/body)

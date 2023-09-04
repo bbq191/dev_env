@@ -13,7 +13,6 @@
 ;; Prettify Symbols
 ;; e.g. display “lambda” as “λ”
 (use-package prog-mode
-  :straight nil
   :ensure nil
   :hook (prog-mode . prettify-symbols-mode)
   :init
@@ -182,7 +181,6 @@ Install the doc if it's not installed."
                                  '((nil "^[[:space:]]*\\(message\\|service\\|enum\\)[[:space:]]+\\([[:alnum:]]+\\)" 2))))))
 
 (use-package nxml-mode
-  :straight nil
   :ensure nil
   :mode (("\\.xaml$" . xml-mode)))
 

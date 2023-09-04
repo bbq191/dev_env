@@ -8,7 +8,6 @@
 ;;; Code:
 
 (use-package tabspaces
-  :straight (:type git :host github :repo "mclear-tools/tabspaces")
   :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
   :commands (tabspaces-switch-or-create-workspace
              tabspaces-open-or-create-project-and-workspace)

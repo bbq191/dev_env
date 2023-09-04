@@ -28,9 +28,7 @@
   (setq completion-styles '(orderless basic)
         completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package vertico
-:straight (vertico :files (:defaults "extensions/*"))
-  :hook (after-init . vertico-mode))
+(use-package vertico :hook (after-init . vertico-mode))
 
 (when (vk/childframe-completion-workable-p)
   (use-package vertico-posframe

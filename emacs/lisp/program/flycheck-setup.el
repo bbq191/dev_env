@@ -20,7 +20,7 @@
   :init (setq sideline-flymake-display-mode 'point
               sideline-backends-right '(sideline-flymake)))
 
-;; Flycheck and extensions
+;; ;; Flycheck and extensions
 ;; (use-package flycheck
 ;;   :ensure t
 ;;   :hook (prog-mode . flycheck-mode)

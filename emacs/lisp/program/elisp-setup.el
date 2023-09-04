@@ -9,7 +9,6 @@
 
 ;; Emacs lisp mode
 (use-package elisp-mode
-  :straight nil
   :ensure nil
   :bind (:map emacs-lisp-mode-map
               ("C-c C-x" . ielm)

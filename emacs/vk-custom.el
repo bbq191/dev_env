@@ -12,14 +12,15 @@
 (setq vk-restore-frame-geometry t)      ; Restore the frame's geometry at startup: t or nil
 ;; (setq vk-completion-style 'minibuffer)    ; Completion display style: minibuffer or childframe
 (setq vk-lsp 'lsp-mode)                   ; Set LSP client: lsp-mode, eglot or nil
-;; (setq vk-lsp-format-on-save t)            ; Auto format buffers on save: t or nil
-;; (setq vk-lsp-format-on-save-ignore-modes '(c-mode c++-mode python-mode markdown-mode)) ; Ignore format on save for some languages
+(setq vk-lsp-format-on-save t)            ; Auto format buffers on save: t or nil
+(setq vk-lsp-format-on-save-ignore-modes '(c-mode c++-mode python-mode markdown-mode)) ; Ignore format on save for some languages
+(setq vk-tree-sitter t)                 ; Enable tree-sitter or not: t or nil. Only available in 29+.
 (setq vk-prettify-symbols-alist t)      ; Alist of symbol prettifications. Nil to use font supports ligatures.
 (setq vk-prettify-org-symbols-alist t)  ; Alist of symbol prettifications for `org-mode'
 
 ;; Enable proxy
-;; (vk/proxy-http-enable)
-;; (vk/proxy-socks-enable)
+(vk/proxy-http-enable)
+(vk/proxy-socks-enable)
 
 ;; Display wrape line
 (global-display-fill-column-indicator-mode 1)

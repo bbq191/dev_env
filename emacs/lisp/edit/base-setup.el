@@ -114,7 +114,6 @@
               savehist-autosave-interval 300))
 
 (use-package simple
-  :straight nil
   :ensure nil
   :hook ((after-init . size-indication-mode)
          (text-mode . visual-line-mode)

@@ -12,7 +12,6 @@
 
 ;; Directory operations
 (use-package dired
-  :straight nil
   :ensure nil
   :bind (:map dired-mode-map
               ("C-c C-p" . wdired-change-to-wdired-mode))
@@ -67,9 +66,8 @@
     :hook (dired-mode . nerd-icons-dired-mode))
 
   ;; Extra Dired functionality
-  (use-package dired-aux :straight nil :ensure nil)
+  (use-package dired-aux :ensure nil)
   (use-package dired-x
-    :straight nil
     :ensure nil
     :demand t
     :config

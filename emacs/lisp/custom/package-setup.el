@@ -27,31 +27,24 @@
     (add-hook 'after-init-hook #'my-package--save-selected-packages)))
 (advice-add 'package--save-selected-packages :override #'my-package--save-selected-packages)
 
-;; When on Emacs 29 with the --with-native-compilation turned on,
-;; make sure you’re on straight.el’s development branch
-(setq straight-repository-branch "develop")
+;; Set ELPA packages
+(set-package-archives centaur-package-archives nil nil t)
 
-;; Install straight.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+;; Initialize packages
+(unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
+  (setq package-enable-at-startup nil)          ; To prevent initializing twice
+  (package-initialize))
 
-;; Integration with use-package
-(straight-use-package 'use-package)
+;; Setup `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-;; Configure use-package to use straight.el by default
-(use-package straight
-  :custom
-  (straight-use-package-by-default t))
+;; Should set before loading `use-package'
+(setq use-package-always-ensure t
+      use-package-always-defer t
+      use-package-expand-minimally t
+      use-package-enable-imenu-support t)
 
 ;; Required by `use-package'
 (use-package diminish :ensure t)
