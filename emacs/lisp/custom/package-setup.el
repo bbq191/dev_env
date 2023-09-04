@@ -46,6 +46,9 @@
       use-package-expand-minimally t
       use-package-enable-imenu-support t)
 
+;; Keep ~/.emacs.d/ clean.
+(use-package no-littering :ensure t :demand t)
+
 ;; Required by `use-package'
 (use-package diminish :ensure t)
 
