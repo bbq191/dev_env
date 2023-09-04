@@ -19,7 +19,54 @@
   (expand-file-name "vk-custom.el" user-emacs-directory)
   "Custom file of VK's Gnu Emacs.")
 
-;; Custom group;;;;;;;;;;;;;;;;;;;;;
+;; Custom group;;;;;;;;;;;;;;;;;;;;
+;; Emacs Lisp Package Archive (ELPA)
+;; @see https://github.com/melpa/melpa and https://elpa.emacs-china.org/.
+(defcustom vk-package-archives-alist
+  (let ((proto (if (gnutls-available-p) "https" "http")))
+    `((melpa    . (("gnu"    . ,(format "%s://elpa.gnu.org/packages/" proto))
+                   ("nongnu" . ,(format "%s://elpa.nongnu.org/nongnu/" proto))
+                   ("melpa"  . ,(format "%s://melpa.org/packages/" proto))))
+      (emacs-cn . (("gnu"    . "http://1.15.88.122/gnu/")
+                   ("nongnu" . "http://1.15.88.122/nongnu/")
+                   ("melpa"  . "http://1.15.88.122/melpa/")))
+      (bfsu     . (("gnu"    . ,(format "%s://mirrors.bfsu.edu.cn/elpa/gnu/" proto))
+                   ("nongnu" . ,(format "%s://mirrors.bfsu.edu.cn/elpa/nongnu/" proto))
+                   ("melpa"  . ,(format "%s://mirrors.bfsu.edu.cn/elpa/melpa/" proto))))
+      (netease  . (("gnu"    . ,(format "%s://mirrors.163.com/elpa/gnu/" proto))
+                   ("nongnu" . ,(format "%s://mirrors.163.com/elpa/nongnu/" proto))
+                   ("melpa"  . ,(format "%s://mirrors.163.com/elpa/melpa/" proto))))
+      (sjtu     . (("gnu"    . ,(format "%s://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/gnu/" proto))
+                   ("nongnu" . ,(format "%s://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/nongnu/" proto))
+                   ("melpa"  . ,(format "%s://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/melpa/" proto))))
+      (tuna     . (("gnu"    . ,(format "%s://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/" proto))
+                   ("nongnu" . ,(format "%s://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/" proto))
+                   ("melpa"  . ,(format "%s://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/" proto))))
+      (ustc     . (("gnu"    . ,(format "%s://mirrors.ustc.edu.cn/elpa/gnu/" proto))
+                   ("nongnu" . ,(format "%s://mirrors.ustc.edu.cn/elpa/nongnu/" proto))
+                   ("melpa"  . ,(format "%s://mirrors.ustc.edu.cn/elpa/melpa/" proto))))))
+  "A list of the package archives."
+  :group 'centaur
+  :type '(alist :key-type (symbol :tag "Archive group name")
+                :value-type (alist :key-type (string :tag "Archive name")
+                                   :value-type (string :tag "URL or directory name"))))
+
+(defcustom vk-package-archives 'melpa
+  "Set package archives from which to fetch."
+  :group 'centaur
+  :set (lambda (symbol value)
+         (set symbol value)
+         (setq package-archives
+               (or (alist-get value vk-package-archives-alist)
+                   (error "Unknown package archives: `%s'" value))))
+  :type `(choice ,@(mapcar
+                    (lambda (item)
+                      (let ((name (car item)))
+                        (list 'const
+                              :tag (capitalize (symbol-name name))
+                              name)))
+                    vk-package-archives-alist)))
+
 ;; Theme;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defcustom vk-theme-alist
   '((default . doom-one)
