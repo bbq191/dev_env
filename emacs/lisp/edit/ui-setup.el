@@ -91,7 +91,7 @@
               ("C-<f6>" . doom-modeline-hydra/body))
   :pretty-hydra
   ((:title (pretty-hydra-title "Mode Line" 'sucicon "nf-custom-emacs" :face 'nerd-icons-lpurple)
-           :color amaranth :quit-key ("q" "C-g"))
+    :color amaranth :quit-key ("q" "C-g"))
    ("Icon"
     (("i" (setq doom-modeline-icon (not doom-modeline-icon))
       "display icons" :toggle doom-modeline-icon)
@@ -269,10 +269,11 @@
       inhibit-startup-echo-area-message user-login-name
       inhibit-default-init t
       ;; Some pretty config from prucell
-      initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n")
+      initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+(setq-default
       display-line-numbers-width 3
-              indicate-buffer-boundaries 'left
-              display-fill-column-indicator-character ?\u254e)
+      indicate-buffer-boundaries 'left
+      display-fill-column-indicator-character ?\u254e)
 (unless (daemonp)
   (advice-add #'display-startup-echo-area-message :override #'ignore))
 

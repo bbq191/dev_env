@@ -46,14 +46,14 @@
                    ("nongnu" . ,(format "%s://mirrors.ustc.edu.cn/elpa/nongnu/" proto))
                    ("melpa"  . ,(format "%s://mirrors.ustc.edu.cn/elpa/melpa/" proto))))))
   "A list of the package archives."
-  :group 'centaur
+  :group 'vk
   :type '(alist :key-type (symbol :tag "Archive group name")
                 :value-type (alist :key-type (string :tag "Archive name")
                                    :value-type (string :tag "URL or directory name"))))
 
 (defcustom vk-package-archives 'melpa
   "Set package archives from which to fetch."
-  :group 'centaur
+  :group 'vk
   :set (lambda (symbol value)
          (set symbol value)
          (setq package-archives

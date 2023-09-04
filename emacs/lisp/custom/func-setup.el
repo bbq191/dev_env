@@ -39,10 +39,10 @@ Save to option `custom-file' if NO-SAVE is nil."
   (and refresh (package-refresh-contents async))
 
   (message "Set package archives to `%s'" archives))
-(defalias 'vk-set-package-archives #'set-package-archives)
+(defalias 'vk/set-package-archives #'set-package-archives)
 
 ;; Refer to https://emacs-china.org/t/elpa/11192
-(defun vk-test-package-archives (&optional no-chart)
+(defun vk/test-package-archives (&optional no-chart)
   "Test connection speed of all package archives and display on chart.
 
 Not displaying the chart if NO-CHART is non-nil.

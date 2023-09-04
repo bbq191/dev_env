@@ -13,7 +13,11 @@
 ;; At first startup
 (when (and (file-exists-p vk-custom-file)
            (not (file-exists-p custom-file)))
-  (copy-file vk-custom-file custom-file))
+  (copy-file vk-custom-file custom-file)
+
+  ;; Test and select the fastest package archives
+  (message "正在测试连接......请耐心等候")
+  (set-package-archives (vk/test-package-archives 'no-chart)))
 
 ;; Load `custom-file'
 (and (file-readable-p custom-file) (load custom-file))
@@ -87,6 +91,14 @@
                     (with-current-buffer buf
                       (page-break-lines-mode 1))))))
             t))
+
+;; Update packages
+(unless (fboundp 'package-upgrade-all)
+  (use-package auto-package-update
+    :init
+    (setq auto-package-update-delete-old-versions t
+          auto-package-update-hide-results t)
+    (defalias 'package-upgrade-all #'auto-package-update-now)))
 
 (provide 'package-setup)
 
