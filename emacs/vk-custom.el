@@ -8,7 +8,7 @@
 (setq vk-http-proxy "127.0.0.1:6152")          ; HTTP/HTTPS proxy
 (setq vk-socks-proxy "127.0.0.1:6153")         ; SOCKS proxy
 (setq vk-server t)                             ; Enable `server-mode' or not: t or nil
-(setq centaur-package-archives 'melpa)         ; Package repo: melpa, emacs-cn, bfsu, netease, sjtu, tencent, tuna or ustc
+(setq vk-package-archives 'melpa)         ; Package repo: melpa, emacs-cn, bfsu, netease, sjtu, tencent, tuna or ustc
 (setq vk-icon t)                               ; Display icons or not: t or nil
 (setq vk-restore-frame-geometry t)             ; Restore the frame's geometry at startup: t or nil
 (setq vk-completion-style 'childframe)         ; Completion display style: minibuffer or childframe
@@ -20,8 +20,8 @@
 (setq vk-prettify-org-symbols-alist t)         ; Alist of symbol prettifications for `org-mode'
 
 ;; Enable proxy
-(vk/proxy-http-enable)
-(vk/proxy-socks-enable)
+;;(vk/proxy-http-enable)
+;;(vk/proxy-socks-enable)
 
 ;; Display wrape line
 (global-display-fill-column-indicator-mode 1)

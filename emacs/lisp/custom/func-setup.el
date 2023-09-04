@@ -20,6 +20,64 @@
 (declare-function xwidget-webkit-current-session 'xwidget)
 
 ;; Function
+;; Pakcage repository (ELPA)
+(defun set-package-archives (archives &optional refresh async no-save)
+  "Set the package ARCHIVES (ELPA).
+
+REFRESH is non-nil, will refresh archive contents.
+ASYNC specifies whether to perform the downloads in the background.
+Save to option `custom-file' if NO-SAVE is nil."
+  (interactive
+   (list
+    (intern
+     (completing-read "Select package archives: "
+                      (mapcar #'car vk-package-archives-alist)))))
+  ;; Set option
+  (vk/set-variable 'vk-package-archives archives no-save)
+
+  ;; Refresh if need
+  (and refresh (package-refresh-contents async))
+
+  (message "Set package archives to `%s'" archives))
+(defalias 'vk-set-package-archives #'set-package-archives)
+
+;; Refer to https://emacs-china.org/t/elpa/11192
+(defun vk-test-package-archives (&optional no-chart)
+  "Test connection speed of all package archives and display on chart.
+
+Not displaying the chart if NO-CHART is non-nil.
+Return the fastest package archive."
+  (interactive)
+
+  (let* ((durations (mapcar
+                     (lambda (pair)
+                       (let ((url (concat (cdr (nth 2 (cdr pair)))
+                                          "archive-contents"))
+                             (start (current-time)))
+                         (message "Fetching %s..." url)
+                         (ignore-errors
+                           (url-copy-file url null-device t))
+                         (float-time (time-subtract (current-time) start))))
+                     vk-package-archives-alist))
+         (fastest (car (nth (cl-position (apply #'min durations) durations)
+                            vk-package-archives-alist))))
+
+    ;; Display on chart
+    (when (and (not no-chart)
+               (require 'chart nil t)
+               (require 'url nil t))
+      (chart-bar-quickie
+       'vertical
+       "Speed test for the ELPA mirrors"
+       (mapcar (lambda (p) (symbol-name (car p))) vk-package-archives-alist)
+       "ELPA"
+       (mapcar (lambda (d) (* 1e3 d)) durations) "ms"))
+
+    (message "`%s' is the fastest package archive" fastest)
+
+    ;; Return the fastest
+    fastest))
+
 ;; Icon
 (defun vk/icons-displayable-p ()
   "Return non-nil if icons are displayable."
