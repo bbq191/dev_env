@@ -12,7 +12,7 @@
   (corfu-auto t)
   (corfu-auto-prefix 2)
   (corfu-preview-current nil)
-  (corfu-auto-delay 0.1)
+  (corfu-auto-delay 0.8)
   (corfu-popupinfo-delay '(0.2 . 0.1))
   :custom-face
   (corfu-border ((t (:inherit region :background unspecified))))

@@ -547,7 +547,7 @@
              ('lsp-mode
               (when (fboundp 'lsp-deferred)
                 ;; Avoid headerline conflicts
-                (setq-local lsp-headerline-breadcrumb-enable nil)
+                (setq-local lsp-headerline-breadcrumb-enable t)
                 (lsp-deferred)))
              (_
               (user-error "LSP:: invalid `vk-lsp' type"))))

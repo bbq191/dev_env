@@ -25,8 +25,8 @@
 ;; Initial frame
 (setq initial-frame-alist '((top . 0.5)
                             (left . 0.5)
-                            (width . 0.628)
-                            (height . 0.8)
+                            (width . 0.728)
+                            (height . 0.9)
                             (fullscreen)))
 
 ;; Title

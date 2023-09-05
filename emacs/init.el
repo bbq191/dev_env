@@ -39,17 +39,18 @@
                 (setq file-name-handler-alist
                       (delete-dups (append file-name-handler-alist old-value))))
               101)))
-;; Requisites;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Requisites;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'custom-setup)
 (require 'func-setup)
 ;; Package management
 (require 'package-setup)
-
-;; Preferences;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'base-setup)
 (require 'keybind-setup)
 (require 'hydra-setup)
 (require 'ui-setup)
+
+;; Preferences;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'edit-setup)
 (require 'completion-setup)
 (require 'corfu-setup)
@@ -59,20 +60,20 @@
 (require 'ibuffer-setup)
 (require 'window-setup)
 (require 'workspace-setup)
-;; Finish as a editor ;;;;;;;;;;;;;;;;;;;;
-
-;; Terminal
-(require 'shell-setup)
-;; Writing
-(require 'writing-setup)
 (require 'util-setup)
-;; Finish as a writer;;;;;;;;;;;;;;;;;;;;;
 
-;; Programming
+;; Terminal;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(require 'shell-setup)
+
+;; Writing;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(require 'writing-setup)
+
+;; Programming;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'vcs-setup)
 (require 'flycheck-setup)
 (require 'lsp-setup)
 (require 'progm-setup)
+
 ;; Lang
 (require 'elisp-setup)
 (require 'rust-setup)
