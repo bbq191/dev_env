@@ -63,10 +63,10 @@
 (require 'util-setup)
 
 ;; Terminal;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;(require 'shell-setup)
+(require 'shell-setup)
 
 ;; Writing;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;(require 'writing-setup)
+(require 'writing-setup)
 
 ;; Programming;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'vcs-setup)
