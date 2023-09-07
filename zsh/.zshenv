@@ -30,7 +30,9 @@ export LESSHISTFILE=-
 # llvm config
 #export LLVM_PATH="/opt/homebrew/opt/llvm/bin"
 
-# rust config
+# helix editor
+export HELIX_RUNTIME="$HOME/Workspace/helix/runtime"
+# rust home
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 

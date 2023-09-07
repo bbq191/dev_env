@@ -22,9 +22,9 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "Cascadia Code"
-                           :size 15
+                           :size 13
                            :otf '(latn nil (calt zero ss01) nil))
-     doom-unicode-font (font-spec :family "Source Han Sans CN" :size 15))
+     doom-unicode-font (font-spec :family "Source Han Sans CN" :size 13))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
