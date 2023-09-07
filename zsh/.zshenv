@@ -17,7 +17,7 @@ export TERMINAL="kitty"
 export BROWSER="safari"
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
-
+export LESSHISTFILE=-
 # pip user command
 #export PIP_EXEC_USER="/Users/vincixu/Library/Python/3.11"
 
