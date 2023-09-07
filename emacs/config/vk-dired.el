@@ -14,12 +14,12 @@
 
 (use-package dired-preview
   :after dired
-  :hook (evil-normalize-keymaps . dired-preview-hook)
+  :hook (dired-mode . dired-preview-mode)
   :config
   (evil-define-key 'normal dired-mode-map (kbd "h") 'dired-up-directory)
-  (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
-  (evil-define-key 'normal dired-preview-mode-map (kbd "j") 'dired-preview-next-file)
-  (evil-define-key 'normal dired-preview-mode-map (kbd "k") 'dired-preview-prev-file))
+  (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file)) ; use dired-find-file instead if not using dired-open package
+  ;; (evil-define-key 'normal dired-preview-mode-map (kbd "j") 'dired-preview-next-file)
+  ;; (evil-define-key 'normal dired-preview-mode-map (kbd "k") 'dired-preview-prev-file))
 
 (provide 'vk-dired)
 

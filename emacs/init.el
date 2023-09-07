@@ -32,6 +32,8 @@
 (require 'vk-frame)
 (require 'vk-elpaca)
 (require 'vk-evil)
+(require 'vk-dired)
+(require 'vk-keybind)
 
 
 
