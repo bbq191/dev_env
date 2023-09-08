@@ -63,7 +63,7 @@
             :wk "Open emacs init.el")
     "f j" '(counsel-file-jump :wk "Jump to a file below current directory")
     "f l" '(counsel-locate :wk "Locate a file")
-    "f r" '(counsel-recentf :wk "Find recent files")
+    "f r" '(recentf-open :wk "Find recent files")
     "f u" '(sudo-edit-find-file :wk "Sudo find file")
     "f U" '(sudo-edit :wk "Sudo edit file"))
 
@@ -133,6 +133,9 @@
     "w k" '(evil-window-up :wk "Window up")
     "w l" '(evil-window-right :wk "Window right")
     "w w" '(evil-window-next :wk "Goto next window")))
+
+;; Block until current queue processed.
+(elpaca-wait)
 
 (provide 'vk-keybind)
 

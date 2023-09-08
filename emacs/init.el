@@ -31,10 +31,20 @@
 ;; GUI frame init
 (require 'vk-frame)
 (require 'vk-elpaca)
+
+;; Remap keys
 (require 'vk-evil)
-(require 'vk-dired)
 (require 'vk-keybind)
 
+;; Minibuffer
+(require 'vk-dired)
+(require 'vk-marginalia)
+(require 'vk-nerdicon)
+(require 'vk-vertico)
+
+;; Completion
+(require 'vk-orderless)
+(require 'vk-corfu)
 
 
 (provide 'init)
