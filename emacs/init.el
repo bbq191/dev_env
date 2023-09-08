@@ -31,6 +31,7 @@
 ;; GUI frame init
 (require 'vk-frame)
 (require 'vk-elpaca)
+(require 'vk-theme)
 
 ;; Remap keys
 (require 'vk-evil)

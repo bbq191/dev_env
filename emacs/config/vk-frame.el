@@ -5,6 +5,9 @@
 ;;; Code:
 
 ;; Inhibit resizing frame
+
+(require 'cl-lib) ;; cl-loop dependence
+
 (setq frame-inhibit-implied-resize t
       frame-resize-pixelwise t)
 
@@ -34,7 +37,7 @@
       make-backup-files nil             ; Forbide to make backup files
       auto-save-default nil             ; Disable auto save
       blink-cursor-mode nil             ; No eyes distraction
-      ;desktop-save nil                  ; Close desktop save
+                                        ;desktop-save nil                  ; Close desktop save
       uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
       adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
       adaptive-fill-first-line-regexp "^* *$"
@@ -45,12 +48,50 @@
 
 ;; Display wrape line
 (global-display-fill-column-indicator-mode 1)
+(display-line-numbers-mode 1)
+(visual-line-mode 1)
 
 ;; Fonts
-(set-face-attribute 'default nil :family '("Cascadia Code") :height 130)
-(set-fontset-font t 'symbol (font-spec :family "Symbols Nerd Font") nil 'prepend)
-(set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)
-(set-fontset-font t 'han (font-spec :family "Source Han Sans SC"))
+(defun vk/setup-fonts ()
+  "Setup fonts."
+  (when (display-graphic-p)
+    ;; Set default font
+    (cl-loop for font in '("Cascadia Code" "Source Code Pro")
+             return (set-face-attribute 'default nil
+                                        :family font
+                                        :height 130)))
+  ;; latin -- open otf
+  (cl-loop for font in '("Cascadia Code")
+           return (set-fontset-font t 'latin (font-spec :family font :otf '(latn nil (calt zero ss01) nil))))
+  
+  ;; Specify font for all unicode characters
+  (cl-loop for font in '("Symbols Nerd Font" "Symbols Nerd Font Mono" "Symbol")
+           return (if (< emacs-major-version 27)
+                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
+                    (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
+
+  ;; Emoji
+  (cl-loop for font in '("Apple Color Emoji" "Segoe UI Emoji")
+           return (cond
+                   ((< emacs-major-version 27)
+                    (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
+                   ((< emacs-major-version 28)
+                    (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
+                   (t
+                    (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
+
+  ;; Specify font for Chinese characters
+  (cl-loop for font in '("Source Han Sans CN" "PingFang SC" "Microsoft Yahei" "STFangsong")
+           return (progn
+                    (setq face-font-rescale-alist `((,font . 1.0)))
+                    (set-fontset-font t 'han (font-spec :family font))))
+
+  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic))
+
+(vk/setup-fonts)
+(add-hook 'window-setup-hook #'vk/setup-fonts)
+(add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
 
 ;; Suppress GUI features
 (setq use-file-dialog nil
@@ -61,9 +102,9 @@
       ;; Some pretty config from prucell
       initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
 (setq-default
-      display-line-numbers-width 3
-      indicate-buffer-boundaries 'left
-      display-fill-column-indicator-character ?\u254e)
+ display-line-numbers-width 3
+ indicate-buffer-boundaries 'left
+ display-fill-column-indicator-character ?\u254e)
 
 (provide 'vk-frame)
 

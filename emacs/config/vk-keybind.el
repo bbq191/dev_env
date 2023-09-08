@@ -16,59 +16,47 @@
     :global-prefix "M-SPC") ;; access leader in insert mode
 
   (dt/leader-keys
-    "SPC" '(counsel-M-x :wk "Counsel M-x")
+    "," '((lambda () (interactive)
+            (dired "~/.config/emacs/")) 
+          :wk "Open user-emacs-directory in dired")
+    "SPC" '(M-x :wk "Counsel M-x")
     "." '(find-file :wk "Find file")
     "=" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
-    "TAB TAB" '(comment-line :wk "Comment lines")
+    "/" '(comment-line :wk "Comment lines")
     "u" '(universal-argument :wk "Universal argument"))
 
   (dt/leader-keys
-    "b" '(:ignore t :wk "Bookmarks/Buffers")
+    "b" '(:ignore t :wk "Buffers")
     "b b" '(switch-to-buffer :wk "Switch to buffer")
     "b c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     "b C" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
-    "b d" '(bookmark-delete :wk "Delete bookmark")
     "b i" '(ibuffer :wk "Ibuffer")
     "b k" '(kill-current-buffer :wk "Kill current buffer")
     "b K" '(kill-some-buffers :wk "Kill multiple buffers")
-    "b l" '(list-bookmarks :wk "List bookmarks")
-    "b m" '(bookmark-set :wk "Set bookmark")
     "b n" '(next-buffer :wk "Next buffer")
     "b p" '(previous-buffer :wk "Previous buffer")
     "b r" '(revert-buffer :wk "Reload buffer")
     "b R" '(rename-buffer :wk "Rename buffer")
     "b s" '(basic-save-buffer :wk "Save buffer")
-    "b S" '(save-some-buffers :wk "Save multiple buffers")
-    "b w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
+    "b S" '(save-some-buffers :wk "Save multiple buffers"))
 
   (dt/leader-keys
     "d" '(:ignore t :wk "Dired")
     "d d" '(dired :wk "Open dired")
     "d j" '(dired-jump :wk "Dired jump to current")
-    "d n" '(neotree-dir :wk "Open directory in neotree")
-    "d p" '(dired-preview-mode :wk "Peep-dired"))
+    "d n" '(neotree-dir :wk "Open directory in neotree"))
 
   (dt/leader-keys
-    "f" '(:ignore t :wk "Files")    
-    "f c" '((lambda () (interactive)
-              (find-file "~/.config/emacs/config.org")) 
-            :wk "Open emacs config.org")
-    "f e" '((lambda () (interactive)
-              (dired "~/.config/emacs/")) 
-            :wk "Open user-emacs-directory in dired")
+    "f" '(:ignore t :wk "Files")
     "f d" '(find-grep-dired :wk "Search for string in files in DIR")
     "f g" '(counsel-grep-or-swiper :wk "Search for string current file")
-    "f i" '((lambda () (interactive)
-              (find-file "~/.config/emacs/init.el")) 
-            :wk "Open emacs init.el")
     "f j" '(counsel-file-jump :wk "Jump to a file below current directory")
     "f l" '(counsel-locate :wk "Locate a file")
     "f r" '(recentf-open :wk "Find recent files")
     "f u" '(sudo-edit-find-file :wk "Sudo find file")
     "f U" '(sudo-edit :wk "Sudo edit file"))
 
-
- (dt/leader-keys
+  (dt/leader-keys
     "h" '(:ignore t :wk "Help")
     "h a" '(counsel-apropos :wk "Apropos")
     "h b" '(describe-bindings :wk "Describe bindings")
