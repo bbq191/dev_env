@@ -10,6 +10,8 @@
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
+.zsh_history
+.zcompdump
 
 # -*- emacs -*-
 *~
