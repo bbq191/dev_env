@@ -19,7 +19,7 @@
     "," '((lambda () (interactive)
             (dired "~/.config/emacs/")) 
           :wk "Open user-emacs-directory in dired")
-    "SPC" '(M-x :wk "Counsel M-x")
+    "SPC" '(execute-extended-command :wk "Counsel M-x")
     "." '(find-file :wk "Find file")
     "=" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
     "/" '(comment-line :wk "Comment lines")
@@ -114,7 +114,7 @@
     "w c" '(evil-window-delete :wk "Close window")
     "w n" '(evil-window-new :wk "New window")
     "w s" '(evil-window-split :wk "Horizontal split window")
-    "w v" '(evil-window-vsplit :wk "Vertical split window")
+
     ;; Window motions
     "w h" '(evil-window-left :wk "Window left")
     "w j" '(evil-window-down :wk "Window down")
