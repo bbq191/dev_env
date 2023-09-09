@@ -3,7 +3,8 @@
 ;;; Commentary:
 ;;
 ;;; Code:
-
+(use-package exec-path-from-shell
+  :init (exec-path-from-shell-initialize))
 (use-package rustic
   :ensure
   :bind (:map rustic-mode-map
@@ -17,13 +18,14 @@
               ("C-c C-c s" . lsp-rust-analyzer-status))
   :config
   ;; uncomment for less flashiness
-  ;; (setq lsp-eldoc-hook nil)
-  ;; (setq lsp-enable-symbol-highlighting nil)
-  ;; (setq lsp-signature-auto-activate nil)
-
+  (setq lsp-eldoc-hook t)
+  (setq lsp-enable-symbol-highlighting t)
+  (setq lsp-signature-auto-activate t)
   ;; comment to disable rustfmt on save
   (setq rustic-format-on-save t)
-  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
+  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook)
+  :custom
+  (setq rustic-analyzer-command '("rustup" "run" "nightly" "rust-analyzer")))
 
 (defun rk/rustic-mode-hook ()
   ;; so that run C-c C-c C-r works without having to confirm, but don't try to

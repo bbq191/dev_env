@@ -20,26 +20,20 @@
   ;; (with-no-warnings
   ;; (lsp-enable-which-key-integration t))
   :custom
-  (lsp-keymap-prefix "C-c l")
-  (lsp-enable-links nil)                    ;; no clickable links
-  (lsp-enable-folding t)                  ;; use `hideshow' instead
-  (lsp-enable-snippet nil)                  ;; no snippets, it requires `yasnippet'
-  (lsp-enable-file-watchers t)            ;; performance matters
-  (lsp-enable-text-document-color t)      ;; as above
-  (lsp-enable-symbol-highlighting t)      ;; as above
-  (lsp-enable-on-type-formatting nil)       ;; as above
-  (lsp-semantic-tokens-enable nil)          ;; optional
-  (lsp-semantic-tokens-apply-modifiers nil) ;; don't override token faces
-  (lsp-headerline-breadcrumb-enable t)    ;; keep headline clean
-  (lsp-modeline-code-actions-enable t)    ;; keep modeline clean
-  (lsp-modeline-diagnostics-enable t)     ;; as above
-  (lsp-log-io nil)                          ;; debug only
-  (lsp-auto-guess-root t)                   ;; Yes, I'm using projectile
-  (lsp-completion-provider :none)           ;; don't add `company-capf' to `company-backends'
-  (lsp-keep-workspace-alive nil)            ;; auto kill lsp server
-  (lsp-eldoc-enable-hover nil)             ;; disable eldoc hover
-  :config
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+  ;; what to use when checking on-save. "check" is default, I prefer clippy
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  (lsp-eldoc-render-all t)
+  (lsp-idle-delay 0.6)
+  ;; This controls the overlays that display type and other hints inline. Enable
+  ;; / disable as you prefer. Well require a `lsp-workspace-restart' to have an
+  ;; effect on open projects.
+  (lsp-rust-analyzer-server-display-inlay-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (lsp-rust-analyzer-display-chaining-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (lsp-rust-analyzer-display-closure-return-type-hints t)
+  (lsp-rust-analyzer-display-parameter-hints nil)
+  (lsp-rust-analyzer-display-reborrow-hints nil))
 
 (use-package lsp-ui
   :ensure
