@@ -13,7 +13,7 @@
 
 ;; Initial frame
 (setq initial-frame-alist '((top . 0.5)
-                            (left . 0.85)
+                            (left . 0.9)
                             (width . 0.528)
                             (height . 0.9)
                             (fullscreen)))
@@ -48,10 +48,11 @@
 
 ;; Display wrape line
 (global-display-fill-column-indicator-mode 1)
-(display-line-numbers-mode 1)
-(visual-line-mode 1)
+(global-display-line-numbers-mode 1)
+(global-visual-line-mode 1)
 
 ;; Fonts
+;; (font-spec :family font :otf '(latn nil (calt zero ss01) nil))))
 (defun vk/setup-fonts ()
   "Setup fonts."
   (when (display-graphic-p)
@@ -60,30 +61,19 @@
              return (set-face-attribute 'default nil
                                         :family font
                                         :height 130)))
-  ;; latin -- open otf
-  (cl-loop for font in '("Cascadia Code")
-           return (set-fontset-font t 'latin (font-spec :family font :otf '(latn nil (calt zero ss01) nil))))
   
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Symbols Nerd Font" "Symbols Nerd Font Mono" "Symbol")
-           return (if (< emacs-major-version 27)
-                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
-                    (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
+           return (set-fontset-font t 'symbol (font-spec :family font)))
 
   ;; Emoji
   (cl-loop for font in '("Apple Color Emoji" "Segoe UI Emoji")
-           return (cond
-                   ((< emacs-major-version 27)
-                    (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
-                   ((< emacs-major-version 28)
-                    (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
-                   (t
-                    (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
+           return (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))
 
   ;; Specify font for Chinese characters
   (cl-loop for font in '("Source Han Sans CN" "PingFang SC" "Microsoft Yahei" "STFangsong")
            return (progn
-                    (setq face-font-rescale-alist `((,font . 1.0)))
+                    (setq face-font-rescale-alist `((,font . 0.8)))
                     (set-fontset-font t 'han (font-spec :family font))))
 
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
