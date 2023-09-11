@@ -22,7 +22,7 @@
     "SPC" '(execute-extended-command :wk "Counsel M-x")
     "." '(find-file :wk "Find file")
     "=" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
-    "/" '(comment-line :wk "Comment lines")
+    "TAB" '(comment-line :wk "Comment lines")
     "u" '(universal-argument :wk "Universal argument"))
 
   (dt/leader-keys
@@ -114,7 +114,6 @@
     "w c" '(evil-window-delete :wk "Close window")
     "w n" '(evil-window-new :wk "New window")
     "w s" '(evil-window-split :wk "Horizontal split window")
-
     ;; Window motions
     "w h" '(evil-window-left :wk "Window left")
     "w j" '(evil-window-down :wk "Window down")

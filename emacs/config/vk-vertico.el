@@ -23,7 +23,7 @@
             "M-." #'vertico-repeat)
   (:keymaps 'vertico-map
             "<tab>" #'vertico-insert ; Set manually otherwise setting `vertico-quick-insert' overrides this
-            "<escape>" #'minibuffer-keyboard-quit
+            "<escape>" #'keyboard-escape-quit
             "?" #'minibuffer-completion-help
             "C-M-n" #'vertico-next-group
             "C-M-p" #'vertico-previous-group

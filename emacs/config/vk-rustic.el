@@ -5,9 +5,13 @@
 ;;; Code:
 
 ;; Rust
-(use-package rustic)
+(use-package rustic
+  :config
+  (setq rustic-lsp-client 'eglot))
+
 (use-package rust-playground)
 
 (provide 'vk-rustic)
 
 ;;; vk-rustic.el ends here
+
