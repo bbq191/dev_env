@@ -55,6 +55,10 @@
 ;; Keep ~/.emacs.d/ clean.
 (use-package no-littering)
 
+;; Keep modeline clean.
+(use-package diminish)
+
+
 (provide 'vk-elpaca)
 
 ;;; vk-elpaca.el ends here

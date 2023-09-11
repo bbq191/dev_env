@@ -13,18 +13,16 @@
                             corfu-popupinfo
                             corfu-quick))
   :hook (lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
-  :general
-  (:keymaps 'corfu-map
-            :states 'insert
-            "C-n" #'corfu-next
-            "C-p" #'corfu-previous
-            "<escape>" #'corfu-quit
-            "<return>" #'corfu-insert
-            "s-SPC" #'corfu-insert-separator
-            ;; "SPC" #'corfu-insert-separator ; Use when `corfu-quit-at-boundary' is non-nil
-            "M-d" #'corfu-show-documentation
-            "C-g" #'corfu-quit
-            "M-l" #'corfu-show-location)
+  :general (:keymaps 'corfu-map ;; :states 'insert is not necessory
+                     "C-n" #'corfu-next
+                     "C-p" #'corfu-previous
+                     "<escape>" #'corfu-quit
+                     "<return>" #'corfu-insert
+                     "s-SPC" #'corfu-insert-separator
+                     ;; "SPC" #'corfu-insert-separator ; Use when `corfu-quit-at-boundary' is non-nil
+                     ;; Fixme: here is some bug
+                     "M-d" #'corfu-popupinfo-toggle
+                     "M-l" #'corfu-show-location)
   :custom
   ;; Works with `indent-for-tab-command'. Make sure tab doesn't indent when you
   ;; want to perform completion
@@ -33,9 +31,9 @@
 
   (corfu-auto nil)
   (corfu-auto-prefix 3)
-  (corfu-auto-delay 0.5)
+  (corfu-auto-delay 1)
 
-  (corfu-min-width 80)
+  (corfu-min-width 30)
   (corfu-max-width corfu-min-width)     ; Always have the same width
   (corfu-count 14)
   (corfu-scroll-margin 4)
@@ -55,11 +53,10 @@
   (corfu-preselect-first t)        ; Preselect first candidate?
 
   ;; Other
-  (corfu-echo-documentation t)        ; Already use corfu-doc
+  ;; (corfu-popupinfo-documentation t)
   (lsp-completion-provider :none)       ; Use corfu instead for lsp completions
-  :init
-  (global-corfu-mode)
-  ;; (corfu-popupinfo-mode)
+
+  :init (global-corfu-mode)
   :config
   ;; NOTE 2022-03-01: This allows for a more evil-esque way to have
   ;; `corfu-insert-separator' work with space in insert mode without resorting to

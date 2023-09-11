@@ -17,7 +17,7 @@
 
   (dt/leader-keys
     "," '((lambda () (interactive)
-            (dired "~/.config/emacs/")) 
+            (dired "~/Workspace/dotfile/emacs/"))
           :wk "Open user-emacs-directory in dired")
     "SPC" '(execute-extended-command :wk "Counsel M-x")
     "." '(find-file :wk "Find file")
@@ -114,6 +114,7 @@
     "w c" '(evil-window-delete :wk "Close window")
     "w n" '(evil-window-new :wk "New window")
     "w s" '(evil-window-split :wk "Horizontal split window")
+    "w v" '(evil-window-vsplit :wk "Horizontal vsplit window")
     ;; Window motions
     "w h" '(evil-window-left :wk "Window left")
     "w j" '(evil-window-down :wk "Window down")
