@@ -8,7 +8,8 @@
   :hook (prog-mode . flymake-mode)
   :init (setq flymake-fringe-indicator-position 'right-fringe)
   :config (setq elisp-flymake-byte-compile-load-path
-                (append elisp-flymake-byte-compile-load-path load-path)))
+                (append elisp-flymake-byte-compile-load-path load-path))
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 (use-package sideline-flymake
   :hook (flymake-mode . sideline-mode)

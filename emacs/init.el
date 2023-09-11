@@ -30,6 +30,7 @@
 
 ;; GUI frame init
 (require 'vk-frame)
+(require 'vk-font)
 (require 'vk-elpaca)
 (require 'vk-theme)
 
