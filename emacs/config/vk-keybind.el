@@ -23,7 +23,9 @@
     "." '(find-file :wk "Find file")
     "=" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
     "TAB" '(comment-line :wk "Comment lines")
-    "u" '(universal-argument :wk "Universal argument"))
+    "u" '(universal-argument :wk "Universal argument")
+    "q q" '(save-buffers-kill-terminal :wk "Save & Quit")
+    "q q" '(save-buffers-kill-emacs :wk "Kill emacs"))
 
   (dt/leader-keys
     "b" '(:ignore t :wk "Buffers")
@@ -121,7 +123,7 @@
   (dt/leader-keys
     "t" '(:ignore t :wk "Toggle")
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines"))
+    "t t" '(visual-line-mode :wk "Toggle truncated lines")))
 
 
 ;; Block until current queue processed.

@@ -10,11 +10,14 @@
                         (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
                           (lsp-deferred))))
          ((markdown-mode yaml-mode yaml-ts-mode) . lsp-deferred))
-  :bind (:map lsp-mode-map
-              ("C-c f" . lsp-format-region)
-              ("C-c d" . lsp-describe-thing-at-point)
-              ("C-c a" . lsp-execute-code-action)
-              ("C-c r" . lsp-rename))
+  ;;(dt/leader-keys
+    ;;"c" '(:ignore t :wk "Code")
+    ;;"c f" '(eglot-format-buffer :wk "Format current buffer")))
+  :general (:keymaps 'lsp-mode-map
+              "SPC cf" #'lsp-format-region
+              "SPC cd" #'lsp-describe-thing-at-point
+              "SPC ce" #'lsp-execute-code-action
+              "SPC cr" #'lsp-rename)
   ;; :config
   ;; (with-no-warnings
   ;; (lsp-enable-which-key-integration t))

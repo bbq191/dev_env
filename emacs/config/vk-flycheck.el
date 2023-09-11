@@ -17,7 +17,7 @@
 
 (use-package flycheck-rust
   :custom
-  (with-eval-after-load 'rust-mode
+  (with-eval-after-load 'rustic-mode
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 
