@@ -49,8 +49,8 @@
 (require 'vk-cape)
 
 ;; Programe
-(require 'vk-lsp)
-(require 'vk-rustic)
+;; (require 'vk-lsp)
+;; (require 'vk-rustic)
 
 (provide 'init)
 
