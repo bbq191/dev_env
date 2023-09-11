@@ -58,6 +58,9 @@
 ;; Keep modeline clean.
 (use-package diminish)
 
+;; MacOS specific
+(use-package exec-path-from-shell
+  :hook (after-init . exec-path-from-shell-initialize))
 
 (provide 'vk-elpaca)
 

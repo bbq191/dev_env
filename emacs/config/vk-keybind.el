@@ -17,7 +17,7 @@
 
   (dt/leader-keys
     "," '((lambda () (interactive)
-            (dired "~/Workspace/dotfile/emacs/"))
+            (dired "~/Workspace/dotfiles/emacs/"))
           :wk "Open user-emacs-directory in dired")
     "SPC" '(execute-extended-command :wk "Counsel M-x")
     "." '(find-file :wk "Find file")
@@ -112,6 +112,7 @@
 
   (dt/leader-keys
     "s" '(:ignore t :wk "Search")
+    "s r" '(query-replace :wk "Query replace")
     "s d" '(dictionary-search :wk "Search dictionary")
     "s m" '(man :wk "Man pages")
     "s t" '(tldr :wk "Lookup TLDR docs for a command")

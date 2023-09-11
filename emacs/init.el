@@ -53,6 +53,7 @@
 (require 'vk-eglot)
 (require 'vk-flymake)
 (require 'vk-rustic)
+(require 'vk-git)
 
 (provide 'init)
 

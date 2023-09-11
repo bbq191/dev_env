@@ -59,6 +59,7 @@
       inhibit-default-init t
       ;; Some pretty config from prucell
       initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+
 (setq-default
  display-line-numbers-width 3
  indicate-buffer-boundaries 'left
