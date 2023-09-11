@@ -6,7 +6,6 @@
 
 ;; lsp-mode
 (use-package lsp-mode
-  :ensure t
   :hook ((prog-mode . (lambda ()
                         (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
                           (lsp-deferred))))
@@ -36,14 +35,13 @@
   (lsp-rust-analyzer-display-reborrow-hints nil))
 
 (use-package lsp-ui
-  :ensure
   :commands lsp-ui-mode
   :custom
   (lsp-ui-peek-always-show t)
   (lsp-ui-sideline-show-hover t)
   (lsp-ui-doc-enable nil))
 
-
+;;TODO: Remove
 (use-package elisp-mode :elpaca nil)
 
 (provide 'vk-lsp)

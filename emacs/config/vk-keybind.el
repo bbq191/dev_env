@@ -124,10 +124,6 @@
     "t t" '(visual-line-mode :wk "Toggle truncated lines"))
 
 
-  (dt/leader-keys
-    "c" '(:ignore t :wk "Code")
-    "c f" '(eglot-format-buffer :wk "Format current buffer")))
-
 ;; Block until current queue processed.
 (elpaca-wait)
 

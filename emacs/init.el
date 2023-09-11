@@ -50,8 +50,8 @@
 (require 'vk-cape)
 
 ;; Programe
-(require 'vk-eglot)
-(require 'vk-flymake)
+(require 'vk-lsp)
+(require 'vk-flycheck)
 (require 'vk-rustic)
 (require 'vk-git)
 

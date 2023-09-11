@@ -29,7 +29,7 @@
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
   :after vc
-  :init 'global-diff-hl-mode
+  :init 'diff-hl-mode ;;FIXME: not useful
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
          (magit-pre-refresh  . diff-hl-magit-pre-refresh)
          (magit-post-refresh . diff-hl-magit-post-refresh))
@@ -65,6 +65,13 @@
   :mode (("\\.gitignore\\'"     . conf-unix-mode)
          ("\\.gitconfig\\'"     . conf-unix-mode)
          ("\\.gitattributes\\'" . conf-unix-mode)))
+
+(use-package git-timemachine
+  :after git-timemachine
+  :hook (evil-normalize-keymaps . git-timemachine-hook)
+  :config
+    (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
+    (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision))
 
 (provide 'vk-git)
 

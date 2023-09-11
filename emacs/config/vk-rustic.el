@@ -6,7 +6,7 @@
 
 ;; Rust
 (use-package rustic
-  :general (:keymaps 'rustic-mode-map
+  :general (:keymaps 'rustic-mode-map :states 'normal
                      "SPC c r" #'rustic-cargo-plain-run)
   :config
   (setq rustic-lsp-client 'eglot))
