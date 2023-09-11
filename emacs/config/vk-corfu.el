@@ -53,7 +53,7 @@
   (corfu-preselect-first t)        ; Preselect first candidate?
 
   ;; Other
-  ;; (corfu-popupinfo-documentation t)
+  (corfu-popupinfo-documentation nil)
   (lsp-completion-provider :none)       ; Use corfu instead for lsp completions
 
   :init (global-corfu-mode)
