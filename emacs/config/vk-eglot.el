@@ -12,8 +12,8 @@
                                  'makefile-mode
                                  'snippet-mode)
                           (eglot-ensure))))
-         ((markdown-mode yaml-mode yaml-ts-mode) . eglot-ensure))
+         ((markdown-mode yaml-mode yaml-ts-mode) . eglot-ensure)))
 
-  (provide 'vk-eglot)
+(provide 'vk-eglot)
 
 ;;; vk-eglot.el ends here
