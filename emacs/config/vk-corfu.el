@@ -12,7 +12,11 @@
                             corfu-info
                             corfu-popupinfo
                             corfu-quick))
-  :hook (lsp-completion-mode . kb/corfu-setup-lsp) ; Use corfu for lsp completion
+  :hook ((after-init . global-corfu-mode)
+         (global-corfu-mode . corfu-popupinfo-mode)
+         (lsp-completion-mode . kb/corfu-setup-lsp)) ; Use corfu for lsp completion
+  :custom-face
+  (corfu-border ((t (:inherit region :background unspecified))))
   :general (:keymaps 'corfu-map ;; :states 'insert is not necessory
                      "C-n" #'corfu-next
                      "C-p" #'corfu-previous
@@ -28,6 +32,7 @@
   (corfu-auto nil)
   (corfu-auto-prefix 3)
   (corfu-auto-delay 1)
+  (corfu-popupinfo-delay '(0.2 . 0.1))
 
   (corfu-min-width 30)
   (corfu-max-width corfu-min-width)     ; Always have the same width
@@ -52,11 +57,6 @@
   (corfu-popupinfo-documentation nil)
   (lsp-completion-provider :none)       ; Use corfu instead for lsp completions
 
-  :init (global-corfu-mode)
-  (corfu-popupinfo-mode)
-  (corfu-echo-mode)
-  (corfu-indexed-mode)
-  (corfu-history-mode)
   :config
   ;; NOTE 2022-03-01: This allows for a more evil-esque way to have
   ;; `corfu-insert-separator' work with space in insert mode without resorting to
