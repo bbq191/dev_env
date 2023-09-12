@@ -18,11 +18,7 @@
                      "C-p" #'corfu-previous
                      "<escape>" #'corfu-quit
                      "<return>" #'corfu-insert
-                     "s-SPC" #'corfu-insert-separator
-                     ;; "SPC" #'corfu-insert-separator ; Use when `corfu-quit-at-boundary' is non-nil
-                     ;; Fixme: here is some bug
-                     "M-d" #'corfu-popupinfo-toggle
-                     "M-l" #'corfu-show-location)
+                     "M-d" #'corfu-popupinfo-toggle)
   :custom
   ;; Works with `indent-for-tab-command'. Make sure tab doesn't indent when you
   ;; want to perform completion

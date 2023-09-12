@@ -19,7 +19,6 @@
   ;; (with-no-warnings
   ;; (lsp-enable-which-key-integration t))
   :custom
-  ;; what to use when checking on-save. "check" is default, I prefer clippy
   (lsp-eldoc-render-all nil)
   (lsp-idle-delay 0.9)
   ;; enable / disable the hints as you prefer:

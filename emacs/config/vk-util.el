@@ -9,6 +9,7 @@
 
 (use-package hl-todo
   :hook ((org-mode . hl-todo-mode)
+         (emacs-lisp-mode . hl-todo-mode)
          (prog-mode . hl-todo-mode))
   :config
   (setq hl-todo-highlight-punctuation ":"
