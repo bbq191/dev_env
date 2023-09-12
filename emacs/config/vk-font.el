@@ -16,7 +16,7 @@
     (cl-loop for font in '("Cascadia Code" "Source Code Pro")
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height 130)))
+                                        :height 150)))
   
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Symbols Nerd Font" "Symbols Nerd Font Mono" "Symbol")

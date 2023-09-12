@@ -57,6 +57,10 @@
   (lsp-completion-provider :none)       ; Use corfu instead for lsp completions
 
   :init (global-corfu-mode)
+  (corfu-popupinfo-mode)
+  (corfu-echo-mode)
+  (corfu-indexed-mode)
+  (corfu-history-mode)
   :config
   ;; NOTE 2022-03-01: This allows for a more evil-esque way to have
   ;; `corfu-insert-separator' work with space in insert mode without resorting to

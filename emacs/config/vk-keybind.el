@@ -20,12 +20,11 @@
             (dired "~/Workspace/dotfiles/emacs/"))
           :wk "Open user-emacs-directory in dired")
     "SPC" '(execute-extended-command :wk "Counsel M-x")
-    "." '(find-file :wk "Find file")
     "=" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
     "TAB" '(comment-line :wk "Comment lines")
     "u" '(universal-argument :wk "Universal argument")
     "q q" '(save-buffers-kill-terminal :wk "Save & Quit")
-    "q q" '(save-buffers-kill-emacs :wk "Kill emacs"))
+    "Q" '(save-buffers-kill-emacs :wk "Kill emacs"))
 
   (dt/leader-keys
     "b" '(:ignore t :wk "Buffers")
@@ -64,6 +63,7 @@
 
   (dt/leader-keys
     "f" '(:ignore t :wk "Files")
+    "f f" '(find-file :wk "Find file")
     "f d" '(find-grep-dired :wk "Search for string in files in DIR")
     "f g" '(counsel-grep-or-swiper :wk "Search for string current file")
     "f j" '(counsel-file-jump :wk "Jump to a file below current directory")
@@ -107,7 +107,7 @@
     "h w" '(where-is :wk "Prints keybinding for command if set")
     "h x" '(describe-command :wk "Display full documentation for command"))
 
-  ;; projectile-command-map already has a ton of bindings 
+  ;; projectile-command-map already has a ton of bindings
   ;; set for us, so no need to specify each individually.
   (dt/leader-keys
     "p" '(projectile-command-map :wk "Projectile"))
@@ -123,7 +123,12 @@
   (dt/leader-keys
     "t" '(:ignore t :wk "Toggle")
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines")))
+    "t t" '(visual-line-mode :wk "Toggle truncated lines"))
+
+  (dt/leader-keys
+    "c" '(:ignore t :wk "Code")
+    "c f" '(eglot-format-buffer :wk "Format current buffer")
+    "c e l" '(flycheck-list-errors :wk "List all errors")))
 
 
 ;; Block until current queue processed.

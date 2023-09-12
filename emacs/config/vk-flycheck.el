@@ -7,7 +7,7 @@
 (use-package flycheck
   :ensure t
   :defer t
-  ;; :diminish
+  :diminish t
   :init (global-flycheck-mode)
   :custom
   (flycheck-temp-prefix ".flycheck")

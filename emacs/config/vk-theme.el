@@ -1,3 +1,4 @@
+
 ;; vk-theme.el --- init configurations. -*- lexical-binding: t -*-
 
 ;;; Commentary:
@@ -19,14 +20,14 @@
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :config
-  (setq doom-modeline-height 20      ;; sets modeline height
+  (setq doom-modeline-height 30      ;; sets modeline height
         doom-modeline-bar-width 5    ;; sets right bar width
         doom-modeline-persp-name t   ;; adds perspective name to modeline
         doom-modeline-persp-icon t   ;; adds folder icon next to persp name
         ;;doom-modeline-hud t
-        ;;doom-modeline-minor-modes t
+        doom-modeline-minor-modes t
         doom-modeline-indent-info t
-        doom-modeline-total-line-number t))
+        doom-modeline-total-line-number nil))
 
 
 (provide 'vk-theme)

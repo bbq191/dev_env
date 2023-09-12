@@ -22,6 +22,10 @@
 (setq fast-but-imprecise-scrolling t)
 (setq redisplay-skip-fontification-on-input t)
 
+;; By default, Emacs requires you to hit ESC three times to escape quit the minibuffer.
+(global-set-key [escape] 'keyboard-escape-quit)
+;; Close eldoc mode in global
+(global-eldoc-mode -1)
 ;; Load `custom-file'
 (setq custom-file (expand-file-name "vk-custom.el" user-emacs-directory))
 
@@ -54,6 +58,12 @@
 (require 'vk-flycheck)
 (require 'vk-rustic)
 (require 'vk-git)
+
+;; Language
+(require 'vk-lang)
+
+;; Util
+(require 'vk-util)
 
 (provide 'init)
 
