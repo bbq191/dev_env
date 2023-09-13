@@ -42,31 +42,11 @@
     "b S" '(save-some-buffers :wk "Save multiple buffers")
     "b w" '(consult-buffer-other-window :wk "Switch to buffer other window")
     "b W" '(consult-buffer-other-frame :wk "Switch to buffer other frame"))
-
-  (dt/leader-keys
-    "g" '(:ignore t :wk "Goto")
-    "M-g e" '(consult-compile-error :wk "Goto compile error")
-    "M-g f" '(consult-flycheck :wk "Goto flycheck")
-    "M-g g" '(consult-goto-line :wk "Goto line")
-    "M-g o" '(consult-outline :wk "Goto outline")
-    "M-g m" '(consult-mark :wk "Goto mark")
-    "M-g k" '(consult-global-mark :wk "Goto global mark")
-    "M-g i" '(consult-imenu :wk "Goto imenu")
-    "M-g I" '(consult-imenu-multi :wk "Goto multi imenu"))
   
   (dt/leader-keys
-    "w" '(:ignore t :wk "Windows")
-    ;; Window splits
-    "w c" '(evil-window-delete :wk "Close window")
-    "w n" '(evil-window-new :wk "New window")
-    "w s" '(evil-window-split :wk "Horizontal split window")
-    "w v" '(evil-window-vsplit :wk "Horizontal vsplit window")
-    ;; Window motions
-    "w h" '(evil-window-left :wk "Window left")
-    "w j" '(evil-window-down :wk "Window down")
-    "w k" '(evil-window-up :wk "Window up")
-    "w l" '(evil-window-right :wk "Window right")
-    "w w" '(evil-window-next :wk "Goto next window"))
+    "c" '(:ignore t :wk "Code")
+    "c f" '(eglot-format-buffer :wk "Format current buffer")
+    "c e l" '(flycheck-list-errors :wk "List all errors"))
   
   (dt/leader-keys
     "d" '(:ignore t :wk "Dired")
@@ -75,16 +55,35 @@
     "d n" '(neotree-dir :wk "Open directory in neotree"))
 
   (dt/leader-keys
+    "e" '(:ignore t :wk "Evaluate")
+    "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
+    "e d" '(eval-defun :wk "Evaluate defun containing or after point")
+    "e e" '(eval-expression :wk "Evaluate and elisp expression")
+    "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
+    "e r" '(eval-region :wk "Evaluate elisp in region"))
+
+  (dt/leader-keys
     "f" '(:ignore t :wk "Files")
     "f f" '(find-file :wk "Find file")
     "f d" '(find-grep-dired :wk "Search for string in files in DIR")
     "f g" '(counsel-grep-or-swiper :wk "Search for string current file")
     "f j" '(counsel-file-jump :wk "Jump to a file below current directory")
     "f l" '(counsel-locate :wk "Locate a file")
-    "f r" '(recentf-open :wk "Find recent files")
+    "f r" '(counsel-recentf :wk "Find recent files")
     "f u" '(sudo-edit-find-file :wk "Sudo find file")
     "f U" '(sudo-edit :wk "Sudo edit file"))
 
+  (dt/leader-keys
+    "g" '(:ignore t :wk "Goto")
+    "g e" '(consult-compile-error :wk "Goto compile error")
+    "g f" '(consult-flycheck :wk "Goto flycheck")
+    "g g" '(consult-goto-line :wk "Goto line")
+    "g o" '(consult-outline :wk "Goto outline")
+    "g m" '(consult-mark :wk "Goto mark")
+    "g k" '(consult-global-mark :wk "Goto global mark")
+    "g i" '(consult-imenu :wk "Goto imenu")
+    "g I" '(consult-imenu-multi :wk "Goto multi imenu"))
+  
   (dt/leader-keys
     "h" '(:ignore t :wk "Help")
     "h :" '(consult-complex-command :wk "Repeat complex command")
@@ -129,7 +128,6 @@
   (dt/leader-keys
     "s" '(:ignore t :wk "Search")
     "s f" '(consult-find :wk "Find")
-    "s F" '(consult-locate :wk "Locate")
     "s g" '(consult-grep :wk "Grep")
     "s G" '(consult-git-grep :wk "Git grep")
     "s r" '(consult-ripgrep :wk "Ripgrep")
@@ -150,9 +148,18 @@
     "t t" '(visual-line-mode :wk "Toggle truncated lines"))
 
   (dt/leader-keys
-    "c" '(:ignore t :wk "Code")
-    "c f" '(eglot-format-buffer :wk "Format current buffer")
-    "c e l" '(flycheck-list-errors :wk "List all errors")))
+    "w" '(:ignore t :wk "Windows")
+    ;; Window splits
+    "w c" '(evil-window-delete :wk "Close window")
+    "w n" '(evil-window-new :wk "New window")
+    "w s" '(evil-window-split :wk "Horizontal split window")
+    "w v" '(evil-window-vsplit :wk "Horizontal vsplit window")
+    ;; Window motions
+    "w h" '(evil-window-left :wk "Window left")
+    "w j" '(evil-window-down :wk "Window down")
+    "w k" '(evil-window-up :wk "Window up")
+    "w l" '(evil-window-right :wk "Window right")
+    "w w" '(evil-window-next :wk "Goto next window")))
 
 
 ;; Block until current queue processed.
