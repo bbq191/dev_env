@@ -28,7 +28,7 @@
 
   (dt/leader-keys
     "b" '(:ignore t :wk "Buffers")
-    "b b" '(switch-to-buffer :wk "Switch to buffer")
+    "b b" '(consult-buffer :wk "Switch to buffer")
     "b c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     "b C" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "b i" '(ibuffer :wk "Ibuffer")
@@ -39,8 +39,21 @@
     "b r" '(revert-buffer :wk "Reload buffer")
     "b R" '(rename-buffer :wk "Rename buffer")
     "b s" '(basic-save-buffer :wk "Save buffer")
-    "b S" '(save-some-buffers :wk "Save multiple buffers"))
+    "b S" '(save-some-buffers :wk "Save multiple buffers")
+    "b w" '(consult-buffer-other-window :wk "Switch to buffer other window")
+    "b W" '(consult-buffer-other-frame :wk "Switch to buffer other frame"))
 
+  (dt/leader-keys
+    "g" '(:ignore t :wk "Goto")
+    "M-g e" '(consult-compile-error :wk "Goto compile error")
+    "M-g f" '(consult-flycheck :wk "Goto flycheck")
+    "M-g g" '(consult-goto-line :wk "Goto line")
+    "M-g o" '(consult-outline :wk "Goto outline")
+    "M-g m" '(consult-mark :wk "Goto mark")
+    "M-g k" '(consult-global-mark :wk "Goto global mark")
+    "M-g i" '(consult-imenu :wk "Goto imenu")
+    "M-g I" '(consult-imenu-multi :wk "Goto multi imenu"))
+  
   (dt/leader-keys
     "w" '(:ignore t :wk "Windows")
     ;; Window splits
@@ -74,6 +87,7 @@
 
   (dt/leader-keys
     "h" '(:ignore t :wk "Help")
+    "h :" '(consult-complex-command :wk "Repeat complex command")
     "h a" '(counsel-apropos :wk "Apropos")
     "h b" '(describe-bindings :wk "Describe bindings")
     "h c" '(describe-char :wk "Describe character under cursor")
@@ -114,6 +128,16 @@
 
   (dt/leader-keys
     "s" '(:ignore t :wk "Search")
+    "s f" '(consult-find :wk "Find")
+    "s F" '(consult-locate :wk "Locate")
+    "s g" '(consult-grep :wk "Grep")
+    "s G" '(consult-git-grep :wk "Git grep")
+    "s r" '(consult-ripgrep :wk "Ripgrep")
+    "s l" '(consult-line :wk "Line")
+    "s L" '(consult-line-multi :wk "Multi line")
+    "s m" '(consult-multi-occur :wk "Multi occur")
+    "s k" '(consult-keep-lines :wk "Keep lines")
+    "s u" '(consult-focus-lines :wk "Focus lines")
     "s r" '(query-replace :wk "Query replace")
     "s d" '(dictionary-search :wk "Search dictionary")
     "s m" '(man :wk "Man pages")
