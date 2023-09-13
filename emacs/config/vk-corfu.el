@@ -13,7 +13,7 @@
                             corfu-popupinfo
                             corfu-quick))
   :hook ((after-init . global-corfu-mode)
-         (global-corfu-mode . corfu-popupinfo-mode)
+         ;; (global-corfu-mode . corfu-popupinfo-mode)
          (lsp-completion-mode . kb/corfu-setup-lsp)) ; Use corfu for lsp completion
   :custom-face
   (corfu-border ((t (:inherit region :background unspecified))))
@@ -32,7 +32,6 @@
   (corfu-auto nil)
   (corfu-auto-prefix 3)
   (corfu-auto-delay 1)
-  (corfu-popupinfo-delay '(0.2 . 0.1))
 
   (corfu-min-width 30)
   (corfu-max-width corfu-min-width)     ; Always have the same width
