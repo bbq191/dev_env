@@ -7,7 +7,7 @@
 (setq gc-cons-threshold most-positive-fixnum)
 
 ;; Emacs 29 no board
-;; (add-to-list 'default-frame-alist '(undecorated . t))
+(add-to-list 'default-frame-alist '(undecorated . t))
 ;; (add-to-list 'default-frame-alist '(undecorated-round . t))
 
 ;; Faster to disable these here (before they've been initialized)

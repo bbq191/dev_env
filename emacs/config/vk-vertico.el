@@ -5,7 +5,7 @@
 ;;; Code:
 
 (use-package vertico
-  :demand t                             ; Otherwise won't get loaded immediately
+  :demand t ; Otherwise won't get loaded immediately
   :elpaca (vertico :files (:defaults "extensions/*") ; Special recipe to load extensions conveniently
                    :includes (vertico-indexed
                               vertico-flat
@@ -114,6 +114,8 @@
               '((left-fringe  . 8)
                 (right-fringe . 8))))
 
+;; Consult
+(use-package consult)
 
 (provide 'vk-vertico)
 

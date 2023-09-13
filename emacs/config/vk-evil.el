@@ -6,6 +6,7 @@
 
 ;; Expands to: (elpaca evil (use-package evil :demand t))
 (use-package evil
+  :diminish t
   :init      ;; tweak evil's configuration before loading it
   (setq evil-want-integration t  ;; This is optional since it's already set to t by default.
         evil-want-keybinding nil
@@ -15,6 +16,7 @@
   (evil-mode))
 
 (use-package evil-collection
+  :diminish t
   :after evil
   :config
   ;; Do not uncomment this unless you want to specify each and every mode
@@ -24,7 +26,7 @@
   (add-to-list 'evil-collection-mode-list 'help) ;; evilify help mode
   (evil-collection-init))
 
-(use-package evil-tutor)
+(use-package evil-tutor :diminish t)
 
 ;; Using RETURN to follow links in Org/Evil 
 ;; Unmap keys in 'evil-maps if not done, (setq org-return-follows-link t) will not work
