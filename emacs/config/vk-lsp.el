@@ -14,9 +14,9 @@
                      "SPC cf" #'lsp-format-region
                      "SPC cd" #'lsp-describe-thing-at-point
                      "SPC cA" #'lsp-execute-code-action
-                     "SPC cr" #'lsp-rename)
-                     ;; [remap xref-find-definitions] 'lsp-find-definition
-                     ;; [remap xref-find-references] 'lsp-find-references)
+                     "SPC cr" #'lsp-rename
+                     "g D" #'lsp-find-definition
+                     "g r" #'lsp-find-references)
   :init (setq lsp-keymap-prefix "SPC c"
               lsp-keep-workspace-alive nil
               lsp-signature-auto-activate nil
@@ -69,9 +69,9 @@
   (lsp-ui-sideline-code-action ((t (:inherit warning))))
   :general ("SPC li" #'lsp-ui-imenu
             :keymaps 'lsp-ui-mode-map
-            "SPC la" #'lsp-ui-sideline-apply-code-actions)
-            ;; [remap xref-find-definitions] 'lsp-ui-peek-find-definitions
-            ;; [remap xref-find-references] 'lsp-ui-peek-find-references)
+            "SPC la" #'lsp-ui-sideline-apply-code-actions
+            "g D" #'lsp-ui-peek-find-definitions
+            "g r" #'lsp-ui-peek-find-references)
   :hook (lsp-mode . lsp-ui-mode)
   :init
   (setq lsp-ui-sideline-show-diagnostics nil
@@ -83,7 +83,7 @@
                               ,(face-foreground 'font-lock-string-face)
                               ,(face-foreground 'font-lock-constant-face)
                               ,(face-foreground 'font-lock-variable-name-face)))
-  
+
   ;; Set correct color to borders
   (defun my-lsp-ui-doc-set-border ()
     "Set the border color of lsp doc."
