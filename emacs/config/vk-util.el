@@ -20,7 +20,7 @@
           ("REVIEW"     font-lock-keyword-face bold)
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
-
+;; TODO: need adjust
 (use-package perspective
   :bind
   ("C-x C-b" . persp-list-buffers)         ; or use a nicer switcher, see below
