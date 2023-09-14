@@ -11,6 +11,7 @@
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 .zsh_history
+.zsh_sessions
 .zcompdump
 
 # -*- emacs -*-
