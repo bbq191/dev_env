@@ -122,6 +122,12 @@
     "p" '(projectile-command-map :wk "Projectile"))
 
   (dt/leader-keys
+    "r" '(:ignore t :wk "Register")
+    "r r" '(consult-register :wk "Consult register")
+    "r s" '(consult-register-store :wk "Consult register store")
+    "r l" '(consult-register-load :wk "Consult register load"))
+  
+  (dt/leader-keys
     "s" '(:ignore t :wk "Search")
     "s f" '(consult-find :wk "Find")
     "s F" '(consult-locate :wk "Locate a file")
