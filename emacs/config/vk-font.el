@@ -13,7 +13,7 @@
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("Cascadia Code" "Source Code Pro")
+    (cl-loop for font in '("Sarasa Mono SC" "Cascadia Code" "Source Code Pro")
              return (set-face-attribute 'default nil
                                         :family font
                                         :height 140)))

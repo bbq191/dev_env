@@ -70,6 +70,12 @@ This is useful when followed by an immediate kill."
 
 (define-key isearch-mode-map [(control return)] 'sanityinc/isearch-exit-other-end)
 
+;; Make "C-x o" prompt for a target window when there are more than 2
+(use-package switch-window)
+(setq-default switch-window-shortcut-style 'alphabet)
+(setq-default switch-window-timeout nil)
+(global-set-key (kbd "C-x o") 'switch-window)
+
 (provide 'vk-util)
 
 ;;; vk-util.el ends here
