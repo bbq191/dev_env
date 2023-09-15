@@ -138,6 +138,8 @@
     "k" '(consult-keep-lines :wk "Keep lines")
     "u" '(consult-focus-lines :wk "Focus lines")
     "d" '(dictionary-search :wk "Search dictionary")
+    "s" '(isearch-yank-symbol :wk "Yank symbol")
+    "o" '(isearch-occur :wk "Occur")
     "m" '(consult-man :wk "Man pages")
     "t" '(tldr :wk "Lookup TLDR docs for a command")
     "w" '(woman :wk "Similar to man but doesn't require man")))
