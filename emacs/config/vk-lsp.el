@@ -10,13 +10,13 @@
                         (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
                           (lsp-deferred))))
          ((markdown-mode yaml-mode yaml-ts-mode) . lsp-deferred))
-  :general (:keymaps 'lsp-mode-map :states 'normal
-                     "SPC cf" #'lsp-format-region
-                     "SPC cd" #'lsp-describe-thing-at-point
-                     "SPC cA" #'lsp-execute-code-action
-                     "SPC cr" #'lsp-rename
-                     "g D" #'lsp-find-definition
-                     "g r" #'lsp-find-references)
+  ;; :general (:keymaps 'lsp-mode-map :states 'normal
+  ;;                    "SPC cf" #'lsp-format-region
+  ;;                    "SPC cd" #'lsp-describe-thing-at-point
+  ;;                    "SPC cA" #'lsp-execute-code-action
+  ;;                    "SPC cr" #'lsp-rename
+  ;;                    "g D" #'lsp-find-definition
+  ;;                    "g r" #'lsp-find-references)
   
   :init (setq lsp-keymap-prefix ""
               lsp-keep-workspace-alive nil

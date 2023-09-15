@@ -41,7 +41,7 @@
 (require 'vk-theme)
 
 ;; Remap keys
-(require 'vk-evil)
+;; (require 'vk-evil)
 (require 'vk-keybind)
 
 ;; Minibuffer

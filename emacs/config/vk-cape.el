@@ -8,22 +8,22 @@
 (use-package cape
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :bind (("C-c p p" . completion-at-point) ;; capf
-         ("C-c p t" . complete-tag)        ;; etags
-         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("C-c p h" . cape-history)
-         ("C-c p f" . cape-file)
-         ("C-c p k" . cape-keyword)
-         ("C-c p s" . cape-elisp-symbol)
-         ("C-c p e" . cape-elisp-block)
-         ("C-c p a" . cape-abbrev)
-         ("C-c p l" . cape-line)
-         ("C-c p w" . cape-dict)
-         ("C-c p \\" . cape-tex)
-         ("C-c p _" . cape-tex)
-         ("C-c p ^" . cape-tex)
-         ("C-c p &" . cape-sgml)
-         ("C-c p r" . cape-rfc1345))
+  :bind (("M-p p p" . completion-at-point) ;; capf
+         ("M-p p t" . complete-tag)        ;; etags
+         ("M-p p d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("M-p p h" . cape-history)
+         ("M-p p f" . cape-file)
+         ("M-p p k" . cape-keyword)
+         ("M-p p s" . cape-elisp-symbol)
+         ("M-p p e" . cape-elisp-block)
+         ("M-p p a" . cape-abbrev)
+         ("M-p p l" . cape-line)
+         ("M-p p w" . cape-dict)
+         ("M-p p \\" . cape-tex)
+         ("M-p p _" . cape-tex)
+         ("M-p p ^" . cape-tex)
+         ("M-p p &" . cape-sgml)
+         ("M-p p r" . cape-rfc1345))
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.  The order of the functions matters, the
