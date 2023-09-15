@@ -4,6 +4,12 @@
 ;;
 ;;; Code:
 
+;; change key for mac
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'none))
+
+;; Global keybind
 (use-package general
   :config
   (general-create-definer vk-leader-key :prefix "C-c")
