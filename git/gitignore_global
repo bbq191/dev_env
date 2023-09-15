@@ -13,6 +13,7 @@
 .zsh_history
 .zsh_sessions
 .zcompdump
+.zcompcache/
 
 # -*- emacs -*-
 *~
