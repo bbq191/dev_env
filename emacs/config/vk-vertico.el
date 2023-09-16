@@ -114,8 +114,6 @@
               '((left-fringe  . 8)
                 (right-fringe . 8))))
 
-;; Consult
-(use-package consult)
 
 (provide 'vk-vertico)
 
