@@ -4,6 +4,7 @@
 ;;
 ;;; Code:
 
+;; consult-recentf needs this on startup
 ;; Inhibit resizing recentf
 (add-hook 'after-init-hook 'recentf-mode)
 (setq-default recentf-max-saved-items 1000
