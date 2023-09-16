@@ -5,12 +5,20 @@
 ;;; Code:
 
 ;; FIXME needs to use use-package way
-(when (use-package embark)
-  (with-eval-after-load 'vertico
-    (define-key vertico-map (kbd "C-c C-o") 'embark-export)
-    (define-key vertico-map (kbd "C-c C-c") 'embark-act)))
+(use-package embark
+  :after vertico
+  :general (:keymaps 'vertico-map
+                     "C-c C-o" #'embark-export
+                     "C-c C-c" #'embark-act))
 
-(when (use-package consult)
+(use-package consult
+  :custom
+  (global-set-key [remap switch-to-buffer] 'consult-buffer)
+  (global-set-key [remap switch-to-buffer-other-window] 'consult-buffer-other-window)
+  (global-set-key [remap switch-to-buffer-other-frame] 'consult-buffer-other-frame)
+  (global-set-key [remap goto-line] 'consult-goto-line)
+
+
   (defmacro sanityinc/no-consult-preview (&rest cmds)
     `(with-eval-after-load 'consult
        (consult-customize ,@cmds :preview-key "M-P")))
@@ -29,15 +37,9 @@
     (sanityinc/no-consult-preview sanityinc/consult-ripgrep-at-point)
     (global-set-key (kbd "M-?") 'sanityinc/consult-ripgrep-at-point))
 
-  (global-set-key [remap switch-to-buffer] 'consult-buffer)
-  (global-set-key [remap switch-to-buffer-other-window] 'consult-buffer-other-window)
-  (global-set-key [remap switch-to-buffer-other-frame] 'consult-buffer-other-frame)
-  (global-set-key [remap goto-line] 'consult-goto-line)
-
-  (when (use-package embark-consult)
-    (with-eval-after-load 'embark
-      (require 'embark-consult)
-      (add-hook 'embark-collect-mode-hook 'embark-consult-preview-minor-mode)))
+  (use-package embark-consult
+    :after embark
+    :hook (embark-collect-mode-hook . embark-consult-preview-minor-mode))
 
   (use-package consult-flycheck))
 

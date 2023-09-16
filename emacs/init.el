@@ -61,7 +61,6 @@
 ;; Language
 (require 'vk-lang)
 (require 'vk-rustic)
-(require 'vk-elisp)
 
 ;; Util
 (require 'vk-util)
