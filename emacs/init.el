@@ -41,14 +41,15 @@
 (require 'vk-theme)
 
 ;; Remap keys
-;; (require 'vk-evil)
 (require 'vk-keybind)
 
 ;; Minibuffer
 (require 'vk-dired)
-(require 'vk-marginalia)
+(require 'vk-recentf)
+(require 'vk-isearch)
 (require 'vk-nerdicon)
 (require 'vk-vertico)
+(require 'vk-minibuffer)
 
 ;; Completion
 (require 'vk-orderless)

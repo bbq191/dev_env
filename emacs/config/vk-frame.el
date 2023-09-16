@@ -67,12 +67,9 @@
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
 
+;; Eemacs true transparent
 (set-frame-parameter (selected-frame) 'alpha '(90 90))
 (add-to-list 'default-frame-alist '(alpha 90 90))
-
-(add-hook 'after-init-hook 'recentf-mode)
-(setq-default recentf-max-saved-items 1000
-              recentf-exclude `("/tmp/" "/ssh:" ,(concat package-user-dir "/.*-autoloads\\.el\\'")))
 
 (provide 'vk-frame)
 

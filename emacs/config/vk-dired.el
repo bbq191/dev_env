@@ -4,13 +4,22 @@
 ;;
 ;;; Code:
 
-(use-package dired-open
+;; Prefer g-prefixed coreutils version of standard utilities when available
+(let ((gls (executable-find "gls")))
+  (when gls (setq insert-directory-program gls)))
+
+(use-package diredfl
+  :after dired
   :config
-  (setq dired-open-extensions '(("gif" . "sxiv")
-                                ("jpg" . "sxiv")
-                                ("png" . "sxiv")
-                                ("mkv" . "mpv")
-                                ("mp4" . "mpv"))))
+    (diredfl-global-mode)
+    (use-package dired-x :elpaca nil))
+
+;; Hook up dired-x global bindings without loading it up-front
+(define-key ctl-x-4-map "C-x C-j" 'dired-jump-other-window)
+
+(with-eval-after-load 'dired
+  (setq dired-recursive-deletes 'top)
+  (define-key dired-mode-map (kbd "C-c C-q") 'wdired-change-to-wdired-mode))
 
 (use-package dired-preview
   :after dired

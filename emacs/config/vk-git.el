@@ -30,7 +30,7 @@
 (use-package diff-hl
   :after vc
   :init (global-diff-hl-mode) ;;FIXME: not useful
-  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
+  :hook ((dired-mode         . diff-hl-dired-mode)
          (magit-pre-refresh  . diff-hl-magit-pre-refresh)
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :config
