@@ -51,8 +51,7 @@
     "b W" '(consult-buffer-other-frame :wk "Switch to buffer other frame"))
   
   (vk-leader-key
-    ;;TODO move lsp key bind to here
-    "c" '(:ignore t :wk "Code") ;; see some in lsp config file
+    "c" '(:ignore t :wk "Code")
     "e l" '(flycheck-list-errors :wk "List all errors")
     :keymaps 'lsp-mode-map
     "c f" '(lsp-format-region)
@@ -66,7 +65,14 @@
     "d" '(:ignore t :wk "Dired")
     "d d" '(dired :wk "Open dired")
     "d j" '(dired-jump :wk "Dired jump to current")
-    "d n" '(neotree-dir :wk "Open directory in neotree"))
+    "d n" '(neotree-dir :wk "Open directory in neotree")
+    :keymaps 'dired-mode-map 
+              "d w" ('wdired-change-to-wdired-mode :wk "Wdired change names")
+    :keymaps 'ctl-x-map
+              "d j" '(dired-jump :wk "Dired jump to current")
+    :keymaps 'ctl-x-4-map 
+              "d J" ('dired-jump-other-window :wk "Jump to other window"))
+
 
   (vk-leader-key
     "e" '(:ignore t :wk "Evaluate")
@@ -144,8 +150,6 @@
     "t" '(tldr :wk "Lookup TLDR docs for a command")
     "w" '(woman :wk "Similar to man but doesn't require man")))
 
-;; Block until current queue processed.
-(elpaca-wait)
 
 (provide 'vk-keybind)
 

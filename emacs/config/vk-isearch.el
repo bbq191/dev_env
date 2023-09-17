@@ -1,10 +1,9 @@
 ;; vk-isearch.el --- vk-isearch configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:
 
-;; iseatch optmize
+;; Add anzu
 (use-package anzu
   :init (global-anzu-mode)
   :config
@@ -12,6 +11,8 @@
   (general-define-key
    [remap query-replace-regexp] 'anzu-query-replace-regexp
    [remap query-replace] 'anzu-query-replace))
+
+;; Optimiz isearch
 (with-eval-after-load 'isearch
   ;; DEL during isearch should edit the search string, not jump back to the previous result
   (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
@@ -36,7 +37,7 @@
       (ding)))
   (isearch-search-and-update))
 
-;; (define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
+(define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
 
 
 (defun sanityinc/isearch-exit-other-end ()

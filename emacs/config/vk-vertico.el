@@ -5,21 +5,8 @@
 ;;; Code:
 
 (use-package vertico
-  :demand t ; Otherwise won't get loaded immediately
-  :elpaca (vertico :files (:defaults "extensions/*") ; Special recipe to load extensions conveniently
-                   :includes (vertico-indexed
-                              vertico-flat
-                              vertico-grid
-                              vertico-mouse
-                              vertico-quick
-                              vertico-buffer
-                              vertico-repeat
-                              vertico-reverse
-                              vertico-directory
-                              vertico-multiform
-                              vertico-unobtrusive))
+  :demand t 
   :general
-  (:keymaps '(normal insert visual motion)
             "M-." #'vertico-repeat)
   (:keymaps 'vertico-map
             "<tab>" #'vertico-insert ; Set manually otherwise setting `vertico-quick-insert' overrides this

@@ -10,9 +10,6 @@
 ;; Don't pass case-insensitive to `auto-mode-alist'
 (setq auto-mode-case-fold nil)
 
-;; --debug-init implies `debug-on-error'
-(setq init-file-debug t)
-
 ;; Optimization
 (setq idle-update-delay 1.0)
 

@@ -1,5 +1,4 @@
 ;; vk-recentf.el --- init configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:

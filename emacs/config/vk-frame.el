@@ -1,11 +1,9 @@
 ;; vk-frame.el --- init configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:
 
 ;; Inhibit resizing frame
-
 (require 'cl-lib) ;; cl-loop dependence
 
 (setq frame-inhibit-implied-resize t
