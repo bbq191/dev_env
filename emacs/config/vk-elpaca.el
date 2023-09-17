@@ -15,13 +15,15 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (eval-and-compile
-  (setq use-package-always-ensure nil)
-  (setq use-package-always-defer nil)
-  (setq use-package-always-demand nil)
-  (setq use-package-expand-minimally nil)
+  (setq use-package-always-ensure t)
+  (setq use-package-always-defer t)
+  (setq use-package-expand-minimally t)
   (setq use-package-enable-imenu-support t))
 (eval-when-compile
   (require 'use-package))
+
+;; Update GPG keyring for GNU ELPA
+(use-package gnu-elpa-keyring-update)
 
 ;; Bootstrap `quelpa'.
 (use-package quelpa
@@ -40,10 +42,11 @@
 (use-package no-littering)
 
 ;; Keep modeline clean.
-(use-package diminish)
+(use-package diminish :ensure t)
 
 ;; MacOS specific
 (use-package exec-path-from-shell
+  :ensure t
   :hook (after-init . exec-path-from-shell-initialize))
 
 (provide 'vk-elpaca)

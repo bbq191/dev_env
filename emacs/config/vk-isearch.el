@@ -5,12 +5,9 @@
 
 ;; Add anzu
 (use-package anzu
-  :init (global-anzu-mode)
   :config
-  (setq anzu-mode-lighter "")
-  (general-define-key
-   [remap query-replace-regexp] 'anzu-query-replace-regexp
-   [remap query-replace] 'anzu-query-replace))
+  (global-anzu-mode +1)
+  (setq anzu-mode-lighter ""))
 
 ;; Optimiz isearch
 (with-eval-after-load 'isearch

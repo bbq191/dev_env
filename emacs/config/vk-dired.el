@@ -13,18 +13,12 @@
   :config
   (diredfl-global-mode)
   (setq dired-recursive-deletes 'top)
-  (use-package dired-x))
+  (require 'dired-x))
 
 
 (use-package dired-preview
   :after dired
   :hook (dired-mode . dired-preview-mode))
- :general (:keymaps dired-mode-map 
-              "h" #'dired-up-directory
-              "l" #'dired-open-file
-           :keymaps dired-preview-mode-map
-           "j" #'dired-preview-next-file
-           "k" #'dired-preview-prev-file))
 
 
 (provide 'vk-dired)

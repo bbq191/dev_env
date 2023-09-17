@@ -4,6 +4,14 @@
 ;;
 ;;; Code:
 
+;; 
+(setq no-littering-etc-directory
+      (expand-file-name "etc/" user-emacs-directory))
+(setq no-littering-var-directory
+      (expand-file-name "var/" user-emacs-directory))
+(setq package-user-dir
+      (expand-file-name "etc/elpa" user-emacs-directory))
+
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
@@ -21,9 +29,6 @@
 
 ;; By default, Emacs requires you to hit ESC three times to escape quit the minibuffer.
 (global-set-key [escape] 'keyboard-escape-quit)
-
-;; Load `custom-file'
-(setq custom-file (expand-file-name "vk-custom.el" user-emacs-directory))
 
 (let ((dir (locate-user-emacs-file "config")))
   (add-to-list 'load-path (file-name-as-directory dir)))
@@ -46,21 +51,24 @@
 (require 'vk-minibuffer)
 
 ;; Completion
-(require 'vk-orderless)
-(require 'vk-corfu)
-(require 'vk-cape)
+;;(require 'vk-orderless)
+;;(require 'vk-corfu)
+;;(require 'vk-cape)
 
 ;; Programe
-(require 'vk-lsp)
-(require 'vk-flycheck)
-(require 'vk-git)
+;;(require 'vk-lsp)
+;;(require 'vk-flycheck)
+;;(require 'vk-git)
 
 ;; Language
-(require 'vk-lang)
-(require 'vk-rustic)
+;;(require 'vk-lang)
+;;(require 'vk-rustic)
 
 ;; Util
-(require 'vk-util)
+;;(require 'vk-util)
+
+;; Load `custom-file'
+(setq custom-file (no-littering-expand-etc-file-name "vk-custom.el"))
 
 (provide 'init)
 

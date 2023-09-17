@@ -1,6 +1,4 @@
-
 ;; vk-theme.el --- init configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:

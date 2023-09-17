@@ -5,9 +5,7 @@
 ;;; Code:
 
 (use-package vertico
-  :demand t 
-  :general
-            "M-." #'vertico-repeat)
+  :general ("M-." 'vertico-repeat)
   (:keymaps 'vertico-map
             "<tab>" #'vertico-insert ; Set manually otherwise setting `vertico-quick-insert' overrides this
             "<escape>" #'keyboard-escape-quit
