@@ -3,6 +3,10 @@
 ;;
 ;;; Code:
 
+(setq  initial-frame-alist (quote ((fullscreen . maximized))))
+
+(global-hl-line-mode t)
+
 (use-package doom-themes
   :ensure t
   :config
@@ -15,14 +19,31 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+;;modeline上显示我的所有的按键和执行的命令
+(use-package keycast
+  :ensure t
+  :commands (+toggle-keycast)
+  :config
+  (defun +toggle-keycast()
+    (interactive)
+    (if (member '("" keycast-mode-line " ") global-mode-string)
+        (progn (setq global-mode-string (delete '("" keycast-mode-line " ") global-mode-string))
+               (remove-hook 'pre-command-hook 'keycast--update)
+               (message "Keycast OFF"))
+      (add-to-list 'global-mode-string '("" keycast-mode-line " "))
+      (add-hook 'pre-command-hook 'keycast--update t)
+      (message "Keycast ON")))
+  :hook (after-init . +toggle-keycast))
+
+
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode)
-  :config
-  (setq doom-modeline-indent-info nil)
-  (setq doom-modeline-total-line-number nil)
-  (setq doom-modeline-display-default-persp-name nil)
-  (setq doom-modeline-unicode-fallback nil))
+  :init
+  (setq doom-modeline-minor-modes t)
+  :custom-face
+  (mode-line ((t (:height 0.95))))
+  (mode-line-inactive ((t (:height 0.95))))
+  :hook (after-init . doom-modeline-mode))
 
 
 (provide 'vk-theme)
