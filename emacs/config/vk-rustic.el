@@ -1,12 +1,11 @@
 ;; vk-rustic.el --- vk-rustic configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:
 
 ;; Rust
 (use-package rustic
-  :general (:keymaps 'rustic-mode-map :states 'normal
+  :general (:keymaps 'rustic-mode-map
                      "SPC cg" #'rustic-cargo-plain-run)
   :config
   (push 'rustic-clippy flycheck-checkers)

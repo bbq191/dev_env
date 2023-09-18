@@ -13,12 +13,6 @@
 
 (use-package consult
   :custom
-  (global-set-key [remap switch-to-buffer] 'consult-buffer)
-  (global-set-key [remap switch-to-buffer-other-window] 'consult-buffer-other-window)
-  (global-set-key [remap switch-to-buffer-other-frame] 'consult-buffer-other-frame)
-  (global-set-key [remap goto-line] 'consult-goto-line)
-
-
   (defmacro sanityinc/no-consult-preview (&rest cmds)
     `(with-eval-after-load 'consult
        (consult-customize ,@cmds :preview-key "M-P")))
@@ -35,13 +29,13 @@
                                       (symbol-name s))))
       (consult-ripgrep dir initial))
     (sanityinc/no-consult-preview sanityinc/consult-ripgrep-at-point)
-    (global-set-key (kbd "M-?") 'sanityinc/consult-ripgrep-at-point))
+    (global-set-key (kbd "M-?") 'sanityinc/consult-ripgrep-at-point)))
 
-  (use-package embark-consult
-    :after embark
-    :hook (embark-collect-mode-hook . embark-consult-preview-minor-mode))
+(use-package embark-consult
+  :after embark
+  :hook (embark-collect-mode-hook . embark-consult-preview-minor-mode))
 
-  (use-package consult-flycheck))
+(use-package consult-flycheck)
 
 (when (use-package marginalia)
   (add-hook 'after-init-hook 'marginalia-mode))

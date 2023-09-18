@@ -24,7 +24,7 @@
 ;; Package initialize occurs automatically, before `user-init-file' is
 ;; loaded, but after `early-init-file'. We handle package
 ;; initialization, so we must prevent Emacs from doing it early!
-(setq package-enable-at-startup nil)
+;;(setq package-enable-at-startup nil)
 
 ;; `use-package' is builtin since 29.
 ;; It must be set before loading `use-package'.
@@ -41,6 +41,12 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; no-litting sugget
+(setq no-littering-etc-directory
+      (expand-file-name "etc/" user-emacs-directory))
+(setq no-littering-var-directory
+      (expand-file-name "var/" user-emacs-directory))
+(setq package-user-dir
+      (expand-file-name "etc/elpa" user-emacs-directory))
 (when (fboundp 'startup-redirect-eln-cache)
   (startup-redirect-eln-cache
    (convert-standard-filename

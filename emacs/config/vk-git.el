@@ -1,5 +1,4 @@
 ;; vk-git.el --- Git is awesome -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -20,7 +19,6 @@
 
 ;; NOTE: `diff-hl' depends on `vc'
 (use-package vc
-  :elpaca nil
   :custom
   (vc-follow-symlinks t)
   (vc-allow-async-revert t)
@@ -40,7 +38,6 @@
 
 ;; Visual diff interface
 (use-package ediff
-  :elpaca nil
   ;; Restore window config after quitting ediff
   :hook ((ediff-before-setup . ediff-save-window-conf)
          (ediff-quit         . ediff-restore-window-conf))
@@ -61,17 +58,16 @@
 
 ;; Setup gitignore mode
 (use-package conf-mode
-  :elpaca nil
   :mode (("\\.gitignore\\'"     . conf-unix-mode)
          ("\\.gitconfig\\'"     . conf-unix-mode)
          ("\\.gitattributes\\'" . conf-unix-mode)))
 
 (use-package git-timemachine
   :after git-timemachine
-  :hook (evil-normalize-keymaps . git-timemachine-hook)
-  :config
-  (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
-  (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision))
+  :general
+  (:keymap git-timemachine-mode-map
+           "C-j" 'git-timemachine-show-previous-revision
+           "C-k" 'git-timemachine-show-next-revision))
 
 (provide 'vk-git)
 

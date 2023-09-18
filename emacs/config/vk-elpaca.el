@@ -1,10 +1,8 @@
-;; vk-elpaca.el --- init configurations. -*- lexical-binding: t -*-
-
+;; vk-elpaca.el --- init configurations. -*- lexical-binding: t -*-j
 ;;; Commentary:
 ;;
 ;;; Code:
 
-(require 'package)
 (setq package-archives
       '(("melpa"  . "https://melpa.org/packages/")
         ("gnu"    . "https://elpa.gnu.org/packages/")
@@ -14,16 +12,23 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-(eval-and-compile
-  (setq use-package-always-ensure t)
-  (setq use-package-always-defer t)
-  (setq use-package-expand-minimally t)
-  (setq use-package-enable-imenu-support t))
+
+(if init-file-debug
+    (setq use-package-verbose t
+          use-package-always-ensure t
+	      use-package-always-demand t
+          use-package-always-defer nil
+          use-package-expand-minimally nil
+          use-package-compute-statistics t
+          debug-on-error t)
+  (setq use-package-verbose nil
+        use-package-expand-minimally t))
+
 (eval-when-compile
   (require 'use-package))
 
 ;; Update GPG keyring for GNU ELPA
-(use-package gnu-elpa-keyring-update)
+(use-package gnu-elpa-keyring-update :ensure t)
 
 ;; Bootstrap `quelpa'.
 (use-package quelpa
@@ -39,7 +44,7 @@
 (setq debug-on-error init-file-debug)
 
 ;; Keep ~/.emacs.d/ clean.
-(use-package no-littering)
+(use-package no-littering :ensure t)
 
 ;; Keep modeline clean.
 (use-package diminish :ensure t)

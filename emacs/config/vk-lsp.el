@@ -45,9 +45,7 @@
               ;; For clients
               lsp-clients-python-library-directories '("/usr/local/" "/usr/"))
   :config
-  (use-package consult-lsp
-    :general (:keymaps 'lsp-mode-map :states 'normal
-                       "SPC ls" #'consult-lsp-symbols))
+  (use-package consult-lsp)
   ;; (with-no-warnings
   ;; (lsp-enable-which-key-integration t))
 

@@ -5,13 +5,6 @@
 ;;; Code:
 
 (use-package corfu
-  :elpaca (corfu :files (:defaults "extensions/*")
-                 :includes (corfu-echo
-                            corfu-history
-                            corfu-indexed
-                            corfu-info
-                            corfu-popupinfo
-                            corfu-quick))
   :hook ((after-init . global-corfu-mode)
          ;; (global-corfu-mode . corfu-popupinfo-mode)
          (lsp-completion-mode . kb/corfu-setup-lsp)) ; Use corfu for lsp completion
@@ -57,16 +50,6 @@
   (lsp-completion-provider :none)       ; Use corfu instead for lsp completions
 
   :config
-  ;; NOTE 2022-03-01: This allows for a more evil-esque way to have
-  ;; `corfu-insert-separator' work with space in insert mode without resorting to
-  ;; overriding keybindings with `general-override-mode-map'. See
-  ;; https://github.com/minad/corfu/issues/12#issuecomment-869037519
-  ;; Alternatively, add advice without `general.el':
-  ;; (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
-  ;; (advice-add 'corfu--teardown :after 'evil-normalize-keymaps)
-  (general-add-advice '(corfu--setup corfu--teardown) :after 'evil-normalize-keymaps)
-  (evil-make-overriding-map corfu-map)
-
   ;; Enable Corfu more generally for every minibuffer, as long as no other
   ;; completion UI is active. If you use Mct or Vertico as your main minibuffer
   ;; completion UI. From

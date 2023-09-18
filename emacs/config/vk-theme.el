@@ -4,10 +4,11 @@
 ;;; Code:
 
 (use-package doom-themes
+  :ensure t
   :config
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  ;; Sets the default theme to load!!! 
+  ;; Sets the default theme to load!!
   (load-theme 'doom-zenburn t)
   ;; Enable custom neotree theme (all-the-icons must be installed!)
   (doom-themes-neotree-config)

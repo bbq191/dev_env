@@ -9,6 +9,7 @@
   (when gls (setq insert-directory-program gls)))
 
 (use-package diredfl
+  :ensure t
   :after dired
   :config
   (diredfl-global-mode)
@@ -17,6 +18,7 @@
 
 
 (use-package dired-preview
+  :ensure t
   :after dired
   :hook (dired-mode . dired-preview-mode))
 

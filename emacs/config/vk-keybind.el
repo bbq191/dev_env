@@ -1,5 +1,4 @@
 ;; vk-keybind.el --- init configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -10,8 +9,9 @@
   (setq mac-option-modifier 'none))
 
 ;; Global keybind
-(use-package general)
+(use-package general :ensure t)
 
+;; Customer leader ket
 (general-create-definer vk-leader-key :prefix "C-c")
 ;; Help command
 (general-create-definer vk-help-key :prefix "C-h")
@@ -19,6 +19,15 @@
 (general-create-definer vk-search-key :prefix "C-;")
 ;; Execute command
 (general-create-definer vk-exec-key :prefix "C-x")
+
+;; For command remap
+(general-define-key
+ [remap query-replace-regexp] 'anzu-query-replace-regexp
+ [remap query-replace] 'anzu-query-replace
+ [remap switch-to-buffer] 'consult-buffer
+ [remap switch-to-buffer-other-window] 'consult-buffer-other-window
+ [remap switch-to-buffer-other-frame] 'consult-buffer-other-frame
+ [remap goto-line] 'consult-goto-line)
 
 (vk-exec-key
   "r" '((lambda () (interactive)
@@ -50,34 +59,25 @@
 
 (vk-leader-key
   "c" '(:ignore t :wk "Code")
-  "e l" '(flycheck-list-errors :wk "List all errors")
+  "e l" '(flycheck-list-errors :wk "List all errors"))
+(vk-leader-key
   :keymaps 'lsp-mode-map
   "c f" '(lsp-format-region)
   "c d" '(lsp-describe-thing-at-point)
   "c A" '(lsp-execute-code-action)
   "c r" '(lsp-rename)
   "g D" '(lsp-find-definition)
-  "g r" '(lsp-find-references))
+  "g r" '(lsp-find-references)
+  "c s" '(consult-lsp-symbols))
 
-(general-create-definer vk-dired-key :prefix "C-c d")
-(vk-dired-key
-  ;;"d" '(:ignore t :wk "Dired")
-  "d" '(dired :wk "Open dired")
-  "j" '(dired-jump :wk "Dired jump to current")
-  "n" '(neotree-dir :wk "Open directory in neotree")
+(vk-leader-key
+  "d" '(:ignore t :wk "Dired")
+  "d d" '(dired :wk "Open dired")
+  "d j" '(dired-jump :wk "Dired jump to current")
+  "d n" '(neotree-dir :wk "Open directory in neotree"))
+(vk-leader-key
   :keymaps 'dired-mode-map 
-  "w" '(wdired-change-to-wdired-mode :wk "Wdired change names")
-  :keymaps 'ctl-x-map
-  "j" '(dired-jump :wk "Dired jump to current")
-  :keymaps 'ctl-x-4-map 
-  "j" '(dired-jump-other-window :wk "Jump to other window")
-  :keymaps 'dired-mode-map 
-  "h" '(dired-up-directory :wk "Up directory")
-  "l" '(dired-open-file :wk "Openfile")
-  :keymaps 'dired-preview-mode-map
-  "j" '(dired-preview-next-file :wk "Preview next file"）
-  "k" '(dired-preview-prev-file :wk "Preview prev file"))
-
+  "d w" '(wdired-change-to-wdired-mode :wk "Wdired change names"))
 
 (vk-leader-key
   "e" '(:ignore t :wk "Evaluate")
@@ -135,12 +135,8 @@
   "r s" '(consult-register-store :wk "Consult register store")
   "r l" '(consult-register-load :wk "Consult register load"))
 
-(general-define-key
- [remap query-replace-regexp] 'anzu-query-replace-regexp
- [remap query-replace] 'anzu-query-replace))
-
 (vk-search-key
-  "C-;" '(:ignore t :wk "Search")
+  "" '(:ignore t :wk "Search")
   "f" '(consult-find :wk "Find")
   "F" '(consult-locate :wk "Locate a file")
   "g" '(consult-grep :wk "Grep")
