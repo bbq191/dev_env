@@ -15,6 +15,15 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (setq doom-modeline-indent-info nil)
+  (setq doom-modeline-total-line-number nil)
+  (setq doom-modeline-display-default-persp-name nil)
+  (setq doom-modeline-unicode-fallback nil))
+
 
 (provide 'vk-theme)
 

@@ -6,7 +6,7 @@
 ;; Rust
 (use-package rustic
   :general (:keymaps 'rustic-mode-map
-                     "SPC cg" #'rustic-cargo-plain-run)
+                     "C-c c g" #'rustic-cargo-plain-run)
   :config
   (push 'rustic-clippy flycheck-checkers)
   (setq rustic-flycheck-clippy-params-nightly "--message-format=json -Zunstable-options")
