@@ -40,7 +40,7 @@
       make-backup-files nil             ; Forbide to make backup files
       auto-save-default nil             ; Disable auto save
       blink-cursor-mode nil             ; No eyes distraction
-      
+      column-number-mode t
       uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
       adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
       adaptive-fill-first-line-regexp "^* *$"
