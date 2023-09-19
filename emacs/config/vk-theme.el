@@ -3,9 +3,9 @@
 ;;
 ;;; Code:
 
-(setq  initial-frame-alist (quote ((fullscreen . maximized))))
-
 (global-hl-line-mode t)
+
+(use-package smart-mode-line-powerline-theme)
 
 (use-package doom-themes
   :ensure t
@@ -35,15 +35,13 @@
       (message "Keycast ON")))
   :hook (after-init . +toggle-keycast))
 
-
-(use-package doom-modeline
-  :ensure t
-  :init
-  (setq doom-modeline-minor-modes t)
-  :custom-face
-  (mode-line ((t (:height 0.95))))
-  (mode-line-inactive ((t (:height 0.95))))
-  :hook (after-init . doom-modeline-mode))
+(use-package smart-mode-line
+  :init (progn (setq sml/theme 'respectful
+                     sml/shorten-directory t
+                     sml/no-confirm-load-theme t
+                     sml/name-width 32
+                     sml/shorten-modes t)
+               (sml/setup)))
 
 
 (provide 'vk-theme)
