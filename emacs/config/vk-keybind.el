@@ -9,16 +9,20 @@
   (setq mac-option-modifier 'none))
 
 ;; Global keybind
-(use-package general :ensure t)
+(use-package general
+  :ensure t
+  :config
+  (general-evil-setup))
 
-;; Customer leader ket
-(general-create-definer vk-leader-key :prefix "C-c")
+;; set up 'SPC' as the global leader key
+(general-create-definer vk/leader-keys
+  :states '(normal insert visual emacs)
+  :keymaps 'override
+  :prefix "SPC"
+  :global-prefix "M-SPC")
+
 ;; Help command
 (general-create-definer vk-help-key :prefix "C-h")
-;; Query command
-(general-create-definer vk-search-key :prefix "C-;")
-;; Execute command
-(general-create-definer vk-exec-key :prefix "C-x")
 
 ;; For command remap
 (general-define-key
@@ -29,18 +33,22 @@
  [remap switch-to-buffer-other-frame] 'consult-buffer-other-frame
  [remap goto-line] 'consult-goto-line)
 
-(vk-exec-key
+(vk/leader-keys
+  "SPC" '(execute-extended-command :wk "M-x")
+  "." '(find-file :wk "Find file")
+  "=" '(perspective-map :wk "Perspective")
   "r" '((lambda () (interactive)
           (load-file "~/.config/emacs/init.el"))
         :wk "Reload emacs config")
   "," '((lambda () (interactive)
           (dired "~/Workspace/dotfiles/emacs/"))
         :wk "Open user-emacs-directory in dired")
-  ;; "=" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
   "/" '(comment-line :wk "Comment lines")
+  "w" '(save-buffer :wk "Save buffer")
+  "q" '(save-buffers-kill-terminal :wk "Quit")
   "K" '(save-buffers-kill-emacs :wk "Kill emacs"))
 
-(vk-leader-key
+(vk/leader-keys
   "b" '(:ignore t :wk "Buffers")
   "b b" '(consult-buffer :wk "Switch to buffer")
   "b c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -57,29 +65,24 @@
   "b w" '(consult-buffer-other-window :wk "Switch to buffer other window")
   "b W" '(consult-buffer-other-frame :wk "Switch to buffer other frame"))
 
-(vk-leader-key
+(vk/leader-keys
   "c" '(:ignore t :wk "Code")
-  "e l" '(flycheck-list-errors :wk "List all errors"))
-(vk-leader-key
-  :keymaps 'lsp-mode-map
-  "c f" '(lsp-format-region)
-  "c d" '(lsp-describe-thing-at-point)
   "c A" '(lsp-execute-code-action)
+  "c d" '(lsp-describe-thing-at-point)
+  "c l" '(flycheck-list-errors :wk "List all errors")
+  "c f" '(lsp-format-region)
   "c r" '(lsp-rename)
-  "g D" '(lsp-find-definition)
-  "g r" '(lsp-find-references)
   "c s" '(consult-lsp-symbols))
 
-(vk-leader-key
+(vk/leader-keys
   "d" '(:ignore t :wk "Dired")
   "d d" '(dired :wk "Open dired")
+  "d f" '(wdired-finish-edit :wk "Writable dired finish edit")
   "d j" '(dired-jump :wk "Dired jump to current")
-  "d n" '(neotree-dir :wk "Open directory in neotree"))
-(vk-leader-key
-  :keymaps 'dired-mode-map 
+  "d n" '(neotree-dir :wk "Open directory in neotree")
   "d w" '(wdired-change-to-wdired-mode :wk "Wdired change names"))
 
-(vk-leader-key
+(vk/leader-keys
   "e" '(:ignore t :wk "Evaluate")
   "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
   "e d" '(eval-defun :wk "Evaluate defun containing or after point")
@@ -87,7 +90,7 @@
   "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
   "e r" '(eval-region :wk "Evaluate elisp in region"))
 
-(vk-leader-key
+(vk/leader-keys
   "f" '(:ignore t :wk "Files")
   "f f" '(find-file :wk "Find file")
   "f d" '(find-grep-dired :wk "Search for string in files in DIR")
@@ -95,7 +98,7 @@
   "f u" '(sudo-edit-find-file :wk "Sudo find file")
   "f U" '(sudo-edit :wk "Sudo edit file"))
 
-(vk-leader-key
+(vk/leader-keys
   "g" '(:ignore t :wk "Goto")
   "g e" '(consult-compile-error :wk "Goto compile error")
   "g f" '(consult-flycheck :wk "Goto flycheck")
@@ -106,8 +109,48 @@
   "g i" '(consult-imenu :wk "Goto imenu")
   "g I" '(consult-imenu-multi :wk "Goto multi imenu"))
 
+;; projectile-command-map already has a ton of bindings
+;; set for us, so no need to specify each individually.
+(vk/leader-keys
+  "p" '(:ignore :wk "Project"))
+
+(vk/leader-keys
+  "s" '(:ignore t :wk "Search")
+  "s d" '(dictionary-search :wk "Search dictionary")
+  "s f" '(consult-find :wk "Find")
+  "s F" '(consult-locate :wk "Locate a file")
+  "s g" '(consult-grep :wk "Grep")
+  "s G" '(consult-git-grep :wk "Git grep")
+  "s k" '(consult-keep-lines :wk "Keep lines")
+  "s l" '(consult-line :wk "Line")
+  "s L" '(consult-line-multi :wk "Multi line")
+  "s m" '(consult-man :wk "Man pages")
+  "s o" '(isearch-occur :wk "Occur")
+  "s O" '(consult-multi-occur :wk "Multi occur")
+  "s r" '(query-replace :wk "Query replace")
+  "s R" '(consult-ripgrep :wk "Ripgrep")
+  "s s" '(isearch-yank-symbol :wk "Yank symbol")
+  "s t" '(tldr :wk "Lookup TLDR docs for a command")
+  "s u" '(consult-focus-lines :wk "Focus lines")
+  "s w" '(woman :wk "Similar to man but doesn't require man"))
+
+(vk/leader-keys
+  "v" '(:ignore t :wk "Windows")
+  ;; Window splits
+  "v c" '(evil-window-delete :wk "Close window")
+  "v n" '(evil-window-new :wk "New window")
+  "v s" '(evil-window-split :wk "Horizontal split window")
+  "v v" '(evil-window-vsplit :wk "Vertical split window")
+  ;; Window motions
+  "v h" '(evil-window-left :wk "Window left")
+  "v j" '(evil-window-down :wk "Window down")
+  "v k" '(evil-window-up :wk "Window up")
+  "v l" '(evil-window-right :wk "Window right")
+  "v w" '(evil-window-next :wk "Goto next window"))
+
+;; Using Emacs keybinding
 (vk-help-key
-  "C-h" '(:ignore t :wk "Help")
+  "" '(:ignore t :wk "Help")
   ":" '(consult-complex-command :wk "Repeat complex command")
   "b" '(describe-bindings :wk "Describe bindings")
   "c" '(describe-char :wk "Describe character under cursor")
@@ -123,37 +166,6 @@
   "v" '(describe-variable :wk "Describe variable")
   "w" '(where-is :wk "Prints keybinding for command if set")
   "x" '(describe-command :wk "Display full documentation for command"))
-
-;; projectile-command-map already has a ton of bindings
-;; set for us, so no need to specify each individually.
-(vk-exec-key
-  "p" '(:ignore :wk "Project"))
-
-(vk-leader-key
-  "r" '(:ignore t :wk "Register")
-  "r r" '(consult-register :wk "Consult register")
-  "r s" '(consult-register-store :wk "Consult register store")
-  "r l" '(consult-register-load :wk "Consult register load"))
-
-(vk-search-key
-  "" '(:ignore t :wk "Search")
-  "f" '(consult-find :wk "Find")
-  "F" '(consult-locate :wk "Locate a file")
-  "g" '(consult-grep :wk "Grep")
-  "G" '(consult-git-grep :wk "Git grep")
-  "r" '(query-replace :wk "Query replace")
-  "R" '(consult-ripgrep :wk "Ripgrep")
-  "l" '(consult-line :wk "Line")
-  "L" '(consult-line-multi :wk "Multi line")
-  "m" '(consult-multi-occur :wk "Multi occur")
-  "k" '(consult-keep-lines :wk "Keep lines")
-  "u" '(consult-focus-lines :wk "Focus lines")
-  "d" '(dictionary-search :wk "Search dictionary")
-  "s" '(isearch-yank-symbol :wk "Yank symbol")
-  "o" '(isearch-occur :wk "Occur")
-  "m" '(consult-man :wk "Man pages")
-  "t" '(tldr :wk "Lookup TLDR docs for a command")
-  "w" '(woman :wk "Similar to man but doesn't require man"))
 
 
 (provide 'vk-keybind)

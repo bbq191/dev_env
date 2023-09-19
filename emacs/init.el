@@ -57,6 +57,7 @@
 (require 'vk-lang)
 (require 'vk-rustic)
 (require 'vk-elisp)
+(require 'vk-javascript)
 
 ;; Util
 (require 'vk-util)

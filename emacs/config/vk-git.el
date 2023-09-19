@@ -64,10 +64,10 @@
 
 (use-package git-timemachine
   :after git-timemachine
-  :general
-  (:keymap git-timemachine-mode-map
-           "C-j" 'git-timemachine-show-previous-revision
-           "C-k" 'git-timemachine-show-next-revision))
+  :hook (evil-normalize-keymaps . git-timemachine-hook)
+  :config
+  (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
+  (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision))
 
 (provide 'vk-git)
 
