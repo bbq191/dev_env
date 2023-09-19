@@ -14,7 +14,7 @@ set number
 set relativenumber
 set ignorecase smartcase
 set showmode
-
+set timeoutlen=60000
 """ vim remap
 noremap <leader>y "+y
 noremap <leader>Y "+Y
@@ -23,19 +23,18 @@ noremap x "_x
 noremap <leader><leader> :action IdeaVim.ReloadVimRc.reload<CR>
 
 """"""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
-""" Basic operate
-map <leader>fn :action NewElement<CR>
 """ Navigation
-nnoremap <s-h> :bprevious<cr>
-nnoremap <s-l> :bnext<cr>
-nnoremap <leader>| :action SplitVertically<CR>
-nnoremap <leader>- :action SplitHorizontally<CR>
-nnoremap <leader>sx :action Unsplit<CR>
+nnoremap <leader>bp :bprevious<cr>
+nnoremap <leader>bn :bnext<cr>
+nnoremap <leader>vv :action SplitVertically<CR>
+nnoremap <leader>vs :action SplitHorizontally<CR>
+nnoremap <leader>vk :action Unsplit<CR>
 nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <Leader>en :action EditSourceInNewWindow<CR>
 nnoremap <Leader>n :action NextWindow<CR>
 nnoremap <Leader>q :action CloseContent<CR>
 nnoremap <Leader>qa :action CloseAllEditors<CR>
+
 """ Code operate
 set ideajoin
 set idearefactormode=keep
@@ -50,23 +49,25 @@ nnoremap zo :action ExpandRegion<CR>
 nnoremap <leader>zc :action CollapseAllRegions<CR>
 nnoremap <leader>zo :action ExpandAllRegions<CR>
 nnoremap gcc :action CommentByLineComment<CR>
-nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
-nnoremap <leader>ri :action RenameElement<CR>
-nnoremap <Leader>cf  :action ReformatCode<CR>
-nnoremap <leader>o :action OptimizeImports<CR>
-nnoremap <leader>l :action RecentLocations<CR>
-nnoremap <leader>h  :action LocalHistory.ShowHistory<CR>
+nnoremap <leader>cR :action Refactorings.QuickListPopupAction<CR>
+nnoremap <leader>cr :action RenameElement<CR>
+nnoremap <Leader>cf :action ReformatCode<CR>
+nnoremap <leader>co :action OptimizeImports<CR>
+nnoremap <leader>cl :action RecentLocations<CR>
+nnoremap <leader>ch  :action LocalHistory.ShowHistory<CR>
+
 """ Searching and Source Code Navigation
 set incsearch
 set hlsearch
-nnoremap <leader>pt :action FindInPath<CR>
+nnoremap <leader>pf :action FindInPath<CR>
 nnoremap <c-a> :action GotoAction<CR>
+nnoremap <leader>fn :action NewElement<CR>
 nnoremap <leader>ff :action GotoFile<CR>
 nnoremap <leader>fr :action RecentFiles<CR>
-nnoremap <leader>u :action FindUsages<CR>
-nnoremap <leader>s :action GotoRelated<CR>
-nnoremap <leader>h :action CallHierarchy<CR>
-nnoremap <leader>b :action ShowNavBar<CR>
+nnoremap <leader>fu :action FindUsages<CR>
+nnoremap <leader>gr :action GotoRelated<CR>
+nnoremap <leader>gh :action CallHierarchy<CR>
+nnoremap <leader>gb :action ShowNavBar<CR>
 nnoremap <c-s> :action FileStructurePopup<CR>
 nnoremap ]e :action GotoNextError<CR>
 nnoremap [e :action GotoPreviousError
@@ -79,6 +80,7 @@ nnoremap gt :action GotoTest<CR>
 nnoremap gb :action Back<CR>
 nnoremap gf :action Forward<CR>
 map <leader>a <Action>(Annotate)
+
 """ Running and Debugging
 nnoremap ,r :action ContextRun<CR>
 nnoremap ,c :action RunClass<CR>
@@ -89,12 +91,15 @@ nnoremap ,f :action RerunFailedTests<CR>
 nnoremap ,b :action ToggleLineBreakpoint<CR>
 nnoremap ,d :action ContextDebug<CR>
 nnoremap ,n :action ActivateDebugToolWindow<CR>
+
 """ Distraction Free Mode
 nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 nnoremap <c-p> :action JumpToLastWindow<CR>
 nnoremap <c-x> :action HideAllWindows<CR>
+
 """ Terminal
-nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
-"""nnoremap <leader>t :action Terminal.OpenInTerminal<CR> " open a new terminal
+nnoremap <leader>t :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>T :action Terminal.OpenInTerminal<CR> "open a new terminal
+
 """ Git
-nmap <leader>gd <action>(Vcs.ShowTabbedFileHistory)
+nmap <leader>gs <action>(Vcs.ShowTabbedFileHistory)
