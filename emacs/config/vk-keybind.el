@@ -34,15 +34,16 @@
  [remap goto-line] 'consult-goto-line)
 
 (vk/leader-keys
+  "" '(:ignore t :wk "System")
   "SPC" '(execute-extended-command :wk "M-x")
   "." '(find-file :wk "Find file")
   "=" '(perspective-map :wk "Perspective")
   "r" '((lambda () (interactive)
           (load-file "~/.config/emacs/init.el"))
-        :wk "Reload emacs config")
+        :wk "Reload config")
   "," '((lambda () (interactive)
           (dired "~/Workspace/dotfiles/emacs/"))
-        :wk "Open user-emacs-directory in dired")
+        :wk "Open setting dir")
   "/" '(comment-line :wk "Comment lines")
   "w" '(save-buffer :wk "Save buffer")
   "q" '(save-buffers-kill-terminal :wk "Quit")
@@ -67,12 +68,12 @@
 
 (vk/leader-keys
   "c" '(:ignore t :wk "Code")
-  "c A" '(lsp-execute-code-action)
-  "c d" '(lsp-describe-thing-at-point)
+  "c A" '(lsp-execute-code-action :wk "Execute code")
+  "c d" '(lsp-describe-thing-at-point :wk "Describe symbol")
   "c l" '(flycheck-list-errors :wk "List all errors")
-  "c f" '(lsp-format-region)
-  "c r" '(lsp-rename)
-  "c s" '(consult-lsp-symbols))
+  "c f" '(lsp-format-region :wk "Code format")
+  "c r" '(lsp-rename :wk "Symbol rename")
+  "c s" '(consult-lsp-symbols :wk "List symbols"))
 
 (vk/leader-keys
   "d" '(:ignore t :wk "Dired")
@@ -103,11 +104,11 @@
   "g e" '(consult-compile-error :wk "Goto compile error")
   "g f" '(consult-flycheck :wk "Goto flycheck")
   "g g" '(consult-goto-line :wk "Goto line")
-  "g o" '(consult-outline :wk "Goto outline")
-  "g m" '(consult-mark :wk "Goto mark")
-  "g k" '(consult-global-mark :wk "Goto global mark")
   "g i" '(consult-imenu :wk "Goto imenu")
-  "g I" '(consult-imenu-multi :wk "Goto multi imenu"))
+  "g I" '(consult-imenu-multi :wk "Goto multi imenu")
+  "g k" '(consult-global-mark :wk "Goto global mark")
+  "g o" '(consult-outline :wk "Goto outline")
+  "g m" '(consult-mark :wk "Goto mark"))
 
 ;; projectile-command-map already has a ton of bindings
 ;; set for us, so no need to specify each individually.

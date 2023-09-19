@@ -57,6 +57,9 @@
       ;; Some pretty config from prucell
       initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
 
+(global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
+(delete-selection-mode 1)    ;; You can select text and delete it by typing.
+
 ;; Display wrape line
 (global-display-fill-column-indicator-mode 1)
 (global-visual-line-mode 1)
