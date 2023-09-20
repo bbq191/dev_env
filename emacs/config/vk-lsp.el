@@ -38,9 +38,9 @@
               ;; For clients
               lsp-clients-python-library-directories '("/usr/local/" "/usr/"))
   :config
-  (use-package consult-lsp)
-  ;; (with-no-warnings
-  ;; (lsp-enable-which-key-integration t))
+  (use-package consult-lsp
+    :bind (:map lsp-mode-map
+                ("C-M-." . consult-lsp-symbols)))
 
   (with-no-warnings
     ;; Disable `lsp-mode' in `git-timemachine-mode'
@@ -56,7 +56,7 @@
     (advice-add #'lsp-bash-check-sh-shell :override #'my-lsp-bash-check-sh-shell)
     (add-to-list 'lsp-language-id-configuration '(bash-ts-mode . "shellscript"))
 
-    (setq lsp-headerline-arrow (nerd-icons "nf-oct-chevron_right"
+    (setq lsp-headerline-arrow (nerd-icons-codicon "nf-oct-chevron_right"
                                                    :face 'lsp-headerline-breadcrumb-separator-face))))
 
 (provide 'vk-lsp)

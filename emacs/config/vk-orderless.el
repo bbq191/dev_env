@@ -9,24 +9,21 @@
   (completion-styles '(orderless))
   (completion-category-defaults nil)    ; I want to be in control!
   (completion-category-overrides
-   '((file (styles basic-remote ; For `tramp' hostname completion with `vertico'
-                   orderless))))
+   '((file (styles orderless))))
 
   (orderless-component-separator 'orderless-escapable-split-on-space)
-  (orderless-matching-styles
-   '(orderless-literal
-     orderless-prefixes
-     orderless-initialism
-     orderless-regexp))
-     ;; orderless-flex
-     ;; orderless-strict-leading-initialism
-     ;; orderless-strict-initialism
-     ;; orderless-strict-full-initialism
-     ;; orderless-without-literal          ; Recommended for dispatches instead
-  (orderless-style-dispatchers
-   '(prot-orderless-literal-dispatcher
-     prot-orderless-strict-initialism-dispatcher
-     prot-orderless-flex-dispatcher))
+  (orderless-matching-styles '(orderless-literal
+                               orderless-prefixes
+                               orderless-initialism
+                               orderless-regexp))
+  ;; orderless-flex
+  ;; orderless-strict-leading-initialism
+  ;; orderless-strict-initialism
+  ;; orderless-strict-full-initialism
+  ;; orderless-without-literal          ; Recommended for dispatches instead
+  (orderless-style-dispatchers '(prot-orderless-literal-dispatcher
+                                 prot-orderless-strict-initialism-dispatcher
+                                 prot-orderless-flex-dispatcher))
   :init
   (defun orderless--strict-*-initialism (component &optional anchored)
     "Match a COMPONENT as a strict initialism, optionally ANCHORED.
@@ -40,11 +37,11 @@ the first word of the candidate.  If ANCHORED is `both' require
 that the first and last initials appear in the first and last
 words of the candidate, respectively."
     (orderless--separated-by
-     '(seq (zero-or-more alpha) word-end (zero-or-more (not alpha)))
-     (cl-loop for char across component collect `(seq word-start ,char))
-     (when anchored '(seq (group buffer-start) (zero-or-more (not alpha))))
-     (when (eq anchored 'both)
-       '(seq (zero-or-more alpha) word-end (zero-or-more (not alpha)) eol))))
+        '(seq (zero-or-more alpha) word-end (zero-or-more (not alpha)))
+      (cl-loop for char across component collect `(seq word-start ,char))
+      (when anchored '(seq (group buffer-start) (zero-or-more (not alpha))))
+      (when (eq anchored 'both)
+        '(seq (zero-or-more alpha) word-end (zero-or-more (not alpha)) eol))))
 
   (defun orderless-strict-initialism (component)
     "Match a COMPONENT as a strict initialism.

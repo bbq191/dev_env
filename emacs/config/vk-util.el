@@ -21,29 +21,29 @@
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
 
-(use-package perspective
-  :custom
-  ;; NOTE! I have also set 'SCP =' to open the perspective menu.
-  ;; I'm only setting the additional binding because setting it
-  ;; helps suppress an annoying warning message.
-  (persp-mode-prefix-key (kbd "C-c M-p"))
-  :init
-  (persp-mode)
-  :config
-  ;; Sets a file to write to when we save states
-  (setq persp-state-default-file (no-littering-expand-var-file-name "sessions")))
+;; (use-package perspective
+;;   :custom
+;;   ;; NOTE! I have also set 'SCP =' to open the perspective menu.
+;;   ;; I'm only setting the additional binding because setting it
+;;   ;; helps suppress an annoying warning message.
+;;   (persp-mode-prefix-key (kbd "C-c M-p"))
+;;   :init
+;;   (persp-mode)
+;;   :config
+;;   ;; Sets a file to write to when we save states
+;;   (setq persp-state-default-file (no-littering-expand-var-file-name "sessions")))
 
-;; This will group buffers by persp-name in ibuffer.
-(add-hook 'ibuffer-hook
-          (lambda ()
-            (persp-ibuffer-set-filter-groups)
-            (unless (eq ibuffer-sorting-mode 'alphabetic)
-              (ibuffer-do-sort-by-alphabetic))))
+;; ;; This will group buffers by persp-name in ibuffer.
+;; (add-hook 'ibuffer-hook
+;;           (lambda ()
+;;             (persp-ibuffer-set-filter-groups)
+;;             (unless (eq ibuffer-sorting-mode 'alphabetic)
+;;               (ibuffer-do-sort-by-alphabetic))))
 
-;; Automatically save perspective states to file when Emacs exits.
-(add-hook 'kill-emacs-hook #'persp-state-save)
+;; ;; Automatically save perspective states to file when Emacs exits.
+;; (add-hook 'kill-emacs-hook #'persp-state-save)
 
-;; Make "C-x o" prompt for a target window when there are more than 2
+;; ;; Make "C-x o" prompt for a target window when there are more than 2
 (use-package switch-window)
 (setq-default switch-window-shortcut-style 'alphabet)
 (setq-default switch-window-timeout nil)

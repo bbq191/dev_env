@@ -1,10 +1,8 @@
 ;; vk-minibuffer.el --- vk-minibuffer configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:
 
-;; FIXME needs to use use-package way
 (use-package embark
   :after vertico
   :general (:keymaps 'vertico-map
