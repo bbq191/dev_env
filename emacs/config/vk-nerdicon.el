@@ -4,11 +4,29 @@
 ;;
 ;;; Code:
 
+;; Icons
+(use-package nerd-icons
+  :config
+  (when (and (display-graphic-p)
+             (not (font-installed-p nerd-icons-font-family)))
+    (nerd-icons-install-fonts t)))
+
+(use-package nerd-icons-dired
+    :diminish t
+    :custom-face
+    (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
+    :hook (dired-mode . nerd-icons-dired-mode))
+
 (use-package nerd-icons-completion
   :after marginalia
   :config
   (nerd-icons-completion-mode)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
+;; Display icons for buffers
+  (use-package nerd-icons-ibuffer
+    :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
+    :init (setq nerd-icons-ibuffer-icon t))
 
 (use-package kind-icon
   :after corfu

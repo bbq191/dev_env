@@ -10,9 +10,8 @@
 
 ;; Global keybind
 (use-package general
-  :ensure t
   :config
-  (general-evil-setup))
+  (general-evil-setup)
 
 ;; set up 'SPC' as the global leader key
 (general-create-definer vk/leader-keys
@@ -166,7 +165,7 @@
   "t" '(load-theme :wk "Load theme")
   "v" '(describe-variable :wk "Describe variable")
   "w" '(where-is :wk "Prints keybinding for command if set")
-  "x" '(describe-command :wk "Display full documentation for command"))
+  "x" '(describe-command :wk "Display full documentation for command")))
 
 
 (provide 'vk-keybind)

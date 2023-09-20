@@ -56,7 +56,7 @@
     (advice-add #'lsp-bash-check-sh-shell :override #'my-lsp-bash-check-sh-shell)
     (add-to-list 'lsp-language-id-configuration '(bash-ts-mode . "shellscript"))
 
-    (setq lsp-headerline-arrow (nerd-icons-octicon "nf-oct-chevron_right"
+    (setq lsp-headerline-arrow (nerd-icons "nf-oct-chevron_right"
                                                    :face 'lsp-headerline-breadcrumb-separator-face))))
 
 (provide 'vk-lsp)

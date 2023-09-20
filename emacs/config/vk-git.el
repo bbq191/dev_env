@@ -4,7 +4,6 @@
 ;;; Code:
 
 ;; The awesome git client
-;;
 ;; Explicit binding makes it load lazily although it's the default.
 ;; See `magit-define-global-key-bindings' for more information.
 (use-package magit
@@ -33,8 +32,8 @@
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :config
   ;; When Emacs runs in terminal, show the indicators in margin instead.
-  ;; (unless (display-graphic-p)
-  (diff-hl-margin-mode))
+  (unless (display-graphic-p)
+  (diff-hl-margin-mode)))
 
 ;; Visual diff interface
 (use-package ediff

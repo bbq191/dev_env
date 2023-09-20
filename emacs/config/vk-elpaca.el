@@ -3,36 +3,34 @@
 ;;
 ;;; Code:
 
-(setq package-archives
-      '(("melpa"  . "https://melpa.org/packages/")
-        ("gnu"    . "https://elpa.gnu.org/packages/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+;; Package setup and additional utility functions
+(setq read-process-output-max (* 4 1024 1024))
+
+(require 'package)
+(setq package-archives '(("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+                         ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+                         ("nongnu" . "https://mirrors.ustc.edu.cn/elpa/nongnu/")))
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
-(if init-file-debug
-    (setq use-package-verbose t
-          use-package-always-ensure t
-	      use-package-always-demand t
-          use-package-always-defer nil
-          use-package-expand-minimally nil
-          use-package-compute-statistics t
-          debug-on-error t)
-  (setq use-package-verbose nil
-        use-package-expand-minimally t))
-
+;; Should set before loading `use-package'
+(eval-and-compile 
+    (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字 
+    (setq use-package-always-defer t) ;默认都是延迟加载，不用每个包都手动添加:defer t 
+    (setq use-package-always-demand nil) 
+    (setq use-package-expand-minimally t) 
+    (setq use-package-verbose t))
 (eval-when-compile
   (require 'use-package))
 
-;; Update GPG keyring for GNU ELPA
-(use-package gnu-elpa-keyring-update :ensure t)
+;; Keep ~/.emacs.d/ clean.
+(use-package no-littering)
 
 ;; Bootstrap `quelpa'.
 (use-package quelpa
-  :ensure t
   :commands quelpa
   :custom
   (quelpa-git-clone-depth 1)
@@ -40,19 +38,14 @@
   (quelpa-update-melpa-p nil)
   (quelpa-checkout-melpa-p nil))
 
-;; --debug-init implies `debug-on-error'.
-(setq debug-on-error init-file-debug)
-
-;; Keep ~/.emacs.d/ clean.
-(use-package no-littering :ensure t)
-
 ;; Keep modeline clean.
-(use-package diminish :ensure t)
+(use-package diminish)
 
 ;; MacOS specific
 (use-package exec-path-from-shell
-  :ensure t
+  :when (eq system-type 'darwin)
   :hook (after-init . exec-path-from-shell-initialize))
+
 
 (provide 'vk-elpaca)
 

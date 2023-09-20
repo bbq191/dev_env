@@ -14,7 +14,7 @@
          (minibuffer-setup-hook . sanityinc/conditionally-enable-paredit-mode)
          (sanityinc/lispy-modes-hook . enable-paredit-mode))
   :config
-  (defun sanityinc/maybe-map-paredit-newline ()
+  (defun sanityinc/maybe-map-paredit-newline()
     (unless (or (derived-mode-p 'inferior-emacs-lisp-mode 'cider-repl-mode)
                 (minibufferp))
       (local-set-key (kbd "RET") 'paredit-newline)))
@@ -25,7 +25,7 @@
                                         ibuffer-do-view-and-eval)
     "Interactive commands for which paredit should be enabled in the minibuffer.")
 
-  (defun sanityinc/conditionally-enable-paredit-mode ()
+  (defun sanityinc/conditionally-enable-paredit-mode()
     "Enable paredit during lisp-related minibuffer commands."
     (when (memq this-command paredit-minibuffer-commands)
       (enable-paredit-mode)))
@@ -36,7 +36,7 @@
     (define-key paredit-mode-map (read-kbd-macro binding) nil))
   (define-key paredit-mode-map (kbd "M-<up>") 'paredit-splice-sexp-killing-backward))
 
-(defun sanityinc/enable-check-parens-on-save ()
+(defun sanityinc/enable-check-parens-on-save()
   "Run `check-parens' when the current buffer is saved."
   (add-hook 'after-save-hook #'check-parens nil t))
 
@@ -47,11 +47,11 @@
 
 (use-package aggressive-indent
   :config
-  (add-to-list 'sanityinc/lispy-modes-hook 'aggressive-indent-mode)
+  (add-to-list 'sanityinc/lispy-modes-hook 'aggressive-indent-mode))
 
-  (defun sanityinc/lisp-setup ()
+  (defun sanityinc/lisp-setup()
     "Enable features useful in any Lisp mode."
-    (run-hooks 'sanityinc/lispy-modes-hook)))
+    (run-hooks 'sanityinc/lispy-modes-hook))
 
 (use-package derived
   :ensure nil

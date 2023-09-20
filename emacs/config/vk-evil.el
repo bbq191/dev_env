@@ -10,7 +10,7 @@
         evil-vsplit-window-right t
         evil-split-window-below t
         evil-undo-system 'undo-redo)  ;; Adds vim-like C-r redo functionality
-  (evil-mode))
+  :hook (after-init . evil-mode))
 
 (use-package evil-collection
   :after evil
@@ -23,7 +23,6 @@
   (evil-collection-init))
 
 (use-package evil-surround
-  :ensure t
   :hook (after-init . global-evil-surround-mode))
 
 (use-package evil-tutor)
