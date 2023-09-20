@@ -14,7 +14,7 @@ set number
 set relativenumber
 set ignorecase smartcase
 set showmode
-set timeoutlen=60000
+set timeoutlen=3000
 """ vim remap
 noremap <leader>y "+y
 noremap <leader>Y "+Y
@@ -74,8 +74,8 @@ nnoremap [e :action GotoPreviousError
 nnoremap gs :action GotoSymbol<CR>
 nnoremap gc :action GotoClass<CR>
 nnoremap gi :action GotoImplementation<CR>
-nnoremap gd :action GotToDeclaration<CR>
-nnoremap gp :action GotToSuperMethod<CR>
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gp :action GotoSuperMethod<CR>
 nnoremap gt :action GotoTest<CR>
 nnoremap gb :action Back<CR>
 nnoremap gf :action Forward<CR>
