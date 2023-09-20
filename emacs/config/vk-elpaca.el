@@ -46,6 +46,8 @@
   :when (eq system-type 'darwin)
   :hook (after-init . exec-path-from-shell-initialize))
 
+;; Set user custom
+(setq custom-file (no-littering-expand-etc-file-name "vk-custom.el"))
 
 (provide 'vk-elpaca)
 

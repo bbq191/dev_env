@@ -23,7 +23,6 @@
 
 (let ((dir (locate-user-emacs-file "config")))
   (add-to-list 'load-path (file-name-as-directory dir)))
-(setq custom-file (no-littering-expand-etc-file-name "vk-custom.el"))
 
 ;; --debug-init implies `debug-on-error'.
 (setq debug-on-error init-file-debug)
