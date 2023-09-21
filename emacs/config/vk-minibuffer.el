@@ -35,8 +35,8 @@
 
 (use-package consult-flycheck)
 
-(when (use-package marginalia)
-  (add-hook 'after-init-hook 'marginalia-mode))
+(use-package marginalia
+  :hook (after-init . marginalia-mode))
 
 (provide 'vk-minibuffer)
 

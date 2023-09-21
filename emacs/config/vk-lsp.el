@@ -1,5 +1,4 @@
 ;; vk-lsp.el --- vk-lsp configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -17,6 +16,9 @@
               lsp-modeline-code-actions-enable nil
               lsp-modeline-diagnostics-enable nil
               lsp-modeline-workspace-status-enable nil
+              ;; Help
+              lsp-modeline-diagnostics-scope :file
+              lsp-headerline-breadcrumb-segments '(project file symbols)
               ;; For doc
               lsp-ui-doc-enable t
               lsp-signature-auto-activate t
@@ -26,7 +28,7 @@
 
               lsp-enable-file-watchers nil
               lsp-enable-folding nil
-              lsp-enable-symbol-highlighting nil
+              lsp-enable-symbol-highlighting t
               lsp-enable-text-document-color nil
 
               lsp-enable-indentation nil
@@ -38,9 +40,7 @@
               ;; For clients
               lsp-clients-python-library-directories '("/usr/local/" "/usr/"))
   :config
-  (use-package consult-lsp
-    :bind (:map lsp-mode-map
-                ("C-M-." . consult-lsp-symbols)))
+  (use-package consult-lsp)
 
   (with-no-warnings
     ;; Disable `lsp-mode' in `git-timemachine-mode'
@@ -56,9 +56,8 @@
     (advice-add #'lsp-bash-check-sh-shell :override #'my-lsp-bash-check-sh-shell)
     (add-to-list 'lsp-language-id-configuration '(bash-ts-mode . "shellscript"))
 
-    (setq lsp-headerline-arrow (nerd-icons-codicon "nf-oct-chevron_right"
+    (setq lsp-headerline-arrow (nerd-icons-octicon "nf-oct-chevron_right"
                                                    :face 'lsp-headerline-breadcrumb-separator-face))))
 
 (provide 'vk-lsp)
-
 ;;; vk-lsp.el ends here

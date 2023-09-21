@@ -4,8 +4,7 @@
 ;;; Code:
 
 (use-package evil
-  :init      ;; tweak evil's configuration before loading it
-  (setq evil-want-integration t  ;; This is optional since it's already set to t by default.
+  :init (setq evil-want-integration t
         evil-want-keybinding nil
         evil-vsplit-window-right t
         evil-split-window-below t

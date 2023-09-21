@@ -62,6 +62,7 @@
 (require 'vk-javascript)
 
 ;; Util
+(require 'vk-project)
 (require 'vk-util)
 
 ;; Load `custom-file'

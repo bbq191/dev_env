@@ -12,12 +12,7 @@
 ;; Optimiz isearch
 (with-eval-after-load 'isearch
   ;; DEL during isearch should edit the search string, not jump back to the previous result
-  (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
-
-  ;; Activate occur easily inside isearch
-  (when (fboundp 'isearch-occur)
-    ;; to match ivy conventions
-    (define-key isearch-mode-map (kbd "C-c C-o") 'isearch-occur)))
+  (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char))
 
 ;; Search back/forth for the symbol at point
 ;; See http://www.emacswiki.org/emacs/SearchAtPoint
@@ -33,9 +28,6 @@
                 isearch-yank-flag t))
       (ding)))
   (isearch-search-and-update))
-
-(define-key isearch-mode-map "\C-\M-w" 'isearch-yank-symbol)
-
 
 (defun sanityinc/isearch-exit-other-end ()
   "Exit isearch, but at the other end of the search string.

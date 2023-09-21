@@ -39,7 +39,7 @@
   (kind-icon-use-icons t)
   (kind-icon-default-face 'corfu-default) ; Have background color be the same as `corfu' face background
   (kind-icon-blend-background nil)  ; Use midpoint color between foreground and background colors ("blended")?
-  (kind-icon-blend-frac 0.08)
+  (kind-icon-blend-frac 0.1)
 
   ;; NOTE 2022-02-05: `kind-icon' depends `svg-lib' which creates a cache
   ;; directory that defaults to the `user-emacs-directory'. Here, I change that

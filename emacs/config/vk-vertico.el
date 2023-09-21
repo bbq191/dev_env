@@ -5,8 +5,7 @@
 
 (use-package posframe
   :hook (after-load-theme . posframe-delete-all)
-  :init
-  (defface posframe-border
+  :init (defface posframe-border
     `((t (:inherit region)))
     "Face used by the `posframe' border."
     :group 'posframe)

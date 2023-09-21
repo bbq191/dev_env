@@ -1,12 +1,9 @@
 ;; vk-flycheck.el --- vk-flycheck configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:
 
 (use-package flycheck
-  :ensure t
-  :defer t
   :diminish t
   :init (global-flycheck-mode)
   :custom
@@ -16,9 +13,9 @@
   (flycheck-indication-mode 'right-fringe))
 
 (use-package flycheck-rust
+  :after rustic-mode
   :custom
-  (with-eval-after-load 'rustic-mode
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
 
 (provide 'vk-flycheck)

@@ -11,7 +11,7 @@
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   ;; Sets the default theme to load!!
-  (load-theme 'doom-opera t)
+  (load-theme 'doom-one t)
   ;; Enable custom neotree theme (all-the-icons must be installed!)
   (doom-themes-neotree-config)
   (doom-themes-visual-bell-config)

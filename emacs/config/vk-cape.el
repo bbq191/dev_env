@@ -1,5 +1,4 @@
 ;; vk-cape.el --- cape configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:

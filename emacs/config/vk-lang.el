@@ -1,5 +1,4 @@
 ;; vk-lang.el --- vk-lang configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:

@@ -1,5 +1,4 @@
 ;; vk-corfu.el --- init configurations. -*- lexical-binding: t -*-
-
 ;;; Commentary:
 ;;
 ;;; Code:

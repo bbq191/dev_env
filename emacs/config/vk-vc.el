@@ -167,5 +167,4 @@
 
 
 (provide 'vk-vc)
-
 ;;; vk-vc.el ends here
