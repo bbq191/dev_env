@@ -36,7 +36,7 @@
     "" '(:ignore t :wk "System")
     "SPC" '(execute-extended-command :wk "M-x")
     "." '(find-file :wk "Find file")
-    ;; "=" '(perspective-map :wk "Perspective")
+    "=" '(perspective-map :wk "Perspective")
     "R" '((lambda () (interactive)
             (load-file "~/.config/emacs/init.el"))
           :wk "Reload config")
@@ -145,6 +145,16 @@
     "s t" '(tldr :wk "Lookup TLDR docs")
     "s u" '(consult-focus-lines :wk "Focus lines")
     "s w" '(woman :wk "Similar to man"))
+
+  (vk/leader-keys
+    "t" '(:ignore t :wk "Toggle")
+    "t b" '(treemacs-bookmark :wk "Tremacs Bookmark")
+    "t d" '(treemacs-delete-other-windows :wk "Delete other windows")
+    "t f" '(treemacs-find-file :wk "Find file")
+    "t g" '(treemacs-find-tag :wk "Find tag")
+    "t r" '(rainbow-mode :wk "Toggle rainbow mode")
+    "t s" '(treemacs-select-window :wk "Select window")
+    "t t" '(treemacs :wk "Show treemacs"))
 
   (vk/leader-keys
     "v" '(:ignore t :wk "Windows")

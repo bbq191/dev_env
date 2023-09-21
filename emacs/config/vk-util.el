@@ -20,7 +20,11 @@
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
 
-;; ;; Make "C-x o" prompt for a target window when there are more than 2
+(use-package rainbow-mode
+  :diminish t
+  :hook org-mode prog-mode)
+
+;; Make "C-x o" prompt for a target window when there are more than 2
 (use-package switch-window)
 (setq-default switch-window-shortcut-style 'alphabet)
 (setq-default switch-window-timeout nil)
