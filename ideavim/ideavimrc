@@ -15,12 +15,17 @@ set relativenumber
 set ignorecase smartcase
 set showmode
 set timeoutlen=3000
+set incsearch
+set hlsearch
+set ideajoin
+set idearefactormode=keep
+
 """ vim remap
 noremap <leader>y "+y
 noremap <leader>Y "+Y
 noremap <leader>d "_d
 noremap x "_x
-noremap <leader><leader> :action IdeaVim.ReloadVimRc.reload<CR>
+noremap <leader>R :action IdeaVim.ReloadVimRc.reload<CR>
 
 """"""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
 """ Navigation
@@ -31,13 +36,11 @@ nnoremap <leader>vs :action SplitHorizontally<CR>
 nnoremap <leader>vk :action Unsplit<CR>
 nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <Leader>en :action EditSourceInNewWindow<CR>
-nnoremap <Leader>n :action NextWindow<CR>
+nnoremap <Leader>vn :action NextWindow<CR>
 nnoremap <Leader>q :action CloseContent<CR>
-nnoremap <Leader>qa :action CloseAllEditors<CR>
+nnoremap <Leader>K :action CloseAllEditors<CR>
 
 """ Code operate
-set ideajoin
-set idearefactormode=keep
 vnoremap <a-j> :action MoveLineDown<cr>
 vnoremap <a-k> :action MoveLineUp<cr>
 vnoremap < <gv
@@ -48,19 +51,18 @@ nnoremap zc :action CollapseRegion<CR>
 nnoremap zo :action ExpandRegion<CR>
 nnoremap <leader>zc :action CollapseAllRegions<CR>
 nnoremap <leader>zo :action ExpandAllRegions<CR>
-nnoremap gcc :action CommentByLineComment<CR>
 nnoremap <leader>cR :action Refactorings.QuickListPopupAction<CR>
 nnoremap <leader>cr :action RenameElement<CR>
 nnoremap <Leader>cf :action ReformatCode<CR>
 nnoremap <leader>co :action OptimizeImports<CR>
 nnoremap <leader>cl :action RecentLocations<CR>
-nnoremap <leader>ch  :action LocalHistory.ShowHistory<CR>
+nnoremap <leader>ch :action LocalHistory.ShowHistory<CR>
+nnoremap <leader>; :action CommentByLineComment<CR>
 
 """ Searching and Source Code Navigation
-set incsearch
-set hlsearch
-nnoremap <leader>pf :action FindInPath<CR>
 nnoremap <c-a> :action GotoAction<CR>
+nnoremap <c-s> :action FileStructurePopup<CR>
+nnoremap <leader>pf :action FindInPath<CR>
 nnoremap <leader>fn :action NewElement<CR>
 nnoremap <leader>ff :action GotoFile<CR>
 nnoremap <leader>fr :action RecentFiles<CR>
@@ -68,7 +70,7 @@ nnoremap <leader>fu :action FindUsages<CR>
 nnoremap <leader>gr :action GotoRelated<CR>
 nnoremap <leader>gh :action CallHierarchy<CR>
 nnoremap <leader>gb :action ShowNavBar<CR>
-nnoremap <c-s> :action FileStructurePopup<CR>
+nnoremap <leader>ca :action Annotate<CR>
 nnoremap ]e :action GotoNextError<CR>
 nnoremap [e :action GotoPreviousError
 nnoremap gs :action GotoSymbol<CR>
@@ -79,7 +81,6 @@ nnoremap gp :action GotoSuperMethod<CR>
 nnoremap gt :action GotoTest<CR>
 nnoremap gb :action Back<CR>
 nnoremap gf :action Forward<CR>
-map <leader>a <Action>(Annotate)
 
 """ Running and Debugging
 nnoremap ,r :action ContextRun<CR>
