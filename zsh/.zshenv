@@ -28,10 +28,10 @@ export LESSHISTFILE=-
 #export POSTGRES="/opt/homebrew/opt/postgresql@15/bin"
 
 # llvm config
-#export LLVM_PATH="/opt/homebrew/opt/llvm/bin"
+export LLVM_HOME="/opt/homebrew/opt/llvm"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
-# helix editor
-export HELIX_RUNTIME="$HOME/Workspace/helix/runtime"
 # rust home
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
@@ -40,5 +40,5 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 #export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
 # path append
-export PATH="$CARGO_HOME/bin":$PATH
+export PATH="$CARGO_HOME/bin":"$LLVM_HOME/bin":$PATH
 
