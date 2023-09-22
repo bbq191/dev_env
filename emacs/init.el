@@ -63,11 +63,11 @@
 
 ;; Util
 (require 'vk-project)
+(require 'vk-treemacs)
 (require 'vk-util)
 
 ;; Load `custom-file'
 (when (file-exists-p custom-file) (load custom-file))
 
 (provide 'init)
-
 ;;; init.el ends here

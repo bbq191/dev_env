@@ -3,20 +3,18 @@
 ;;
 ;;; Code:
 
-(use-package flycheck
-  :diminish t
-  :init (global-flycheck-mode)
-  :custom
-  (flycheck-temp-prefix ".flycheck")
-  (flycheck-check-syntax-automatically '(save mode-enabled))
-  (flycheck-emacs-lisp-load-path 'inherit)
-  (flycheck-indication-mode 'right-fringe))
+(use-package flymake
+  :diminish
+  :hook (prog-mode . flymake-mode)
+  :init (setq flymake-fringe-indicator-position 'right-fringe)
+  :config (setq elisp-flymake-byte-compile-load-path
+                (append elisp-flymake-byte-compile-load-path load-path)))
 
-(use-package flycheck-rust
-  :after rustic-mode
-  :custom
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-
+(use-package sideline-flymake
+  :diminish sideline-mode
+  :hook (flymake-mode . sideline-mode)
+  :init (setq sideline-flymake-display-mode 'point
+              sideline-backends-right '(sideline-flymake)))
 
 (provide 'vk-flycheck)
 

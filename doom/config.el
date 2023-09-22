@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Cascadia Code"
-                           :size 13
+(setq doom-font (font-spec :family "Sarasa Mono SC"
+                           :size 15
                            :otf '(latn nil (calt zero ss01) nil))
      doom-unicode-font (font-spec :family "Source Han Sans CN" :size 13))
 ;;
@@ -42,7 +42,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Documents/org-notes/")
+;;(setq org-directory "~/Documents/org-notes/")
 
 ;; Initial frame
 (setq initial-frame-alist '((top . 0.5)

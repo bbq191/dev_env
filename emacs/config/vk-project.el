@@ -4,6 +4,7 @@
 ;;; Code:
 
 (use-package projectile
+  :diminish t
   :config
   (projectile-mode 1))
 

@@ -5,17 +5,15 @@
 
 ;; Rust
 (use-package rustic
-  :general (:keymaps 'rustic-mode-map
-                     "C-c c g" #'rustic-cargo-plain-run)
   :config
-  (push 'rustic-clippy flycheck-checkers)
-  (setq rustic-flycheck-clippy-params-nightly "--message-format=json -Zunstable-options")
-  (add-hook 'rustic-mode-hook 'rustic-mode-auto-save-hook))
+  (setq rustic-lsp-client 'eglot)
+  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook)
 
-(defun rustic-mode-auto-save-hook ()
-  "Enable auto-saving in rustic-mode buffers."
-  (when buffer-file-name
-    (setq-local compilation-ask-about-save nil)))
+  (defun rk/rustic-mode-hook ()
+    "Save on format."
+    (when buffer-file-name
+      (setq-local buffer-save-without-query t))
+    (add-hook 'before-save-hook 'eglot-format-buffer nil t)))
 
 (use-package rust-playground)
 

@@ -28,7 +28,14 @@
 (use-package switch-window)
 (setq-default switch-window-shortcut-style 'alphabet)
 (setq-default switch-window-timeout nil)
-(global-set-key (kbd "C-x o") 'switch-window)
+
+;; GC optimization
+(use-package gcmh
+  :ensure t
+  :hook (after-init . gcmh-mode)
+  :custom
+  (gcmh-idle-delay 10)
+  (gcmh-high-cons-threshold #x6400000)) ;; 100 MB
 
 ;; Call undotree
 (use-package vundo

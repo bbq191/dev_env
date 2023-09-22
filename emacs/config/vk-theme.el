@@ -11,7 +11,7 @@
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   ;; Sets the default theme to load!!
-  (load-theme 'doom-one t)
+  (load-theme 'doom-zenburn t)
   ;; Enable custom neotree theme (all-the-icons must be installed!)
   (doom-themes-neotree-config)
   (doom-themes-visual-bell-config)
@@ -39,10 +39,10 @@
   :hook (after-init . doom-modeline-mode)
   :init
   (setq doom-modeline-icon t
-        doom-modeline-height 30      ;; sets modeline height
-        doom-modeline-bar-width 10    ;; sets right bar width
+        doom-modeline-height 28      ;; sets modeline height
+        doom-modeline-bar-width 1    ;; sets right bar width
         doom-modeline-persp-name t
-        doom-modeline-minor-modes t))
+        doom-modeline-minor-modes nil))
 
 (provide 'vk-theme)
 

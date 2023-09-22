@@ -7,9 +7,9 @@
 (setq read-process-output-max (* 4 1024 1024))
 
 (require 'package)
-(setq package-archives '(("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
-                         ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
-                         ("nongnu" . "https://mirrors.ustc.edu.cn/elpa/nongnu/")))
+(setq package-archives '(("melpa"  . "https://melpa.org/packages/")
+                         ("gnu"    . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -18,11 +18,11 @@
 
 ;; Should set before loading `use-package'
 (eval-and-compile 
-    (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字 
-    (setq use-package-always-defer t) ;默认都是延迟加载，不用每个包都手动添加:defer t 
-    (setq use-package-always-demand nil) 
-    (setq use-package-expand-minimally t) 
-    (setq use-package-verbose t))
+  (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字 
+  (setq use-package-always-defer t) ;默认都是延迟加载，不用每个包都手动添加:defer t 
+  (setq use-package-always-demand nil) 
+  (setq use-package-expand-minimally t) 
+  (setq use-package-verbose t))
 (eval-when-compile
   (require 'use-package))
 

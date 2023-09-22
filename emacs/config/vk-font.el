@@ -9,12 +9,11 @@
 ;; Fonts
 (defun vk/setup-fonts ()
   "Setup fonts."
-  (when (display-graphic-p)
-    ;; Set default font
+  ;; Set default font
     (cl-loop for font in '("Sarasa Mono SC" "Cascadia Code" "Source Code Pro")
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height 150)))
+                                        :height 150))
   
   ;; Specify font for all unicode characters
   (cl-loop for font in '("Symbols Nerd Font" "Symbols Nerd Font Mono" "Symbol")

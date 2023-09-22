@@ -1,23 +1,17 @@
-; vk-nerdicon.el --- init configurations. -*- lexical-binding: t -*-
-
+;;; vk-nerdicon.el --- init configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:
 
 ;; Icons
-(use-package nerd-icons
-  :defer nil
-  :config
-  (when (and (display-graphic-p)
-             (not (font-installed-p nerd-icons-font-family)))
-    (nerd-icons-install-fonts t)))
+(use-package nerd-icons :defer nil)
 
 (use-package nerd-icons-dired
   :defer nil
-    :diminish t
-    :custom-face
-    (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
-    :hook (dired-mode . nerd-icons-dired-mode))
+  :diminish t
+  :custom-face
+  (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
+  :hook (dired-mode . nerd-icons-dired-mode))
 
 (use-package nerd-icons-completion
   :defer nil
@@ -27,10 +21,10 @@
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
 ;; Display icons for buffers
-  (use-package nerd-icons-ibuffer
+(use-package nerd-icons-ibuffer
   :defer nil
-    :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
-    :init (setq nerd-icons-ibuffer-icon t))
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
+  :init (setq nerd-icons-ibuffer-icon t))
 
 (use-package kind-icon
   :defer nil

@@ -70,7 +70,7 @@
     "c A" '(lsp-execute-code-action :wk "Execute code")
     "c d" '(lsp-describe-thing-at-point :wk "Describe symbol")
     "c l" '(flycheck-list-errors :wk "List all errors")
-    "c f" '(lsp-format-region :wk "Code format")
+    "c f" '(lsp-format-buffer :wk "Code format")
     "c r" '(lsp-rename :wk "Symbol rename")
     "c s" '(consult-lsp-symbols :wk "List symbols"))
 
@@ -79,7 +79,6 @@
     "d d" '(dired :wk "Open dired")
     "d f" '(wdired-finish-edit :wk "Writable dired finish edit")
     "d j" '(dired-jump :wk "Dired jump to current")
-    "d n" '(neotree-dir :wk "Open directory in neotree")
     "d w" '(wdired-change-to-wdired-mode :wk "Wdired change names"))
 
   (vk/leader-keys
@@ -93,7 +92,6 @@
   (vk/leader-keys
     "f" '(:ignore t :wk "Files")
     "f d" '(find-grep-dired :wk "Search for string in files in DIR")
-    "f e" '(neotree-toggle :wk "Exploer file viewer")
     "f r" '(consult-recent-file :wk "Find recent files")
     "f u" '(sudo-edit-find-file :wk "Sudo find file")
     "f U" '(sudo-edit :wk "Sudo edit file"))
@@ -164,6 +162,7 @@
     "v s" '(evil-window-split :wk "Horizontal split window")
     "v v" '(evil-window-vsplit :wk "Vertical split window")
     ;; Window motions
+    "v o" '(switch-window :wk "Mutil window select" )
     "v h" '(evil-window-left :wk "Window left")
     "v j" '(evil-window-down :wk "Window down")
     "v k" '(evil-window-up :wk "Window up")
