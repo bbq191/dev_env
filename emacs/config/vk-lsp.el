@@ -2,11 +2,12 @@
 ;;; Commentary:
 ;;
 ;;; Code:
+
 (use-package eglot
+  :diminish
   :hook (prog-mode . eglot-ensure)
   :config
-  (use-package consult-eglot
-    :bind (:map eglot-mode-map
-                ("C-M-." . consult-eglot-symbols))))
+  (use-package consult-eglot))
+
 (provide 'vk-lsp)
 ;;; vk-lsp.el ends here

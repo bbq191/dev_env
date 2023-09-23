@@ -21,7 +21,7 @@
           ("DEPRECATED" font-lock-doc-face bold))))
 
 (use-package rainbow-mode
-  :diminish t
+  :diminish rainbow-mode
   :hook org-mode prog-mode)
 
 ;; Make "C-x o" prompt for a target window when there are more than 2
@@ -31,7 +31,7 @@
 
 ;; GC optimization
 (use-package gcmh
-  :ensure t
+  :diminish gcmh-mode
   :hook (after-init . gcmh-mode)
   :custom
   (gcmh-idle-delay 10)
@@ -44,7 +44,7 @@
 
 (use-package which-key
   :init (which-key-mode 1)
-  :diminish t
+  :diminish which-key-mode
   :config
   (setq which-key-side-window-location 'bottom
 	    which-key-sort-order #'which-key-key-order-alpha

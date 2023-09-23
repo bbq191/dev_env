@@ -4,9 +4,9 @@
 ;;; Code:
 
 (use-package flymake
-  :diminish
+  :diminish t
   :hook (prog-mode . flymake-mode)
-  :init (setq flymake-fringe-indicator-position 'right-fringe)
+  :init (setq flymake-fringe-indicator-position 'left-fringe)
   :config (setq elisp-flymake-byte-compile-load-path
                 (append elisp-flymake-byte-compile-load-path load-path)))
 
