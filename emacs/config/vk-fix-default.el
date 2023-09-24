@@ -1,6 +1,22 @@
-;; vk-unbind.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-fix-default.el -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
+
+;; Keep modeline clean.
+(use-package diminish
+  :config (diminish 'visual-line-mode))
+
+;; Keep ~/.emacs.d/ clean.
+(use-package no-littering)
+
+;; MacOS specific
+(use-package exec-path-from-shell
+  :when (eq system-type 'darwin)
+  :hook (after-init . exec-path-from-shell-initialize))
+
+(use-package hl-line)
+(add-hook 'prog-mode-hook #'hl-line-mode)
+(add-hook 'text-mode-hook #'hl-line-mode)
 
 ;; There are a great many keybindings that are actively hostile,
 ;; in that they are bound to useless or obsolete functions that
@@ -48,6 +64,7 @@
 (bind-key "C-c q" #'fill-paragraph)
 (bind-key "C-c Q" #'set-fill-column)
 
+;; Very useful indent func for yanked after
 (defun vk/indent-just-yanked ()
   "Re-indent whatever you just yanked appropriately."
   (interactive)
@@ -57,5 +74,16 @@
 
 (bind-key "C-c I" #'vk/indent-just-yanked)
 
-(provide 'vk-unbind)
-;;; vk-unbind.el ends here
+(use-package dabbrev
+  :bind* (("C-/" . #'dabbrev-completion))
+  :custom
+  (dabbrev-check-all-buffers t)
+  (dabbrev-case-replace nil))
+
+;; tedious patterns like checking if err == nil in Go
+(add-hook 'go-mode-hook #'abbrev-mode)
+(setq abbrev-suggest t)
+
+
+(provide 'vk-fix-default)
+;;; vk-fix-default.el ends here

@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
+;; Base optomize ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
@@ -39,7 +40,7 @@
 ;; Set user custom
 (setq custom-file (no-littering-expand-etc-file-name "vk-custom.el"))
 
-;; use package
+;; use package ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
 (setq package-archives '(("melpa"  . "https://melpa.org/packages/")
                          ("gnu"    . "https://elpa.gnu.org/packages/")
@@ -68,6 +69,10 @@
   (quelpa-self-upgrade-p nil)
   (quelpa-update-melpa-p nil)
   (quelpa-checkout-melpa-p nil))
+
+;; Personal config load
+(require 'vk-base)
+(require 'vk-fix-default)
 
 ;; Load `custom-file'
 (when (file-exists-p custom-file) (load custom-file))
