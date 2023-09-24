@@ -37,9 +37,6 @@
 ;; Package setup and additional utility functions
 (setq read-process-output-max (* 4 1024 1024))
 
-;; Set user custom
-(setq custom-file (no-littering-expand-etc-file-name "vk-custom.el"))
-
 ;; use package ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
 (setq package-archives '(("melpa"  . "https://melpa.org/packages/")
@@ -54,7 +51,7 @@
 ;; Should set before loading `use-package'
 (eval-and-compile
   (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字
-  (setq use-package-always-defer t) ;默认都是延迟加载
+  (setq use-package-always-defer nil) ;默认都不是延迟加载
   (setq use-package-always-demand nil)
   (setq use-package-expand-minimally t)
   (setq use-package-verbose t))
@@ -73,9 +70,16 @@
 ;; Personal config load
 (require 'vk-base)
 (require 'vk-fix-default)
+(require 'vk-visual)
+(require 'vk-centaur-tabs)
+(require 'vk-treesitter)
+
+;; For editor
+(require 'vk-text-manipulation)
+(require 'vk-improvements)
 
 ;; Load `custom-file'
-(when (file-exists-p custom-file) (load custom-file))
+;; (when (file-exists-p custom-file) (load custom-file))
 
 (provide 'init)
 ;;; init.el ends here

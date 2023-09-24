@@ -7,7 +7,11 @@
   :config (diminish 'visual-line-mode))
 
 ;; Keep ~/.emacs.d/ clean.
-(use-package no-littering)
+(use-package no-littering
+  ;; After no-littering
+  ;; Set user custom
+  :config
+  (setq custom-file (no-littering-expand-etc-file-name "vk-custom.el")))
 
 ;; MacOS specific
 (use-package exec-path-from-shell

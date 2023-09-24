@@ -1,4 +1,4 @@
-;; vk-rainbow-delimiters.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-centaur-tabs.el -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -16,5 +16,5 @@
   (("s-{" . #'centaur-tabs-backward)
    ("s-}" . #'centaur-tabs-forward)))
 
-(provide 'vk-rainbow-delimiters)
-;;; vk-rainbow-delimiters.el ends here
+(provide 'vk-centaur-tabs)
+;;; vk-centaur-tabs.el ends here
