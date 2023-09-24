@@ -1,6 +1,5 @@
-;; vk-elpaca.el --- init configurations. -*- lexical-binding: t -*-j
+;; vk-package.el -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
 
 ;; Package setup and additional utility functions
@@ -18,16 +17,13 @@
 
 ;; Should set before loading `use-package'
 (eval-and-compile 
-  (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字 
-  (setq use-package-always-defer t) ;默认都是延迟加载，不用每个包都手动添加:defer t 
-  (setq use-package-always-demand nil) 
-  (setq use-package-expand-minimally t) 
+  (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字
+  (setq use-package-always-defer t) ;默认都是延迟加载
+  (setq use-package-always-demand nil)
+  (setq use-package-expand-minimally t)
   (setq use-package-verbose t))
 (eval-when-compile
   (require 'use-package))
-
-;; Keep ~/.emacs.d/ clean.
-(use-package no-littering)
 
 ;; Bootstrap `quelpa'.
 (use-package quelpa
@@ -39,7 +35,11 @@
   (quelpa-checkout-melpa-p nil))
 
 ;; Keep modeline clean.
-(use-package diminish)
+(use-package diminish
+  :config (diminish 'visual-line-mode))
+
+;; Keep ~/.emacs.d/ clean.
+(use-package no-littering)
 
 ;; MacOS specific
 (use-package exec-path-from-shell
@@ -49,6 +49,6 @@
 ;; Set user custom
 (setq custom-file (no-littering-expand-etc-file-name "vk-custom.el"))
 
-(provide 'vk-elpaca)
+(provide 'vk-package)
 
-;;; vk-elpaca.el ends here
+;;; vk-package.el ends here

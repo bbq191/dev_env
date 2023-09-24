@@ -1,6 +1,5 @@
-;;; early-init.el --- Emacs 29+ pre-initialisation config -*- lexical-binding: t; -*-
+;;; early-init.el -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 
 ;; Defer garbage collection further back in the startup process

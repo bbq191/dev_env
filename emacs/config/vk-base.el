@@ -1,20 +1,6 @@
-;; vk-frame.el --- init configurations. -*- lexical-binding: t -*-
+;; vk-base.el -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
-
-;; Inhibit resizing frame
-(require 'cl-lib) ;; cl-loop dependence
-
-(setq frame-inhibit-implied-resize t
-      frame-resize-pixelwise t)
-
-;; Initial frame
-(setq initial-frame-alist '((top . 0.5)
-                            (left . 0.9)
-                            (width . 0.528)
-                            (height . 0.9)
-                            (fullscreen)))
 
 ;; Title
 (setq frame-title-format '("Vinci & Kate's Gnu Emacs - %b")
@@ -29,7 +15,7 @@
               fill-column 80
               tab-width 4
               indent-tabs-mode nil     ; Permanently indent with spaces, never with TABs
-
+              truncate-lines t
               display-line-numbers-width 3
               indicate-buffer-boundaries 'left
               display-fill-column-indicator-character ?\u254e)
@@ -72,6 +58,28 @@
 (set-frame-parameter (selected-frame) 'alpha '(90 90))
 (add-to-list 'default-frame-alist '(alpha 90 90))
 
-(provide 'vk-frame)
+;; Fonts
+(defun vk/setup-fonts ()
+  "Setup fonts."
+  ;; Set default font
+  (set-face-attribute 'default nil :font "Iosevka Fixed" :height 150)
+  (set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 150)
 
-;;; vk-frame.el ends here
+  ;; Specify font for all unicode characters
+            (set-fontset-font t 'symbol (font-spec :font "Symbols Nerd Font Mono"))
+
+  ;; Emoji
+            (set-fontset-font t 'emoji (font-spec :font "Apple Color Emoji") nil 'prepend)
+
+  ;; Specify font for Chinese characters
+ ;;(progn (setq face-font-rescale-alist `((,font . 0.95))))
+                    (set-fontset-font t 'han (font-spec :font "Source Han Sans CN"))
+
+  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic))
+
+(vk/setup-fonts)
+(add-hook 'window-setup-hook #'vk/setup-fonts)
+(add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
+
+(provide 'vk-base)
+;;; vk-base.el ends here
