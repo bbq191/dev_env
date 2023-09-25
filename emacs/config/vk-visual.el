@@ -23,6 +23,7 @@
 
 ;; For treemacs
 (use-package treemacs-nerd-icons
+  :disabled
   :config
   (treemacs-load-theme "nerd-icons"))
 
@@ -35,9 +36,9 @@
 (use-package doom-themes
   :demand t
   :config
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config)
   (let ((chosen-theme 'doom-zenburn))
-    (doom-themes-visual-bell-config)
-    (doom-themes-org-config)
     (setq doom-challenger-deep-brighter-comments t
           doom-challenger-deep-brighter-modeline t
           doom-rouge-brighter-comments t

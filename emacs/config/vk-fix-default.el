@@ -20,7 +20,6 @@
 
 ;; MacOS specific
 (use-package exec-path-from-shell
-  :when (eq system-type 'darwin)
   :hook (after-init . exec-path-from-shell-initialize))
 
 ;; It will even install this tool with the system’s recommended package manager
