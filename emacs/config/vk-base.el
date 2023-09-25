@@ -52,13 +52,15 @@
       custom-safe-themes t
       mouse-wheel-tilt-scroll t
       mouse-wheel-flip-direction t
+;; 允许在活动的minibuffer中执行命令并打开新的minibuffer。这样可以实现命令的嵌套。
+enable-recursive-minibuffers t
       ;; Some pretty config from prucell
       initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
 
 (global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
 (delete-selection-mode t)    ;; You can select text and delete it by typing.
 (savehist-mode)
-
+(minibuffer-depth-indicate-mode) ;;开头显示当前嵌套层级的深度,用方括号括起,以示区分
 ;; UTF-8 should always, always be the default.
 (set-charset-priority 'unicode)
 (prefer-coding-system 'utf-8-unix)
@@ -97,11 +99,6 @@
 (vk/setup-fonts)
 (add-hook 'window-setup-hook #'vk/setup-fonts)
 (add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
-
-(use-package vundo
-  :diminish
-  :bind* (("C-c _" . vundo))
-  :custom (vundo-glyph-alist vundo-unicode-symbols))
 
 
 (provide 'vk-base)

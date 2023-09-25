@@ -25,7 +25,7 @@
 ;; Disable warning of defvar
 (setq enable-local-variables :all)
 
-;; By default, Emacs requires you to hit ESC three times to escape quit the minibuffer.
+;; Emacs requires you to hit ESC three times to escape quit the minibuffer.
 (global-set-key [escape] 'keyboard-escape-quit)
 
 (let ((dir (locate-user-emacs-file "config")))
@@ -67,7 +67,7 @@
   (quelpa-update-melpa-p nil)
   (quelpa-checkout-melpa-p nil))
 
-;; Personal config load
+;; Personal config load ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'vk-base)
 (require 'vk-fix-default)
 (require 'vk-visual)
@@ -77,6 +77,14 @@
 ;; For editor
 (require 'vk-text-manipulation)
 (require 'vk-improvements)
+(require 'vk-buffer)
+(require 'vk-org-mode)
+
+;; IDE feather
+(require 'vk-magit)
+(require 'vk-project)
+(require 'vk-completion)
+
 
 ;; Load `custom-file'
 ;; (when (file-exists-p custom-file) (load custom-file))
