@@ -1,4 +1,4 @@
-;; vk-magit.el -*- coding: utf-8; lexical-binding: t -*-
+;;; vk-magit.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -24,9 +24,7 @@
 ;; eglot
 (use-package eglot
   :hook ((go-mode . eglot-ensure)
-         (haskell-mode . pt/haskell-eglot-except-tidal)
-         (rust-mode . eglot-ensure)
-         )
+         (rust-mode . eglot-ensure))
   :bind (:map eglot-mode-map
               ("C-<down-mouse-1>" . #'xref-find-definitions)
               ("C-S-<down-mouse-1>" . #'xref-find-references)
@@ -81,6 +79,7 @@
 ;; built-in flymake does a great job, and eglot builds upon it.
 (use-package flymake
   :config
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
   (setq elisp-flymake-byte-compile-load-path load-path)
   :hook ((emacs-lisp-mode . flymake-mode)))
 

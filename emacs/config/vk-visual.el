@@ -1,4 +1,4 @@
-;; vk-visual.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-visual.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -35,7 +35,7 @@
 (use-package doom-themes
   :demand t
   :config
-  (let ((chosen-theme 'doom-wilmersdorf))
+  (let ((chosen-theme 'doom-zenburn))
     (doom-themes-visual-bell-config)
     (doom-themes-org-config)
     (setq doom-challenger-deep-brighter-comments t

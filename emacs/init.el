@@ -1,4 +1,4 @@
-;; init.el -*- coding: utf-8; lexical-binding: t -*-
+;; init.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -88,7 +88,10 @@
 
 ;; LSP language
 (require 'vk-dap)
-(require 'vl-lsp)
+(require 'vk-lsp)
+
+(require 'vk-process)
+
 
 ;; Load `custom-file'
 ;; (when (file-exists-p custom-file) (load custom-file))

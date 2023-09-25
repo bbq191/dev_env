@@ -1,4 +1,4 @@
-;; vk-dap.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-dap.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
