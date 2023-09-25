@@ -70,5 +70,9 @@
 (use-package embark-consult :after (embark consult))
 (use-package embark-vc :after embark)
 
+;; just using the builtin completion-at-point facilities for autocomplete
+(bind-key* "C-." #'completion-at-point)
+
+
 (provide 'vk-completion)
 ;;; vk-completion.el ends here

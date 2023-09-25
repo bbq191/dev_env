@@ -84,7 +84,11 @@
 (require 'vk-magit)
 (require 'vk-project)
 (require 'vk-completion)
+(require 'vk-search)
 
+;; LSP language
+(require 'vk-dap)
+(require 'vl-lsp)
 
 ;; Load `custom-file'
 ;; (when (file-exists-p custom-file) (load custom-file))
