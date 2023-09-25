@@ -89,9 +89,12 @@
 ;; LSP language
 (require 'vk-dap)
 (require 'vk-lsp)
+(require 'vk-language)
 
+;; System
 (require 'vk-process)
-
+(require 'vk-tramp)
+(require 'vk-mics)
 
 ;; Load `custom-file'
 ;; (when (file-exists-p custom-file) (load custom-file))

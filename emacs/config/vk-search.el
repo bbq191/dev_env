@@ -1,4 +1,4 @@
-;; vk-search.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-search.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
