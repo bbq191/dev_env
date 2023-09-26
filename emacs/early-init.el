@@ -1,4 +1,4 @@
-;;; early-init.el -*- coding: utf-8; lexical-binding: t -*-
+;; early-init.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

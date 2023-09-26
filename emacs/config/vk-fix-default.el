@@ -1,11 +1,6 @@
-;; vk-fix-default.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-fix-default.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-
-(use-package vundo
-  :diminish
-  :bind* (("C-c _" . vundo))
-  :custom (vundo-glyph-alist vundo-unicode-symbols))
 
 ;; Keep modeline clean.
 (use-package diminish
@@ -20,10 +15,8 @@
 
 ;; MacOS specific
 (use-package exec-path-from-shell
-  :hook (after-init . exec-path-from-shell-initialize))
-
-;; It will even install this tool with the system’s recommended package manager
-(use-package use-package-ensure-system-package)
+  :hook (after-init . exec-path-from-shell-initialize)
+  :config (setq exec-path-from-shell-debug t))
 
 (use-package hl-line)
 (add-hook 'prog-mode-hook #'hl-line-mode)
@@ -42,11 +35,13 @@
           "<mouse-2>"       ;; pasting with mouse-wheel click
           "<C-wheel-down>"  ;; text scale adjust
           "<C-wheel-up>"    ;; ditto
+          "s-l"             ;; goto-line
           "s-w"             ;; delete-frame
           "s-n"             ;; make-frame
           "s-t"             ;; ns-popup-font-panel
           "s-p"             ;; ns-print-buffer
           "C-x C-q"         ;; read-only-mode
+          "C-x C-c"         ;; quit emacs
           "C-h")))          ;; help
 
 ;; These libraries are helpful to have around when writing little bits of elisp,
@@ -58,12 +53,6 @@
 (use-package shut-up)
 
 (bind-key* "C-h" #'backward-delete-char)
-(bind-key* "M-h" #'backward-delete-word)
-(bind-key* "C-c C-h k" #'describe-key)
-(bind-key* "C-c C-h f" #'describe-function)
-(bind-key* "C-c C-h m" #'describe-mode)
-(bind-key* "C-c C-h v" #'describe-variable)
-(bind-key* "C-c C-h l" #'view-lossage)
 
 (bind-key "s-<up>" #'ff-find-related-file)
 (bind-key "C-c a f" #'ff-find-related-file)
@@ -73,7 +62,6 @@
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq require-final-newline t)
 (bind-key "C-c q" #'fill-paragraph)
-(bind-key "C-c Q" #'set-fill-column)
 
 ;; Very useful indent func for yanked after
 (defun vk/indent-just-yanked ()
@@ -84,16 +72,6 @@
   (deactivate-mark))
 
 (bind-key "C-c I" #'vk/indent-just-yanked)
-
-(use-package dabbrev
-  :bind* (("C-/" . #'dabbrev-completion))
-  :custom
-  (dabbrev-check-all-buffers t)
-  (dabbrev-case-replace nil))
-
-;; tedious patterns like checking if err == nil in Go
-(add-hook 'go-mode-hook #'abbrev-mode)
-(setq abbrev-suggest t)
 
 
 (provide 'vk-fix-default)

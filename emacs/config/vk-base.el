@@ -1,4 +1,4 @@
-;; vk-base.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-base.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -52,8 +52,8 @@
       custom-safe-themes t
       mouse-wheel-tilt-scroll t
       mouse-wheel-flip-direction t
-;; 允许在活动的minibuffer中执行命令并打开新的minibuffer。这样可以实现命令的嵌套。
-enable-recursive-minibuffers t
+      ;; 允许在活动的minibuffer中执行命令并打开新的minibuffer。这样可以实现命令的嵌套。
+      enable-recursive-minibuffers t
       ;; Some pretty config from prucell
       initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
 
@@ -64,6 +64,12 @@ enable-recursive-minibuffers t
 ;; UTF-8 should always, always be the default.
 (set-charset-priority 'unicode)
 (prefer-coding-system 'utf-8-unix)
+
+;; Emacs has problems with very long lines.
+(global-so-long-mode)
+
+;; URLs should be highlighted and linkified.
+(global-goto-address-mode)
 
 ;; Display wrape line
 (global-display-fill-column-indicator-mode 1)
@@ -81,8 +87,8 @@ enable-recursive-minibuffers t
 (defun vk/setup-fonts ()
   "Setup fonts."
   ;; Set default font
-  (set-face-attribute 'default nil :font "Iosevka Fixed" :height 150)
-  (set-face-attribute 'variable-pitch nil :font "Iosevka Fixed" :height 150)
+  (set-face-attribute 'default nil :font "Iosevka Term" :height 150)
+  (set-face-attribute 'variable-pitch nil :font "Iosevka Term" :height 150)
 
   ;; Specify font for all unicode characters
   (set-fontset-font t 'symbol (font-spec :font "Symbols Nerd Font Mono"))

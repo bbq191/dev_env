@@ -1,4 +1,4 @@
-;; vk-centaur-tabs.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-centaur-tabs.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

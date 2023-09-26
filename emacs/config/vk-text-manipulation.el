@@ -1,4 +1,4 @@
-;; vk-text-manipulation.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-text-manipulation.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -16,14 +16,9 @@
 
 ;; avy gives us fluent jump-to-line commands mapped to the home row.
 (use-package avy
-  :bind (:map prog-mode-map ("C-'" . #'avy-goto-line))
-  ;; :bind (:map org-mode-map ("C-'" . #'avy-goto-line))
-  :bind (("C-c l" . #'avy-goto-line)
-         ("C-c j k" . #'avy-kill-whole-line)
-         ("C-c j j" . #'avy-goto-line)
+  :bind (("C-c j k" . #'avy-kill-whole-line)
          ("C-c j h" . #'avy-kill-region)
          ("C-c j w" . #'avy-copy-line)
-         ("C-z" . #'avy-goto-char)
          ("C-c v" . #'avy-goto-char)))
 
 (use-package avy-zap
@@ -38,14 +33,12 @@
 
 ;; provides a better editing experience.
 (use-package smartparens
-  :bind (("C-(" . #'sp-backward-sexp)
-         ("C-)" . #'sp-forward-sexp)
-         ("C-c d w" . #'sp-delete-word)
+  :bind (("C-c d w" . #'sp-delete-word)
          ("<left>" . #'sp-backward-sexp)
          ("<right>" . #'sp-forward-sexp)
-         ("C-c C-(" . #'sp-up-sexp)
          ("C-c j s" . #'sp-copy-sexp)
-         ("C-c C-)" . #'sp-down-sexp))
+         ("<up>" . #'sp-up-sexp)
+         ("<down>" . #'sp-down-sexp))
   :config
   (require 'smartparens-config)
   (setq sp-show-pair-delay 0

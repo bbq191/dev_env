@@ -1,36 +1,6 @@
-;; vk-visual.el --- -*- coding: utf-8; lexical-binding: t -*-
+;; vk-theme.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-
-;; Why Emacs doesn’t allow colors by default in its compilation buffer
-(use-package fancy-compilation :config (fancy-compilation-mode))
-
-;; Icons ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Font Nerd-Symbol-Mono is necessory
-(use-package nerd-icons :demand t)
-
-;; For dired
-(use-package nerd-icons-dired
-  :hook
-  (dired-mode . nerd-icons-dired-mode))
-
-;; For completion
-(use-package nerd-icons-completion
-  :after marginalia
-  :config
-  (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
-
-;; For treemacs
-(use-package treemacs-nerd-icons
-  :disabled
-  :config
-  (treemacs-load-theme "nerd-icons"))
-
-;; For ibuffer
-(use-package nerd-icons-ibuffer
-  :ensure t
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 ;; theme and mode lien ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package doom-themes
@@ -38,7 +8,7 @@
   :config
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
-  (let ((chosen-theme 'doom-zenburn))
+  (let ((chosen-theme 'doom-material-dark))
     (setq doom-challenger-deep-brighter-comments t
           doom-challenger-deep-brighter-modeline t
           doom-rouge-brighter-comments t
@@ -69,21 +39,21 @@
   (advice-add 'mood-line-segment-buffer-name :around #'pt/mood-line-segment-project-advice)
   (mood-line-mode))
 
-;; I may be colorblind, but it’s good enough, usually. ;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package rainbow-delimiters
-  :disabled
-  :hook ((prog-mode . rainbow-delimiters-mode)))
+;;Display input key and command
+(use-package keycast
+  :commands (+toggle-keycast)
+  :config
+  (defun +toggle-keycast()
+    (interactive)
+    (if (member '("" keycast-mode-line " ") global-mode-string)
+        (progn (setq global-mode-string (delete '("" keycast-mode-line " ") global-mode-string))
+               (remove-hook 'pre-command-hook 'keycast--update)
+               (message "Keycast OFF"))
+      (add-to-list 'global-mode-string '("" keycast-mode-line " "))
+      (add-hook 'pre-command-hook 'keycast--update t)
+      (message "Keycast ON")))
+  :hook (after-init . +toggle-keycast))
 
-;; given the considerable size of my screen. ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package centered-window
-  :custom
-  (cwm-centered-window-width 180))
+(provide 'vk-theme)
 
-;; Compilation buffers should wrap their lines.
-(add-hook 'compilation-mode-hook 'visual-line-mode)
-
-;; URLs should be highlighted and linkified.
-(global-goto-address-mode)
-
-(provide 'vk-visual)
-;;; vk-visual.el ends here
+;;; vk-theme.el ends here

@@ -9,7 +9,6 @@
 ;; Don't pass case-insensitive to `auto-mode-alist'
 (setq auto-mode-case-fold nil)
 
-;; Optimization
 ;; UTF-8 should always, always be the default.
 (set-charset-priority 'unicode)
 (prefer-coding-system 'utf-8-unix)
@@ -50,8 +49,8 @@
 
 ;; Should set before loading `use-package'
 (eval-and-compile
-  (setq use-package-always-ensure t) ;不用每个包都手动添加:ensure t关键字
-  (setq use-package-always-defer nil) ;默认都不是延迟加载
+  (setq use-package-always-ensure t)     ;不用每个包都手动添加:ensure t关键字
+  (setq use-package-always-defer nil)    ;默认都不是延迟加载
   (setq use-package-always-demand nil)
   (setq use-package-expand-minimally t)
   (setq use-package-verbose t))
@@ -69,32 +68,33 @@
 
 ;; Personal config load ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'vk-base)
+(require 'vk-theme)
 (require 'vk-fix-default)
-(require 'vk-visual)
+(require 'vk-evil)
+(require 'vk-keybind)
 (require 'vk-centaur-tabs)
-(require 'vk-treesitter)
 
 ;; For editor
 (require 'vk-text-manipulation)
 (require 'vk-improvements)
-(require 'vk-buffer)
-(require 'vk-org-mode)
+;;(require 'vk-buffer)
+;;(require 'vk-org-mode)
 
 ;; IDE feather
-(require 'vk-magit)
-(require 'vk-project)
-(require 'vk-completion)
-(require 'vk-search)
+;;(require 'vk-magit)
+;;(require 'vk-project)
+;;(require 'vk-completion)
+;;(require 'vk-search)
 
 ;; LSP language
-(require 'vk-dap)
-(require 'vk-lsp)
-(require 'vk-language)
+;;(require 'vk-dap)
+;;;(require 'vk-lsp)
+;;(require 'vk-language)
 
 ;; System
-(require 'vk-process)
-(require 'vk-tramp)
-(require 'vk-mics)
+;;(require 'vk-process)
+;;(require 'vk-tramp)
+;;(require 'vk-mics)
 
 ;; Load `custom-file'
 ;; (when (file-exists-p custom-file) (load custom-file))
