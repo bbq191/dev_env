@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+#eval "$(/opt/homebrew/bin/brew shellenv)"
 
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -18,11 +18,9 @@ plug "zsh-users/zsh-syntax-highlighting"
 plug "wintermi/zsh-brew"
 plug "Aloxaf/fzf-tab"
 
-# Created by Zap installer
-
 # Load and initialise completion system
 autoload -Uz compinit
- compinit
+compinit
 
 ############################################################################################################
 # eval "$(thefuck --alias)"
@@ -47,7 +45,4 @@ alias pscpu='ps aux | sort -nr -k 3 | head -5'
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
 
-if [[ $TERM == "xterm-kitty" ]]; then
-  alias ssh="kitty +kitten ssh"
-fi
 

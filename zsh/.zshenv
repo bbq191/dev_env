@@ -7,15 +7,20 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+# homebrew
+export HOMEBREW_PREFIX="/opt/homebrew";
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+export HOMEBREW_REPOSITORY="/opt/homebrew";
+#export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+#export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+#export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 [ -f "$XDG_CONFIG_HOME/fzf.zsh" ] && source "XDG_CONFIG_HOME/fzf.zsh"
 
 export LANG="en_US.UTF-8"
 export DEFAULT_USER=$USER
 export EDITOR="emacs -a """
-export TERMINAL="kitty"
-export BROWSER="safari"
-export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 export LESSHISTFILE=-
 # pip user command
@@ -40,5 +45,4 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 #export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
 # path append
-export PATH="$CARGO_HOME/bin":"$LLVM_HOME/bin":$PATH
-
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/Users/afu/.local/share/cargo/bin:/Users/afu/.local/share/rustup/toolchains/stable-aarch64-apple-darwin/bin:/opt/homebrew/opt/llvm/bin:$PATH
