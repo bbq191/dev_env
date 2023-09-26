@@ -20,15 +20,6 @@
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
 
-(use-package rainbow-mode
-  :diminish rainbow-mode
-  :hook org-mode prog-mode)
-
-;; Make "C-x o" prompt for a target window when there are more than 2
-(use-package switch-window)
-(setq-default switch-window-shortcut-style 'alphabet)
-(setq-default switch-window-timeout nil)
-
 ;; GC optimization
 (use-package gcmh
   :diminish gcmh-mode

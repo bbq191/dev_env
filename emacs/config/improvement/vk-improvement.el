@@ -1,15 +1,6 @@
-;; vk-text-manipulation.el -*- coding: utf-8; lexical-binding: t -*-
+;; vk-improvement.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-
-(defun pt/split-window-thirds ()
-  "Split a window into thirds."
-  (interactive)
-  (split-window-right)
-  (split-window-right)
-  (balance-windows))
-
-(bind-key "C-c 3" #'pt/split-window-thirds)
 
 ;; One of Emacs’s most broken UI decisions is to prompt for saving buffers that
 ;; are marked as modified, even if their contents are the same as on disc.
@@ -52,6 +43,11 @@
 
 (use-package dired-recent :config (dired-recent-mode))
 
+(use-package dired-preview
+  :disabled
+  :after dired
+  :hook (dired-mode . dired-preview-mode))
+
 ;; duplicate whatever’s marked
 (use-package duplicate-thing
   :init
@@ -71,17 +67,17 @@
   :diminish which-key-mode
   :config
   (setq which-key-side-window-location 'bottom
-	    which-key-sort-order #'which-key-key-order-alpha
-	    which-key-allow-imprecise-window-fit nil
-	    which-key-sort-uppercase-first nil
-	    which-key-add-column-padding 1
-	    which-key-max-display-columns nil
-	    which-key-min-display-lines 4
-	    which-key-side-window-slot -10
-	    which-key-side-window-max-height 0.15
-	    which-key-idle-delay 1.5
-	    which-key-max-description-length 40
-	    which-key-separator " |→ " ))
+    which-key-sort-order #'which-key-key-order-alpha
+    which-key-allow-imprecise-window-fit nil
+   which-key-sort-uppercase-first nil
+    which-key-add-column-padding 1
+    which-key-max-display-columns nil
+    which-key-min-display-lines 4
+    which-key-side-window-slot -10
+    which-key-side-window-max-height 0.15
+    which-key-idle-delay 1.5
+    which-key-max-description-length 40
+    which-key-separator " |→ " ))
 
 ;; we can automatically chmod a file containing a shebang into executable mode.
 (setq executable-prefix-env t)
@@ -90,5 +86,5 @@
 (context-menu-mode)
 (bind-key "C-c C-m" #'tmm-menubar)
 
-(provide 'vk-improvements)
-;;; vk-improvements.el ends here
+(provide 'vk-improvement)
+;;; vk-improvement.el ends here

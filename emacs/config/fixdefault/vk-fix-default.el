@@ -29,6 +29,7 @@
   "Remove unhelpful keybindings."
   (-map (lambda (x) (unbind-key x))
         '("C-x C-r"         ;; find-file-read-only
+          "C-x C-f"         ;; find-file
           "C-x C-d"         ;; list-directory
           "C-z"             ;; suspend-frame
           "C-x C-z"         ;; again
@@ -56,8 +57,6 @@
 
 (bind-key "s-<up>" #'ff-find-related-file)
 (bind-key "C-c a f" #'ff-find-related-file)
-(bind-key "C-s" #'isearch-forward-regexp)
-(bind-key "C-c s" #'isearch-forward-symbol)
 
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (setq require-final-newline t)

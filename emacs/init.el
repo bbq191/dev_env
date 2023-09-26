@@ -28,7 +28,12 @@
 (global-set-key [escape] 'keyboard-escape-quit)
 
 (let ((dir (locate-user-emacs-file "config")))
-  (add-to-list 'load-path (file-name-as-directory dir)))
+  (add-to-list 'load-path (file-name-as-directory dir))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "fixdefault" dir)))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "improvement" dir)))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "completion" dir)))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "idefeather" dir)))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
 
 ;; --debug-init implies `debug-on-error'.
 (setq debug-on-error init-file-debug)
@@ -69,15 +74,28 @@
 ;; Personal config load ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'vk-base)
 (require 'vk-theme)
+(require 'vk-isearch)
+(require 'vk-recentf)
+(require 'vk-tramp)
 (require 'vk-fix-default)
 (require 'vk-evil)
 (require 'vk-keybind)
-(require 'vk-centaur-tabs)
 
-;; For editor
+;; For editor improvement
+(require 'vk-centaur-tabs)
 (require 'vk-text-manipulation)
-(require 'vk-improvements)
-;;(require 'vk-buffer)
+(require 'vk-improvement)
+(require 'vk-buffer)
+(require 'vk-window)
+
+;; Completion
+(require 'vk-vertico)
+(require 'vk-orderless)
+(require 'vk-corfu)
+(require 'vk-cape)
+(require 'vk-minibuffer)
+(require 'vk-nerdicon)
+
 ;;(require 'vk-org-mode)
 
 ;; IDE feather

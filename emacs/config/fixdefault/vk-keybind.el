@@ -1,6 +1,5 @@
-;; vk-keybind.el --- init configurations. -*- lexical-binding: t -*-
+;; vk-keybind.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
 
 ;; change key for mac, many times s key is useful
@@ -172,19 +171,14 @@
    "t t" '(treemacs :wk "Show treemacs"))
 
   (vk/leader-keys
-   "v" '(:ignore t :wk "Windows")
+   "w" '(:ignore t :wk "Windows")
    ;; Window splits
-   "v c" '(evil-window-delete :wk "Close window")
-   "v n" '(evil-window-new :wk "New window")
-   "v s" '(evil-window-split :wk "Horizontal split window")
-   "v v" '(evil-window-vsplit :wk "Vertical split window")
+   "w c" '(evil-window-delete :wk "Close window")
+   "w n" '(evil-window-new :wk "New window")
+   "w s" '(evil-window-split :wk "Horizontal split window")
+   "w v" '(evil-window-vsplit :wk "Vertical split window")
    ;; Window motions
-   "v o" '(switch-window :wk "Mutil window select" )
-   "v h" '(evil-window-left :wk "Window left")
-   "v j" '(evil-window-down :wk "Window down")
-   "v k" '(evil-window-up :wk "Window up")
-   "v l" '(evil-window-right :wk "Window right")
-   "v w" '(evil-window-next :wk "Goto next window")))
+   "w o" '(switch-window :wk "Mutil window select" )))
 
 
 (provide 'vk-keybind)

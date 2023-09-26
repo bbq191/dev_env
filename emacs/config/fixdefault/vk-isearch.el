@@ -1,6 +1,5 @@
-;; vk-isearch.el --- vk-isearch configurations. -*- lexical-binding: t -*-
+;; vk-isearch.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
 
 ;; Add anzu
@@ -37,6 +36,9 @@ This is useful when followed by an immediate kill."
   (goto-char isearch-other-end))
 
 (define-key isearch-mode-map [(control return)] 'sanityinc/isearch-exit-other-end)
+(bind-key "C-s" #'isearch-forward-regexp)
+(bind-key "C-c s" #'isearch-forward-symbol)
+
 
 (provide 'vk-isearch)
 
