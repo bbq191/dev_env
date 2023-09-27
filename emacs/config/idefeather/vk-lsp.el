@@ -1,22 +1,20 @@
-;; vk-rust.el --- -*- coding: utf-8; lexical-binding: t -*-
+;; vk-lsp.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
-(use-package rustic
-  :ensure
-  :bind (:map rustic-mode-map
-              ("M-j" . lsp-ui-imenu)
-              ("M-?" . lsp-find-references)
-              ("C-c C-c l" . flycheck-list-errors)
-              ("C-c C-c a" . lsp-execute-code-action)
-              ("C-c C-c r" . lsp-rename)
-              ("C-c C-c q" . lsp-workspace-restart)
-              ("C-c C-c Q" . lsp-workspace-shutdown)
-              ("C-c C-c s" . lsp-rust-analyzer-status)
-              ("C-c C-c e" . lsp-rust-analyzer-expand-macro)
-              ("C-c C-c d" . dap-hydra)
-              ("C-c C-c h" . lsp-ui-doc-glance))
-  :config
+(use-package lsp-mode
+  :commands lsp
+  :custom
+  (lsp-idle-delay 3)
+  (lsp-modeline-diagnostics-enable t)
+  (setq lsp-enable-symbol-highlighting t)
+  (setq lsp-signature-auto-activate nil)
+  (setq lsp-eldoc-enable-hover nil)
+  (setq lsp-completion-provider t)
+  (setq lsp-completion-show-detail t)
+  (setq lsp-completion-show-kind t)
+  (setq lsp-modeline-code-actions-enable nil)
+
   ;; This controls the overlays that display type and other hints inline. Enable
   ;; / disable as you prefer. Well require a `lsp-workspace-restart' to have an
   ;; effect on open projects.
@@ -30,8 +28,6 @@
   (lsp-rust-analyzer-display-parameter-hints nil)
   (lsp-rust-analyzer-display-reborrow-hints nil))
 
-(use-package rust-playground)
 
-(provide 'vk-rust)
-
-;;; vk-rust.el ends here
+(provide 'vk-lsp)
+;;; vk-lsp.el ends here

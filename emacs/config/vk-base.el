@@ -3,7 +3,6 @@
 ;;; Code:
 
 ;; Frame ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'cl-lib)
 ;; Title
 (setq frame-title-format '("Vinci & Kate's Gnu Emacs - %b")
       icon-title-format frame-title-format)
@@ -87,8 +86,8 @@
 ;; Fonts
 (defun vk/setup-fonts ()
   (set-face-attribute 'default nil
-                      :family '("Iosevka Term" "Cascadia Code" "Fira Code" "Jetbrains Mono")
-                      :height 150)
+                      :family "Iosevka Term"
+                      :height 140)
 
   (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
   (set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)
