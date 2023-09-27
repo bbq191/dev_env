@@ -21,7 +21,7 @@
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (split-window-right)
   (other-window 1)
-  (find-file "~/.config/emacs/init.el")
+  (find-file "~/Workspace/dotfiles/emacs/init.el")
   (other-window 1))
 
 (add-hook 'emacs-startup-hook #'my-default-window-setup)

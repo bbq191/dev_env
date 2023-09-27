@@ -72,6 +72,5 @@
 
 (bind-key "C-c I" #'vk/indent-just-yanked)
 
-
 (provide 'vk-fix-default)
 ;;; vk-fix-default.el ends here

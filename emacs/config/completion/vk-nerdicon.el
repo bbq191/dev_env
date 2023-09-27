@@ -27,6 +27,7 @@
 
 ;; For treemacs
 (use-package treemacs-nerd-icons
+  :disabled
   :defer nil
   :config
   (treemacs-load-theme "nerd-icons"))

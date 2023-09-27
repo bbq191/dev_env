@@ -3,6 +3,7 @@
 ;;; Code:
 
 ;; Frame ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'cl-lib)
 ;; Title
 (setq frame-title-format '("Vinci & Kate's Gnu Emacs - %b")
       icon-title-format frame-title-format)
@@ -85,22 +86,13 @@
 
 ;; Fonts
 (defun vk/setup-fonts ()
-  "Setup fonts."
-  ;; Set default font
-  (set-face-attribute 'default nil :font "Iosevka Term" :height 150)
-  (set-face-attribute 'variable-pitch nil :font "Iosevka Term" :height 150)
+  (set-face-attribute 'default nil
+                      :family '("Iosevka Term" "Cascadia Code" "Fira Code" "Jetbrains Mono")
+                      :height 150)
 
-  ;; Specify font for all unicode characters
-  (set-fontset-font t 'symbol (font-spec :font "Symbols Nerd Font Mono"))
-
-  ;; Emoji
-  (set-fontset-font t 'emoji (font-spec :font "Apple Color Emoji") nil 'prepend)
-
-  ;; Specify font for Chinese characters
-  ;;(progn (setq face-font-rescale-alist `((,font . 0.95))))
-  (set-fontset-font t 'han (font-spec :font "Source Han Sans CN"))
-
-  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic))
+  (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
+  (set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)
+  (set-fontset-font t 'han (font-spec :family "Source Han Sans CN")))
 
 (vk/setup-fonts)
 (add-hook 'window-setup-hook #'vk/setup-fonts)

@@ -33,7 +33,7 @@
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "improvement" dir)))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "completion" dir)))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "idefeather" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "lang" dir))))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "language" dir))))
 
 ;; --debug-init implies `debug-on-error'.
 (setq debug-on-error init-file-debug)
@@ -87,6 +87,8 @@
 (require 'vk-improvement)
 (require 'vk-buffer)
 (require 'vk-window)
+(require 'vk-search)
+(require 'vk-org-mode)
 
 ;; Completion
 (require 'vk-vertico)
@@ -96,17 +98,15 @@
 (require 'vk-minibuffer)
 (require 'vk-nerdicon)
 
-;;(require 'vk-org-mode)
-
 ;; IDE feather
-;;(require 'vk-magit)
-;;(require 'vk-project)
-;;(require 'vk-completion)
-;;(require 'vk-search)
+(require 'vk-magit)
+(require 'vk-diffhl)
+(require 'vk-codereview)
+(require 'vk-project)
+;;(require 'vk-lsp)
+;;(require 'vk-dap)
 
 ;; LSP language
-;;(require 'vk-dap)
-;;;(require 'vk-lsp)
 ;;(require 'vk-language)
 
 ;; System
