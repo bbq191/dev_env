@@ -34,7 +34,7 @@
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "completion" dir)))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "idefeather" dir)))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "language" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "idefeather" dir))))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "utility" dir))))
 
 ;; --debug-init implies `debug-on-error'.
 (setq debug-on-error init-file-debug)
@@ -76,6 +76,7 @@
 (require 'vk-base)
 (require 'vk-theme)
 (require 'vk-isearch)
+(require 'vk-tramp) ;; must load before 'vk-recentf
 (require 'vk-recentf)
 (require 'vk-fix-default)
 (require 'vk-evil)
@@ -115,7 +116,6 @@
 ;; utility
 (require 'vk-vterm)
 (require 'vk-process)
-(require 'vk-tramp)
 (require 'vk-mics)
 
 ;; Load `custom-file'

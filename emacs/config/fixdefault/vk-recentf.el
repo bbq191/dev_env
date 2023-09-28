@@ -1,6 +1,5 @@
 ;; vk-recentf.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
 
 ;; By default, the list of recent files gets cluttered up with the contents of
