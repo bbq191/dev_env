@@ -1,10 +1,14 @@
-;; vk-util.el --- vk-util configurations. -*- lexical-binding: t -*-
+;; vk-mics.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
 
-;; Sudo edit especilly in edite remote file
-(use-package sudo-edit)
+(use-package google-this
+  :bind ("C-c G" . #'google-this))
+
+;; I use direnv to manage per-project environment variables.
+(use-package direnv
+  :config (direnv-mode)
+  :custom (direnv-always-show-summary nil))
 
 (use-package hl-todo
   :hook ((org-mode . hl-todo-mode)
@@ -28,12 +32,5 @@
   (gcmh-idle-delay 10)
   (gcmh-high-cons-threshold #x6400000)) ;; 100 MB
 
-;; Call undotree
-(use-package vundo
-  :bind ("C-x u" . vundo)
-  :config (setq vundo-glyph-alist vundo-unicode-symbols))
-
-
-(provide 'vk-util)
-
-;;; vk-util.el ends here
+(provide 'vk-mics)
+;;; vk-mics.el ends here

@@ -23,7 +23,5 @@
 
 (use-package rust-playground)
 
-(use-package flycheck)
-
 (provide 'vk-rust)
 ;;; vk-rustic.el ends here

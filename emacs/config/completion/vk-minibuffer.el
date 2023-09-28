@@ -1,13 +1,14 @@
-;; vk-minibuffer.el --- vk-minibuffer configurations. -*- lexical-binding: t -*-
+;; vk-minibuffer.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:
 
+;; embark is a cool package for discoverability.
 (use-package embark
   :after vertico
   :general (:keymaps 'vertico-map
-                     "C-c C-o" #'embark-export
-                     "C-c C-c" #'embark-act))
+                     "C-c e" #'embark-export
+                     "C-<escape>" #'embark-act))
 
 (use-package consult
   :custom
@@ -30,13 +31,17 @@
     (global-set-key (kbd "M-?") 'sanityinc/consult-ripgrep-at-point)))
 
 (use-package embark-consult
-  :after embark
+  :after (embark consult)
   :hook (embark-collect-mode-hook . embark-consult-preview-minor-mode))
 
+(use-package embark-vc :after embark)
 (use-package consult-flycheck)
 
 (use-package marginalia
   :hook (after-init . marginalia-mode))
+
+;; just using the builtin completion-at-point facilities for autocomplete
+(bind-key* "C-." #'completion-at-point)
 
 (provide 'vk-minibuffer)
 

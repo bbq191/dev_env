@@ -33,7 +33,8 @@
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "improvement" dir)))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "completion" dir)))
   (add-to-list 'load-path (file-name-as-directory (expand-file-name "idefeather" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "language" dir))))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "language" dir)))
+  (add-to-list 'load-path (file-name-as-directory (expand-file-name "idefeather" dir))))
 
 ;; --debug-init implies `debug-on-error'.
 (setq debug-on-error init-file-debug)
@@ -76,13 +77,11 @@
 (require 'vk-theme)
 (require 'vk-isearch)
 (require 'vk-recentf)
-(require 'vk-tramp)
 (require 'vk-fix-default)
 (require 'vk-evil)
 (require 'vk-keybind)
 
 ;; For editor improvement
-;; (require 'vk-centaur-tabs)
 (require 'vk-text-manipulation)
 (require 'vk-improvement)
 (require 'vk-buffer)
@@ -97,6 +96,7 @@
 (require 'vk-cape)
 (require 'vk-minibuffer)
 (require 'vk-nerdicon)
+(require 'vk-yasnippet)
 
 ;; IDE feather
 (require 'vk-magit)
@@ -104,16 +104,19 @@
 (require 'vk-codereview)
 (require 'vk-project)
 (require 'vk-lsp)
-;;(require 'vk-dap)
+;; (require 'vk-dap)
+(require 'vk-help)
 
 ;; LSP language
 (require 'vk-rust)
-;;(require 'vk-language)
+(require 'vk-language)
+(require 'vk-javascript)
 
-;; System
-;;(require 'vk-process)
-;;(require 'vk-tramp)
-;;(require 'vk-mics)
+;; utility
+(require 'vk-vterm)
+(require 'vk-process)
+(require 'vk-tramp)
+(require 'vk-mics)
 
 ;; Load `custom-file'
 ;; (when (file-exists-p custom-file) (load custom-file))
