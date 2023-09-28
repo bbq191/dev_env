@@ -8,6 +8,11 @@
   :config (yas-global-mode)
   :custom (yas-prompt-functions '(yas-completing-prompt)))
 
+;; Load doom-snippet for code completion
+(use-package doom-snippets
+  :load-path "/Users/afu/Workspace/snippets"
+  :after yasnippet)
+
 (provide 'vk-yasnippet)
 
 ;;; vk-yasnippet.el ends here

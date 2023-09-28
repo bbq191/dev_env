@@ -17,7 +17,8 @@
   (add-to-list 'magit-no-confirm 'stage-all-changes))
 
 ;; Magit also allows integration with GitHub and other such forges
-(use-package forge :after magit)
+(use-package forge 
+  :after magit)
 
 (use-package git-timemachine
   :after git-timemachine

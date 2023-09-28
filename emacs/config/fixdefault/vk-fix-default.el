@@ -16,7 +16,8 @@
 ;; MacOS specific
 (use-package exec-path-from-shell
   :hook (after-init . exec-path-from-shell-initialize)
-  :config (setq exec-path-from-shell-debug t))
+  :config
+  (setq exec-path-from-shell-debug t))
 
 (use-package hl-line)
 (add-hook 'prog-mode-hook #'hl-line-mode)
