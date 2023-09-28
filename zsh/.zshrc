@@ -2,6 +2,8 @@
 
 #eval "$(/opt/homebrew/bin/brew shellenv)"
 
+set +r
+
 HISTSIZE=1000000
 SAVEHIST=1000000
 
