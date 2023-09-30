@@ -83,7 +83,7 @@
 (require 'vk-keybind)
 
 ;; For editor improvement
-(require 'vk-centaur-tabs) 
+(require 'vk-centaur-tabs)
 (require 'vk-text-manipulation)
 (require 'vk-improvement)
 (require 'vk-buffer)
@@ -106,7 +106,7 @@
 (require 'vk-codereview)
 (require 'vk-project)
 (require 'vk-lsp)
-;; (require 'vk-dap)
+(require 'vk-dap)
 (require 'vk-help)
 
 ;; LSP language
