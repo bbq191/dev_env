@@ -9,10 +9,9 @@
   (dap-ui-mode)
   (dap-ui-controls-mode 1)
 
-  (require 'dap-codelldb)
   (require 'dap-lldb)
-  (require 'dap-gdb-lldb)
   ;; installs .extension/vscode
+  (require 'dap-codelldb)
   (dap-gdb-lldb-setup)
 
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
