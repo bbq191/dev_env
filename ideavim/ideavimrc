@@ -26,8 +26,9 @@ noremap <leader>Y "+Y
 noremap <leader>d "_d
 noremap x "_x
 noremap <leader>R :action IdeaVim.ReloadVimRc.reload<CR>
+set which-key
 
-""""""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
+"""""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
 """ Navigation
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
