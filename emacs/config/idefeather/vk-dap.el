@@ -12,7 +12,7 @@
   (require 'dap-lldb)
   ;; installs .extension/vscode
   (require 'dap-codelldb)
-  (dap-gdb-lldb-setup)
+  ;; (dap-gdb-lldb-setup)
 
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
 
@@ -22,6 +22,7 @@
          :request "launch"
          :name "Rust::Debug"
 	     :miDebuggerPath "~/.local/share/cargo/bin/rust-lldb"
+         :program "~/Workspace/rustpracties/little-snippet/target/debug/compare"
          ;; uncomment if lldb-mi is not in PATH
          ;; :lldbmipath "path/to/lldb-mi"
          )))
