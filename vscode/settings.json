@@ -1,13 +1,12 @@
 {
   "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Rosé Pine Moon",
+  "workbench.colorTheme": "Tokyo Night Storm",
   "workbench.iconTheme": "rose-pine-icons",
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
   "files.autoGuessEncoding": true,
   "window.zoomLevel": 0,
   "explorer.confirmDragAndDrop": false,
-  "vsicons.dontShowNewVersionMessage": true,
   "telemetry.telemetryLevel": "off",
   "git.openRepositoryInParentFolders": "always",
   "window.dialogStyle": "custom",
@@ -26,7 +25,7 @@
   // turn on wrap ruler and color it
   "editor.rulers": [
     {
-      "column": 90,
+      "column": 80,
       "color": "#faa5a588"
     }
   ],
@@ -60,7 +59,7 @@
   "editor.suggestSelection": "recentlyUsed",
   "editor.guides.bracketPairs": "active",
   "terminal.integrated.bellDuration": 100000,
-  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.fontSize": 14,
   // coding config
   "errorLens.severityText": ["E", "W", "I", "H"],
   "rust-analyzer.check.command": "clippy",
@@ -74,7 +73,7 @@
   "clangd.arguments": ["--compile-commands-dir=${workspaceFolder}/build"],
   "clangd.checkUpdates": true,
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -106,11 +105,15 @@
   "vim.hlsearch": true, // 突出显示与当前搜索匹配的所有文本
   // vim ------ keybinding
   "vim.normalModeKeyBindingsNonRecursive": [
-    // editor
+    // base control
     {
       "before": [":"],
       "commands": ["workbench.action.showCommands"],
       "silent": true
+    },
+    {
+      "before": ["leader", "q"],
+      "commands": ["workbench.action.closeWindow"]
     },
     {
       "before": ["<leader>", "y"],
@@ -128,15 +131,24 @@
       "before": ["x"],
       "after": ["\"", "_", "x"]
     },
+    // 文件管理
+    {
+      "before": ["leader", "e"],
+      "commands": ["workbench.files.action.focusFilesExplorer"]
+    },
+    {
+      "before": ["leader", "leader"],
+      "commands": ["workbench.action.quickOpen"]
+    },
     {
       "before": ["leader", "s"],
       "commands": ["editor.action.startFindReplaceAction"]
     },
     {
-      "before": ["z", "c"],
-      "commands": ["editor.toggleFold"]
+      "before": ["leader", "g"],
+      "commands": ["workbench.action.findInFiles"]
     },
-    // session control
+    // buffer control
     {
       "before": ["L"],
       "commands": ["workbench.action.nextEditor"]
@@ -146,19 +158,25 @@
       "commands": ["workbench.action.previousEditor"]
     },
     {
-      "before": ["leader", "b", "d"],
+      "before": ["leader", "b", "k"],
       "commands": ["workbench.action.closeActiveEditor"]
     },
+    // 窗口管理
     {
-      "before": ["leader", "s", "v"],
+      "before": ["leader", "w", "v"],
       "commands": ["workbench.action.splitEditorRight"]
     },
     {
-      "before": ["leader", "s", "h"],
+      "before": ["leader", "w", "s"],
       "commands": ["workbench.action.splitEditorDown"]
     },
+    // lsp 代码处理 -- c = code
     {
-      "before": ["leader", "c", "f"],
+      "before": ["c", "z"],
+      "commands": ["editor.toggleFold"]
+    },
+    {
+      "before": ["c", "f"],
       "commands": ["editor.action.formatDocument"]
     },
     {
@@ -170,61 +188,51 @@
       "commands": ["editor.action.marker.nextInFiles"]
     },
     {
-      "before": ["K"],
-      "commands": ["editor.action.showHover"]
-    },
-    {
-      "before": ["leader", "e"],
-      "commands": ["workbench.files.action.focusFilesExplorer"]
-    },
-    {
-      "before": ["leader", "f", "f"],
-      "commands": ["workbench.action.quickOpen"]
-    },
-    {
-      "before": ["leader", "s", "b"],
-      "commands": ["workbench.action.findInFiles"]
-    },
-    {
-      "before": ["leader", "q", "q"],
-      "commands": ["workbench.action.closeWindow"]
-    },
-    // coding keymaps
-    {
       "before": ["leader", "x", "q"],
       "commands": ["editor.action.quickFix"]
     },
     {
-      "before": ["leader", "d", "r"],
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
+    },
+    // debug keymaps
+    {
+      "before": [",", "d"],
       "commands": ["workbench.action.debug.start"]
     },
     {
-      "before": ["leader", "c", "r"],
-      "commands": ["workbench.action.debug.run"]
-    },
-    {
-      "before": ["leader", "d", "b"],
+      "before": [",", "b"],
       "commands": ["editor.debug.action.toggleBreakpoint"]
     },
     {
-      "before": ["leader", "d", "c"],
-      "commands": ["workbench.action.debug.continue"]
+      "before": [",", "r"],
+      "commands": ["workbench.action.debug.run"],
+      "when": "inDebugMode && debuggersAvailable && debugState != 'initializing'"
     },
     {
-      "before": ["leader", "d", "s"],
-      "commands": ["workbench.action.debug.stop"]
+      "before": [",", "c"],
+      "commands": ["workbench.action.debug.continue"],
+      "when": "inDebugMode && !focusedSessionIsAttach && debugState == 'stopped'"
     },
     {
-      "before": ["leader", "d", "i"],
-      "commands": ["workbench.action.debug.stepInto"]
+      "before": [",", "s"],
+      "commands": ["workbench.action.debug.stop"],
+      "when": "inDebugMode && !focusedSessionIsAttach"
     },
     {
-      "before": ["leader", "d", "O"],
-      "commands": ["workbench.action.debug.stepOut"]
+      "before": [",", "i"],
+      "commands": ["workbench.action.debug.stepInto"],
+      "when": "inDebugMode && !focusedSessionIsAttach && debugState != 'inactive'"
     },
     {
-      "before": ["leader", "d", "o"],
-      "commands": ["workbench.action.debug.stepOver"]
+      "before": [",", "O"],
+      "commands": ["workbench.action.debug.stepOut"],
+      "when": "inDebugMode && !focusedSessionIsAttach && debugState == 'stopped'"
+    },
+    {
+      "before": [",", "o"],
+      "commands": ["workbench.action.debug.stepOver"],
+      "when": "inDebugMode && !focusedSessionIsAttach && debugState == 'stopped'"
     }
   ],
   // 插入模式下的非递归按键绑定

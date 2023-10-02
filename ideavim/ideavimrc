@@ -14,7 +14,7 @@ set number
 set relativenumber
 set ignorecase smartcase
 set showmode
-set timeoutlen=3000
+"""set timeoutlen=1000
 set incsearch
 set hlsearch
 set ideajoin
@@ -26,18 +26,20 @@ noremap <leader>Y "+Y
 noremap <leader>d "_d
 noremap x "_x
 noremap <leader>R :action IdeaVim.ReloadVimRc.reload<CR>
-set which-key
+"" plugin install
+Plug 'preservim/nerdtree'
 
 """""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
 """ Navigation
+nnoremap <leader>e :NERDTreeToggle<cr>
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>vv :action SplitVertically<CR>
-nnoremap <leader>vs :action SplitHorizontally<CR>
-nnoremap <leader>vk :action Unsplit<CR>
+nnoremap <leader>wv :action SplitVertically<CR>
+nnoremap <leader>ws :action SplitHorizontally<CR>
+nnoremap <leader>wk :action Unsplit<CR>
 nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <Leader>en :action EditSourceInNewWindow<CR>
-nnoremap <Leader>vn :action NextWindow<CR>
+nnoremap <Leader>wn :action NextWindow<CR>
 nnoremap <Leader>q :action CloseContent<CR>
 nnoremap <Leader>K :action CloseAllEditors<CR>
 
