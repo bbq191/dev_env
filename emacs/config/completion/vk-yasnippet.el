@@ -5,7 +5,11 @@
 (use-package yasnippet
   :defer 15 ;; takes a while to load, so do it async
   :diminish yas-minor-mode
-  :config (yas-global-mode)
+  :config
+  (yas-global-mode)
+  (setq yas-snippet-dirs
+      '("/Users/afu/Workspace/snippets"))                 ;; personal snippets
+
   :custom (yas-prompt-functions '(yas-completing-prompt)))
 
 ;; Load doom-snippet for code completion
