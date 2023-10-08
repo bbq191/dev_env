@@ -35,7 +35,7 @@ o.backspace = "indent,eol,start" -- allow backspace on indent, end of line or in
 o.isfname:append("@-@")
 
 -- clipboard
--- o.clipboard:append("unnamedplus") -- use system clipboard as default register
+o.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- split windows
 o.splitright = true -- split vertical window to the right
@@ -45,3 +45,17 @@ o.splitbelow = true -- split horizontal window to the bottom
 o.swapfile = false
 o.backup = false
 
+-- all for gui
+-- Put anything you want to happen only in Neovide here
+if vim.g.neovide then
+o.guifont = "VictorMono Nerd Font:h13" 
+
+-- Helper function for transparency formatting
+local alpha = function()
+  return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+end
+-- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+vim.g.neovide_transparency = 0.0
+vim.g.transparency = 0.8
+vim.g.neovide_background_color = "#0f1117" .. alpha()
+end

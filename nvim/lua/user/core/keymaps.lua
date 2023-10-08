@@ -39,10 +39,10 @@ k.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in n
 
 -- greatest remap ever
 k.set("n", "x", '"_x')
-k.set("x", "<leader>p", [["_dP]])
-k.set({"n", "v"}, "<leader>y", [["+y]])
-k.set("n", "<leader>Y", [["+Y]])
-k.set({"n", "v"}, "<leader>d", [["_d]])
+-- k.set("x", "<leader>p", [["_dP]])
+-- k.set({"n", "v"}, "<leader>y", [["+y]])
+-- k.set("n", "<leader>Y", [["+Y]])
+-- k.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- next greatest remap ever : asbjornHaland
 k.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
