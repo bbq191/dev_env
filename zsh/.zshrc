@@ -2,8 +2,6 @@
 
 #eval "$(/opt/homebrew/bin/brew shellenv)"
 
-set +r
-
 HISTSIZE=1000000
 SAVEHIST=1000000
 
@@ -26,7 +24,7 @@ compinit
 
 ############################################################################################################
 # eval "$(thefuck --alias)"
-# eval "$(fnm env)"
+eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
 ############################################################################################################
 # confirm before overwriting something
@@ -46,5 +44,3 @@ alias pscpu='ps aux | sort -nr -k 3 | head -5'
 
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
-
-
