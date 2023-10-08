@@ -87,16 +87,19 @@
 (defun vk/setup-fonts ()
   (set-face-attribute 'default nil
                       :family "VictorMono Nerd Font"
-                      :height 140)
+                      :height 130)
 
   (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
   (set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)
-  (set-fontset-font t 'han (font-spec :family "Source Han Sans CN")))
+  (set-fontset-font t 'han (font-spec :family "Source Han Sans CN"))
 
-(vk/setup-fonts)
-(add-hook 'window-setup-hook #'vk/setup-fonts)
-(add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
+  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic))
+
+  (vk/setup-fonts)
+  (add-hook 'window-setup-hook #'vk/setup-fonts)
+  (add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
 
 
-(provide 'vk-base)
+  (provide 'vk-base)
 ;;; vk-base.el ends here

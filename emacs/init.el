@@ -110,7 +110,8 @@
 (require 'vk-help)
 
 ;; LSP language
-(require 'vk-rust)
+(require 'vk-rust) ;; some bug when startup gui
+(require 'vk-cpp)
 (require 'vk-language)
 (require 'vk-javascript)
 
