@@ -17,7 +17,8 @@
 (use-package exec-path-from-shell
   :hook (after-init . exec-path-from-shell-initialize)
   :config
-  (setq exec-path-from-shell-debug t))
+  (setq exec-path-from-shell-debug t)
+  (exec-path-from-shell-copy-env "RUSTUP_HOME"))
 
 (use-package hl-line)
 (add-hook 'prog-mode-hook #'hl-line-mode)

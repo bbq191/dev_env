@@ -12,7 +12,7 @@
   (with-no-warnings
     (defconst ccls-args nil)
     (defconst clangd-args '("-j=2"
-                            "--malloc-trim"
+                            ;; "--malloc-trim"
                             "--background-index"
                             "--clang-tidy"
                             "--completion-style=bundled"
@@ -343,8 +343,8 @@
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'"         . cmake-mode))
   :bind (:map cmake-mode-map
-         ;; Compatible with lsp-mode keybindings
-         ("C-c d" . cmake-help)))
+              ;; Compatible with lsp-mode keybindings
+              ("C-c d" . cmake-help)))
 
 ;; Extra font locks for cmake
 (use-package cmake-font-lock

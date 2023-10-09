@@ -110,7 +110,7 @@
 (require 'vk-help)
 
 ;; LSP language
-(require 'vk-rust) ;; some bug when startup gui
+(require 'vk-rust) ;; need add copy env to config
 (require 'vk-cpp)
 (require 'vk-language)
 (require 'vk-javascript)

@@ -3,6 +3,9 @@
 ;;; Code:
 
 (use-package lsp-mode
+  :hook ((c-mode . lsp)
+	     (c++-mode . lsp)
+	     (rust-mode . lsp))
   :commands lsp
   :custom
   (lsp-idle-delay 3)

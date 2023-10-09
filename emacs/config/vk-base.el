@@ -86,7 +86,7 @@
 ;; Fonts
 (defun vk/setup-fonts ()
   (set-face-attribute 'default nil
-                      :family "VictorMono Nerd Font"
+                      :family "Iosevka Fixed"
                       :height 130)
 
   (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
