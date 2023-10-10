@@ -7,9 +7,6 @@
   :diminish yas-minor-mode
   :config
   (yas-global-mode)
-  (setq yas-snippet-dirs
-      '("/Users/afu/Workspace/snippets"))                 ;; personal snippets
-
   :custom (yas-prompt-functions '(yas-completing-prompt)))
 
 ;; Load doom-snippet for code completion

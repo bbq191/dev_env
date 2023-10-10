@@ -7,6 +7,12 @@
 (setq frame-title-format '("Vinci & Kate's Gnu Emacs - %b")
       icon-title-format frame-title-format)
 
+;; Set proxy configurations in emacs
+(setq url-proxy-services
+      '(("no_proxy" . "^\\(localhost\\|127.0.0.1\\)")
+        ("http" . "localhost:6152")
+        ("https" . "localhost:6152")))
+
 ;; Misc
 (if (boundp 'use-short-answers)
     (setq use-short-answers t)
@@ -96,9 +102,9 @@
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic))
 
-  (vk/setup-fonts)
-  (add-hook 'window-setup-hook #'vk/setup-fonts)
-  (add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
+(vk/setup-fonts)
+(add-hook 'window-setup-hook #'vk/setup-fonts)
+(add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
 
-  (provide 'vk-base)
+(provide 'vk-base)
 ;;; vk-base.el ends here

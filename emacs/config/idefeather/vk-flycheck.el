@@ -1,21 +1,24 @@
-;; vk-flycheck.el --- vk-flycheck configurations. -*- lexical-binding: t -*-
+;; vk-flycheck.el --*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
 
-(use-package flymake
-  :diminish t
-  :hook (prog-mode . flymake-mode)
-  :init (setq flymake-fringe-indicator-position 'left-fringe)
-  :config (setq elisp-flymake-byte-compile-load-path
-                (append elisp-flymake-byte-compile-load-path load-path)))
+(use-package flycheck
+  :ensure t
+  :hook (prog-mode . flycheck-mode)
+  :custom
+  (flycheck-temp-prefix ".flycheck")
+  (flycheck-check-syntax-automatically '(save mode-enabled))
+  (flycheck-emacs-lisp-load-path 'inherit)
+  (flycheck-indication-mode 'left-fringe))
 
-(use-package sideline-flymake
-  :diminish sideline-mode
-  :hook (flymake-mode . sideline-mode)
-  :init (setq sideline-flymake-display-mode 'point
-              sideline-backends-right '(sideline-flymake)))
+;; extension
+(use-package flycheck-color-mode-line
+  :after flycheck-mode
+  :hook (flycheck-mode-hook . flycheck-color-mode-line-mode))
+
+(use-package flycheck-rust
+  :after rust-mode
+  :hook (flycheck-mode-hook . flycheck-rust-setup))
 
 (provide 'vk-flycheck)
-
 ;;; vk-flycheck.el ends here
