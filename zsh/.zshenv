@@ -22,6 +22,8 @@ export LANG="en_US.UTF-8"
 export DEFAULT_USER=$USER
 export EDITOR="emacs -a """
 export MANWIDTH=999
+export TERMINAL="kitty"
+export TERM="xterm-256color"
 export LESSHISTFILE=-
 # pip user command
 #export PIP_EXEC_USER="/Users/vincixu/Library/Python/3.11"
@@ -45,4 +47,4 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
 # path append
-export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/Users/afu/.local/share/cargo/bin:/Users/afu/.local/share/rustup/toolchains/stable-aarch64-apple-darwin/bin:/opt/homebrew/opt/llvm/bin:$PATH
+export PATH="$HOMEBREW_REPOSITORY/bin":"$HOMEBREW_REPOSITORY/sbin":"$CARGO_HOME/bin":"$LLVM_HOME/bin":"$PATH"
