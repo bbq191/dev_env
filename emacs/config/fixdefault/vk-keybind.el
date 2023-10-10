@@ -114,6 +114,7 @@
    "h f" '(describe-function :wk "Describe function")
    "h F" '(describe-face :wk "Describe face")
    "h g" '(describe-gnu-project :wk "Describe GNU Project")
+   "h G" '(google-this :wk "Google this") ;; from mics.el package
    "h I" '(describe-input-method :wk "Describe input method")
    "h l" '(view-lossage :wk "Display recent keystrokes and the commands run")
    "h L" '(describe-language-environment :wk "Describe language environment")
@@ -177,6 +178,7 @@
    "w n" '(evil-window-new :wk "New window")
    "w s" '(evil-window-split :wk "Horizontal split window")
    "w v" '(evil-window-vsplit :wk "Vertical split window")
+   "w 3" '(vk/split-window-thirds :wk "Split to 3 windows")
    ;; Window motions
    "w o" '(switch-window :wk "Mutil window select" )))
 

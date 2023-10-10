@@ -100,6 +100,5 @@
   (add-hook 'window-setup-hook #'vk/setup-fonts)
   (add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
 
-
   (provide 'vk-base)
 ;;; vk-base.el ends here

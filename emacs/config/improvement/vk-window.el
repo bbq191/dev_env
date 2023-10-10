@@ -7,22 +7,16 @@
 (setq-default switch-window-shortcut-style 'alphabet)
 (setq-default switch-window-timeout nil)
 
-(defun pt/split-window-thirds ()
+(defun vk/split-window-thirds ()
   "Split a window into thirds."
   (interactive)
   (split-window-right)
   (split-window-right)
   (balance-windows))
 
-(bind-key "C-c 3" #'pt/split-window-thirds)
-
 (defun my-default-window-setup ()
   "Called by 'emacs-startup-hook to set up my initial window configuration."
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  (split-window-right)
-  (other-window 1)
-  (find-file "~/Documents/orgnote/todo/todo.org")
-  (other-window 1))
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
 
 (add-hook 'emacs-startup-hook #'my-default-window-setup)
 

@@ -18,6 +18,9 @@
   :hook (after-init . exec-path-from-shell-initialize)
   :config
   (setq exec-path-from-shell-debug t)
+  (exec-path-from-shell-copy-env "LLVM_HOME")
+  (exec-path-from-shell-copy-env "LDFLAGS")
+  (exec-path-from-shell-copy-env "CPPFLAGS")
   (exec-path-from-shell-copy-env "RUSTUP_HOME"))
 
 (use-package hl-line)
