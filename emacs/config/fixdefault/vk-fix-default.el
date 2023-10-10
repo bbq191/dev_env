@@ -24,6 +24,7 @@
   (exec-path-from-shell-copy-env "LLVM_HOME")
   (exec-path-from-shell-copy-env "LDFLAGS")
   (exec-path-from-shell-copy-env "CPPFLAGS")
+  (exec-path-from-shell-copy-env "CARGO_HOME")
   (exec-path-from-shell-copy-env "RUSTUP_HOME"))
 
 (use-package hl-line)

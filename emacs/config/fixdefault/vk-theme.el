@@ -8,7 +8,7 @@
   :config
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
-  (let ((chosen-theme 'doom-nord))
+  (let ((chosen-theme 'doom-sourcerer))
     (setq doom-challenger-deep-brighter-comments t
           doom-challenger-deep-brighter-modeline t
           doom-rouge-brighter-comments t

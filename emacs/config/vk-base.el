@@ -93,7 +93,7 @@
 (defun vk/setup-fonts ()
   (set-face-attribute 'default nil
                       :family "Iosevka Fixed"
-                      :height 130)
+                      :height 150)
 
   (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
   (set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)
