@@ -12,13 +12,13 @@
   (flycheck-indication-mode 'left-fringe))
 
 ;; extension
-(use-package flycheck-color-mode-line
-  :after flycheck-mode
-  :hook (flycheck-mode-hook . flycheck-color-mode-line-mode))
+;; (use-package flycheck-inline
+;;   :after flycheck-mode
+;;   :hook (flycheck-mode-hook . flycheck-inline-mode))
 
-(use-package flycheck-rust
-  :after rust-mode
-  :hook (flycheck-mode-hook . flycheck-rust-setup))
+;; (use-package flycheck-rust
+;;   :after rust-mode
+;;   :hook (flycheck-mode-hook . flycheck-rust-setup))
 
-(provide 'vk-flycheck)
+;; (provide 'vk-flycheck)
 ;;; vk-flycheck.el ends here

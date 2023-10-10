@@ -134,7 +134,7 @@
   ;; projectile-command-map already has a ton of bindings
   ;; set for us, so no need to specify each individually.
   (vk/leader-keys
-   "p" '(projectile-command-map :wk "Project"))
+   "p" '(lsp-command-map :wk "Project"))
 
   ;; For rust language special
   (vk/leader-keys
