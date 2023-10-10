@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-export https_proxy=http://127.0.0.1:6152 http_proxy=http://127.0.0.1:6152 all_proxy=socks5://127.0.0.1:6153
+export HTTPS_PROXY=http://127.0.0.1:6152 
+export HTTP_PROXY=http://127.0.0.1:6152 
+export ALL_PROXY=socks5://127.0.0.1:6153
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
