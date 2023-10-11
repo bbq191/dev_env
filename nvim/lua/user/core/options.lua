@@ -48,7 +48,7 @@ o.backup = false
 -- all for gui
 -- Put anything you want to happen only in Neovide here
 if vim.g.neovide then
-	o.guifont = "Iosevka Fixed:h13"
+	o.guifont = "Iosevka Fixed:h15"
 
 	-- Helper function for transparency formatting
 	local alpha = function()
@@ -56,6 +56,6 @@ if vim.g.neovide then
 	end
 	-- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
 	vim.g.neovide_transparency = 0.0
-	vim.g.transparency = 0.8
+	vim.g.transparency = 0.9
 	vim.g.neovide_background_color = "#0f1117" .. alpha()
 end
