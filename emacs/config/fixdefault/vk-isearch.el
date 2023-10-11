@@ -2,12 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; Add anzu
-(use-package anzu
-  :config
-  (global-anzu-mode +1)
-  (setq anzu-mode-lighter ""))
-
 ;; Optimiz isearch
 (with-eval-after-load 'isearch
   ;; DEL during isearch should edit the search string, not jump back to the previous result

@@ -10,8 +10,6 @@
 ;; Global keybind
 (use-package general
   :config
-  (general-evil-setup)
-
   ;; set up 'SPC' as the global leader key
   (general-create-definer vk/leader-keys
                           :states '(normal insert visual emacs)

@@ -1,3 +1,4 @@
+
 ;; init.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
@@ -79,8 +80,6 @@
 (require 'vk-tramp) ;; must load before 'vk-recentf
 (require 'vk-recentf)
 (require 'vk-fix-default)
-(require 'vk-evil)
-(require 'vk-keybind)
 
 ;; For editor improvement
 (require 'vk-centaur-tabs)

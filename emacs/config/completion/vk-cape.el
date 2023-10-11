@@ -1,4 +1,4 @@
-;; vk-cape.el --- cape configurations. -*- lexical-binding: t -*-
+;; vk-cape.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:

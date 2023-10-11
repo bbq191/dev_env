@@ -6,9 +6,9 @@
 ;; embark is a cool package for discoverability.
 (use-package embark
   :after vertico
-  :general (:keymaps 'vertico-map
-                     "C-c e" #'embark-export
-                     "C-<escape>" #'embark-act))
+  :bind (:map vertico-map
+                     ("C-c e" . embark-export)
+                     ("C-<escape>" . embark-act)))
 
 (use-package consult
   :custom

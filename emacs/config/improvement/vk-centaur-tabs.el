@@ -10,7 +10,9 @@
   (centaur-tabs-show-new-tab-button nil)
   (centaur-tabs-set-close-button nil)
   (centaur-tabs-enable-ido-completion nil)
-  (centaur-tabs-gray-out-icons t))
+  (centaur-tabs-gray-out-icons t)
+  :bind (("s-{" . #'centaur-tabs-backward)
+   ("s-}" . #'centaur-tabs-forward)))
 
 (provide 'vk-centaur-tabs)
 ;;; vk-centaur-tabs.el ends here

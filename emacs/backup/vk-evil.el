@@ -4,10 +4,10 @@
 
 (use-package evil
   :init (setq evil-want-integration t
-        evil-want-keybinding nil
-        evil-vsplit-window-right nil
-        evil-split-window-below nil
-        evil-undo-system 'undo-redo)  ;; Adds vim-like C-r redo functionality
+              evil-want-keybinding nil
+              evil-vsplit-window-right nil
+              evil-split-window-below nil
+              evil-undo-system 'undo-redo)  ;; Adds vim-like C-r redo functionality
   :hook (after-init . evil-mode))
 
 (use-package evil-collection

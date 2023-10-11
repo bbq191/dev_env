@@ -5,27 +5,28 @@
 
 (use-package corfu
   :hook ((after-init . global-corfu-mode)
-         ;; (global-corfu-mode . corfu-popupinfo-mode)
+         (global-corfu-mode . corfu-popupinfo-mode)
          (lsp-completion-mode . kb/corfu-setup-lsp)) ; Use corfu for lsp completion
   :custom-face
   (corfu-border ((t (:inherit region :background unspecified))))
-  :general (:keymaps 'corfu-map ;; :states 'insert is not necessory
-                     "C-n" #'corfu-next
-                     "C-p" #'corfu-previous
-                     "<escape>" #'corfu-quit
-                     "<return>" #'corfu-insert
-                     "M-d" #'corfu-popupinfo-toggle)
+  :bind (:map corfu-map
+                     ("C-n" . corfu-next)
+                     ("C-p" . corfu-previous)
+                     ("<escape>" . corfu-quit)
+                     ("<return>" . corfu-insert)
+                     ("M-d" . corfu-popupinfo-toggle))
   :custom
   ;; Works with `indent-for-tab-command'. Make sure tab doesn't indent when you
   ;; want to perform completion
   (tab-always-indent 'complete)
   (completion-cycle-threshold nil)      ; Always show candidates in menu
 
-  (corfu-auto nil)
+  (corfu-auto t)
   (corfu-auto-prefix 3)
   (corfu-auto-delay 1)
+  (corfu-popupinfo-delay '(2 . 1))
 
-  (corfu-min-width 30)
+  (corfu-min-width 40)
   (corfu-max-width corfu-min-width)     ; Always have the same width
   (corfu-count 14)
   (corfu-scroll-margin 4)

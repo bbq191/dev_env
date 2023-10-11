@@ -2,6 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
+;; change key for mac, many times s key is useful
+(when (eq system-type 'darwin)
+ (setq left-mac-command-modifier 'meta))
+
 ;; Keep modeline clean.
 (use-package diminish
   :config (diminish 'visual-line-mode))
