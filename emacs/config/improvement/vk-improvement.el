@@ -77,7 +77,7 @@
     which-key-side-window-max-height 0.15
     which-key-idle-delay 1.5
     which-key-max-description-length 40
-    which-key-separator " |→ " ))
+    which-key-separator " │→ " ))
 
 ;; we can automatically chmod a file containing a shebang into executable mode.
 (setq executable-prefix-env t)
