@@ -24,7 +24,7 @@
   (org-default-notes-file (concat org-directory "/note"))
   (org-return-follows-link t)
   (org-src-ask-before-returning-to-edit-buffer nil "org-src is kinda needy out of the box")
-  (org-src-window-setup 'current-window)
+  ;; (org-src-window-setup 'current-window)
   (org-agenda-files (list (concat org-directory "/todo")))
   (org-pretty-entities t)
 

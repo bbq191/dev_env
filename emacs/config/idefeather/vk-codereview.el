@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package emojify)
 ;; review
 (use-package code-review
   :custom

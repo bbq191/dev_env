@@ -4,7 +4,9 @@
 
 ;; change key for mac, many times s key is useful
 (when (eq system-type 'darwin)
- (setq left-mac-command-modifier 'meta))
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'none
+        mac-right-command-modifier 'super))
 
 ;; Keep modeline clean.
 (use-package diminish

@@ -33,12 +33,14 @@
 
 ;; provides a better editing experience.
 (use-package smartparens
-  :bind (("C-c d w" . #'sp-delete-word)
+  :bind (("C-(" . #'sp-backward-sexp)
+         ("C-)" . #'sp-forward-sexp)
+         ("C-c d w" . #'sp-delete-word)
          ("<left>" . #'sp-backward-sexp)
          ("<right>" . #'sp-forward-sexp)
+         ("C-c C-(" . #'sp-up-sexp)
          ("C-c j s" . #'sp-copy-sexp)
-         ("<up>" . #'sp-up-sexp)
-         ("<down>" . #'sp-down-sexp))
+         ("C-c C-)" . #'sp-down-sexp))
   :config
   (require 'smartparens-config)
   (setq sp-show-pair-delay 0

@@ -2,7 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package google-this)
+(use-package google-this
+  :bind ("C-c G" . #'google-this))
 
 ;; I use direnv to manage per-project environment variables.
 (use-package direnv

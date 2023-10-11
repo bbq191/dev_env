@@ -12,7 +12,7 @@
   (centaur-tabs-enable-ido-completion nil)
   (centaur-tabs-gray-out-icons t)
   :bind (("s-{" . #'centaur-tabs-backward)
-   ("s-}" . #'centaur-tabs-forward)))
+         ("s-}" . #'centaur-tabs-forward)))
 
 (provide 'vk-centaur-tabs)
 ;;; vk-centaur-tabs.el ends here
