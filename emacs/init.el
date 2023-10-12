@@ -75,7 +75,7 @@
 ;; Personal config load ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'vk-base)
 (require 'vk-theme)
-(require 'vk-isearch)
+;;(require 'vk-isearch)
 (require 'vk-tramp) ;; must load before 'vk-recentf
 (require 'vk-recentf)
 (require 'vk-fix-default)

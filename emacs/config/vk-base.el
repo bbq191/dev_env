@@ -61,7 +61,7 @@
       ;; 允许在活动的minibuffer中执行命令并打开新的minibuffer。这样可以实现命令的嵌套。
       enable-recursive-minibuffers t
       ;; Some pretty config from prucell
-      initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥  you!\n\n"))
+      initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
 
 (global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
 (delete-selection-mode t)    ;; You can select text and delete it by typing.
@@ -93,7 +93,7 @@
 (defun vk/setup-fonts ()
   (set-face-attribute 'default nil
                       :family "Iosevka Fixed"
-                      :height 150)
+                      :height 130)
 
   (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
   (set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)

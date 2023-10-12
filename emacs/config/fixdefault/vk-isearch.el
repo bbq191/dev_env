@@ -30,9 +30,6 @@ This is useful when followed by an immediate kill."
   (goto-char isearch-other-end))
 
 (define-key isearch-mode-map [(control return)] 'sanityinc/isearch-exit-other-end)
-(bind-key "C-s" #'isearch-forward-regexp)
-(bind-key "C-c s" #'isearch-forward-symbol)
-
 
 (provide 'vk-isearch)
 

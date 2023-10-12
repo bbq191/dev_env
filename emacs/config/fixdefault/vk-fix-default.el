@@ -87,5 +87,21 @@
 
 (bind-key "C-c I" #'vk/indent-just-yanked)
 
+;; paste by auto format
+(defun pt/yank ()
+  "Call yank, then indent the pasted region, as TextMate does."
+  (interactive)
+  (let ((point-before (point)))
+    (if mark-active (call-interactively 'delete-backward-char))
+    (yank)
+    (indent-region point-before (point))))
+
+(bind-key "C-y" #'pt/yank)
+(bind-key "s-v" #'pt/yank)
+(bind-key "C-Y" #'yank)
+
+(bind-key "C-s" #'isearch-forward-regexp)
+(bind-key "C-c s" #'isearch-forward-symbol)
+
 (provide 'vk-fix-default)
 ;;; vk-fix-default.el ends here
