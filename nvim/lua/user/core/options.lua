@@ -48,7 +48,7 @@ o.backup = false
 -- all for gui
 -- Put anything you want to happen only in Neovide here
 if vim.g.neovide then
-	o.guifont = "Iosevka Fixed:h15"
+	o.guifont = "Iosevka Fixed:h13"
 
 	-- Helper function for transparency formatting
 	local alpha = function()
