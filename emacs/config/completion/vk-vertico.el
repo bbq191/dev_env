@@ -34,6 +34,16 @@
 
 (use-package vertico
   :demand
+  :init
+  (defun kb/basic-remote-try-completion (string table pred point)
+    (and (vertico--remote-p string)
+         (completion-basic-try-completion string table pred point)))
+  (defun kb/basic-remote-all-completions (string table pred point)
+    (and (vertico--remote-p string)
+         (completion-basic-all-completions string table pred point)))
+  (add-to-list 'completion-styles-alist
+               '(basic-remote           ; Name of `completion-style'
+                 kb/basic-remote-try-completion kb/basic-remote-all-completions nil))
   :hook ((after-init . vertico-mode)
          (rfn-eshadow-update-overlay . vertico-directory-tidy))
   :config
