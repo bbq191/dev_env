@@ -21,11 +21,8 @@
    (list :type "lldb"
          :request "launch"
          :name "Rust::Debug"
-	     :miDebuggerPath "~/.local/share/cargo/bin/rust-lldb"
-         :program: "${workspaceRoot}/target/debug/${fileBasenameNoExtension}
-         ;; :program "~/Workspace/rustpracties/little-snippet/target/debug/compare"
-         ;; uncomment if lldb-mi is not in PATH
-         ;; :lldbmipath "path/to/lldb-mi"
-         )))
+         :miDebuggerPath "~/.local/share/cargo/bin/rust-lldb"
+         :program: "${workspaceRoot}/target/debug/${fileBasenameNoExtension}")))
+
 (provide 'vk-dap)
 ;;; vk-dap.el ends here

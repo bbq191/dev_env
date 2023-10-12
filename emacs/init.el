@@ -81,13 +81,13 @@
 (require 'vk-fix-default)
 
 ;; For editor improvement
+(require 'vk-org-mode) ; load before vk-text-manipulation
 (require 'vk-centaur-tabs)
 (require 'vk-text-manipulation)
 (require 'vk-improvement)
 (require 'vk-buffer)
 (require 'vk-window)
 (require 'vk-search)
-(require 'vk-org-mode)
 
 ;; Completion
 (require 'vk-vertico)
