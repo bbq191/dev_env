@@ -94,6 +94,7 @@
 (require 'vk-orderless)
 (require 'vk-corfu)
 (require 'vk-cape)
+(require 'vk-dabbrev)
 (require 'vk-minibuffer)
 (require 'vk-nerdicon)
 (require 'vk-yasnippet)

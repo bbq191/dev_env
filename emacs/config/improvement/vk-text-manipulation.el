@@ -16,9 +16,12 @@
 
 ;; avy gives us fluent jump-to-line commands mapped to the home row.
 (use-package avy
+  :bind (:map prog-mode-map ("C-'" . #'avy-goto-line))
+  :bind (:map org-mode-map ("C-'" . #'avy-goto-line))
   :bind (("C-c j k" . #'avy-kill-whole-line)
          ("C-c j h" . #'avy-kill-region)
          ("C-c j w" . #'avy-copy-line)
+         ("C-z" . #'avy-goto-char)
          ("C-c v" . #'avy-goto-char)))
 
 (use-package avy-zap

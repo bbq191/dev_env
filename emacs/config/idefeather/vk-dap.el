@@ -22,7 +22,8 @@
          :request "launch"
          :name "Rust::Debug"
 	     :miDebuggerPath "~/.local/share/cargo/bin/rust-lldb"
-         :program "~/Workspace/rustpracties/little-snippet/target/debug/compare"
+         :program: "${workspaceRoot}/target/debug/${fileBasenameNoExtension}
+         ;; :program "~/Workspace/rustpracties/little-snippet/target/debug/compare"
          ;; uncomment if lldb-mi is not in PATH
          ;; :lldbmipath "path/to/lldb-mi"
          )))

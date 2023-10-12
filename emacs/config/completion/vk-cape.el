@@ -1,6 +1,5 @@
 ;; vk-cape.el --- -*- coding: utf-8; lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
 
 ;; completion extension
