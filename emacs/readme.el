@@ -630,3 +630,603 @@
                               haskell-compilation-mode
                               compilation-mode
                               bqn-inferior-mode)))
+
+(use-package org
+  :hook ((org-mode . visual-line-mode) (org-mode . pt/org-mode-hook))
+  :hook ((org-src-mode . display-line-numbers-mode)
+         (org-src-mode . pt/disable-elisp-checking))
+  :bind (("C-c o c" . org-capture)
+         ("C-c o a" . org-agenda)
+         ("C-c o A" . consult-org-agenda)
+         :map org-mode-map
+         ("M-<left>" . nil)
+         ("M-<right>" . nil)
+         ("C-c c" . #'org-mode-insert-code)
+         ("C-c a f" . #'org-shifttab)
+         ("C-c a S" . #'zero-width))
+  :custom
+  (org-adapt-indentation nil)
+  (org-directory "~/Documents/orgnote")
+  (org-special-ctrl-a/e t)
+
+  (org-default-notes-file (concat org-directory "/note"))
+  (org-return-follows-link t)
+  (org-src-ask-before-returning-to-edit-buffer nil "org-src is kinda needy out of the box")
+  ;; (org-src-window-setup 'current-window)
+  (org-agenda-files (list (concat org-directory "/todo")))
+  (org-pretty-entities t)
+
+  :config
+  (defun pt/org-mode-hook ())
+  (defun make-inserter (c) '(lambda () (interactive) (insert-char c)))
+  (defun zero-width () (interactive) (insert "​"))
+
+  (defun pt/disable-elisp-checking ()
+    (flymake-mode nil))
+  (defun org-mode-insert-code ()
+    "Like markdown-insert-code, but for org instead."
+    (interactive)
+    (org-emphasize ?~)))
+
+(use-package org-modern
+  :config (global-org-modern-mode)
+  :custom (org-modern-variable-pitch nil))
+
+(use-package org-ref
+  :disabled ;; very slow to load
+  :config (defalias 'dnd-unescape-uri 'dnd--unescape-uri))
+
+(use-package org-roam
+  :bind
+  (("C-c o r" . #'org-roam-capture)
+   ("C-c o f" . #'org-roam-node-find)
+   ("C-c o t" . #'org-roam-tag-add)
+   ("C-c o i" . #'org-roam-node-insert)
+   ("C-c o :" . #'org-roam-buffer-toggle))
+  :custom
+  (org-roam-directory (expand-file-name "~/Documents/orgnote/roam"))
+  (org-roam-completion-everywhere t)
+  (org-roam-v2-ack t)
+  :config
+  (org-roam-db-autosync-mode))
+
+(use-package org-alert
+  :config (org-alert-enable)
+  :custom (alert-default-style 'osx-notifier))
+
+(use-package ob-mermaid)
+
+(bind-key "<f12>" #'other-window)
+
+(use-package magit
+  :diminish magit-auto-revert-mode
+  :diminish auto-revert-mode
+  :bind (("C-c g" . #'magit-status))
+  :custom
+  (magit-diff-refine-hunk t)
+  (magit-repository-directories '(("~/Workspace" . 1)))
+  (magit-list-refs-sortby "-creatordate")
+  :config
+  (defun pt/commit-hook () (set-fill-column 80))
+  (add-hook 'git-commit-setup-hook #'pt/commit-hook)
+  (add-to-list 'magit-no-confirm 'stage-all-changes))
+
+;; Magit also allows integration with GitHub and other such forges
+(use-package forge
+  :after magit)
+
+(use-package git-timemachine
+  :disabled
+  :after git-timemachine
+  :hook (evil-normalize-keymaps . git-timemachine-hook)
+  :config
+  (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
+  (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision))
+
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode)
+  (diff-hl-flydiff-mode)
+  (diff-hl-margin-mode)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  :custom
+  (diff-hl-disable-on-remote t)
+  (diff-hl-margin-symbols-alist
+   '((insert . " ")
+     (delete . " ")
+     (change . " ")
+     (unknown . "?")
+     (ignored . "i"))))
+
+(use-package emojify)
+
+(use-package code-review
+  :custom
+  (forge-owned-accounts '(("afu" . nil)))
+  (code-review-auth-login-marker 'forge)
+  (code-review-fill-column 80)
+  (code-review-new-buffer-window-strategy #'switch-to-buffer-other-window)
+  :after (magit forge emojify)
+  :bind (:map forge-pullreq-section-map (("RET" . #'forge-browse-dwim)
+                                         ("C-c r" . #'code-review-forge-pr-at-point)))
+  :bind (:map forge-topic-mode-map ("C-c r" . #'code-review-forge-pr-at-point))
+  :bind (:map code-review-mode-map (("C-c n" . #'code-review-comment-jump-next)
+                                    ("N" . #'code-review-comment-jump-next)
+                                    ("P" . #'code-review-comment-jump-previous)
+                                    ("C-c p" . #'code-review-comment-jump-previous))))
+
+(use-package compile
+  :custom
+  (compilation-read-command nil "Don't prompt every time.")
+  (compilation-scroll-output 'first-error))
+
+(use-package project
+  :pin gnu
+  :bind (("C-c k" . #'project-kill-buffers)
+         ("C-c m" . #'project-compile)
+         ("C-x f" . #'find-file)
+         ("C-c F" . #'project-switch-project)
+         ("C-c R" . #'pt/recentf-in-project)
+         ("C-c f" . #'project-find-file))
+  :custom
+  ;; This is one of my favorite things: you can customize
+  ;; the options shown upon switching projects.
+  (project-switch-commands
+   '((project-find-file "Find file")
+     (magit-project-status "Magit" ?g)
+     (deadgrep "Grep" ?h)
+     (pt/project-run-vterm "vterm" ?t)
+     (project-dired "Dired" ?d)
+     (pt/recentf-in-project "Recently opened" ?r)))
+  (compilation-always-kill t)
+  (project-vc-merge-submodules nil))
+
+(defun pt/recentf-in-project ()
+  "As `recentf', but filtering based on the current project root."
+  (interactive)
+  (let* ((proj (project-current))
+         (root (if proj (project-root proj) (user-error "Not in a project"))))
+    (cl-flet ((ok (fpath) (string-prefix-p root fpath)))
+      (find-file (completing-read "Find recent file:" recentf-list #'ok)))))
+
+(use-package posframe
+  :hook (after-load-theme . posframe-delete-all)
+  :init (defface posframe-border
+          `((t (:inherit region)))
+          "Face used by the `posframe' border."
+          :group 'posframe)
+  (defvar posframe-border-width 2
+    "Default posframe border width.")
+  :config
+  (with-no-warnings
+    (defun my-posframe--prettify-frame (&rest _)
+      (set-face-background 'fringe nil posframe--frame))
+    (advice-add #'posframe--create-posframe :after #'my-posframe--prettify-frame)
+
+    (defun posframe-poshandler-frame-center-near-bottom (info)
+      (cons (/ (- (plist-get info :parent-frame-width)
+                  (plist-get info :posframe-width))
+               2)
+            (/ (+ (plist-get info :parent-frame-height)
+                  (* 2 (plist-get info :font-height)))
+               2)))))
+
+(use-package vertico
+  :demand
+  :init
+  (defun kb/basic-remote-try-completion (string table pred point)
+    (and (vertico--remote-p string)
+         (completion-basic-try-completion string table pred point)))
+  (defun kb/basic-remote-all-completions (string table pred point)
+    (and (vertico--remote-p string)
+         (completion-basic-all-completions string table pred point)))
+  (add-to-list 'completion-styles-alist
+               '(basic-remote           ; Name of `completion-style'
+                 kb/basic-remote-try-completion kb/basic-remote-all-completions nil))
+  :hook ((after-init . vertico-mode)
+         (rfn-eshadow-update-overlay . vertico-directory-tidy))
+  :config
+  (vertico-mouse-mode)
+  (set-face-attribute 'vertico-mouse nil :inherit nil)
+  (savehist-mode)
+  :custom
+  (vertico-count 22)
+  (vertico-cycle t)
+  :bind (:map vertico-map
+              ("C-'"           . vertico-quick-exit)
+              ("C-c '"         . vertico-quick-insert)
+              ("<return>"      . exit-minibuffer)
+              ("C-m"           . vertico-insert)
+              ("C-c SPC"       . vertico-quick-exit)
+              ("C-<backspace>" . vertico)
+              ("DEL"           . vertico-directory-delete-char)))
+
+(use-package vertico-posframe
+  :hook (vertico-mode . vertico-posframe-mode)
+  :init (setq vertico-posframe-poshandler
+              #'posframe-poshandler-frame-center-near-bottom
+              vertico-posframe-parameters
+              '((left-fringe  . 8)
+                (right-fringe . 8))))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless))
+                                        ; I want to be in control!
+  (completion-category-defaults nil)
+  (completion-category-overrides
+                                        ; For `tramp' hostname completion with `vertico'
+   '((file (styles basic-remote
+                   orderless))))
+  (orderless-component-separator 'orderless-escapable-split-on-space)
+  (orderless-matching-styles
+   '(orderless-literal
+     orderless-prefixes
+     orderless-initialism
+     orderless-regexp
+     ;; orderless-flex
+     ;; orderless-strict-leading-initialism
+     ;; orderless-strict-initialism
+     ;; orderless-strict-full-initialism
+     ;; orderless-without-literal          ; Recommended for dispatches instead
+     ))
+  (orderless-style-dispatchers
+   '(prot-orderless-literal-dispatcher
+     prot-orderless-strict-initialism-dispatcher
+     prot-orderless-flex-dispatcher))
+
+  :init
+  (defun orderless--strict-*-initialism (component &optional anchored)
+    "Match a COMPONENT as a strict initialism, optionally ANCHORED.
+  The characters in COMPONENT must occur in the candidate in that
+  order at the beginning of subsequent words comprised of letters.
+  Only non-letters can be in between the words that start with the
+  initials.
+
+  If ANCHORED is `start' require that the first initial appear in
+  the first word of the candidate.  If ANCHORED is `both' require
+  that the first and last initials appear in the first and last
+  words of the candidate, respectively."
+    (orderless--separated-by
+        '(seq (zero-or-more alpha) word-end (zero-or-more (not alpha)))
+      (cl-loop for char across component collect `(seq word-start ,char))
+      (when anchored '(seq (group buffer-start) (zero-or-more (not alpha))))
+      (when (eq anchored 'both)
+        '(seq (zero-or-more alpha) word-end (zero-or-more (not alpha)) eol))))
+
+  (defun orderless-strict-initialism (component)
+    "Match a COMPONENT as a strict initialism.
+  This means the characters in COMPONENT must occur in the
+  candidate in that order at the beginning of subsequent words
+  comprised of letters.  Only non-letters can be in between the
+  words that start with the initials."
+    (orderless--strict-*-initialism component))
+
+  (defun prot-orderless-literal-dispatcher (pattern _index _total)
+    "Literal style dispatcher using the equals sign as a suffix.
+  It matches PATTERN _INDEX and _TOTAL according to how Orderless
+  parses its input."
+    (when (string-suffix-p "=" pattern)
+      `(orderless-literal . ,(substring pattern 0 -1))))
+
+  (defun prot-orderless-strict-initialism-dispatcher (pattern _index _total)
+    "Leading initialism  dispatcher using the comma suffix.
+  It matches PATTERN _INDEX and _TOTAL according to how Orderless
+  parses its input."
+    (when (string-suffix-p "," pattern)
+      `(orderless-strict-initialism . ,(substring pattern 0 -1))))
+
+  (defun prot-orderless-flex-dispatcher (pattern _index _total)
+    "Flex  dispatcher using the tilde suffix.
+  It matches PATTERN _INDEX and _TOTAL according to how Orderless
+  parses its input."
+    (when (string-suffix-p "." pattern)
+      `(orderless-flex . ,(substring pattern 0 -1)))))
+
+;; embark is a cool package for discoverability.
+(use-package embark
+  :after vertico
+  :bind (:map vertico-map
+              ("C-c e" . embark-export)
+              ("C-<escape>" . embark-act)))
+(use-package consult
+  :bind* (("C-c r"     . consult-recent-file))
+  :bind (("C-c i"     . consult-imenu)
+         ("C-c b"     . consult-project-buffer)
+         ("C-x b"     . consult-buffer)
+         ("C-c B"     . consult-bookmark)
+         ("C-c `"     . flymake-goto-next-error)
+         ("C-c h"     . consult-ripgrep)
+         ("C-c y"     . consult-yank-pop)
+         ("C-x C-f"   . find-file)
+         ("C-c C-h a" . describe-symbol))
+  :custom
+  (consult-narrow-key (kbd ";"))
+  (completion-in-region-function #'consult-completion-in-region)
+  (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref)
+  (consult-project-root-function #'deadgrep--project-root) ;; ensure ripgrep works
+  (consult-preview-key '(:debounce 0.25 any)))
+
+(use-package embark-consult
+  :after (embark consult)
+  :hook (embark-collect-mode-hook . embark-consult-preview-minor-mode))
+
+(use-package embark-vc :after embark)
+(use-package consult-flycheck)
+
+(use-package marginalia
+  :hook (after-init . marginalia-mode))
+
+(use-package ctrlf
+  :config (ctrlf-mode))
+
+(use-package prescient
+  :config (prescient-persist-mode))
+
+(use-package dumb-jump
+  :config
+  (defun pt/quietly-dumb-jump ()
+    (interactive)
+    (shut-up (call-interactively 'dumb-jump-go)))
+  :bind (("C-c J" . #'pt/quietly-dumb-jump)))
+
+(use-package deadgrep
+  :ensure-system-package rg
+  :bind (("C-c H" . #'deadgrep)))
+
+(use-package visual-regexp
+  :bind (("C-c 5" . #'vr/replace)))
+
+(bind-key* "C-." #'completion-at-point)
+
+(use-package dap-mode
+  :after dap-mode
+  :config
+  (dap-ui-mode)
+  (dap-ui-controls-mode 1)
+
+  (require 'dap-lldb)
+  ;; installs .extension/vscode
+  (require 'dap-codelldb)
+  ;; (dap-gdb-lldb-setup)
+
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+
+  (dap-register-debug-template
+   "Rust::LLDB Run Configuration"
+   (list :type "lldb"
+         :request "launch"
+         :name "Rust::Debug"
+         :miDebuggerPath "~/.local/share/cargo/bin/rust-lldb"
+         :program: "${workspaceRoot}/target/debug/${fileBasenameNoExtension}")))
+
+(use-package xref
+  :pin gnu
+  :custom (xref-auto-jump-to-first-xref t)
+  :bind (("s-r" . #'xref-find-references)
+         ("s-d" . #'xref-find-definitions)
+         ("s-[" . #'xref-go-back)
+         ("s-]" . #'xref-go-forward)))
+
+(use-package eldoc
+  :pin gnu
+  :diminish
+  :bind ("s-d" . #'eldoc)
+  :custom
+  (eldoc-echo-area-prefer-doc-buffer t)
+  (eldoc-echo-area-use-multiline-p t))
+
+(use-package eglot
+  :hook ((cc-mode . eglot-ensure)
+         (rust-mode . eglot-ensure))
+  :bind (:map eglot-mode-map
+              ("C-<down-mouse-1>" . #'xref-find-definitions)
+              ("C-S-<down-mouse-1>" . #'xref-find-references)
+              ("C-c a r" . #'eglot-rename)
+              ("C-c C-c" . #'eglot-code-actions))
+  :custom
+  (eglot-confirm-server-initiated-edits nil)
+  (eglot-autoshutdown t)
+  (eglot-send-changes-idle-time 0.1)
+  :config
+  ;; Eglot doesn't correctly unescape markdown: https://github.com/joaotavora/eglot/issues/333
+  (defun mpolden/gfm-unescape-string (string)
+    "Remove backslash-escape of punctuation characters in STRING."
+    ;; https://github.github.com/gfm/#backslash-escapes
+    (replace-regexp-in-string "[\\\\]\\([][!\"#$%&'()*+,./:;<=>?@\\^_`{|}~-]\\)" "\\1" string))
+
+  (advice-add 'eglot--format-markup :filter-return 'mpolden/gfm-unescape-string)
+
+  (defun pt/add-eglot-to-prog-menu (old startmenu click)
+    "Add useful Eglot functions to the prog-mode context menu."
+    (let ((menu (funcall old startmenu click))
+          (identifier (save-excursion
+                        (mouse-set-point click)
+                        (xref-backend-identifier-at-point
+                         (xref-find-backend)))))
+      (when identifier
+        (define-key-after menu [eglot-find-impl]
+          `(menu-item "Find Implementations" eglot-find-implementation
+                      :help ,(format "Find implementations of `%s'" identifier))
+          'xref-find-ref))
+      menu))
+
+  (advice-add 'prog-context-menu :around #'pt/add-eglot-to-prog-menu)
+  )
+
+(use-package consult-eglot
+  :config
+  (defun pt/consult-eglot ()
+    (interactive)
+    (let ((completion-styles '(emacs22)))
+      (call-interactively #'consult-eglot-symbols)))
+  :bind (:map eglot-mode-map ("s-t" . #'pt/consult-eglot)))
+
+(use-package flymake
+  :config
+  (setq elisp-flymake-byte-compile-load-path load-path)
+  :hook ((emacs-lisp-mode . flymake-mode)))
+
+(use-package vterm
+  :ensure-system-package cmake
+  :custom
+  (vterm-timer-delay 0.05)
+  :config
+  (defun pt/turn-off-chrome ()
+    (hl-line-mode -1)
+    ;;(yascroll-bar-mode nil)
+    (display-line-numbers-mode -1))
+
+  (defun pt/project-run-vterm ()
+    "Invoke `vterm' in the project's root.
+
+ Switch to the project specific term buffer if it already exists."
+    (interactive)
+    (let* ((project (project-current))
+           (buffer (format "*vterm %s*" (consult--project-name (project-root project)))))
+      (unless (buffer-live-p (get-buffer buffer))
+        (unless (require 'vterm nil 'noerror)
+          (error "Package 'vterm' is not available"))
+        (vterm buffer)
+        (vterm-send-string (concat "cd " (project-root project)))
+        (vterm-send-return))
+      (switch-to-buffer buffer)))
+
+  :hook (vterm-mode . pt/turn-off-chrome))
+
+(use-package vterm-toggle
+  :custom
+  (vterm-toggle-fullscreen-p nil "Open a vterm in another window.")
+  (vterm-toggle-scope 'project)
+  :bind (("C-c t" . #'vterm-toggle)
+         :map vterm-mode-map
+         ("C-\\" . #'popper-cycle)
+         ("s-t" . #'vterm) ; Open up new tabs quickly
+         ("s-v" . #'vterm-yank)
+         ("C-y" . #'vterm-yank)
+         ("C-h" . #'vterm-send-backspace)
+         ))
+
+(use-package prodigy
+  :bind (("C-c 8" . #'prodigy)
+         :map prodigy-view-mode-map
+         ("$" . #'end-of-buffer))
+  :custom (prodigy-view-truncate-by-default t)
+  :config
+  (load "~/.config/emacs/services.el" 'noerror))
+
+(use-package yasnippet
+  :defer 15 ;; takes a while to load, so do it async
+  :diminish yas-minor-mode
+  :config (yas-global-mode)
+  :custom (yas-prompt-functions '(yas-completing-prompt)))
+
+(use-package rust-mode
+  :defer t
+  :custom
+  (rust-format-on-save t)
+  (lsp-rust-server 'rust-analyzer))
+
+(use-package rustic
+  :bind (:map rustic-mode-map
+              ("C-c a t" . rustic-cargo-current-test)
+              ("C-c m" . rustic-compile))
+  :custom
+  (rustic-lsp-client 'eglot)
+  (rustic-format-on-save t))
+
+(use-package typescript-mode
+  :custom (typescript-indent-level 2))
+(use-package csharp-mode :defer t)
+(setq-default js-indent-level 2)
+
+(use-package dyalog-mode :defer t)
+
+(use-package js2-mode
+  :hook (js2-mode . js2-imenu-extras-mode)
+  :mode ("\\.js$" . js2-mode)
+  :ensure t
+  :custom
+  (js2-mode-assume-strict t)
+  (js2-warn-about-unused-function-arguments t)
+  )
+
+(use-package xref-js2
+  :ensure t
+  :hook (js2-mode . pt/js-hook)
+  :custom
+  (xref-js2-search-program 'rg)
+  :config
+  (defun pt/js-hook ()
+    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+(use-package yaml-mode :defer t)
+(use-package toml-mode :defer t)
+
+(use-package protobuf-mode :defer t)
+
+(use-package markdown-mode
+  :hook (gfm-mode . visual-line-mode)
+  :bind (:map markdown-mode-map ("C-c C-s a" . markdown-table-align))
+  :mode ("\\.md$" . gfm-mode))
+
+(use-package web-mode
+  :custom (web-mode-markup-indent-offset 2)
+  :mode ("\\.html.erb$" . web-mode)
+  :mode ("\\.art$" . web-mode))
+
+(use-package typo :defer t)
+
+(setq sh-basic-offset 2
+      sh-basic-indentation 2)
+
+(use-package google-this
+  :bind ("C-c G" . #'google-this))
+
+(use-package makefile-executor
+  :bind ("C-c M" . makefile-executor-execute-project-target))
+
+(use-package just-mode)
+
+(use-package restclient
+  :mode ("\\.restclient$" . restclient-mode))
+
+(require 'tramp)
+(setq remote-file-name-inhibit-locks t)
+
+;; Needs to be called from recentf's :init
+;; todo: make this into a use-package invocation
+(defun pt/customize-tramp ()
+
+  (setq tramp-default-method "ssh"
+        tramp-verbose 1
+        remote-file-name-inhibit-cache nil
+        tramp-use-ssh-controlmaster-options nil
+        tramp-default-remote-shell "/bin/bash"
+        tramp-connection-local-default-shell-variables
+        '((shell-file-name . "/bin/bash")
+          (shell-command-switch . "-c")))
+
+  (connection-local-set-profile-variables 'tramp-connection-local-default-shell-profile
+                                          '((shell-file-name . "/bin/bash")
+                                            (shell-command-switch . "-c"))))
+
+(use-package recentf
+  :pin gnu
+  :after dash
+  :init (pt/customize-tramp) ;; so that tramp urls work ok in recentf
+  :custom
+  ;; (recentf-exclude (-concat recentf-exclude '("\\elpa"
+  ;;                                             "private/tmp" ; to avoid custom files
+  ;;                                             "txt/roam"
+  ;;                                             "type-break"
+  ;;                                             )))
+  (recentf-max-saved-items 50)
+  (recentf-max-menu-items 30)
+  :config (recentf-mode))
+
+(use-package direnv
+  :config (direnv-mode)
+  :custom (direnv-always-show-summary nil))
