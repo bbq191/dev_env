@@ -982,7 +982,14 @@
 (bind-key* "C-." #'completion-at-point)
 
 (use-package dap-mode
+  :disabled
   :after dap-mode
+  :bind
+  (:map dap-mode-map
+        ("C-c b b" . dap-breakpoint-toggle)
+        ("C-c b r" . dap-debug-restart)
+        ("C-c b l" . dap-debug-last)
+        ("C-c b d" . dap-debug))
   :config
   (dap-ui-mode)
   (dap-ui-controls-mode 1)
@@ -1013,13 +1020,24 @@
 (use-package eldoc
   :pin gnu
   :diminish
-  :bind ("s-d" . #'eldoc)
+  :bind ("s-M-d" . #'eldoc)
   :custom
   (eldoc-echo-area-prefer-doc-buffer t)
   (eldoc-echo-area-use-multiline-p t))
 
+(use-package eldoc-box
+  :diminish (eldoc-box-hover-mode eldoc-box-hover-at-point-mode)
+  :custom-face
+  (eldoc-box-border ((t (:inherit posframe-border :background unspecified))))
+  ;; (eldoc-box-body ((t (:inherit tooltip))))
+  ;; :hook ((eglot-managed-mode . eldoc-box-hover-at-point-mode))
+  :config
+  ;; Prettify `eldoc-box' frame
+  (setf (alist-get 'left-fringe eldoc-box-frame-parameters) 8
+        (alist-get 'right-fringe eldoc-box-frame-parameters) 8))
+
 (use-package eglot
-  :hook ((cc-mode . eglot-ensure)
+  :hook ((c++-mode . eglot-ensure)
          (rust-mode . eglot-ensure))
   :bind (:map eglot-mode-map
               ("C-<down-mouse-1>" . #'xref-find-definitions)
@@ -1031,6 +1049,8 @@
   (eglot-autoshutdown t)
   (eglot-send-changes-idle-time 0.1)
   :config
+  ;; C++
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   ;; Eglot doesn't correctly unescape markdown: https://github.com/joaotavora/eglot/issues/333
   (defun mpolden/gfm-unescape-string (string)
     "Remove backslash-escape of punctuation characters in STRING."
@@ -1053,8 +1073,7 @@
           'xref-find-ref))
       menu))
 
-  (advice-add 'prog-context-menu :around #'pt/add-eglot-to-prog-menu)
-  )
+  (advice-add 'prog-context-menu :around #'pt/add-eglot-to-prog-menu))
 
 (use-package consult-eglot
   :config
@@ -1065,9 +1084,17 @@
   :bind (:map eglot-mode-map ("s-t" . #'pt/consult-eglot)))
 
 (use-package flymake
+  :init (setq flymake-no-changes-timeout nil)
   :config
   (setq elisp-flymake-byte-compile-load-path load-path)
-  :hook ((emacs-lisp-mode . flymake-mode)))
+  :hook ((emacs-lisp-mode . flymake-mode)
+         (prog-mode . flymake-mode)))
+
+(use-package sideline-flymake
+  :diminish sideline-mode
+  :hook (flymake-mode . sideline-mode)
+  :init (setq sideline-flymake-display-mode 'point
+              sideline-backends-right '(sideline-flymake)))
 
 (use-package vterm
   :ensure-system-package cmake
