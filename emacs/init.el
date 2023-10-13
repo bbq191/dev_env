@@ -2,55 +2,20 @@
 ;;; Commentary:
 ;;; Code:
 
-;; Base optomize ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Don't pass case-insensitive to `auto-mode-alist'
-(setq auto-mode-case-fold nil)
-
-;; UTF-8 should always, always be the default.
-(set-charset-priority 'unicode)
-(prefer-coding-system 'utf-8-unix)
-
-(setq idle-update-delay 1.0)
-
-(setq-default cursor-in-non-selected-windows nil)
-(setq highlight-nonselected-windows nil)
-
-(setq fast-but-imprecise-scrolling t)
-(setq redisplay-skip-fontification-on-input t)
-
-;; Disable warning of defvar
-(setq enable-local-variables :all)
-
-;; Emacs requires you to hit ESC three times to escape quit the minibuffer.
-(global-set-key [escape] 'keyboard-escape-quit)
-
-(let ((dir (locate-user-emacs-file "config")))
-  (add-to-list 'load-path (file-name-as-directory dir))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "fixdefault" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "improvement" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "completion" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "idefeather" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "language" dir)))
-  (add-to-list 'load-path (file-name-as-directory (expand-file-name "utility" dir))))
-
-;; --debug-init implies `debug-on-error'.
-(setq debug-on-error init-file-debug)
-
-;; Package setup and additional utility functions
-(setq read-process-output-max (* 4 1024 1024))
 
 ;; use package ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
-(setq package-archives '(("melpa"  . "https://melpa.org/packages/")
-                         ("gnu"    . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("ublt" . "https://elpa.ubolonton.org/packages/") t)
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
+  (message "refreshing contents ...... ")
+  (unless package-archive-contents (package-refresh-contents))
   (package-install 'use-package))
 
 ;; Should set before loading `use-package'
@@ -59,11 +24,13 @@
   (setq use-package-always-defer nil)    ;默认都不是延迟加载
   (setq use-package-always-demand nil)
   (setq use-package-expand-minimally t)
+  (setq package-native-compile t)
   (setq use-package-verbose t))
 (eval-when-compile
-  (require 'use-package))
+  (require 'use-package)
+  (require 'ob-tangle))
 
-;; Bootstrap `quelpa'.
+;; package `quelpa'.
 (use-package quelpa
   :commands quelpa
   :custom
@@ -72,55 +39,13 @@
   (quelpa-update-melpa-p nil)
   (quelpa-checkout-melpa-p nil))
 
-;; Personal config load ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'vk-base)
-(require 'vk-theme)
-;;(require 'vk-isearch)
-(require 'vk-tramp) ;; must load before 'vk-recentf
-(require 'vk-recentf)
-(require 'vk-fix-default)
+(defun reload-config ()
+  "Reload the literate config from ~/.config/emacs/readme.org."
+  (interactive)
+  (org-babel-load-file "~/.config/emacs/readme.org"))
 
-;; For editor improvement
-(require 'vk-org-mode) ; load before vk-text-manipulation
-(require 'vk-centaur-tabs)
-(require 'vk-text-manipulation)
-(require 'vk-improvement)
-(require 'vk-buffer)
-(require 'vk-window)
-(require 'vk-search)
+(setq max-lisp-eval-depth 2000)
 
-;; Completion
-(require 'vk-vertico)
-(require 'vk-orderless)
-(require 'vk-corfu)
-(require 'vk-cape)
-(require 'vk-dabbrev)
-(require 'vk-minibuffer)
-(require 'vk-nerdicon)
-(require 'vk-yasnippet)
-
-;; IDE feather
-(require 'vk-magit)
-(require 'vk-diffhl)
-(require 'vk-codereview)
-(require 'vk-project)
-(require 'vk-lsp)
-(require 'vk-dap)
-(require 'vk-help)
-
-;; LSP language
-(require 'vk-rust) ;; need add copy env to config
-(require 'vk-cpp)
-(require 'vk-language)
-(require 'vk-javascript)
-
-;; utility
-(require 'vk-vterm)
-(require 'vk-process)
-(require 'vk-mics)
-
-;; Load `custom-file'
-;; (when (file-exists-p custom-file) (load custom-file))
-
+(reload-config)
 (provide 'init)
 ;;; init.el ends here

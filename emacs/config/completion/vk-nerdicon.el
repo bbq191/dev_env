@@ -2,35 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; Icons
-(use-package nerd-icons :defer nil)
-
-(use-package nerd-icons-dired
-  :defer nil
-  :diminish t
-  :custom-face
-  (nerd-icons-dired-dir-face ((t (:inherit nerd-icons-dsilver :foreground unspecified))))
-  :hook (dired-mode . nerd-icons-dired-mode))
-
-(use-package nerd-icons-completion
-  :defer nil
-  :after marginalia
-  :config
-  (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
-
-;; Display icons for buffers
-(use-package nerd-icons-ibuffer
-  :defer nil
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode)
-  :init (setq nerd-icons-ibuffer-icon t))
-
-;; For treemacs
-(use-package treemacs-nerd-icons
-  :disabled
-  :defer nil
-  :config
-  (treemacs-load-theme "nerd-icons"))
 
 (use-package kind-icon
   :defer nil

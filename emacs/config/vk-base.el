@@ -13,11 +13,6 @@
         ("http" . "localhost:6152")
         ("https" . "localhost:6152")))
 
-;; Misc
-(if (boundp 'use-short-answers)
-    (setq use-short-answers t)
-  (fset 'yes-or-no-p 'y-or-n-p))
-
 (setq-default major-mode 'text-mode
               fill-column 80
               tab-width 4
@@ -41,6 +36,7 @@
       sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
       sentence-end-double-space nil     ; Double-spaces after periods is morally wrong.
       word-wrap-by-category t
+      use-short-answers t
       mark-even-if-inactive nil         ; Fix undo in commands affecting the mark.
       ;; Suppress GUI features
       use-file-dialog nil
@@ -48,16 +44,32 @@
       inhibit-startup-screen t
       inhibit-startup-echo-area-message user-login-name
       inhibit-default-init t
+      ;; Let C-k delete the whole line.
+      kill-whole-line t
+      ;; search should be case-sensitive by default
+      case-fold-search nil
       ;; I want to close these fast, so switch to it so I can just hit 'q'
       help-window-select t
       ;; highlight error messages more aggressively
       next-error-message-highlight t
       ;; don't let the minibuffer muck up my window tiling
       read-minibuffer-restore-windows t
+      ;; don't let the minibuffer muck up my window tiling
+      read-minibuffer-restore-windows t
+      ;; scope save prompts to individual projects
+      save-some-buffers-default-predicate 'save-some-buffers-root
+      ;; don't keep duplicate entries in kill ring
+      kill-do-not-save-duplicates t
       truncate-string-ellipsis "…"  ;; unicode ellipses are better
       custom-safe-themes t
       mouse-wheel-tilt-scroll t
       mouse-wheel-flip-direction t
+      ;; eke out a little more scrolling performance
+      fast-but-imprecise-scrolling t
+      ;; prefer newer elisp files
+      load-prefer-newer t
+      ;; more info in completions
+      completions-detailed t
       ;; 允许在活动的minibuffer中执行命令并打开新的minibuffer。这样可以实现命令的嵌套。
       enable-recursive-minibuffers t
       ;; Some pretty config from prucell
