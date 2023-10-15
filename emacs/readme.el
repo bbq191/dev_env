@@ -1142,6 +1142,8 @@
   :config
   (load "~/.config/emacs/services.el" 'noerror))
 
+(use-package yasnippet-snippets)
+
 (use-package yasnippet
   :defer 15 ;; takes a while to load, so do it async
   :diminish yas-minor-mode

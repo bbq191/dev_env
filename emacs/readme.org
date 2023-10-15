@@ -1517,6 +1517,8 @@ A thing I want to do someday is to write a framework for sending things like com
 I grew up writing in TextMate, so I got extremely used to text-expansion snippets. I also think they're extremely underrated for learning a new language's idioms: one of the reasons I was able to get up to speed so fast with Rails (back in the 1.2 days) was because the TextMate snippets indicated pretty much everything you needed to know about things like ActiveRecord.
 
 #+begin_src emacs-lisp
+  (use-package yasnippet-snippets)
+
   (use-package yasnippet
     :defer 15 ;; takes a while to load, so do it async
     :diminish yas-minor-mode
