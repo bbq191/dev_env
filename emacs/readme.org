@@ -159,7 +159,7 @@ Fixing Emacs's defaults is a nontrivial problem. We'll start with UI concerns.
   (defun vk/setup-fonts ()
     (set-face-attribute 'default nil
                         :family "Iosevka Fixed"
-                        :height 150)
+                        :height 140)
 
     (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
     (set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)
@@ -393,7 +393,7 @@ Every Emacs window should, by default occupy all the screen space it can.
     :config
     (doom-themes-visual-bell-config)
     (doom-themes-org-config)
-    (let ((chosen-theme 'tango-dark))
+    (let ((chosen-theme 'doom-Iosvkem))
       (setq doom-challenger-deep-brighter-comments t
             doom-challenger-deep-brighter-modeline t
             doom-rouge-brighter-comments t
@@ -1367,7 +1367,7 @@ Built-in ~xref~ is powerful packages, though we pin them to GNU ELPA to pull in 
   (use-package eldoc
     :pin gnu
     :diminish
-    :bind ("s-M-d" . #'eldoc)
+    :bind ("C-M-d" . #'eldoc)
     :custom
     (eldoc-echo-area-prefer-doc-buffer t)
     (eldoc-echo-area-use-multiline-p t))
@@ -1442,8 +1442,7 @@ And lastly, the built-in ~flymake~ does a great job, and ~eglot~ builds upon it.
     :init (setq flymake-no-changes-timeout nil)
     :config
     (setq elisp-flymake-byte-compile-load-path load-path)
-    :hook ((emacs-lisp-mode . flymake-mode)
-           (prog-mode . flymake-mode)))
+    :hook (prog-mode . flymake-mode))
 
   (use-package sideline-flymake
     :diminish sideline-mode
@@ -1496,8 +1495,7 @@ A thing I want to do someday is to write a framework for sending things like com
            ("s-t" . #'vterm) ; Open up new tabs quickly
            ("s-v" . #'vterm-yank)
            ("C-y" . #'vterm-yank)
-           ("C-h" . #'vterm-send-backspace)
-           ))
+           ("C-h" . #'vterm-send-backspace)))
 #+end_src
 
 * Process management
@@ -1523,7 +1521,14 @@ I grew up writing in TextMate, so I got extremely used to text-expansion snippet
     :defer 15 ;; takes a while to load, so do it async
     :diminish yas-minor-mode
     :config (yas-global-mode)
+    (setq yas-snippet-dirs
+          '("/Users/afu/workspace/snippets"))
     :custom (yas-prompt-functions '(yas-completing-prompt)))
+
+  (use-package doom-snippets
+    :load-path "/Users/afu/workspace/snippets"
+    :after yasnippet)
+
 #+end_src
 
 * Other Languages
@@ -1533,11 +1538,11 @@ I grew up writing in TextMate, so I got extremely used to text-expansion snippet
 Rust is one of my favorite languages in the world.
 
 #+begin_src emacs-lisp
-  (use-package rust-mode
-    :defer t
-    :custom
-    (rust-format-on-save t)
-    (lsp-rust-server 'rust-analyzer))
+  ;; (use-package rust-mode
+  ;;   :defer t
+  ;;   :custom
+  ;;   (rust-format-on-save t)
+  ;;   (lsp-rust-server 'rust-analyzer))
 
   (use-package rustic
     :bind (:map rustic-mode-map

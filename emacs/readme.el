@@ -128,7 +128,7 @@
 (defun vk/setup-fonts ()
   (set-face-attribute 'default nil
                       :family "Iosevka Fixed"
-                      :height 150)
+                      :height 140)
 
   (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
   (set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)
@@ -278,7 +278,7 @@
   :config
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
-  (let ((chosen-theme 'tango-dark))
+  (let ((chosen-theme 'doom-Iosvkem))
     (setq doom-challenger-deep-brighter-comments t
           doom-challenger-deep-brighter-modeline t
           doom-rouge-brighter-comments t
@@ -1020,7 +1020,7 @@
 (use-package eldoc
   :pin gnu
   :diminish
-  :bind ("s-M-d" . #'eldoc)
+  :bind ("C-M-d" . #'eldoc)
   :custom
   (eldoc-echo-area-prefer-doc-buffer t)
   (eldoc-echo-area-use-multiline-p t))
@@ -1087,8 +1087,7 @@
   :init (setq flymake-no-changes-timeout nil)
   :config
   (setq elisp-flymake-byte-compile-load-path load-path)
-  :hook ((emacs-lisp-mode . flymake-mode)
-         (prog-mode . flymake-mode)))
+  :hook (prog-mode . flymake-mode))
 
 (use-package sideline-flymake
   :diminish sideline-mode
@@ -1133,8 +1132,7 @@
          ("s-t" . #'vterm) ; Open up new tabs quickly
          ("s-v" . #'vterm-yank)
          ("C-y" . #'vterm-yank)
-         ("C-h" . #'vterm-send-backspace)
-         ))
+         ("C-h" . #'vterm-send-backspace)))
 
 (use-package prodigy
   :bind (("C-c 8" . #'prodigy)
@@ -1148,13 +1146,19 @@
   :defer 15 ;; takes a while to load, so do it async
   :diminish yas-minor-mode
   :config (yas-global-mode)
+  (setq yas-snippet-dirs
+        '("/Users/afu/workspace/snippets"))
   :custom (yas-prompt-functions '(yas-completing-prompt)))
 
-(use-package rust-mode
-  :defer t
-  :custom
-  (rust-format-on-save t)
-  (lsp-rust-server 'rust-analyzer))
+(use-package doom-snippets
+  :load-path "/Users/afu/workspace/snippets"
+  :after yasnippet)
+
+;; (use-package rust-mode
+;;   :defer t
+;;   :custom
+;;   (rust-format-on-save t)
+;;   (lsp-rust-server 'rust-analyzer))
 
 (use-package rustic
   :bind (:map rustic-mode-map
