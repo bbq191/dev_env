@@ -399,8 +399,13 @@ Every Emacs window should, by default occupy all the screen space it can.
             doom-rouge-brighter-comments t
             doom-ir-black-brighter-comments t
             modus-themes-org-blocks 'gray-background
-            doom-dark+-blue-modeline nil)
-      (load-theme chosen-theme t)))
+            doom-dark+-blue-modeline nil)))
+     ;; (load-theme chosen-theme t)))
+
+  (use-package tron-legacy-theme
+    :config
+    (setq tron-legacy-theme-vivid-cursor t)
+    (load-theme 'tron-legacy t))
 #+end_src
 
 With a bit of elbow grease, it can be convinced to show the project-relative file name.

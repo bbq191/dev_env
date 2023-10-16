@@ -284,8 +284,13 @@
           doom-rouge-brighter-comments t
           doom-ir-black-brighter-comments t
           modus-themes-org-blocks 'gray-background
-          doom-dark+-blue-modeline nil)
-    (load-theme chosen-theme t)))
+          doom-dark+-blue-modeline nil)))
+   ;; (load-theme chosen-theme t)))
+
+(use-package tron-legacy-theme
+  :config
+  (setq tron-legacy-theme-vivid-cursor t)
+  (load-theme 'tron-legacy t))
 
 (defun pt/project-relative-file-name (include-prefix)
   "Return the project-relative filename, or the full path if INCLUDE-PREFIX is t."
