@@ -11,7 +11,7 @@
 (use-package exec-path-from-shell
   :hook (after-init . exec-path-from-shell-initialize)
   :config
-  (setq exec-path-from-shell-debug t)
+  ;; (setq exec-path-from-shell-debug t)
   (exec-path-from-shell-copy-env "HTTPS_PROXY")
   (exec-path-from-shell-copy-env "HTTP_PROXY")
   (exec-path-from-shell-copy-env "ALL_PROXY")
@@ -141,10 +141,10 @@
 (add-hook 'window-setup-hook #'vk/setup-fonts)
 (add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
 
-(when (eq system-type 'darwin)
-  (setq mac-command-modifier 'meta
-        mac-option-modifier 'none
-        mac-right-command-modifier 'super))
+;;  (when (eq system-type 'darwin)
+;;    (setq mac-command-modifier 'meta
+;;          mac-option-modifier 'none
+;;          mac-right-command-modifier 'super))
 
 (use-package diminish
   :config (diminish 'visual-line-mode))

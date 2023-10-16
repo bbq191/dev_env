@@ -72,7 +72,7 @@ Ensure that Emacs has access to the PATH associated with the current environment
   (use-package exec-path-from-shell
     :hook (after-init . exec-path-from-shell-initialize)
     :config
-    (setq exec-path-from-shell-debug t)
+    ;; (setq exec-path-from-shell-debug t)
     (exec-path-from-shell-copy-env "HTTPS_PROXY")
     (exec-path-from-shell-copy-env "HTTP_PROXY")
     (exec-path-from-shell-copy-env "ALL_PROXY")
@@ -216,10 +216,10 @@ Fixing Emacs's defaults is a nontrivial problem. We'll start with UI concerns.
 Change key for mac, many times s key is useful
 
 #+begin_src emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta
-          mac-option-modifier 'none
-          mac-right-command-modifier 'super))
+  ;;  (when (eq system-type 'darwin)
+  ;;    (setq mac-command-modifier 'meta
+  ;;          mac-option-modifier 'none
+  ;;          mac-right-command-modifier 'super))
 #+end_src
 
 Keep modeline clean.
