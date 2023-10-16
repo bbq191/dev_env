@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-export HTTPS_PROXY=http://127.0.0.1:6152 
-export HTTP_PROXY=http://127.0.0.1:6152 
+export HTTPS_PROXY=http://127.0.0.1:6152
+export HTTP_PROXY=http://127.0.0.1:6152
 export ALL_PROXY=socks5://127.0.0.1:6153
 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -24,7 +24,7 @@ export LANG="en_US.UTF-8"
 export DEFAULT_USER=$USER
 export EDITOR="emacs -a """
 export MANWIDTH=999
-export TERMINAL="kitty"
+# export TERMINAL="kitty"
 export TERM="xterm-256color"
 export LESSHISTFILE=-
 # pip user command
