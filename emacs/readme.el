@@ -1402,6 +1402,12 @@ default lsp-passthrough."
   (rustic-lsp-client 'lsp-mode)
   (rustic-format-on-save t))
 
+;; after rustic and flycheck
+(use-package flycheck-rust
+  :after rustic-mode
+  :custom
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
 (use-package typescript-mode
   :custom (typescript-indent-level 2))
 (use-package csharp-mode :defer t)

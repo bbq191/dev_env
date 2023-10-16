@@ -1848,6 +1848,12 @@ Rust is one of my favorite languages in the world.
     (rustic-lsp-setup-p nil)
     (rustic-lsp-client 'lsp-mode)
     (rustic-format-on-save t))
+
+  ;; after rustic and flycheck
+  (use-package flycheck-rust
+    :after rustic-mode
+    :custom
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+end_src
 
 Some other miscellaneous languages that I don't write often but for which I need syntax highlighting, at least.
