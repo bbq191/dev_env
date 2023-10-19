@@ -5,7 +5,7 @@
   "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
   "files.autoGuessEncoding": true,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": -1,
   "explorer.confirmDragAndDrop": false,
   "telemetry.telemetryLevel": "off",
   "git.openRepositoryInParentFolders": "always",
@@ -14,11 +14,11 @@
   "editor.stickyScroll.enabled": true,
   "editor.cursorBlinking": "solid",
   "editor.cursorStyle": "block",
-  "editor.fontFamily": "'Sarasa Term SC', 'Source Han Sans CN', 'Symbols Nerd Font'",
+  "editor.fontFamily": "'Iosevka Fixed', 'Source Han Sans CN', 'Symbols Nerd Font'",
   "editor.inlayHints.fontFamily": "'Cascadia Code', 'Source Han Sans CN', 'Symbols Nerd Font'",
   "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.wordWrap": "on",
-  "editor.fontSize": 14,
+  "editor.fontSize": 15,
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "editor.dragAndDrop": false,
@@ -35,10 +35,6 @@
       {
         "name": "italic font",
         "scope": [
-          "entity.name.function",
-          "meta.attribute",
-          "meta.use",
-          "entity.name.namespace",
           "variable.other",
           "variable.parameter"
         ],
@@ -59,7 +55,6 @@
   "editor.suggestSelection": "recentlyUsed",
   "editor.guides.bracketPairs": "active",
   "terminal.integrated.bellDuration": 100000,
-  "terminal.integrated.fontSize": 14,
   // coding config
   "errorLens.severityText": ["E", "W", "I", "H"],
   "rust-analyzer.check.command": "clippy",
@@ -267,5 +262,7 @@
       "before": ["<leader>", "d"],
       "after": ["\"", "_", "d"]
     }
-  ]
+  ],
+  "security.workspace.trust.untrustedFiles": "open",
+  "terminal.integrated.fontSize": 15
 }

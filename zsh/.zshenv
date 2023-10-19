@@ -30,8 +30,8 @@ export LESSHISTFILE=-
 # pip user command
 #export PIP_EXEC_USER="/Users/vincixu/Library/Python/3.11"
 
-# prettierd
-#export PRETTIERD_DEFAULT_CONFIG="$XDG_CONFIG_HOME/prettierd"
+# android home
+export ANDROID_PREFS_ROOT="$XDG_DATA_HOME/android"
 
 # postgresql
 #export POSTGRES="/opt/homebrew/opt/postgresql@15/bin"
