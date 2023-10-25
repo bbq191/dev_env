@@ -127,7 +127,7 @@
 ;; Fonts
 (defun vk/setup-fonts ()
   (set-face-attribute 'default nil
-                      :family "Iosevka Fixed"
+                      :family "Sarasa Mono SC"
                       :height 140)
 
   (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
@@ -265,21 +265,20 @@
   :init (setq nerd-icons-ibuffer-icon t))
 
 ;; For treemacs
-(use-package treemacs-nerd-icons
-  :disabled
-  :defer nil
-  :config
-  (treemacs-load-theme "nerd-icons"))
+;; (use-package treemacs-nerd-icons
+;;   :after treemacs
+;;   :defer nil
+;;   :config
+;;   (treemacs-load-theme "nerd-icons"))
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (use-package doom-themes
-  :disabled
   :demand t
   :config
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
-  (let ((chosen-theme 'doom-Iosvkem))
+  (let ((chosen-theme 'doom-ephemeral))
     (setq doom-challenger-deep-brighter-comments t
           doom-challenger-deep-brighter-modeline t
           doom-rouge-brighter-comments t
@@ -289,6 +288,7 @@
     (load-theme chosen-theme t)))
 
 (use-package tron-legacy-theme
+  :disabled
   :config
   (setq tron-legacy-theme-dark-fg-bright-comments t)
   (setq tron-legacy-theme-vivid-cursor t)
@@ -1325,6 +1325,45 @@ default lsp-passthrough."
   (flycheck-check-syntax-automatically '(save mode-enabled))
   (flycheck-emacs-lisp-load-path 'inherit)
   (flycheck-indication-mode 'left-fringe))
+
+(use-package treemacs
+  :commands (treemacs-follow-mode
+             treemacs-filewatch-mode
+             treemacs-git-mode)
+  :custom-face
+  (cfrs-border-color ((t (:inherit posframe-border))))
+  :config
+  (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
+        treemacs-missing-project-action  'remove
+        treemacs-sorting                 'alphabetic-asc
+        treemacs-follow-after-init       t
+        treemacs-width                   35
+        treemacs-no-png-images           (not t))
+
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (pcase (cons (not (null (executable-find "git")))
+               (not (null (executable-find "python3"))))
+    (`(t . t) (treemacs-git-mode 'deferred))
+    (`(t . _) (treemacs-git-mode 'simple)))
+
+  (use-package treemacs-nerd-icons
+    :demand t
+    :custom-face
+    (treemacs-nerd-icons-root-face ((t (:inherit nerd-icons-green :height 1.3))))
+    (treemacs-nerd-icons-file-face ((t (:inherit nerd-icons-dsilver))))
+    :config (treemacs-load-theme "nerd-icons"))
+
+  (use-package treemacs-magit
+    :hook ((magit-post-commit
+            git-commit-post-finish
+            magit-post-stage
+            magit-post-unstage)
+           . treemacs-magit--schedule-update))
+
+  (use-package treemacs-tab-bar
+    :demand t
+    :config (treemacs-set-scope-type 'Tabs)))
 
 (use-package vterm
   :ensure-system-package cmake

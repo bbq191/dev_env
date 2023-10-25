@@ -29,7 +29,8 @@
   - [[#lsp][LSP]]
     - [[#eglot][eglot]]
     - [[#lsp-mode][lsp-mode]]
-- [[#vterm][vterm]]
+- [[#treemacs][Treemacs]]
+- [[#vterm][VTerm]]
 - [[#process-management][Process management]]
 - [[#snippets][Snippets]]
 - [[#other-languages][Other Languages]]
@@ -198,7 +199,7 @@ Fixing Emacs's defaults is a nontrivial problem. We'll start with UI concerns.
   ;; Fonts
   (defun vk/setup-fonts ()
     (set-face-attribute 'default nil
-                        :family "Iosevka Fixed"
+                        :family "Sarasa Mono SC"
                         :height 140)
 
     (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
@@ -410,11 +411,11 @@ Emacs looks a lot better when it has a modern monospaced font and VSCode-esque i
     :init (setq nerd-icons-ibuffer-icon t))
 
   ;; For treemacs
-  (use-package treemacs-nerd-icons
-    :disabled
-    :defer nil
-    :config
-    (treemacs-load-theme "nerd-icons"))
+  ;; (use-package treemacs-nerd-icons
+  ;;   :after treemacs
+  ;;   :defer nil
+  ;;   :config
+  ;;   (treemacs-load-theme "nerd-icons"))
 #+end_src
 
 Every Emacs window should, by default occupy all the screen space it can.
@@ -427,12 +428,11 @@ Every Emacs window should, by default occupy all the screen space it can.
 
 #+begin_src emacs-lisp
   (use-package doom-themes
-    :disabled
     :demand t
     :config
     (doom-themes-visual-bell-config)
     (doom-themes-org-config)
-    (let ((chosen-theme 'doom-Iosvkem))
+    (let ((chosen-theme 'doom-ephemeral))
       (setq doom-challenger-deep-brighter-comments t
             doom-challenger-deep-brighter-modeline t
             doom-rouge-brighter-comments t
@@ -442,6 +442,7 @@ Every Emacs window should, by default occupy all the screen space it can.
       (load-theme chosen-theme t)))
 
   (use-package tron-legacy-theme
+    :disabled
     :config
     (setq tron-legacy-theme-dark-fg-bright-comments t)
     (setq tron-legacy-theme-vivid-cursor t)
@@ -1745,7 +1746,52 @@ I change to ~flycheck~, it's more powerful than flymake.
     (flycheck-indication-mode 'left-fringe))
 #+end_src
 
-* vterm
+* Treemacs
+
+Open project like IDE
+
+#+begin_src emacs-lisp
+  (use-package treemacs
+    :commands (treemacs-follow-mode
+               treemacs-filewatch-mode
+               treemacs-git-mode)
+    :custom-face
+    (cfrs-border-color ((t (:inherit posframe-border))))
+    :config
+    (setq treemacs-collapse-dirs           (if treemacs-python-executable 3 0)
+          treemacs-missing-project-action  'remove
+          treemacs-sorting                 'alphabetic-asc
+          treemacs-follow-after-init       t
+          treemacs-width                   35
+          treemacs-no-png-images           (not t))
+
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null (executable-find "python3"))))
+      (`(t . t) (treemacs-git-mode 'deferred))
+      (`(t . _) (treemacs-git-mode 'simple)))
+
+    (use-package treemacs-nerd-icons
+      :demand t
+      :custom-face
+      (treemacs-nerd-icons-root-face ((t (:inherit nerd-icons-green :height 1.3))))
+      (treemacs-nerd-icons-file-face ((t (:inherit nerd-icons-dsilver))))
+      :config (treemacs-load-theme "nerd-icons"))
+
+    (use-package treemacs-magit
+      :hook ((magit-post-commit
+              git-commit-post-finish
+              magit-post-stage
+              magit-post-unstage)
+             . treemacs-magit--schedule-update))
+
+    (use-package treemacs-tab-bar
+      :demand t
+      :config (treemacs-set-scope-type 'Tabs)))
+#+end_src
+
+* VTerm
 
 The state of terminal emulation is, as a whole, a mess. Not just within Emacs, but across all of Unix. (To be fair, terminals are a fascinating study in backwards compatibility and generations upon generations of standards and conventions.) A recent bright spot has been libvterm, which, when integrated with Emacs's new dynamic module support, enables us to have a very, very fast terminal inside Emacs.
 
