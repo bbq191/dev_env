@@ -1330,6 +1330,12 @@ default lsp-passthrough."
   :commands (treemacs-follow-mode
              treemacs-filewatch-mode
              treemacs-git-mode)
+  :bind (([f8]       . treemacs)
+         ("M-0"       . treemacs-select-window)
+         ;; ("C-x t 1"   . treemacs-delete-other-windows)
+         ("C-x t C-b" . treemacs-bookmark)
+         ("C-x t C-t" . treemacs-find-file)
+         ("C-x t M-t" . treemacs-find-tag))
   :custom-face
   (cfrs-border-color ((t (:inherit posframe-border))))
   :config
@@ -1355,6 +1361,7 @@ default lsp-passthrough."
     :config (treemacs-load-theme "nerd-icons"))
 
   (use-package treemacs-magit
+    :after (treemacs magit)
     :hook ((magit-post-commit
             git-commit-post-finish
             magit-post-stage
@@ -1363,6 +1370,7 @@ default lsp-passthrough."
 
   (use-package treemacs-tab-bar
     :demand t
+    :after treemacs
     :config (treemacs-set-scope-type 'Tabs)))
 
 (use-package vterm
