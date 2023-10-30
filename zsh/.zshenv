@@ -4,10 +4,14 @@ export HTTPS_PROXY=http://127.0.0.1:6152
 export HTTP_PROXY=http://127.0.0.1:6152
 export ALL_PROXY=socks5://127.0.0.1:6152
 
+# XDG Path
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
+
+# USER Bin
+export USER_BIN="$HOME/.local/bin"
 
 # homebrew
 export HOMEBREW_PREFIX="/opt/homebrew";
