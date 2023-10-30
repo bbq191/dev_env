@@ -1,268 +1,146 @@
 {
-  "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Tokyo Night Storm",
-  "workbench.iconTheme": "rose-pine-icons",
-  "workbench.productIconTheme": "fluent-icons",
   "workbench.panel.defaultLocation": "right",
-  "files.autoGuessEncoding": true,
-  "window.zoomLevel": -1,
-  "explorer.confirmDragAndDrop": false,
-  "telemetry.telemetryLevel": "off",
-  "git.openRepositoryInParentFolders": "always",
-  "window.dialogStyle": "custom",
-  //begin ------ editor config
-  "editor.stickyScroll.enabled": true,
+  "workbench.colorTheme": "Everforest Dark",
+  "workbench.settings.editor": "json",
+  "workbench.startupEditor": "readme",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.productIconTheme": "material-product-icons",
+  "zenMode.hideLineNumbers": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": true,
+    "source.organizeImports": true
+  },
+  "editor.fontSize": 13,
+  "editor.fontFamily": "'Sarasa Mono SC','Source Han Sans SC','Symbols Nerd Font Mono'",
+  "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.cursorBlinking": "solid",
   "editor.cursorStyle": "block",
-  "editor.fontFamily": "'Iosevka Fixed', 'Source Han Sans CN', 'Symbols Nerd Font'",
-  "editor.inlayHints.fontFamily": "'Cascadia Code', 'Source Han Sans CN', 'Symbols Nerd Font'",
-  "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
-  "editor.wordWrap": "on",
-  "editor.fontSize": 15,
   "editor.minimap.enabled": false,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorSurroundingLines": 5,
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.enabled": true,
   "editor.lineNumbers": "relative",
+  "editor.linkedEditing": true,
+  "editor.smoothScrolling": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.suggest.insertMode": "replace",
+  "editor.suggestFontSize": 14,
+  "editor.wordWrap": "on",
   "editor.dragAndDrop": false,
-  // turn on wrap ruler and color it
-  "editor.rulers": [
-    {
-      "column": 80,
-      "color": "#faa5a588"
-    }
-  ],
-  // 启用 font feature
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [
-      {
-        "name": "italic font",
-        "scope": [
-          "variable.other",
-          "variable.parameter"
-        ],
-        "settings": {
-          "fontStyle": "italic"
-        }
-      }
-    ]
-  },
   "editor.scrollBeyondLastLine": false,
-  "editor.snippetSuggestions": "bottom",
-  "editor.unicodeHighlight.nonBasicASCII": false,
-  "editor.parameterHints.enabled": false, // 关闭自动传参建议，使用按键手动触发
-  "editor.unicodeHighlight.allowedLocales": {
-    "zh-hant": true
-  },
-  "editor.acceptSuggestionOnEnter": "smart",
-  "editor.suggestSelection": "recentlyUsed",
-  "editor.guides.bracketPairs": "active",
-  "terminal.integrated.bellDuration": 100000,
-  // coding config
-  "errorLens.severityText": ["E", "W", "I", "H"],
-  "rust-analyzer.check.command": "clippy",
-  "rust-analyzer.inlayHints.chainingHints.enable": false,
-  "rust-analyzer.inlayHints.typeHints.enable": false,
-  "rust-analyzer.inlayHints.parameterHints.enable": false,
-  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
-  "cmake.configureOnOpen": true,
-  "doxdocgen.generic.authorName": "Vinci Xu",
-  "doxdocgen.generic.authorEmail": "i@ikate.com",
-  "clangd.arguments": ["--compile-commands-dir=${workspaceFolder}/build"],
-  "clangd.checkUpdates": true,
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
-  },
+  "errorLens.fontStyleItalic": true,
+  "everforest.italicKeywords": true,
   "explorer.confirmDelete": false,
-  "editor.accessibilitySupport": "on",
+  "explorer.confirmDragAndDrop": false,
+  "extensions.autoUpdate": "onlyEnabledExtensions",
+  "extensions.ignoreRecommendations": false,
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "prettier.semi": false,
+  "prettier.singleAttributePerLine": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "projectManager.git.baseFolders": ["$home/Workspace"],
+  "projectManager.sortList": "Recent",
+  "sortJSON.orderOverride": [
+    "name",
+    "version",
+    "main",
+    "module",
+    "types",
+    "typings",
+    "files",
+    "publishConfig",
+    "repository",
+    "scripts",
+    "prefix",
+    "description",
+    "body"
+  ],
+  "sortJSON.orderUnderride": [
+    "resolutions",
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+    "cSpell.userWords"
+  ],
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "update.showReleaseNotes": false,
+  "window.zoomLevel": 0,
   "git.autofetch": true,
-  "rust-analyzer.diagnostics.useRustcErrorCode": true,
-  "rust-analyzer.diagnostics.previewRustcOutput": true,
-  "rust-analyzer.diagnostics.experimental.enable": true,
-  "better-comments.highlightPlainText": true,
- // vim ------ 基本控制
-  "vim.neovimPath": "/opt/homebrew/bin/nvim",
-  "vim.neovimConfigPath": "~/.config/nvim/init.lua",
-  "vim.useSystemClipboard": true,
-  "vim.surround": true,
-  "vim.showMarksInGutter": true,
+  "vim.foldfix": true,
+  "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
   "vim.highlightedyank.enable": true,
-  "vim.enableNeovim": true,
-  "vim.neovimUseConfigFile": true,
-  "vim.leader": "<space>", // 绑定vim前导键
-  "vim.useCtrlKeys": true, // 由vim接管ctrl+any的按键，而不是vscode
-  "vim.hlsearch": true, // 突出显示与当前搜索匹配的所有文本
-  // vim ------ keybinding
+  "vim.highlightedyank.textColor": "white",
+  "vim.hlsearch": true,
+  "vim.leader": "<space>",
+  "vim.useSystemClipboard": true,
   "vim.normalModeKeyBindingsNonRecursive": [
-    // base control
-    {
-      "before": [":"],
-      "commands": ["workbench.action.showCommands"],
-      "silent": true
-    },
-    {
-      "before": ["leader", "q"],
-      "commands": ["workbench.action.closeWindow"]
-    },
-    {
-      "before": ["<leader>", "y"],
-      "after": ["\"", "+", "y"]
-    },
-    {
-      "before": ["<leader>", "d"],
-      "after": ["\"", "_", "d"]
-    },
-    {
-      "before": ["<leader>", "p"],
-      "after": ["\"", "_", "d", "p"]
-    },
     {
       "before": ["x"],
       "after": ["\"", "_", "x"]
     },
-    // 文件管理
     {
-      "before": ["leader", "e"],
-      "commands": ["workbench.files.action.focusFilesExplorer"]
+      "before": ["leader", "r"],
+      "commands": ["editor.action.rename"]
     },
     {
-      "before": ["leader", "leader"],
-      "commands": ["workbench.action.quickOpen"]
+      "before": ["leader", "w"],
+      "commands": [":w!"]
     },
     {
-      "before": ["leader", "s"],
-      "commands": ["editor.action.startFindReplaceAction"]
+      "before": ["leader", "q"],
+      "commands": [":q!"]
     },
     {
-      "before": ["leader", "g"],
-      "commands": ["workbench.action.findInFiles"]
-    },
-    // buffer control
-    {
-      "before": ["L"],
-      "commands": ["workbench.action.nextEditor"]
+      "before": ["leader", "x"],
+      "commands": [":x!"]
     },
     {
-      "before": ["H"],
-      "commands": ["workbench.action.previousEditor"]
+      "after": ["g", "g", "V", "G"],
+      "before": ["<c-a>"]
     },
     {
-      "before": ["leader", "b", "k"],
-      "commands": ["workbench.action.closeActiveEditor"]
-    },
-    // 窗口管理
-    {
-      "before": ["leader", "w", "v"],
-      "commands": ["workbench.action.splitEditorRight"]
+      "before": ["[", "d"],
+      "commands": ["editor.action.marker.prev"]
     },
     {
-      "before": ["leader", "w", "s"],
-      "commands": ["workbench.action.splitEditorDown"]
-    },
-    // lsp 代码处理 -- c = code
-    {
-      "before": ["c", "z"],
-      "commands": ["editor.toggleFold"]
+      "before": ["]", "d"],
+      "commands": ["editor.action.marker.next"]
     },
     {
-      "before": ["c", "f"],
-      "commands": ["editor.action.formatDocument"]
-    },
-    {
-      "before": ["[", "e"],
-      "commands": ["editor.action.marker.prevInFiles"]
-    },
-    {
-      "before": ["]", "e"],
-      "commands": ["editor.action.marker.nextInFiles"]
-    },
-    {
-      "before": ["leader", "x", "q"],
+      "before": ["<leader>", "c", "a"],
       "commands": ["editor.action.quickFix"]
     },
     {
-      "before": ["K"],
-      "commands": ["editor.action.showHover"]
-    },
-    // debug keymaps
-    {
-      "before": [",", "d"],
-      "commands": ["workbench.action.debug.start"]
+      "after": ["^"],
+      "before": ["H"]
     },
     {
-      "before": [",", "b"],
-      "commands": ["editor.debug.action.toggleBreakpoint"]
+      "after": ["$"],
+      "before": ["L"]
     },
     {
-      "before": [",", "r"],
-      "commands": ["workbench.action.debug.run"],
-      "when": "inDebugMode && debuggersAvailable && debugState != 'initializing'"
-    },
-    {
-      "before": [",", "c"],
-      "commands": ["workbench.action.debug.continue"],
-      "when": "inDebugMode && !focusedSessionIsAttach && debugState == 'stopped'"
-    },
-    {
-      "before": [",", "s"],
-      "commands": ["workbench.action.debug.stop"],
-      "when": "inDebugMode && !focusedSessionIsAttach"
-    },
-    {
-      "before": [",", "i"],
-      "commands": ["workbench.action.debug.stepInto"],
-      "when": "inDebugMode && !focusedSessionIsAttach && debugState != 'inactive'"
-    },
-    {
-      "before": [",", "O"],
-      "commands": ["workbench.action.debug.stepOut"],
-      "when": "inDebugMode && !focusedSessionIsAttach && debugState == 'stopped'"
-    },
-    {
-      "before": [",", "o"],
-      "commands": ["workbench.action.debug.stepOver"],
-      "when": "inDebugMode && !focusedSessionIsAttach && debugState == 'stopped'"
+      "before": ["leader", "i"],
+      "commands": ["extension.toggleBool"]
     }
-  ],
-  // 插入模式下的非递归按键绑定
-  "vim.insertModeKeyBindings": [
-    {
-      "before": ["j", "k"],
-      "after": ["<Esc>"],
-      "commands": ["workbench.action.files.save"]
-    }
-  ],
-  // 命令模式下的非递归按键绑定
-  "vim.commandLineModeKeyBindingsNonRecursive": [],
-  // 可视模式下的非递归按键绑定
-  "vim.operatorPendingModeKeyBindings": [
-    {
-      "before": [">"],
-      "commands": ["editor.action.indentLines"]
-    },
-    {
-      "before": ["<"],
-      "commands": ["editor.action.outdentLines"]
-    },
-    {
-      "before": ["K"],
-      "commands": ["editor.action.showHover"]
-    },
-    {
-      "before": ["<leader>", "y"],
-      "after": ["\"", "+", "y"]
-    },
-    {
-      "before": ["<leader>", "d"],
-      "after": ["\"", "_", "d"]
-    }
-  ],
-  "security.workspace.trust.untrustedFiles": "open",
-  "terminal.integrated.fontSize": 15
+  ]
 }
