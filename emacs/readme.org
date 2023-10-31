@@ -34,7 +34,9 @@
 - [[#process-management][Process management]]
 - [[#snippets][Snippets]]
 - [[#other-languages][Other Languages]]
-    - [[#general-purpose][General-purpose]]
+    - [[#cc][C/C++]]
+    - [[#rust][Rust]]
+    - [[#javascripttypescript][Javascript/Typescript]]
     - [[#configuration][Configuration]]
     - [[#interchange][Interchange]]
     - [[#markup][Markup]]
@@ -1487,6 +1489,7 @@ Rust 和 C++ 这种命令式语言,使用逐步调试器更有必要
 
 #+begin_src emacs-lisp
   (use-package dap-mode
+    :disabled
     :after dap-mode
     :bind
     (:map dap-mode-map
@@ -1553,9 +1556,7 @@ Though I used ~lsp-mode~ for ages, in my old age I've grown happier with package
 
 #+begin_src emacs-lisp
   (use-package eglot
-    :disabled
-    :hook ((c++-mode . eglot-ensure)
-           (rust-mode . eglot-ensure))
+    :hook (prog-mode . eglot-ensure)
     :bind (:map eglot-mode-map
                 ("C-<down-mouse-1>" . #'xref-find-definitions)
                 ("C-S-<down-mouse-1>" . #'xref-find-references)
@@ -1607,6 +1608,7 @@ In fact, ~lsp-mode~ is more powerful than eglot, and more quick than before.
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
+    :disabled
     :commands (lsp-format-buffer lsp-organize-imports)
     :hook ((prog-mode . (lambda ()
                           (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
@@ -1634,6 +1636,7 @@ In fact, ~lsp-mode~ is more powerful than eglot, and more quick than before.
                   ("C-M-." . consult-lsp-symbols))))
 
   (use-package lsp-ui
+    :disabled
     :custom-face
     (lsp-ui-sideline-code-action ((t (:inherit warning))))
     :hook (lsp-mode . lsp-ui-mode)
@@ -1720,14 +1723,12 @@ And lastly, the built-in ~flymake~ does a great job, and ~eglot~ builds upon it.
 
 #+begin_src emacs-lisp
   (use-package flymake
-    :disabled
     :init (setq flymake-no-changes-timeout nil)
     :config
     (setq elisp-flymake-byte-compile-load-path load-path)
     :hook (prog-mode . flymake-mode))
 
   (use-package sideline-flymake
-    :disabled
     :diminish sideline-mode
     :hook (flymake-mode . sideline-mode)
     :init (setq sideline-flymake-display-mode 'point
@@ -1738,6 +1739,7 @@ I change to ~flycheck~, it's more powerful than flymake.
 
 #+begin_src emacs-lisp
   (use-package flycheck
+    :disabled
     :hook (prog-mode . flycheck-mode)
     :custom
     (flycheck-temp-prefix ".flycheck")
@@ -1755,7 +1757,7 @@ Open project like IDE
     :commands (treemacs-follow-mode
                treemacs-filewatch-mode
                treemacs-git-mode)
-    :bind (([f8]       . treemacs)
+    :bind (([f8]        . treemacs)
            ("M-0"       . treemacs-select-window)
            ;; ("C-x t 1"   . treemacs-delete-other-windows)
            ("C-x t C-b" . treemacs-bookmark)
@@ -1883,7 +1885,13 @@ I grew up writing in TextMate, so I got extremely used to text-expansion snippet
 
 * Other Languages
 
-*** General-purpose
+*** C/C++
+
+#+begin_src emacs-lisp
+  (use-package cc-mode)
+#+end_src
+
+*** Rust
 
 Rust is one of my favorite languages in the world.
 
@@ -1900,15 +1908,23 @@ Rust is one of my favorite languages in the world.
                 ("C-c m" . rustic-compile))
     :custom
     (rustic-lsp-setup-p nil)
-    (rustic-lsp-client 'lsp-mode)
+    (rustic-lsp-client 'eglot)
     (rustic-format-on-save t))
+
+  ;; Cargo integration
+  (use-package cargo
+    :ensure t
+    :hook (rustic-mode . cargo-minor-mode))
 
   ;; after rustic and flycheck
   (use-package flycheck-rust
+    :disabled
     :after rustic-mode
     :custom
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+end_src
+
+*** Javascript/Typescript
 
 Some other miscellaneous languages that I don't write often but for which I need syntax highlighting, at least.
 

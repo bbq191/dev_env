@@ -31,17 +31,17 @@ Plug 'preservim/nerdtree'
 
 """""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
 """ Navigation
-nnoremap <leader>e :NERDTreeToggle<cr>
-nnoremap <leader>bp :bprevious<cr>
-nnoremap <leader>bn :bnext<cr>
-nnoremap <leader>wv :action SplitVertically<CR>
-nnoremap <leader>ws :action SplitHorizontally<CR>
-nnoremap <leader>wk :action Unsplit<CR>
-nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
-nnoremap <Leader>en :action EditSourceInNewWindow<CR>
-nnoremap <Leader>wn :action NextWindow<CR>
+nnoremap <c-e> :NERDTreeToggle<cr>
+""nnoremap <leader>bp :bprevious<cr>
+""nnoremap <leader>bn :bnext<cr>
+""nnoremap <leader>wv :action SplitVertically<CR>
+""nnoremap <leader>ws :action SplitHorizontally<CR>
+""nnoremap <leader>wk :action Unsplit<CR>
+""nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
+""nnoremap <Leader>en :action EditSourceInNewWindow<CR>
+""nnoremap <Leader>wn :action NextWindow<CR>
 nnoremap <Leader>q :action CloseContent<CR>
-nnoremap <Leader>K :action CloseAllEditors<CR>
+""nnoremap <Leader>K :action CloseAllEditors<CR>
 
 """ Code operate
 vnoremap <a-j> :action MoveLineDown<cr>
@@ -50,11 +50,11 @@ vnoremap < <gv
 vnoremap > >gv
 nnoremap [[ :action MethodUp<CR>
 nnoremap ]] :action MethodDown<CR>
-nnoremap zc :action CollapseRegion<CR>
-nnoremap zo :action ExpandRegion<CR>
-nnoremap <leader>zc :action CollapseAllRegions<CR>
-nnoremap <leader>zo :action ExpandAllRegions<CR>
-nnoremap <leader>cR :action Refactorings.QuickListPopupAction<CR>
+""nnoremap zc :action CollapseRegion<CR>
+""nnoremap zo :action ExpandRegion<CR>
+""nnoremap <leader>zc :action CollapseAllRegions<CR>
+""nnoremap <leader>zo :action ExpandAllRegions<CR>
+""nnoremap <leader>cR :action Refactorings.QuickListPopupAction<CR>
 nnoremap <leader>cr :action RenameElement<CR>
 nnoremap <Leader>cf :action ReformatCode<CR>
 nnoremap <leader>co :action OptimizeImports<CR>
@@ -102,8 +102,8 @@ nnoremap <c-p> :action JumpToLastWindow<CR>
 nnoremap <c-x> :action HideAllWindows<CR>
 
 """ Terminal
-nnoremap <leader>t :action ActivateTerminalToolWindow<CR>
-nnoremap <leader>T :action Terminal.OpenInTerminal<CR> "open a new terminal
+nnoremap <c-\\> :action ActivateTerminalToolWindow<CR>
+""nnoremap <leader>T :action Terminal.OpenInTerminal<CR> "open a new terminal
 
 """ Git
 nmap <leader>gs <action>(Vcs.ShowTabbedFileHistory)

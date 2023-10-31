@@ -5,7 +5,6 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-
 ;; use package ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
 
@@ -29,15 +28,6 @@
 (eval-when-compile
   (require 'use-package)
   (require 'ob-tangle))
-
-;; package `quelpa'.
-(use-package quelpa
-  :commands quelpa
-  :custom
-  (quelpa-git-clone-depth 1)
-  (quelpa-self-upgrade-p nil)
-  (quelpa-update-melpa-p nil)
-  (quelpa-checkout-melpa-p nil))
 
 (defun reload-config ()
   "Reload the literate config from ~/.config/emacs/readme.org."

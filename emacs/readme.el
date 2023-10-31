@@ -1094,6 +1094,7 @@ default lsp-passthrough."
   (add-to-list 'completion-at-point-functions #'cape-line))
 
 (use-package dap-mode
+  :disabled
   :after dap-mode
   :bind
   (:map dap-mode-map
@@ -1148,9 +1149,7 @@ default lsp-passthrough."
           (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
 
 (use-package eglot
-  :disabled
-  :hook ((c++-mode . eglot-ensure)
-         (rust-mode . eglot-ensure))
+  :hook (prog-mode . eglot-ensure)
   :bind (:map eglot-mode-map
               ("C-<down-mouse-1>" . #'xref-find-definitions)
               ("C-S-<down-mouse-1>" . #'xref-find-references)
@@ -1196,6 +1195,7 @@ default lsp-passthrough."
   :bind (:map eglot-mode-map ("s-t" . #'pt/consult-eglot)))
 
 (use-package lsp-mode
+  :disabled
   :commands (lsp-format-buffer lsp-organize-imports)
   :hook ((prog-mode . (lambda ()
                         (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
@@ -1223,6 +1223,7 @@ default lsp-passthrough."
                 ("C-M-." . consult-lsp-symbols))))
 
 (use-package lsp-ui
+  :disabled
   :custom-face
   (lsp-ui-sideline-code-action ((t (:inherit warning))))
   :hook (lsp-mode . lsp-ui-mode)
@@ -1305,20 +1306,19 @@ default lsp-passthrough."
     (advice-add #'lsp-ui-doc--handle-hr-lines :override #'my-lsp-ui-doc--handle-hr-lines)))
 
 (use-package flymake
-  :disabled
   :init (setq flymake-no-changes-timeout nil)
   :config
   (setq elisp-flymake-byte-compile-load-path load-path)
   :hook (prog-mode . flymake-mode))
 
 (use-package sideline-flymake
-  :disabled
   :diminish sideline-mode
   :hook (flymake-mode . sideline-mode)
   :init (setq sideline-flymake-display-mode 'point
               sideline-backends-right '(sideline-flymake)))
 
 (use-package flycheck
+  :disabled
   :hook (prog-mode . flycheck-mode)
   :custom
   (flycheck-temp-prefix ".flycheck")
@@ -1330,7 +1330,7 @@ default lsp-passthrough."
   :commands (treemacs-follow-mode
              treemacs-filewatch-mode
              treemacs-git-mode)
-  :bind (([f8]       . treemacs)
+  :bind (([f8]        . treemacs)
          ("M-0"       . treemacs-select-window)
          ;; ("C-x t 1"   . treemacs-delete-other-windows)
          ("C-x t C-b" . treemacs-bookmark)
@@ -1434,6 +1434,8 @@ default lsp-passthrough."
   :load-path "/Users/afu/workspace/snippets"
   :after yasnippet)
 
+(use-package cc-mode)
+
 ;; (use-package rust-mode
 ;;   :defer t
 ;;   :custom
@@ -1446,11 +1448,17 @@ default lsp-passthrough."
               ("C-c m" . rustic-compile))
   :custom
   (rustic-lsp-setup-p nil)
-  (rustic-lsp-client 'lsp-mode)
+  (rustic-lsp-client 'eglot)
   (rustic-format-on-save t))
+
+;; Cargo integration
+(use-package cargo
+  :ensure t
+  :hook (rustic-mode . cargo-minor-mode))
 
 ;; after rustic and flycheck
 (use-package flycheck-rust
+  :disabled
   :after rustic-mode
   :custom
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
