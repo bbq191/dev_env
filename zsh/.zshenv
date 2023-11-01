@@ -42,6 +42,7 @@ export ANDROID_PREFS_ROOT="$XDG_DATA_HOME/android"
 
 # java config
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
+[[ -s "/Users/afu/.local/share/sdkman/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
 # llvm config
 export LLVM_HOME="/opt/homebrew/opt/llvm"
