@@ -22,7 +22,7 @@ export HOMEBREW_REPOSITORY="/opt/homebrew";
 #export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
-[ -f "$XDG_CONFIG_HOME/fzf.zsh" ] && source "XDG_CONFIG_HOME/fzf.zsh"
+[ -f "$XDG_CONFIG_HOME/fzf.zsh" ] && source "$XDG_CONFIG_HOME/fzf.zsh"
 
 export LANG="en_US.UTF-8"
 export DEFAULT_USER=$USER
@@ -39,6 +39,9 @@ export ANDROID_PREFS_ROOT="$XDG_DATA_HOME/android"
 
 # postgresql
 #export POSTGRES="/opt/homebrew/opt/postgresql@15/bin"
+
+# java config
+export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
 
 # llvm config
 export LLVM_HOME="/opt/homebrew/opt/llvm"
