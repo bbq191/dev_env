@@ -278,7 +278,7 @@
   :config
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
-  (let ((chosen-theme 'doom-ephemeral))
+  (let ((chosen-theme 'doom-tokyo-night))
     (setq doom-challenger-deep-brighter-comments t
           doom-challenger-deep-brighter-modeline t
           doom-rouge-brighter-comments t
@@ -1094,7 +1094,6 @@ default lsp-passthrough."
   (add-to-list 'completion-at-point-functions #'cape-line))
 
 (use-package dap-mode
-  :disabled
   :after dap-mode
   :bind
   (:map dap-mode-map
@@ -1149,6 +1148,7 @@ default lsp-passthrough."
           (alist-get 'right-fringe eldoc-box-frame-parameters) 8)))
 
 (use-package eglot
+  :disabled
   :hook (prog-mode . eglot-ensure)
   :bind (:map eglot-mode-map
               ("C-<down-mouse-1>" . #'xref-find-definitions)
@@ -1187,6 +1187,7 @@ default lsp-passthrough."
   (advice-add 'prog-context-menu :around #'pt/add-eglot-to-prog-menu))
 
 (use-package consult-eglot
+  :disabled
   :config
   (defun pt/consult-eglot ()
     (interactive)
@@ -1195,7 +1196,6 @@ default lsp-passthrough."
   :bind (:map eglot-mode-map ("s-t" . #'pt/consult-eglot)))
 
 (use-package lsp-mode
-  :disabled
   :commands (lsp-format-buffer lsp-organize-imports)
   :hook ((prog-mode . (lambda ()
                         (unless (derived-mode-p 'emacs-lisp-mode 'lisp-mode 'makefile-mode 'snippet-mode)
@@ -1223,7 +1223,6 @@ default lsp-passthrough."
                 ("C-M-." . consult-lsp-symbols))))
 
 (use-package lsp-ui
-  :disabled
   :custom-face
   (lsp-ui-sideline-code-action ((t (:inherit warning))))
   :hook (lsp-mode . lsp-ui-mode)
@@ -1306,19 +1305,20 @@ default lsp-passthrough."
     (advice-add #'lsp-ui-doc--handle-hr-lines :override #'my-lsp-ui-doc--handle-hr-lines)))
 
 (use-package flymake
+  :disabled
   :init (setq flymake-no-changes-timeout nil)
   :config
   (setq elisp-flymake-byte-compile-load-path load-path)
   :hook (prog-mode . flymake-mode))
 
 (use-package sideline-flymake
+  :disabled
   :diminish sideline-mode
   :hook (flymake-mode . sideline-mode)
   :init (setq sideline-flymake-display-mode 'point
               sideline-backends-right '(sideline-flymake)))
 
 (use-package flycheck
-  :disabled
   :hook (prog-mode . flycheck-mode)
   :custom
   (flycheck-temp-prefix ".flycheck")
@@ -1447,18 +1447,16 @@ default lsp-passthrough."
               ("C-c a t" . rustic-cargo-current-test)
               ("C-c m" . rustic-compile))
   :custom
-  (rustic-lsp-setup-p nil)
-  (rustic-lsp-client 'eglot)
-  (rustic-format-on-save t))
+  (setq rustic-lsp-setup-p nil)
+  (setq rustic-lsp-client 'lsp-mode)
+  (setq rustic-format-on-save t))
 
 ;; Cargo integration
 (use-package cargo
-  :ensure t
   :hook (rustic-mode . cargo-minor-mode))
 
 ;; after rustic and flycheck
 (use-package flycheck-rust
-  :disabled
   :after rustic-mode
   :custom
   (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
