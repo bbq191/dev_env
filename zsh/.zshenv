@@ -1,8 +1,17 @@
 #!/bin/zsh
-
+# proxy
 export HTTPS_PROXY=http://127.0.0.1:6152
 export HTTP_PROXY=http://127.0.0.1:6152
-export ALL_PROXY=socks5://127.0.0.1:6152
+export ALL_PROXY=socks5://127.0.0.1:6153
+
+# general
+export LANG="en_US.UTF-8"
+export DEFAULT_USER=$USER
+export EDITOR="emacs -a """
+export MANWIDTH=999
+# export TERMINAL="kitty"
+export TERM="xterm-256color"
+export LESSHISTFILE=-
 
 # XDG Path
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -21,24 +30,9 @@ export HOMEBREW_REPOSITORY="/opt/homebrew";
 #export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
 #export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 
+# zap
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 [ -f "$XDG_CONFIG_HOME/fzf.zsh" ] && source "$XDG_CONFIG_HOME/fzf.zsh"
-
-export LANG="en_US.UTF-8"
-export DEFAULT_USER=$USER
-export EDITOR="emacs -a """
-export MANWIDTH=999
-# export TERMINAL="kitty"
-export TERM="xterm-256color"
-export LESSHISTFILE=-
-# pip user command
-#export PIP_EXEC_USER="/Users/vincixu/Library/Python/3.11"
-
-# android home
-export ANDROID_PREFS_ROOT="$XDG_DATA_HOME/android"
-
-# postgresql
-#export POSTGRES="/opt/homebrew/opt/postgresql@15/bin"
 
 # java config
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
@@ -55,6 +49,9 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 # npm config
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+
+# Jetbrains
+export JETBRAINS="/Users/afu/Library/Application Support/JetBrains/Toolbox/scripts"
 
 # path append
 export PATH="$HOMEBREW_REPOSITORY/bin":"$HOMEBREW_REPOSITORY/sbin":"$CARGO_HOME/bin":"$LLVM_HOME/bin":"$PATH"
