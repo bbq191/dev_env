@@ -1,6 +1,10 @@
 // Place your key bindings in this file to override the defaults
 [
   {
+    "key": "ctrl+h",
+    "command": "workbench.action.focusFirstEditorGroup"
+  },
+  {
     "command": "projectManager.listGitProjects#sideBarGit",
     "key": "cmd+o"
   },
@@ -49,6 +53,11 @@
     "when": "filesExplorerFocus && !inputFocus"
   },
   {
+    "command": "explorer.newFolder",
+    "key": "f",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
     "command": "editor.action.addSelectionToNextFindMatch",
     "key": "ctrl+n",
     "when": "editorFocus"
@@ -67,22 +76,16 @@
     "when": "editorFocus"
   },
   {
-    "command": "-extension.vim_cmd+d",
-    "key": "cmd+d",
-    "when": "editorTextFocus && vim.active && vim.use<D-d> && !inDebugRepl"
-  },
-  {
-    "command": "workbench.action.splitEditor",
-    "key": "cmd+d"
-  },
-  {
     "command": "-workbench.action.splitEditor",
     "key": "cmd+\\"
   },
   {
-    "command": "workbench.action.terminal.toggleTerminal",
-    "key": "ctrl+\\",
-    "when": "terminal.active"
+    "command": "turboConsoleLog.displayLogMessage",
+    "key": "cmd+i"
+  },
+  {
+    "command": "-turboConsoleLog.displayLogMessage",
+    "key": "ctrl+alt+l"
   },
   {
     "command": "-undo",
@@ -94,16 +97,21 @@
     "when": "interactiveEditorHasStashedSession && !editorReadonly"
   },
   {
+    "command": "workbench.action.toggleZenMode",
+    "key": "cmd+z"
+  },
+  {
     "command": "-workbench.action.toggleZenMode",
     "key": "cmd+k z"
+  },
+  {
+    "command": "workbench.action.terminal.toggleTerminal",
+    "key": "ctrl+\\",
+    "when": "terminal.active"
   },
   {
     "command": "-workbench.action.terminal.toggleTerminal",
     "key": "ctrl+`",
     "when": "terminal.active"
-  },
-  {
-    "command": "workbench.action.toggleZenMode",
-    "key": "cmd+z"
   }
 ]
