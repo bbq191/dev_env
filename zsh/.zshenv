@@ -50,8 +50,8 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 # npm config
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
-# Jetbrains
-export JETBRAINS="/Users/afu/Library/Application Support/JetBrains/Toolbox/scripts"
+# go
+export export GOPATH="$XDG_DATA_HOME/go"
 
 # path append
-export PATH="$HOMEBREW_REPOSITORY/bin":"$HOMEBREW_REPOSITORY/sbin":"$CARGO_HOME/bin":"$LLVM_HOME/bin":"$PATH"
+export PATH="$HOMEBREW_REPOSITORY/bin":"$HOMEBREW_REPOSITORY/sbin":"$CARGO_HOME/bin":"$LLVM_HOME/bin":"$GOPATH/bin":"$PATH"
