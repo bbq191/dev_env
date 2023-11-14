@@ -1,4 +1,11 @@
 # vscode config
 
-It is almost the same as my neovim keymapping.
-enjoy myself 8-)
+```css
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.85;
+  background-image: url('data:image/webp;base64,yourcode');
+}
+```
