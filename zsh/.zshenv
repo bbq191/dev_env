@@ -1,6 +1,6 @@
 #!/bin/zsh
 # proxy
-export HTTPS_PROXY=https://127.0.0.1:6152
+export HTTPS_PROXY=http://127.0.0.1:6152
 export HTTP_PROXY=http://127.0.0.1:6152
 export ALL_PROXY=socks5://127.0.0.1:6153
 
