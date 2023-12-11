@@ -1,12 +1,8 @@
 // Place your key bindings in this file to override the defaults
 [
   {
-    "key": "ctrl+h",
-    "command": "workbench.action.focusFirstEditorGroup"
-  },
-  {
-    "command": "projectManager.listGitProjects#sideBarGit",
-    "key": "cmd+o"
+    "command": "-editor.action.selectAll",
+    "key": "cmd+a"
   },
   {
     "command": "expand_region",
@@ -19,48 +15,40 @@
     "when": "editorTextFocus && editorHasSelection"
   },
   {
-    "command": "workbench.action.toggleSidebarVisibility",
-    "key": "ctrl+e"
+    "key": "cmd+n",
+    "command": "extension.advancedNewFile",
+    "when": "!terminalFocus"
   },
   {
-    "command": "workbench.files.action.focusFilesExplorer",
-    "key": "ctrl+e",
-    "when": "editorTextFocus"
+    "key": "alt+cmd+n",
+    "command": "-extension.advancedNewFile"
   },
   {
-    "command": "explorer.newFile",
-    "key": "a",
-    "when": "filesExplorerFocus && !inputFocus"
+    "key": "cmd+n",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus"
   },
   {
-    "command": "renameFile",
-    "key": "r",
-    "when": "filesExplorerFocus && !inputFocus"
+    "key": "ctrl+shift+`",
+    "command": "-workbench.action.terminal.new",
+    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
   },
   {
-    "command": "filesExplorer.copy",
-    "key": "c",
-    "when": "filesExplorerFocus && !inputFocus"
+    "key": "cmd+w",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalFocus"
   },
   {
-    "command": "filesExplorer.paste",
-    "key": "p",
-    "when": "filesExplorerFocus && !inputFocus"
+    "key": "ctrl+o",
+    "command": "workbench.action.navigateBack"
   },
   {
-    "command": "deleteFile",
-    "key": "d",
-    "when": "filesExplorerFocus && !inputFocus"
+    "key": "ctrl+i",
+    "command": "workbench.action.navigateForward"
   },
   {
-    "command": "explorer.newFolder",
-    "key": "f",
-    "when": "filesExplorerFocus && !inputFocus"
-  },
-  {
-    "command": "editor.action.addSelectionToNextFindMatch",
-    "key": "ctrl+n",
-    "when": "editorFocus"
+    "command": "projectManager.listGitProjects#sideBarGit",
+    "key": "cmd+o"
   },
   {
     "command": "-workbench.action.files.save",
@@ -76,8 +64,13 @@
     "when": "editorFocus"
   },
   {
-    "command": "-workbench.action.splitEditor",
-    "key": "cmd+\\"
+    "command": "-extension.vim_cmd+d",
+    "key": "cmd+d",
+    "when": "editorTextFocus && vim.active && vim.use<D-d> && !inDebugRepl"
+  },
+  {
+    "command": "workbench.action.splitEditor",
+    "key": "cmd+d"
   },
   {
     "command": "turboConsoleLog.displayLogMessage",
@@ -88,8 +81,13 @@
     "key": "ctrl+alt+l"
   },
   {
-    "command": "-undo",
-    "key": "cmd+z"
+    "command": "-editor.action.addSelectionToNextFindMatch",
+    "key": "cmd+d",
+    "when": "editorFocus"
+  },
+  {
+    "command": "-workbench.action.splitEditor",
+    "key": "cmd+\\"
   },
   {
     "command": "-interactiveEditor.unstash",
@@ -97,15 +95,8 @@
     "when": "interactiveEditorHasStashedSession && !editorReadonly"
   },
   {
-    "command": "workbench.action.toggleZenMode",
-    "key": "cmd+z"
-  },
-  {
-    "command": "-workbench.action.toggleZenMode",
-    "key": "cmd+k z"
-  },
-  {
-    "command": "workbench.action.terminal.toggleTerminal",
+    // "command": "workbench.action.terminal.toggleTerminal",
+    "command": "workbench.action.createTerminalEditorSide",
     "key": "ctrl+\\",
     "when": "terminal.active"
   },

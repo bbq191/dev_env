@@ -28,6 +28,7 @@ noremap x "_x
 noremap <leader>R :action IdeaVim.ReloadVimRc.reload<CR>
 "" plugin install
 Plug 'preservim/nerdtree'
+Plug 'vim-highlightedyank'
 
 """""""""""""""" key mapping config begin here """"""""""""""""""""""""""""""
 """ Navigation
@@ -75,7 +76,7 @@ nnoremap <leader>gh :action CallHierarchy<CR>
 nnoremap <leader>gb :action ShowNavBar<CR>
 nnoremap <leader>ca :action Annotate<CR>
 nnoremap ]e :action GotoNextError<CR>
-nnoremap [e :action GotoPreviousError
+nnoremap [e :action GotoPreviousError<CR>
 nnoremap gs :action GotoSymbol<CR>
 nnoremap gc :action GotoClass<CR>
 nnoremap gi :action GotoImplementation<CR>
@@ -102,7 +103,7 @@ nnoremap <c-p> :action JumpToLastWindow<CR>
 nnoremap <c-x> :action HideAllWindows<CR>
 
 """ Terminal
-nnoremap <c-\\> :action ActivateTerminalToolWindow<CR>
+nnoremap <c-\> :action ActivateTerminalToolWindow<CR>
 ""nnoremap <leader>T :action Terminal.OpenInTerminal<CR> "open a new terminal
 
 """ Git
