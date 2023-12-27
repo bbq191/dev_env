@@ -7,7 +7,7 @@ export ALL_PROXY=socks5://127.0.0.1:6153
 # general
 export LANG="en_US.UTF-8"
 export DEFAULT_USER=$USER
-export EDITOR="emacs -a """
+export EDITOR="nvim"
 export MANWIDTH=999
 # export TERMINAL="kitty"
 export TERM="xterm-256color"
