@@ -1,7 +1,7 @@
 """"""""""""""""""" basic config begin from here """""""""""""""""""""""""""""""
 """ Editing and Reloading the Config
-""" set clipboard+=unnamed
-""" set clipboard+=ideaput
+set clipboard+=unnamed
+set clipboard+=ideaput
 
 """ The Escape button
 map <C-c> <Esc>
