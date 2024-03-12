@@ -53,3 +53,4 @@ target/
 build/
 .cache/
 bazel-*
+logs/
