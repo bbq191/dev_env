@@ -44,3 +44,10 @@ alias pscpu='ps aux | sort -nr -k 3 | head -5'
 
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
+
+# vscode run from cli
+# alias codes = "code --extensions-dir \"$XDG_DATA_HOME\"/vscode"
+
+# subversion
+alias svn="svn --config-dir \"$XDG_CONFIG_HOME\"/subversion"
+
