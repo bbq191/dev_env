@@ -22,9 +22,6 @@ export XDG_CACHE_HOME="$HOME/.cache"
 # USER Bin
 export USER_BIN="$HOME/.local/bin"
 
-# Vscode
-VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
-
 # homebrew
 export HOMEBREW_PREFIX="/opt/homebrew";
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
