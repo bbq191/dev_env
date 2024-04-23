@@ -19,6 +19,8 @@ k.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 -- clear search highlights
 k.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
+k.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
+
 k.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
 k.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
 k.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
@@ -34,4 +36,3 @@ k.set("n", "x", '"_x')
 
 -- next greatest remap ever : asbjornHaland
 k.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-

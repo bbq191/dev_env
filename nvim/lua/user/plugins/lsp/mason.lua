@@ -38,6 +38,8 @@ return {
 				"prismals",
 				"pyright",
 				"rust_analyzer",
+				"java-language-server",
+				"yaml-language-server",
 				"clangd",
 				"cmake",
 			},
@@ -49,9 +51,8 @@ return {
 			ensure_installed = {
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
-				"isort", -- python formatter
-				"black", -- python formatter
-				"pylint", -- python linter
+				"sqlfmt", -- sql formatter
+				"yamlfmt", -- yaml formatter
 				"eslint_d", -- js linter
 			},
 		})
