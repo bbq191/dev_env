@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/zsh
 # shellcheck disable=SC2207
 
 # Doesn't let you press Ctrl-C
