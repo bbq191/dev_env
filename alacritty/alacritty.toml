@@ -18,7 +18,7 @@ startup_mode = "Maximized"
 normal.family = "Iosevka Nerd Font"
 
 #regular
-size = 15
+size = 17
 
 #for video
 # size = 35.0
