@@ -12,10 +12,13 @@ o.autoindent = true -- copy indent from current line when starting new one
 
 -- line wrapping
 o.wrap = false -- disable line wrapping
+o.smartindent = true
 
 -- search settings
 o.ignorecase = true -- ignore case when searching
 o.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
+o.hlsearch = false
+o.incsearch = true
 
 -- cursor line
 o.cursorline = true -- highlight the current cursor line
@@ -29,6 +32,7 @@ o.background = "dark" -- colorschemes that can be light or dark will be made dar
 o.signcolumn = "yes" -- show sign column so that text doesn't shift
 o.scrolloff = 8 -- scroll more line
 o.colorcolumn = "80"
+o.updatetime = 50
 
 -- backspace
 o.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
