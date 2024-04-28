@@ -13,6 +13,7 @@ return {
 				typescript = { "prettier" },
 				javascriptreact = { "prettier" },
 				typescriptreact = { "prettier" },
+				java = { "google-java-format" },
 				svelte = { "prettier" },
 				css = { "prettier" },
 				html = { "prettier" },

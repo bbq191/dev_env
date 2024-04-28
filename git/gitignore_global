@@ -54,3 +54,4 @@ build/
 .cache/
 bazel-*
 logs/
+lazy-lock.json
