@@ -45,23 +45,23 @@ nnoremap <Leader>q :action CloseContent<CR>
 ""nnoremap <Leader>K :action CloseAllEditors<CR>
 
 """ Code operate
-vnoremap <a-j> :action MoveLineDown<cr>
-vnoremap <a-k> :action MoveLineUp<cr>
+vnoremap J :action MoveLineDown<cr>
+vnoremap K :action MoveLineUp<cr>
 vnoremap < <gv
 vnoremap > >gv
 nnoremap [[ :action MethodUp<CR>
 nnoremap ]] :action MethodDown<CR>
-""nnoremap zc :action CollapseRegion<CR>
-""nnoremap zo :action ExpandRegion<CR>
+nnoremap zc :action CollapseRegion<CR>
+nnoremap zo :action ExpandRegion<CR>
 ""nnoremap <leader>zc :action CollapseAllRegions<CR>
 ""nnoremap <leader>zo :action ExpandAllRegions<CR>
 ""nnoremap <leader>cR :action Refactorings.QuickListPopupAction<CR>
-nnoremap <leader>cr :action RenameElement<CR>
-nnoremap <Leader>cf :action ReformatCode<CR>
-nnoremap <leader>co :action OptimizeImports<CR>
-nnoremap <leader>cl :action RecentLocations<CR>
-nnoremap <leader>ch :action LocalHistory.ShowHistory<CR>
-nnoremap <leader>; :action CommentByLineComment<CR>
+nnoremap <leader>r :action RenameElement<CR>
+nnoremap <Leader>f :action ReformatCode<CR>
+nnoremap <leader>o :action OptimizeImports<CR>
+nnoremap <leader>l :action RecentLocations<CR>
+nnoremap <leader>h :action LocalHistory.ShowHistory<CR>
+nnoremap gc :action CommentByLineComment<CR>
 
 """ Searching and Source Code Navigation
 nnoremap <c-a> :action GotoAction<CR>
@@ -78,7 +78,7 @@ nnoremap <leader>ca :action Annotate<CR>
 nnoremap ]e :action GotoNextError<CR>
 nnoremap [e :action GotoPreviousError<CR>
 nnoremap gs :action GotoSymbol<CR>
-nnoremap gc :action GotoClass<CR>
+"""nnoremap gc :action GotoClass<CR>
 nnoremap gi :action GotoImplementation<CR>
 nnoremap gd :action GotoDeclaration<CR>
 nnoremap gp :action GotoSuperMethod<CR>
