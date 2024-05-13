@@ -20,7 +20,7 @@ option_as_alt = "Both"
 normal.family = "Iosevka Nerd Font"
 
 #regular
-size = 17
+size = 15
 
 #for video
 # size = 35.0
