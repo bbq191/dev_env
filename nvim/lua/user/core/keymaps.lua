@@ -5,7 +5,7 @@ local k = vim.keymap -- for conciseness
 k.set("n", "<leader>pv", vim.cmd.Ex)
 -- General Keymaps -------------------
 k.set("n", "Q", "<nop>")
-k.set("v", "K", ":m '<-2<CR>gv=gv")
+k.set("v", "K", ":m '<5<CR>gv=gv")
 
 k.set("n", "<C-d>", "<C-d>zz")
 k.set("n", "<C-u>", "<C-u>zz")
@@ -24,6 +24,10 @@ k.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
 -- greatest remap ever
 k.set("n", "x", '"_x')
+k.set("n", "<C-a>", "ggVG")
+k.set("i", "<C-a>", "<ESC>ggVG")
+k.set("n", "<C-s>", ":w<CR>")
+k.set("i", "<C-s>", "<ESC>:w<CR>")
 k.set("x", "<leader>p", [["_dP]])
 k.set({ "n", "v" }, "<leader>y", [["+y]])
 k.set("n", "<leader>Y", [["+Y]])
