@@ -48,4 +48,3 @@ o.splitbelow = true -- split horizontal window to the bottom
 -- turn off swapfile
 o.swapfile = false
 o.backup = false
-vim.cmd('au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=700}')
