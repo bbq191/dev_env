@@ -55,8 +55,9 @@
     "key": "cmd+s"
   },
   {
-    "command": "saveAll",
-    "key": "cmd+s"
+    "command": "extension.multiCommand.execute",
+    "args": { "command": "multiCommand.saveAndEscape" },
+    "key": "ctrl+s"
   },
   {
     "command": "-editor.action.addSelectionToNextFindMatch",

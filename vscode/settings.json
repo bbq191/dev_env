@@ -3,7 +3,7 @@
   "search.followSymlinks": false,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
-  "window.zoomLevel": -1,
+  "window.zoomLevel": 0,
   "window.commandCenter": false,
   "window.density.editorTabHeight": "compact",
   "workbench.editor.navigationScope": "editorGroup",
@@ -13,6 +13,8 @@
   "workbench.startupEditor": "readme",
   "workbench.sideBar.location": "right",
   "workbench.activityBar.location": "top",
+  "workbench.editor.enablePreview": false,
+  "workbench.colorTheme": "Tokyo Night Storm",
   "workbench.colorCustomizations": {
     "[Tokyo Night Storm]": {
       "foreground": "#959cbd",
@@ -45,8 +47,8 @@
     }
   },
   "zenMode.hideLineNumbers": false,
-  "terminal.integrated.fontFamily": "'Sarasa Term SC','Source Han Sans SC','Symbols Nerd Font Mono'",
-  "terminal.integrated.fontSize": 17,
+  "terminal.integrated.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
+  "terminal.integrated.fontSize": 15,
   "terminal.integrated.defaultLocation": "editor",
   "terminal.external.osxExec": "kitty.app",
   "[jsonc]": {
@@ -71,17 +73,17 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.addMissingImports": true,
-    "source.organizeImports": true
+    "source.addMissingImports": "explicit",
+    "source.organizeImports": "explicit"
   },
   "editor.accessibilitySupport": "off",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "block",
   "editor.cursorBlinking": "solid",
   "editor.cursorSurroundingLines": 5,
-  "editor.fontFamily": "'Sarasa Mono SC','Source Han Sans SC','Symbols Nerd Font Mono'",
+  "editor.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
   "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
-  "editor.fontSize": 17,
+  "editor.fontSize": 15,
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.lineNumbers": "relative",
@@ -134,7 +136,8 @@
   "extensions.autoUpdate": "onlyEnabledExtensions",
   "extensions.ignoreRecommendations": true,
   "extensions.experimental.affinity": {
-    "vscodevim.vim": 1
+    "vscodevim.vim": 1,
+    "asvetliakov.vscode-neovim": 1
   },
   "files.exclude": {
     "**/node_modules": true
@@ -184,22 +187,14 @@
   "bazel.enableCodeLens": true,
   "bazel.executable": "/opt/homebrew/bin/bazel",
   "crates.compatibleDecorator": "✔",
-  "crates.errorDecorator": "！",
-  "crates.incompatibleDecorator": "X ${version}",
+  "crates.errorDecorator": "✘",
+  "crates.incompatibleDecorator": "✘ ${version}",
   "evenBetterToml.formatter.allowedBlankLines": 1,
   "evenBetterToml.formatter.alignComments": true,
   "evenBetterToml.formatter.alignEntries": true,
   "evenBetterToml.formatter.columnWidth": 80,
   "path-intellisense.showHiddenFiles": true,
   "rust-analyzer.check.command": "clippy",
-  "cmake.configureOnOpen": true,
-  "cmake.options.statusBarVisibility": "visible",
-  "cmake.cmakePath": "/opt/homebrew/opt/cmake/bin/cmake",
-  "cmake.configureArgs": ["-DCMAKE_VERBOSE_MAKEFILE=ON"],
-  "cmake.showOptionsMovedNotification": false,
-  "clangd.path": "/opt/homebrew/opt/llvm/bin/clangd",
-  "java.configuration.maven.userSettings": "/Users/afu/.local/share/sdkman/candidates/maven/current/conf/settings.xml",
-  "java.configuration.maven.globalSettings": "",
   "git.ignoreLegacyWarning": true,
   "better-comments.tags": [
     {
@@ -263,13 +258,38 @@
   //   "settings set target.x86-disassembly-flavor att",
   //   "settings set target.skip-prologue false"
   // ],
+  //VIM CONFIG----------------------------------------------------------------------------
+  "multiCommand.commands": [
+    {
+      "command": "multiCommand.saveAndEscape",
+      "sequence": ["workbench.action.files.save", "extension.vim_escape"]
+    },
+    {
+      "command": "multiCommand.copyWordAndReplace",
+      "sequence": ["extension.vim_yiw", "editor.action.startFindReplaceAction"]
+    }
+  ],
   "vim.foldfix": true,
   "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.textColor": "white",
   "vim.hlsearch": true,
-  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
   "vim.leader": "<space>",
+  "vim.insertModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<c-a>"],
+      "commands": ["editor.action.selectAll"]
+    },
+    {
+      "before": ["<c-v>"],
+      "commands": ["editor.action.clipboardPasteAction"]
+    },
+    {
+      "before": ["<c-x>"],
+      "commands": ["editor.action.clipboardCutAction"]
+    }
+  ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "after": ["g", "g", "V", "G"],
@@ -292,7 +312,15 @@
       "commands": [":x!"]
     },
     {
-      "before": ["<leader>", "k"],
+      "before": ["leader", "s"],
+      "commands": ["editor.action.startFindReplaceAction"]
+    },
+    {
+      "before": ["leader", "f"],
+      "commands": ["editor.action.formatDocument"]
+    },
+    {
+      "before": ["leader", "k"],
       "commands": ["editor.action.showHover"]
     },
     {
@@ -303,15 +331,5 @@
       "before": ["]", "d"],
       "commands": ["editor.action.marker.next"]
     }
-  ],
-  "workbench.colorTheme": "Everforest Dark",
-  "everforest.darkContrast": "hard",
-  "everforest.italicKeywords": true,
-  "everforest.lightContrast": "hard",
-  "everforest.lightSelection": "green",
-  "everforest.darkCursor": "red",
-  "everforest.darkWorkbench": "flat",
-  "everforest.lightCursor": "green",
-  "everforest.lightWorkbench": "flat",
-  "everforest.darkSelection": "red"
+  ]
 }
