@@ -201,8 +201,8 @@ Fixing Emacs's defaults is a nontrivial problem. We'll start with UI concerns.
   ;; Fonts
   (defun vk/setup-fonts ()
     (set-face-attribute 'default nil
-                        :family "Sarasa Mono SC"
-                        :height 140)
+                        :family "Iosevka Nerd Font"
+                        :height 170)
 
     (set-fontset-font t 'symbol (font-spec :family "Nerd Font Symbol Mono") nil 'prepend)
     (set-fontset-font t 'emoji (font-spec :family "Apple Color Emoji") nil 'prepend)
@@ -214,15 +214,6 @@ Fixing Emacs's defaults is a nontrivial problem. We'll start with UI concerns.
   (vk/setup-fonts)
   (add-hook 'window-setup-hook #'vk/setup-fonts)
   (add-hook 'server-after-make-frame-hook #'vk/setup-fonts)
-#+end_src
-
-Change key for mac, many times s key is useful
-
-#+begin_src emacs-lisp
-  ;;  (when (eq system-type 'darwin)
-  ;;    (setq mac-command-modifier 'meta
-  ;;          mac-option-modifier 'none
-  ;;          mac-right-command-modifier 'super))
 #+end_src
 
 Keep modeline clean.

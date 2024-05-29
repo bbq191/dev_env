@@ -32,7 +32,7 @@
 (defun reload-config ()
   "Reload the literate config from ~/.config/emacs/readme.org."
   (interactive)
-  (org-babel-load-file "~/.config/emacs/readme.org"))
+  (org-babel-load-file "~/.config/emacs/meow.org"))
 
 (setq max-lisp-eval-depth 2000)
 
