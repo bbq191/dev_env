@@ -169,7 +169,7 @@ Fixing Emacs's defaults is a nontrivial problem. We'll start with UI concerns.
         ;; 允许在活动的minibuffer中执行命令并打开新的minibuffer。这样可以实现命令的嵌套。
         enable-recursive-minibuffers t
         ;; Some pretty config from prucell
-        initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+        initial-scratch-message (concat ";; Happy hacking, " user-login-name " - Emacs ♥  you!\n\n"))
 
   (global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
   (delete-selection-mode t)    ;; You can select text and delete it by typing.
