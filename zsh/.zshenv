@@ -35,9 +35,9 @@ export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 [ -f "$XDG_CONFIG_HOME/fzf.zsh" ] && source "$XDG_CONFIG_HOME/fzf.zsh"
 
 # llvm
-export LLVM_HOME="/opt/homebrew/opt/llvm"
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+# export LLVM_HOME="/opt/homebrew/opt/llvm"
+# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+# export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 # java config
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
