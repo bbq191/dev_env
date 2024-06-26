@@ -1,8 +1,8 @@
 #!/bin/zsh
 # proxy
-export HTTPS_PROXY=http://127.0.0.1:7890
-export HTTP_PROXY=http://127.0.0.1:7890
-export ALL_PROXY=socks5://127.0.0.1:7890
+export HTTPS_PROXY=http://127.0.0.1:6152
+export HTTP_PROXY=http://127.0.0.1:6152
+export ALL_PROXY=socks5://127.0.0.1:6153
 
 # general
 export LANG="en_US.UTF-8"
@@ -39,6 +39,9 @@ export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 # export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 # export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
+# ADB platform
+export ADB_HOME="$XDG_DATA_HOME/platform-tools/"
+
 # java config
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
 [[ -s "/Users/afu/.local/share/sdkman/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
@@ -51,4 +54,4 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
 # path append
-export PATH="$HOMEBREW_REPOSITORY/bin":"$HOMEBREW_REPOSITORY/sbin":"$CARGO_HOME/bin":"$LLVM_HOME/bin":"$LDFLAGS":"$CPPFLAGS":"$GOPATH/bin":"$PATH"
+export PATH="$HOMEBREW_REPOSITORY/bin":"$HOMEBREW_REPOSITORY/sbin":"$CARGO_HOME/bin":"$LLVM_HOME/bin":"$LDFLAGS":"$CPPFLAGS":"$GOPATH/bin":"$ADB_HOME":"$PATH"
