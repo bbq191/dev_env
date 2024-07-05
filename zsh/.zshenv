@@ -50,8 +50,11 @@ export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
+# python home
+export PYTHON_HOME="/opt/homebrew/opt/python@3.12/libexec/bin"
+
 # npm config
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
 # path append
-export PATH="$HOMEBREW_REPOSITORY/bin":"$HOMEBREW_REPOSITORY/sbin":"$CARGO_HOME/bin":"$LLVM_HOME/bin":"$LDFLAGS":"$CPPFLAGS":"$GOPATH/bin":"$ADB_HOME":"$PATH"
+export PATH="$HOMEBREW_REPOSITORY/bin":"$HOMEBREW_REPOSITORY/sbin":"$CARGO_HOME/bin":"$LLVM_HOME/bin":"$PYTHON_HOME":"$GOPATH/bin":"$ADB_HOME":"$PATH"
