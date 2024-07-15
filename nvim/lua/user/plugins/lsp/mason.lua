@@ -38,8 +38,6 @@ return {
 				"prismals",
 				"pyright",
 				"rust_analyzer",
-				"yamlls",
-				"clangd",
 				"cmake",
 			},
 			-- auto-install configured servers (with lspconfig)
