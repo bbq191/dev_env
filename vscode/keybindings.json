@@ -60,10 +60,6 @@
     "when": "editorFocus"
   },
   {
-    "command": "workbench.action.splitEditor",
-    "key": "ctrl+w"
-  },
-  {
     "command": "turboConsoleLog.displayLogMessage",
     "key": "cmd+i"
   },
@@ -94,5 +90,38 @@
     "command": "-workbench.action.terminal.toggleTerminal",
     "key": "ctrl+`",
     "when": "terminal.active"
+  },
+  {
+    "command": "-deleteRight",
+    "key": "ctrl+d"
+  },
+  {
+    "command": "-list.focusPageDown",
+    "key": "ctrl+d"
+  },
+  {
+    "command": "-list.focusPageUp",
+    "key": "ctrl+u"
+  },
+  {
+    "key": "cmd+pagedown",
+    "command": "-scrollPageDown"
+  },
+  {
+    "key": "cmd+pageup",
+    "command": "-scrollPageUp"
+  },
+  {
+    "key": "ctrl+shift+g",
+    "command": "-workbench.view.scm"
+  },
+  {
+    "key": "cmd+b",
+    "command": "-workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "escape",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "sideBarFocus"
   }
 ]

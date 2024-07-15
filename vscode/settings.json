@@ -56,7 +56,6 @@
   "editor.linkedEditing": true,
   "editor.minimap.enabled": false,
   "editor.smoothScrolling": true,
-  "editor.stickyScroll.enabled": true,
   "editor.suggest.insertMode": "replace",
   "editor.dragAndDrop": false,
   "editor.suggestFontSize": 17,
@@ -187,68 +186,99 @@
   "vim.highlightedyank.textColor": "white",
   "vim.hlsearch": true,
   "vim.useCtrlKeys": true,
-  "vim.useSystemClipboard": true,
   "vim.leader": "<space>",
-  "multiCommand.commands": [
-    {
-      "command": "multiCommand.saveAndEscape",
-      "sequence": ["workbench.action.files.save", "extension.vim_escape"]
-    },
-    {
-      "command": "multiCommand.copyWordAndReplace",
-      "sequence": [
-        "cursorWordStartLeft",
-        "cursorWordEndRightSelect",
-        "editor.action.startFindReplaceAction"
-      ]
-    }
-  ],
   "vim.insertModeKeyBindingsNonRecursive": [
     {
       "before": ["j", "k"],
-      "commands": ["multiCommand.saveAndEscape"]
+      "commands": ["workbench.action.files.save", "extension.vim_escape"]
     },
     {
       "before": ["<c-x>"],
       "commands": ["editor.action.clipboardCutAction"]
     }
   ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["leader", "p"],
+      "after": ["\"", "_", "d", "P"]
+    },
+    {
+      "before": ["leader", "y"],
+      "after": ["\"", "+", "y"]
+    },
+    {
+      "before": ["leader", "d"],
+      "after": ["\"", "_", "d"]
+    }
+  ],
   "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["leader", "l", "g"],
+      "commands": ["workbench.view.scm"]
+    },
+    {
+      "before": ["leader", "p", "v"],
+      "commands": ["workbench.explorer.fileView.focus"]
+    },
+    {
+      "before": ["leader", "c"],
+      "commands": ["workbench.panel.chat.view.copilot.focus"]
+    },
+    {
+      "before": ["leader", "f", "s"],
+      "commands": [
+        "cursorWordStartLeft",
+        "cursorWordEndRightSelect",
+        "workbench.action.findInFiles"
+      ]
+    },
+    {
+      "before": ["leader", "s"],
+      "commands": [
+        "cursorWordStartLeft",
+        "cursorWordEndRightSelect",
+        "editor.action.startFindReplaceAction"
+      ]
+    },
+    {
+      "before": ["C-j"],
+      "commands": ["editor.action.marker.prev"]
+    },
+    {
+      "before": ["C-k"],
+      "commands": ["editor.action.marker.prev"]
+    },
+    {
+      "before": ["leader", "k"],
+      "commands": ["editor.action.marker.nextInFiles"]
+    },
+    {
+      "before": ["leader", "j"],
+      "commands": ["editor.action.marker.prevInFiles"]
+    },
     {
       "before": ["leader", "r"],
       "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["x"],
+      "after": ["\"", "_", "x"]
+    },
+    {
+      "before": ["leader", "s-y"],
+      "after": ["\"", "+", "y", "$"]
+    },
+    {
+      "before": ["leader", "d"],
+      "after": ["\"", "_", "d"]
     },
     {
       "before": ["leader", "w"],
       "commands": [":w!"]
     },
     {
-      "before": ["leader", "q"],
-      "commands": [":q!"]
-    },
-    {
-      "before": ["leader", "x"],
-      "commands": [":x!"]
-    },
-    {
-      "before": ["leader", "s"],
-      "commands": ["multiCommand.copyWordAndReplace"]
-    },
-    {
       "before": ["leader", "f"],
       "commands": ["editor.action.formatDocument"]
-    },
-    {
-      "before": ["leader", "k"],
-      "commands": ["editor.action.showHover"]
-    },
-    {
-      "before": ["[", "d"],
-      "commands": ["editor.action.marker.prev"]
-    },
-    {
-      "before": ["]", "d"],
-      "commands": ["editor.action.marker.next"]
     }
   ]
 }

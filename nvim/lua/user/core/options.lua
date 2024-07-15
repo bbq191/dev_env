@@ -39,7 +39,7 @@ o.backspace = "indent,eol,start" -- allow backspace on indent, end of line or in
 o.isfname:append("@-@")
 
 -- clipboard
-o.clipboard:append("unnamedplus") -- use system clipboard as default register
+-- o.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- split windows
 o.splitright = true -- split vertical window to the right
@@ -48,3 +48,4 @@ o.splitbelow = true -- split horizontal window to the bottom
 -- turn off swapfile
 o.swapfile = false
 o.backup = false
+
