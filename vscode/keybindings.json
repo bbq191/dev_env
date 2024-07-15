@@ -1,4 +1,4 @@
-// Place your key bindings in this file to override the defaults
+// 尽可能与 neovim 保持一致按键
 [
   {
     "command": "-editor.action.selectAll",
@@ -55,23 +55,13 @@
     "key": "cmd+s"
   },
   {
-    "command": "extension.multiCommand.execute",
-    "args": { "command": "multiCommand.saveAndEscape" },
-    "key": "ctrl+s"
-  },
-  {
     "command": "-editor.action.addSelectionToNextFindMatch",
     "key": "cmd+d",
     "when": "editorFocus"
   },
   {
-    "command": "-extension.vim_cmd+d",
-    "key": "cmd+d",
-    "when": "editorTextFocus && vim.active && vim.use<D-d> && !inDebugRepl"
-  },
-  {
     "command": "workbench.action.splitEditor",
-    "key": "cmd+d"
+    "key": "ctrl+w"
   },
   {
     "command": "turboConsoleLog.displayLogMessage",
@@ -96,7 +86,6 @@
     "when": "interactiveEditorHasStashedSession && !editorReadonly"
   },
   {
-    // "command": "workbench.action.terminal.toggleTerminal",
     "command": "workbench.action.createTerminalEditorSide",
     "key": "ctrl+\\",
     "when": "terminal.active"

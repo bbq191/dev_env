@@ -7,50 +7,16 @@
   "window.commandCenter": false,
   "window.density.editorTabHeight": "compact",
   "workbench.editor.navigationScope": "editorGroup",
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.productIconTheme": "material-product-icons",
   "workbench.settings.editor": "json",
   "workbench.startupEditor": "readme",
   "workbench.sideBar.location": "right",
   "workbench.activityBar.location": "top",
   "workbench.editor.enablePreview": false,
-  "workbench.colorTheme": "Tokyo Night Storm",
-  "workbench.colorCustomizations": {
-    "[Tokyo Night Storm]": {
-      "foreground": "#959cbd",
-      "panelTitle.activeBorder": "#3d59a1",
-      "panelTitle.activeForeground": "#bdc7f0",
-      "panelTitle.inactiveForeground": "#959cbd",
-      "tab.activeForeground": "#bdc7f0",
-      "tab.inactiveForeground": "#959cbd",
-      "breadcrumb.foreground": "#959cbd",
-      "breadcrumb.focusForeground": "#bdc7f0",
-      "breadcrumb.activeSelectionForeground": "#bdc7f0",
-      "statusBar.foreground": "#bdc7f0",
-      "list.focusForeground": "#bdc7f0",
-      "list.hoverForeground": "#bdc7f0",
-      "list.activeSelectionForeground": "#bdc7f0",
-      "list.inactiveSelectionForeground": "#bdc7f0",
-      "list.inactiveSelectionBackground": "#202330",
-      "sideBar.foreground": "#959cbd",
-      "dropdown.foreground": "#959cbd",
-      "menu.foreground": "#bdc7f0",
-      "menubar.selectionForeground": "#bdc7f0",
-      "input.foreground": "#959cbd",
-      "input.placeholderForeground": "#959cbd",
-      "activityBar.foreground": "#bdc7f0",
-      "activityBar.inactiveForeground": "#787c99",
-      "gitDecoration.ignoredResourceForeground": "#696d87",
-      "editorCodeLens.foreground": "#7982a9", // Preferred hex color
-      "window.activeBorder": "#ff0000",
-      "window.inactiveBorder": "#0000ff"
-    }
-  },
   "zenMode.hideLineNumbers": false,
+  "security.workspace.trust.untrustedFiles": "open",
   "terminal.integrated.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
   "terminal.integrated.fontSize": 15,
   "terminal.integrated.defaultLocation": "editor",
-  "terminal.external.osxExec": "kitty.app",
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -82,7 +48,7 @@
   "editor.cursorBlinking": "solid",
   "editor.cursorSurroundingLines": 5,
   "editor.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
-  "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
+  "editor.fontLigatures": "'calt','zero'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.fontSize": 15,
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
@@ -94,49 +60,10 @@
   "editor.suggest.insertMode": "replace",
   "editor.dragAndDrop": false,
   "editor.suggestFontSize": 17,
-  "editor.tokenColorCustomizations": {
-    "[Tokyo Night Storm]": {
-      "textMateRules": [
-        {
-          "scope": [
-            "comment keyword.codetag.notation",
-            "comment.block.documentation keyword",
-            "comment.block.documentation storage.type.class"
-          ],
-          "settings": {
-            "foreground": "#bb9af7"
-          }
-        },
-        {
-          "scope": ["comment.block.documentation entity.name.type.instance"],
-          "settings": {
-            "foreground": "#73daca",
-            "fontStyle": "italic"
-          }
-        },
-        {
-          "scope": [
-            "comment.block.documentation entity.name.type punctuation.definition.bracket"
-          ],
-          "settings": {
-            "foreground": "#bb9af7"
-          }
-        },
-        {
-          "scope": ["comment.block.documentation variable"],
-          "settings": {
-            "foreground": "#e0af68",
-            "fontStyle": "italic"
-          }
-        }
-      ]
-    }
-  },
   "editor.scrollBeyondLastLine": false,
   "extensions.autoUpdate": "onlyEnabledExtensions",
   "extensions.ignoreRecommendations": true,
   "extensions.experimental.affinity": {
-    "vscodevim.vim": 1,
     "asvetliakov.vscode-neovim": 1
   },
   "files.exclude": {
@@ -178,14 +105,10 @@
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "errorLens.fontStyleItalic": true,
-  "git.openRepositoryInParentFolders": "never",
-  "git.autorefresh": false,
   "lldb.library": "/Applications/Xcode-beta.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
   "lldb.launch.expressions": "native",
-  "bazel.buildifierExecutable": "/Users/afu/.local/bin/buildifier",
-  "bazel.buildifierFixOnFormat": true,
-  "bazel.enableCodeLens": true,
-  "bazel.executable": "/opt/homebrew/bin/bazel",
+  "lldb.launch.terminal": "integrated",
+  "lldb.launch.sourceLanguages": ["rust"],
   "crates.compatibleDecorator": "✔",
   "crates.errorDecorator": "✘",
   "crates.incompatibleDecorator": "✘ ${version}",
@@ -196,6 +119,11 @@
   "path-intellisense.showHiddenFiles": true,
   "rust-analyzer.check.command": "clippy",
   "git.ignoreLegacyWarning": true,
+  "git.openRepositoryInParentFolders": "never",
+  "git.autorefresh": false,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.advanced": {},
+  "github.copilot.chat.localeOverride": "zh-CN",
   "better-comments.tags": [
     {
       "tag": "!",
@@ -252,13 +180,15 @@
       "italic": false
     }
   ],
-  "lldb.launch.terminal": "integrated",
-  "lldb.launch.sourceLanguages": ["rust"],
-  // "lldb.launch.initCommands": [
-  //   "settings set target.x86-disassembly-flavor att",
-  //   "settings set target.skip-prologue false"
-  // ],
   //VIM CONFIG----------------------------------------------------------------------------
+  "vim.foldfix": true,
+  "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.textColor": "white",
+  "vim.hlsearch": true,
+  "vim.useCtrlKeys": true,
+  "vim.useSystemClipboard": true,
+  "vim.leader": "<space>",
   "multiCommand.commands": [
     {
       "command": "multiCommand.saveAndEscape",
@@ -266,24 +196,17 @@
     },
     {
       "command": "multiCommand.copyWordAndReplace",
-      "sequence": ["extension.vim_yiw", "editor.action.startFindReplaceAction"]
+      "sequence": [
+        "cursorWordStartLeft",
+        "cursorWordEndRightSelect",
+        "editor.action.startFindReplaceAction"
+      ]
     }
   ],
-  "vim.foldfix": true,
-  "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
-  "vim.highlightedyank.enable": true,
-  "vim.highlightedyank.textColor": "white",
-  "vim.hlsearch": true,
-  "vim.useCtrlKeys": true,
-  "vim.leader": "<space>",
   "vim.insertModeKeyBindingsNonRecursive": [
     {
-      "before": ["<c-a>"],
-      "commands": ["editor.action.selectAll"]
-    },
-    {
-      "before": ["<c-v>"],
-      "commands": ["editor.action.clipboardPasteAction"]
+      "before": ["j", "k"],
+      "commands": ["multiCommand.saveAndEscape"]
     },
     {
       "before": ["<c-x>"],
@@ -291,10 +214,6 @@
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "after": ["g", "g", "V", "G"],
-      "before": ["<c-a>"]
-    },
     {
       "before": ["leader", "r"],
       "commands": ["editor.action.rename"]
@@ -313,7 +232,7 @@
     },
     {
       "before": ["leader", "s"],
-      "commands": ["editor.action.startFindReplaceAction"]
+      "commands": ["multiCommand.copyWordAndReplace"]
     },
     {
       "before": ["leader", "f"],
