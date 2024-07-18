@@ -2,8 +2,8 @@
   "update.showReleaseNotes": false,
   "search.followSymlinks": false,
   "explorer.confirmDelete": false,
-  "explorer.confirmDragAndDrop": false,
-  "window.zoomLevel": 0,
+  "explorer.confirmDragAndDrop": true,
+  "window.zoomLevel": -1,
   "window.commandCenter": false,
   "window.density.editorTabHeight": "compact",
   "workbench.editor.navigationScope": "editorGroup",
@@ -12,10 +12,19 @@
   "workbench.sideBar.location": "right",
   "workbench.activityBar.location": "top",
   "workbench.editor.enablePreview": false,
+  "workbench.colorTheme": "Default Dark+",
+  // vim statusBar 控制自动生成
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#8FBCBB",
+    "statusBar.noFolderBackground": "#8FBCBB",
+    "statusBar.debuggingBackground": "#8FBCBB",
+    "statusBar.foreground": "#434C5E",
+    "statusBar.debuggingForeground": "#434C5E"
+  },
   "zenMode.hideLineNumbers": false,
   "security.workspace.trust.untrustedFiles": "open",
   "terminal.integrated.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
-  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.fontSize": 17,
   "terminal.integrated.defaultLocation": "editor",
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -49,7 +58,7 @@
   "editor.cursorSurroundingLines": 5,
   "editor.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
   "editor.fontLigatures": "'calt','zero'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
-  "editor.fontSize": 15,
+  "editor.fontSize": 17,
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.lineNumbers": "relative",
@@ -58,7 +67,7 @@
   "editor.smoothScrolling": true,
   "editor.suggest.insertMode": "replace",
   "editor.dragAndDrop": false,
-  "editor.suggestFontSize": 17,
+  "editor.suggestFontSize": 15,
   "editor.scrollBeyondLastLine": false,
   "extensions.autoUpdate": "onlyEnabledExtensions",
   "extensions.ignoreRecommendations": true,
@@ -72,8 +81,6 @@
   "prettier.singleAttributePerLine": true,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
-  "projectManager.git.baseFolders": ["$home/Workspace"],
-  "projectManager.sortList": "Recent",
   "debug.internalConsoleOptions": "neverOpen",
   "debug.console.fontSize": 15,
   "debug.showBreakpointsInOverviewRuler": true,
@@ -108,9 +115,6 @@
   "lldb.launch.expressions": "native",
   "lldb.launch.terminal": "integrated",
   "lldb.launch.sourceLanguages": ["rust"],
-  "crates.compatibleDecorator": "✔",
-  "crates.errorDecorator": "✘",
-  "crates.incompatibleDecorator": "✘ ${version}",
   "evenBetterToml.formatter.allowedBlankLines": 1,
   "evenBetterToml.formatter.alignComments": true,
   "evenBetterToml.formatter.alignEntries": true,
@@ -180,6 +184,19 @@
     }
   ],
   //VIM CONFIG----------------------------------------------------------------------------
+  "vim.statusBarColorControl": true,
+  "vim.statusBarColors.normal": ["#8FBCBB", "#434C5E"],
+  "vim.statusBarColors.insert": "#BF616A",
+  "vim.statusBarColors.visual": "#B48EAD",
+  "vim.statusBarColors.visualline": "#B48EAD",
+  "vim.statusBarColors.visualblock": "#A3BE8C",
+  "vim.statusBarColors.replace": "#D08770",
+  "vim.statusBarColors.commandlineinprogress": "#007ACC",
+  "vim.statusBarColors.searchinprogressmode": "#007ACC",
+  "vim.statusBarColors.easymotionmode": "#007ACC",
+  "vim.statusBarColors.easymotioninputmode": "#007ACC",
+  "vim.statusBarColors.surroundinputmode": "#007ACC",
+  "vim.surround": true,
   "vim.foldfix": true,
   "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
   "vim.highlightedyank.enable": true,
@@ -218,7 +235,7 @@
     },
     {
       "before": ["leader", "p", "v"],
-      "commands": ["workbench.explorer.fileView.focus"]
+      "commands": ["workbench.view.explorer"]
     },
     {
       "before": ["leader", "c"],
