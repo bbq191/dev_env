@@ -1,7 +1,57 @@
 #!/bin/zsh
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-#eval "$(/opt/homebrew/bin/brew shellenv)"
+# proxy
+export HTTPS_PROXY=http://127.0.0.1:6152
+export HTTP_PROXY=http://127.0.0.1:6152
+export ALL_PROXY=socks5://127.0.0.1:6153
 
+# general
+export LANG="en_US.UTF-8"
+export DEFAULT_USER=$USER
+export EDITOR="nvim"
+export MANWIDTH=999
+# export TERMINAL="kitty"
+export TERM="xterm-256color"
+export LESSHISTFILE=-
+
+# XDG Path
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# USER Bin
+export USER_BIN="$HOME/.local/bin"
+
+# zap
+[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
+[ -f "$XDG_CONFIG_HOME/fzf.zsh" ] && source "$XDG_CONFIG_HOME/fzf.zsh"
+
+# ADB platform
+export ADB_HOME="$XDG_DATA_HOME/platform-tools/"
+
+# go home
+export GO_HOME="$XDG_DATA_HOME/go"
+
+# java config
+export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
+[[ -s "/Users/afu/.local/share/sdkman/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+# rust home
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+
+# python home
+export PYTHON_HOME="/opt/homebrew/opt/python/libexec/bin"
+
+# npm config
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+
+# path append
+export PATH="$CARGO_HOME/bin:$PYTHON_HOME:$GO_HOME/bin:$ADB_HOME:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+
+###################################################################################################################
 HISTSIZE=1000000
 SAVEHIST=1000000
 setopt share_history
@@ -24,10 +74,6 @@ plug "zap-zsh/zap-prompt"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "wintermi/zsh-brew"
 plug "Aloxaf/fzf-tab"
-
-# Load and initialise completion system
-autoload -Uz compinit
-compinit
 
 ############################################################################################################
 # eval "$(thefuck --alias)"
@@ -105,4 +151,3 @@ alias gcs="git checkout stable"
 
 # subversion
 alias svn="svn --config-dir \"$XDG_CONFIG_HOME\"/subversion"
-
