@@ -1,6 +1,36 @@
 // 尽可能与 neovim 保持一致按键
 [
   {
+    "key": "ctrl+w h",
+    "command": "workbench.action.navigateLeft",
+    "when": "explorerViewletFocus  && !inputFocus"
+  },
+  {
+    "key": "ctrl+w l",
+    "command": "workbench.action.navigateRight",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "f",
+    "command": "explorer.newFolder",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "d",
+    "command": "deleteFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
     "command": "-editor.action.selectAll",
     "key": "cmd+a"
   },
@@ -47,10 +77,6 @@
     "command": "workbench.action.navigateForward"
   },
   {
-    "command": "projectManager.listGitProjects#sideBarGit",
-    "key": "cmd+o"
-  },
-  {
     "command": "-workbench.action.files.save",
     "key": "cmd+s"
   },
@@ -82,9 +108,9 @@
     "when": "interactiveEditorHasStashedSession && !editorReadonly"
   },
   {
-    "command": "workbench.action.createTerminalEditorSide",
+    "command": "workbench.action.terminal.new",
     "key": "ctrl+\\",
-    "when": "terminal.active"
+    "when": "editorFocus"
   },
   {
     "command": "-workbench.action.terminal.toggleTerminal",
@@ -120,9 +146,9 @@
     "command": "-workbench.action.toggleSidebarVisibility"
   },
   {
-    "key": "escape",
+    "key": "cmd+w",
     "command": "workbench.action.toggleSidebarVisibility",
-    "when": "sideBarFocus"
+    "when": "sideBarFocus && !inputFocus"
   },
   {
     "key": "cmd+j",
@@ -150,5 +176,10 @@
   {
     "key": "cmd+1",
     "command": "-workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "enter",
+    "command": "-renameFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   }
 ]

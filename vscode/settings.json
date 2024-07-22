@@ -1,35 +1,11 @@
 {
-  "update.showReleaseNotes": false,
-  "search.followSymlinks": false,
-  "explorer.confirmDelete": false,
-  "explorer.confirmDragAndDrop": true,
-  "window.zoomLevel": -1,
-  "window.commandCenter": false,
-  "window.density.editorTabHeight": "compact",
-  "workbench.editor.navigationScope": "editorGroup",
-  "workbench.settings.editor": "json",
-  "workbench.startupEditor": "readme",
-  "workbench.sideBar.location": "right",
-  "workbench.activityBar.location": "top",
-  "workbench.editor.enablePreview": false,
-  "workbench.colorTheme": "Default Dark+",
-  // vim statusBar 控制自动生成
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#8FBCBB",
-    "statusBar.noFolderBackground": "#8FBCBB",
-    "statusBar.debuggingBackground": "#8FBCBB",
-    "statusBar.foreground": "#434C5E",
-    "statusBar.debuggingForeground": "#434C5E"
-  },
-  "zenMode.hideLineNumbers": false,
-  "security.workspace.trust.untrustedFiles": "open",
-  "terminal.integrated.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
-  "terminal.integrated.fontSize": 17,
-  "terminal.integrated.defaultLocation": "editor",
-  "[jsonc]": {
+  "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[javascript]": {
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
@@ -44,48 +20,124 @@
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "better-comments.highlightPlainText": false,
+  "better-comments.multilineComments": true,
+  "better-comments.tags": [
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#FF2D00",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "!",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#3498DB",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "?",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#474747",
+      "italic": false,
+      "strikethrough": true,
+      "tag": "//",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#FF8C00",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "todo",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#FF8C00",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "fixme",
+      "underline": false
+    },
+    {
+      "backgroundColor": "transparent",
+      "bold": false,
+      "color": "#98C379",
+      "italic": false,
+      "strikethrough": false,
+      "tag": "*",
+      "underline": false
+    }
+  ],
+  "debug.allowBreakpointsEverywhere": true,
+  "debug.console.fontSize": 15,
+  "debug.internalConsoleOptions": "neverOpen",
+  "debug.openDebug": "neverOpen",
+  "debug.showBreakpointsInOverviewRuler": true,
+  "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "explicit",
     "source.organizeImports": "explicit"
   },
-  "editor.accessibilitySupport": "off",
+  "editor.cursorBlinking": "solid",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "block",
-  "editor.cursorBlinking": "solid",
   "editor.cursorSurroundingLines": 5,
+  "editor.dragAndDrop": false,
   "editor.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
   "editor.fontLigatures": "'calt','zero'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
-  "editor.fontSize": 17,
+  "editor.fontSize": 16,
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.lineNumbers": "relative",
   "editor.linkedEditing": true,
   "editor.minimap.enabled": false,
+  "editor.scrollBeyondLastLine": false,
   "editor.smoothScrolling": true,
   "editor.suggest.insertMode": "replace",
-  "editor.dragAndDrop": false,
-  "editor.suggestFontSize": 15,
-  "editor.scrollBeyondLastLine": false,
+  "editor.suggestFontSize": 14,
+  "errorLens.fontStyleItalic": true,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": true,
   "extensions.autoUpdate": "onlyEnabledExtensions",
-  "extensions.ignoreRecommendations": true,
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
+  "extensions.ignoreRecommendations": true,
   "files.exclude": {
     "**/node_modules": true
   },
+  "git.autorefresh": false,
+  "git.ignoreLegacyWarning": true,
+  "git.openRepositoryInParentFolders": "never",
+  "github.copilot.advanced": {},
+  "github.copilot.chat.localeOverride": "zh-CN",
+  "github.copilot.editor.enableAutoCompletions": true,
+  "javascript.suggest.paths": false,
+  "lldb.launch.expressions": "native",
+  "lldb.launch.sourceLanguages": ["rust"],
+  "lldb.launch.terminal": "integrated",
+  "lldb.library": "/Applications/Xcode-beta.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+  "path-intellisense.absolutePathToWorkspace": true,
+  "path-intellisense.autoSlashAfterDirectory": false,
+  "path-intellisense.autoTriggerNextSuggestion": false,
+  "path-intellisense.showHiddenFiles": true,
   "prettier.semi": false,
   "prettier.singleAttributePerLine": true,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
-  "debug.internalConsoleOptions": "neverOpen",
-  "debug.console.fontSize": 15,
-  "debug.showBreakpointsInOverviewRuler": true,
-  "debug.allowBreakpointsEverywhere": true,
-  "debug.openDebug": "neverOpen",
+  "rust-analyzer.check.command": "clippy",
+  "search.followSymlinks": false,
+  "security.workspace.trust.untrustedFiles": "open",
   "sortJSON.orderOverride": [
     "name",
     "version",
@@ -108,102 +160,19 @@
     "peerDependencies",
     "cSpell.userWords"
   ],
+  "terminal.integrated.defaultLocation": "editor",
+  "terminal.integrated.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
+  "terminal.integrated.fontSize": 16,
   "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.paths": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "errorLens.fontStyleItalic": true,
-  "lldb.library": "/Applications/Xcode-beta.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
-  "lldb.launch.expressions": "native",
-  "lldb.launch.terminal": "integrated",
-  "lldb.launch.sourceLanguages": ["rust"],
-  "evenBetterToml.formatter.allowedBlankLines": 1,
-  "evenBetterToml.formatter.alignComments": true,
-  "evenBetterToml.formatter.alignEntries": true,
-  "evenBetterToml.formatter.columnWidth": 80,
-  "path-intellisense.showHiddenFiles": true,
-  "rust-analyzer.check.command": "clippy",
-  "git.ignoreLegacyWarning": true,
-  "git.openRepositoryInParentFolders": "never",
-  "git.autorefresh": false,
-  "github.copilot.editor.enableAutoCompletions": true,
-  "github.copilot.advanced": {},
-  "github.copilot.chat.localeOverride": "zh-CN",
-  "better-comments.tags": [
-    {
-      "tag": "!",
-      "color": "#FF2D00",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "?",
-      "color": "#3498DB",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "//",
-      "color": "#474747",
-      "strikethrough": true,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "todo",
-      "color": "#FF8C00",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "fixme",
-      "color": "#FF8C00",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "*",
-      "color": "#98C379",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    }
-  ],
+  "update.showReleaseNotes": false,
   //VIM CONFIG----------------------------------------------------------------------------
-  "vim.statusBarColorControl": true,
-  "vim.statusBarColors.normal": ["#8FBCBB", "#434C5E"],
-  "vim.statusBarColors.insert": "#BF616A",
-  "vim.statusBarColors.visual": "#B48EAD",
-  "vim.statusBarColors.visualline": "#B48EAD",
-  "vim.statusBarColors.visualblock": "#A3BE8C",
-  "vim.statusBarColors.replace": "#D08770",
-  "vim.statusBarColors.commandlineinprogress": "#007ACC",
-  "vim.statusBarColors.searchinprogressmode": "#007ACC",
-  "vim.statusBarColors.easymotionmode": "#007ACC",
-  "vim.statusBarColors.easymotioninputmode": "#007ACC",
-  "vim.statusBarColors.surroundinputmode": "#007ACC",
-  "vim.surround": true,
   "vim.foldfix": true,
   "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.textColor": "white",
   "vim.hlsearch": true,
-  "vim.useCtrlKeys": true,
-  "vim.leader": "<space>",
   "vim.insertModeKeyBindingsNonRecursive": [
     {
       "before": ["j", "k"],
@@ -214,20 +183,7 @@
       "commands": ["editor.action.clipboardCutAction"]
     }
   ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": ["leader", "p"],
-      "after": ["\"", "_", "d", "P"]
-    },
-    {
-      "before": ["leader", "y"],
-      "after": ["\"", "+", "y"]
-    },
-    {
-      "before": ["leader", "d"],
-      "after": ["\"", "_", "d"]
-    }
-  ],
+  "vim.leader": "<space>",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["leader", "l", "g"],
@@ -278,16 +234,16 @@
       "commands": ["editor.action.rename"]
     },
     {
-      "before": ["x"],
-      "after": ["\"", "_", "x"]
+      "after": ["\"", "_", "x"],
+      "before": ["x"]
     },
     {
-      "before": ["leader", "s-y"],
-      "after": ["\"", "+", "y", "$"]
+      "after": ["\"", "+", "y", "$"],
+      "before": ["leader", "s-y"]
     },
     {
-      "before": ["leader", "d"],
-      "after": ["\"", "_", "d"]
+      "after": ["\"", "_", "d"],
+      "before": ["leader", "d"]
     },
     {
       "before": ["leader", "w"],
@@ -297,5 +253,57 @@
       "before": ["leader", "f"],
       "commands": ["editor.action.formatDocument"]
     }
-  ]
+  ],
+  "vim.statusBarColorControl": true,
+  "vim.statusBarColors.commandlineinprogress": "#007ACC",
+  "vim.statusBarColors.easymotioninputmode": "#007ACC",
+  "vim.statusBarColors.easymotionmode": "#007ACC",
+  "vim.statusBarColors.insert": "#BF616A",
+  "vim.statusBarColors.normal": ["#8FBCBB", "#434C5E"],
+  "vim.statusBarColors.replace": "#D08770",
+  "vim.statusBarColors.searchinprogressmode": "#007ACC",
+  "vim.statusBarColors.surroundinputmode": "#007ACC",
+  "vim.statusBarColors.visual": "#B48EAD",
+  "vim.statusBarColors.visualblock": "#A3BE8C",
+  "vim.statusBarColors.visualline": "#B48EAD",
+  "vim.surround": true,
+  "vim.useCtrlKeys": true,
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "after": ["\"", "_", "d", "P"],
+      "before": ["leader", "p"]
+    },
+    {
+      "after": ["\"", "+", "y"],
+      "before": ["leader", "y"]
+    },
+    {
+      "after": ["\"", "_", "d"],
+      "before": ["leader", "d"]
+    }
+  ],
+  "window.commandCenter": false,
+  "window.density.editorTabHeight": "compact",
+  "window.titleBarStyle": "custom",
+  "window.zoomLevel": 0,
+  "workbench.activityBar.location": "bottom",
+  // vim statusBar 控制自动生成
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#8FBCBB",
+    "statusBar.debuggingBackground": "#8FBCBB",
+    "statusBar.debuggingForeground": "#434C5E",
+    "statusBar.foreground": "#434C5E",
+    "statusBar.noFolderBackground": "#8FBCBB"
+  },
+  "workbench.colorTheme": "rose-pine-nvchad-theme",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.navigationScope": "editorGroup",
+  "workbench.settings.editor": "json",
+  "workbench.sideBar.location": "right",
+  "workbench.startupEditor": "readme",
+  "zenMode.hideLineNumbers": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editor.pinnedTabSizing": "compact",
+  "workbench.editor.tabActionLocation": "left",
+  "workbench.editor.editorActionsLocation": "titleBar"
 }

@@ -32,7 +32,7 @@ export USER_BIN="$HOME/.local/bin"
 export ADB_HOME="$XDG_DATA_HOME/platform-tools/"
 
 # go home
-export GO_HOME="$XDG_DATA_HOME/go"
+export GO_PATH="$HOME/.local/share/go"
 
 # java config
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
@@ -49,11 +49,11 @@ export PYTHON_HOME="/opt/homebrew/opt/python/libexec/bin"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
 # path append
-export PATH="$CARGO_HOME/bin:$PYTHON_HOME:$GO_HOME/bin:$ADB_HOME:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+export PATH="$CARGO_HOME/bin:$PYTHON_HOME:$GO_PATH/bin:$ADB_HOME:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 
 ###################################################################################################################
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=999
+SAVEHIST=1000
 setopt share_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
