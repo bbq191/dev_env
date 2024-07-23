@@ -105,7 +105,10 @@
   "editor.smoothScrolling": true,
   "editor.suggest.insertMode": "replace",
   "editor.suggestFontSize": 14,
-  "errorLens.fontStyleItalic": true,
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "errorLens.gutterIconSet": "letter",
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.removeLinebreaks": false,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": true,
   "extensions.autoUpdate": "onlyEnabledExtensions",
@@ -116,10 +119,12 @@
   "files.exclude": {
     "**/node_modules": true
   },
+  "git.autofetch": true,
   "git.autorefresh": false,
+  "git.confirmSync": false,
   "git.ignoreLegacyWarning": true,
   "git.openRepositoryInParentFolders": "never",
-  "github.copilot.advanced": {},
+  // "github.copilot.advanced": {},
   "github.copilot.chat.localeOverride": "zh-CN",
   "github.copilot.editor.enableAutoCompletions": true,
   "javascript.suggest.paths": false,
@@ -127,6 +132,7 @@
   "lldb.launch.sourceLanguages": ["rust"],
   "lldb.launch.terminal": "integrated",
   "lldb.library": "/Applications/Xcode-beta.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+  "markdown.preview.openMarkdownLinks": "inEditor",
   "path-intellisense.absolutePathToWorkspace": true,
   "path-intellisense.autoSlashAfterDirectory": false,
   "path-intellisense.autoTriggerNextSuggestion": false,
@@ -234,6 +240,10 @@
       "commands": ["editor.action.rename"]
     },
     {
+      "before": ["leader", "h"],
+      "commands": ["editor.action.showHover"]
+    },
+    {
       "after": ["\"", "_", "x"],
       "before": ["x"]
     },
@@ -295,15 +305,13 @@
     "statusBar.foreground": "#434C5E",
     "statusBar.noFolderBackground": "#8FBCBB"
   },
-  "workbench.colorTheme": "rose-pine-nvchad-theme",
+  "workbench.colorTheme": "Default Light+",
   "workbench.editor.enablePreview": false,
   "workbench.editor.navigationScope": "editorGroup",
+  "workbench.editor.pinnedTabSizing": "compact",
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.settings.editor": "json",
   "workbench.sideBar.location": "right",
   "workbench.startupEditor": "readme",
-  "zenMode.hideLineNumbers": false,
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.editor.pinnedTabSizing": "compact",
-  "workbench.editor.tabActionLocation": "left",
-  "workbench.editor.editorActionsLocation": "titleBar"
+  "zenMode.hideLineNumbers": false
 }

@@ -1,34 +1,34 @@
 // 尽可能与 neovim 保持一致按键
 [
   {
-    "key": "ctrl+w h",
     "command": "workbench.action.navigateLeft",
-    "when": "explorerViewletFocus  && !inputFocus"
+    "key": "ctrl+w h",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
   },
   {
-    "key": "ctrl+w l",
     "command": "workbench.action.navigateRight",
+    "key": "ctrl+w l",
     "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
   },
   {
-    "key": "a",
     "command": "explorer.newFile",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    "key": "a",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
-    "key": "f",
     "command": "explorer.newFolder",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    "key": "f",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
-    "key": "d",
     "command": "deleteFile",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    "key": "d",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
-    "key": "r",
     "command": "renameFile",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    "key": "r",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
     "command": "-editor.action.selectAll",
@@ -45,36 +45,31 @@
     "when": "editorTextFocus && editorHasSelection"
   },
   {
-    "key": "cmd+n",
     "command": "extension.advancedNewFile",
+    "key": "cmd+n",
     "when": "!terminalFocus"
   },
   {
-    "key": "alt+cmd+n",
-    "command": "-extension.advancedNewFile"
+    "command": "-extension.advancedNewFile",
+    "key": "alt+cmd+n"
   },
   {
-    "key": "cmd+n",
     "command": "workbench.action.terminal.new",
+    "key": "cmd+n",
     "when": "terminalFocus"
   },
   {
-    "key": "ctrl+shift+`",
     "command": "-workbench.action.terminal.new",
+    "key": "ctrl+shift+`",
     "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
   },
   {
-    "key": "cmd+w",
-    "command": "workbench.action.terminal.kill",
-    "when": "terminalFocus"
+    "command": "workbench.action.navigateBack",
+    "key": "ctrl+o"
   },
   {
-    "key": "ctrl+o",
-    "command": "workbench.action.navigateBack"
-  },
-  {
-    "key": "ctrl+i",
-    "command": "workbench.action.navigateForward"
+    "command": "workbench.action.navigateForward",
+    "key": "ctrl+i"
   },
   {
     "command": "-workbench.action.files.save",
@@ -86,16 +81,8 @@
     "when": "editorFocus"
   },
   {
-    "command": "turboConsoleLog.displayLogMessage",
-    "key": "cmd+i"
-  },
-  {
-    "command": "-turboConsoleLog.displayLogMessage",
-    "key": "ctrl+alt+l"
-  },
-  {
-    "command": "-editor.action.addSelectionToNextFindMatch",
-    "key": "cmd+d",
+    "command": "workbench.action.splitEditor",
+    "key": "ctrl+w v",
     "when": "editorFocus"
   },
   {
@@ -130,56 +117,71 @@
     "key": "ctrl+u"
   },
   {
-    "key": "cmd+pagedown",
-    "command": "-scrollPageDown"
+    "command": "-scrollPageDown",
+    "key": "cmd+pagedown"
   },
   {
-    "key": "cmd+pageup",
-    "command": "-scrollPageUp"
+    "command": "-scrollPageUp",
+    "key": "cmd+pageup"
   },
   {
-    "key": "ctrl+shift+g",
-    "command": "-workbench.view.scm"
+    "command": "-workbench.view.scm",
+    "key": "ctrl+shift+g"
   },
   {
-    "key": "cmd+b",
-    "command": "-workbench.action.toggleSidebarVisibility"
+    "command": "-workbench.action.toggleSidebarVisibility",
+    "key": "cmd+b"
   },
   {
-    "key": "cmd+w",
     "command": "workbench.action.toggleSidebarVisibility",
-    "when": "sideBarFocus && !inputFocus"
+    "key": "ctrl+w x",
+    "when": "sideBarFocus"
   },
   {
-    "key": "cmd+j",
-    "command": "-workbench.action.togglePanel"
+    "command": "-workbench.action.togglePanel",
+    "key": "cmd+j"
   },
   {
-    "key": "escape",
     "command": "workbench.action.togglePanel",
+    "key": "ctrl+w x",
     "when": "panelFocus"
   },
   {
-    "key": "shift+cmd+e",
     "command": "-workbench.view.explorer",
+    "key": "shift+cmd+e",
     "when": "viewContainer.workbench.view.explorer.enabled"
   },
   {
-    "key": "cmd+n",
-    "command": "-workbench.action.files.newUntitledFile"
+    "command": "-workbench.action.files.newUntitledFile",
+    "key": "cmd+n"
   },
   {
+    "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
     "key": "ctrl+w w",
-    "command": "workbench.action.focusFirstEditorGroup",
-    "when": "terminalFocus"
+    "when": "!activeEditorGroupEmpty"
   },
   {
-    "key": "cmd+1",
-    "command": "-workbench.action.focusFirstEditorGroup"
+    "command": "-workbench.action.focusFirstEditorGroup",
+    "key": "cmd+1"
   },
   {
-    "key": "enter",
     "command": "-renameFile",
+    "key": "enter",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "command": "-editor.action.quickFix",
+    "key": "cmd+.",
+    "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "command": "editor.action.quickFix",
+    "key": "ctrl+.",
+    "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+    "key": "ctrl+tab",
+    "when": "!activeEditorGroupEmpty"
   }
 ]
