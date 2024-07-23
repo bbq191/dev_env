@@ -1,0 +1,40 @@
+[2024-07-23 09:48:38.631] [I] ***************************************************************
+[2024-07-23 09:48:38.631] [I] Snipaste 2.9.2-Beta for macOS (Qt 6.2.4)
+[2024-07-23 09:48:38.631] [I] OS: macOS 15.0 [24.0.0]
+[2024-07-23 09:48:38.631] [I] Cores: 12
+[2024-07-23 09:48:38.631] [I] Log level: 2
+[2024-07-23 09:48:38.631] [I] Application dir: /Applications/Snipaste.app/Contents/MacOS
+[2024-07-23 09:48:38.631] [I] Working dir: /
+[2024-07-23 09:48:38.631] [I] Config: /Users/afu/.snipaste/config.ini
+[2024-07-23 09:48:38.631] [I] Library paths: (/Applications/Snipaste.app/Contents/MacOS, /Applications/Snipaste.app/Contents/PlugIns)
+[2024-07-23 09:48:38.631] [I] Screen scale: 1
+[2024-07-23 09:48:38.631] [I] Retina factor: 2
+[2024-07-23 09:48:38.631] [I] Screens: 1
+[2024-07-23 09:48:38.631] [I]     QRect(0, 0, 1800 x 1169), NAME = "", DPI = 72 , DPR = 2
+[2024-07-23 09:48:38.631] [I] Desktops: 2
+[2024-07-23 09:48:38.631] [I] About to import settings from: /Users/afu/.snipaste/config.ini
+[2024-07-23 09:48:38.632] [I] Settings imported
+[2024-07-23 09:48:38.690] [I] OpenGL acceleration: false
+[2024-07-23 09:48:38.715] [I] Initializing Snipaste...
+[2024-07-23 09:48:38.742] [I] Prefetch...
+[2024-07-23 09:48:38.897] [I] Load default ssl configuration: 155 ms
+[2024-07-23 09:48:38.956] [W] Populating font family aliases took 169 ms. Replace uses of missing font family "SF Pro" with one that exists to avoid this cost. 
+[2024-07-23 09:48:38.979] [I] About to apply settings...
+[2024-07-23 09:48:38.988] [I] Settings applied
+[2024-07-23 09:48:38.989] [I] Log level set to: 2
+[2024-07-23 09:48:39.003] [I] History dir: /Users/afu/.snipaste/history
+[2024-07-23 09:48:39.003] [W] Failed to open history file "/Users/afu/.snipaste/history/.sp0" for reading
+[2024-07-23 09:48:39.003] [I] Add group
+[2024-07-23 09:48:39.004] [I] Request to switch to group 0
+[2024-07-23 09:48:39.020] [I] About to restore pasters...
+[2024-07-23 09:48:39.020] [I] Group 0 [QF5SW6]: "Default"
+[2024-07-23 09:48:39.020] [I] Record version: 200
+[2024-07-23 09:48:39.020] [I] To restore: 0
+[2024-07-23 09:48:39.020] [I] Pasters touched
+[2024-07-23 09:48:39.020] [I] All pasters activated: true
+[2024-07-23 09:48:39.030] [I] Unref images: 0 (0 removed)
+[2024-07-23 09:48:39.030] [I] Unref dirs: 0 (0 removed)
+[2024-07-23 09:48:39.030] [I] Empty history info files: 0 (0 removed)
+[2024-07-23 09:48:39.030] [I] Pasters restored
+[2024-07-23 09:48:39.031] [I] Launch time: 400 ms
+[2024-07-23 09:48:44.508] [I] Parsing command arguments [1]: (sp, show-tray-menu)
