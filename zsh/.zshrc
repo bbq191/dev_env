@@ -1,4 +1,6 @@
 #!/bin/zsh
+
+# 环境变量设定
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # proxy
@@ -29,10 +31,12 @@ export USER_BIN="$HOME/.local/bin"
 [ -f "$XDG_CONFIG_HOME/fzf.zsh" ] && source "$XDG_CONFIG_HOME/fzf.zsh"
 
 # ADB platform
-export ADB_HOME="$XDG_DATA_HOME/platform-tools/"
+export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
+alias adb='HOME="$ANDROID_USER_HOME" $ANDROID_USER_HOME/platform-tools/adb'
 
 # go home
-export GO_PATH="$HOME/.local/share/go"
+export GOPATH="$XDG_DATA_HOME/go"
+export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 
 # java config
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
@@ -48,10 +52,17 @@ export PYTHON_HOME="/opt/homebrew/opt/python/libexec/bin"
 # npm config
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 
-# path append
-export PATH="$CARGO_HOME/bin:$PYTHON_HOME:$GO_PATH/bin:$ADB_HOME:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+# system tools
+export curl_path="/opt/homebrew/opt/curl/bin"
+export make_path="/opt/homebrew/opt/make/libexec/gnubin"
 
-###################################################################################################################
+# vscode
+export VSCODE_PORTABLE="$XDG_DATA_HOME/vscode"
+
+# path append
+export PATH="$CARGO_HOME/bin:$PYTHON_HOME:$GOPATH:$GOMODCACHE:$ANDROID_USER_HOME:$VSCODE_PORTABLE:$curl_path:$make_path:$PATH"
+
+# 个人习惯设定
 HISTSIZE=999
 SAVEHIST=1000
 setopt share_history
@@ -152,3 +163,6 @@ alias gcs="git checkout stable"
 
 # subversion
 alias svn="svn --config-dir \"$XDG_CONFIG_HOME\"/subversion"
+
+# vscode
+# alias code='code-insiders --extensions-dir /Users/afu/.local/share/vscode-insiders/ext/ --user-data-dir /Users/afu/.local/share/vscode-insiders/data/'
