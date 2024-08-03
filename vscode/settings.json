@@ -93,9 +93,9 @@
   "editor.cursorStyle": "block",
   "editor.cursorSurroundingLines": 5,
   "editor.dragAndDrop": false,
-  "editor.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
+  "editor.fontFamily": "'Iosevka Nerd Font','Source Han Sans HW'",
   "editor.fontLigatures": "'calt','zero'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
-  "editor.fontSize": 16,
+  "editor.fontSize": 15,
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.lineNumbers": "relative",
@@ -104,8 +104,7 @@
   "editor.scrollBeyondLastLine": false,
   "editor.smoothScrolling": true,
   "editor.suggest.insertMode": "replace",
-  "editor.suggestFontSize": 14,
-  "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.suggestFontSize": 13,
   "errorLens.gutterIconSet": "letter",
   "errorLens.gutterIconsEnabled": true,
   "errorLens.removeLinebreaks": false,
@@ -133,6 +132,13 @@
   "lldb.launch.terminal": "integrated",
   "lldb.library": "/Applications/Xcode-beta.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
   "markdown.preview.openMarkdownLinks": "inEditor",
+  // 用multiCommand插件实现多命令序列
+  "multiCommand.commands": [
+    {
+      "command": "multiCommand.openFileAndCloseSidebar",
+      "sequence": ["list.select", "workbench.action.closeSidebar"]
+    }
+  ],
   "path-intellisense.absolutePathToWorkspace": true,
   "path-intellisense.autoSlashAfterDirectory": false,
   "path-intellisense.autoTriggerNextSuggestion": false,
@@ -166,14 +172,13 @@
     "peerDependencies",
     "cSpell.userWords"
   ],
-  "terminal.integrated.defaultLocation": "editor",
-  "terminal.integrated.fontFamily": "'Iosevka Nerd Font','Source Han Sans SC'",
-  "terminal.integrated.fontSize": 16,
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "/opt/homebrew/bin/kitty",
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.suggest.paths": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "update.showReleaseNotes": false,
-  //VIM CONFIG----------------------------------------------------------------------------
+  // VIM CONFIG----------------------------------------------------------------------------
   "vim.foldfix": true,
   "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
   "vim.highlightedyank.enable": true,
@@ -257,7 +262,7 @@
     },
     {
       "before": ["leader", "w"],
-      "commands": [":w!"]
+      "commands": ["workbench.action.files.saveAll"]
     },
     {
       "before": ["leader", "f"],
@@ -293,7 +298,6 @@
     }
   ],
   "window.commandCenter": false,
-  "window.density.editorTabHeight": "compact",
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 0,
   "workbench.activityBar.location": "bottom",
@@ -305,10 +309,9 @@
     "statusBar.foreground": "#434C5E",
     "statusBar.noFolderBackground": "#8FBCBB"
   },
-  "workbench.colorTheme": "Default Light+",
-  "workbench.editor.enablePreview": false,
-  "workbench.editor.navigationScope": "editorGroup",
-  "workbench.editor.pinnedTabSizing": "compact",
+  "workbench.colorTheme": "Default Light Modern",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.wrapTabs": true,
   "workbench.iconTheme": "material-icon-theme",
   "workbench.settings.editor": "json",
   "workbench.sideBar.location": "right",

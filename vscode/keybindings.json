@@ -1,14 +1,89 @@
 // 尽可能与 neovim 保持一致按键
 [
+  // 导航及窗口控制
+  // -- 窗口控制
+  // -- -- 关闭窗口
+  {
+    "command": "workbench.action.closeActiveEditor",
+    "key": "cmd+w",
+    "when": "editorIsOpen && vim.mode !='Insert' && !sideBarFocus && !panelFocus"
+  },
+  {
+    "command": "-workbench.action.closeActiveEditor",
+    "key": "cmd+w"
+  },
+  // -- -- 关闭侧边栏
+  {
+    "command": "workbench.action.toggleSidebarVisibility",
+    "key": "cmd+w",
+    "when": "sideBarVisible && sideBarFocus && !inputFocus"
+  },
+  // -- -- 关闭面板
+  {
+    "command": "workbench.action.togglePanel",
+    "key": "cmd+w",
+    "when": "panelVisible && panelFocus"
+  },
+  // -- 导航
+  // -- -- 窗口切换
   {
     "command": "workbench.action.navigateLeft",
-    "key": "ctrl+w h",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    "key": "ctrl+h"
   },
   {
     "command": "workbench.action.navigateRight",
-    "key": "ctrl+w l",
-    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    "key": "ctrl+l",
+    "when": "sideBarVisible"
+  },
+  {
+    "command": "workbench.action.navigateUp",
+    "key": "ctrl+w j",
+    "when": "panelFocus && !inputFocus"
+  },
+  {
+    "command": "workbench.action.navigateDown",
+    "key": "ctrl+w k",
+    "when": "panelVisible && editorFocus"
+  },
+  // -- -- 文件间切换
+  {
+    "command": "workbench.action.navigateBack",
+    "key": "ctrl+o"
+  },
+  {
+    "command": "workbench.action.navigateForward",
+    "key": "ctrl+i"
+  },
+  // -- -- 已打开的 tab 页切换
+  {
+    "command": "workbench.action.previousEditor",
+    "key": "ctrl+[",
+    "when": "!activeEditorGroupEmpty"
+  },
+  {
+    "command": "workbench.action.nextEditor",
+    "key": "ctrl+]",
+    "when": "!activeEditorGroupEmpty"
+  },
+  // -- -- 分割编辑区
+  {
+    "command": "workbench.action.splitEditor",
+    "key": "ctrl+w v",
+    "when": "editorFocus"
+  },
+  {
+    "command": "-workbench.action.splitEditor",
+    "key": "cmd+\\"
+  },
+  // -- exploer 文件管理
+  // -- -- 打开文件并关闭 sidebar
+  {
+    "args": {
+      "command": "multiCommand.openFileAndCloseSidebar"
+    },
+    "command": "extension.multiCommand.execute",
+    "key": "l",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
   },
   {
     "command": "explorer.newFile",
@@ -31,8 +106,21 @@
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
-    "command": "-editor.action.selectAll",
-    "key": "cmd+a"
+    "command": "-renameFile",
+    "key": "enter",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  // -- 文件编辑
+  // -- -- 快速修复
+  {
+    "command": "-editor.action.quickFix",
+    "key": "cmd+.",
+    "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "command": "editor.action.quickFix",
+    "key": "ctrl+.",
+    "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
   },
   {
     "command": "expand_region",
@@ -44,65 +132,23 @@
     "key": "ctrl+-",
     "when": "editorTextFocus && editorHasSelection"
   },
-  {
-    "command": "extension.advancedNewFile",
-    "key": "cmd+n",
-    "when": "!terminalFocus"
-  },
-  {
-    "command": "-extension.advancedNewFile",
-    "key": "alt+cmd+n"
-  },
+  // -- terminal 管理
   {
     "command": "workbench.action.terminal.new",
     "key": "cmd+n",
     "when": "terminalFocus"
   },
-  {
-    "command": "-workbench.action.terminal.new",
-    "key": "ctrl+shift+`",
-    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
-  },
-  {
-    "command": "workbench.action.navigateBack",
-    "key": "ctrl+o"
-  },
-  {
-    "command": "workbench.action.navigateForward",
-    "key": "ctrl+i"
-  },
-  {
-    "command": "-workbench.action.files.save",
-    "key": "cmd+s"
-  },
+  // -- 其他
+  // -- -- 移除不必要的系统按键
   {
     "command": "-editor.action.addSelectionToNextFindMatch",
     "key": "cmd+d",
     "when": "editorFocus"
   },
   {
-    "command": "workbench.action.splitEditor",
-    "key": "ctrl+w v",
-    "when": "editorFocus"
-  },
-  {
-    "command": "-workbench.action.splitEditor",
-    "key": "cmd+\\"
-  },
-  {
     "command": "-interactiveEditor.unstash",
     "key": "cmd+z",
     "when": "interactiveEditorHasStashedSession && !editorReadonly"
-  },
-  {
-    "command": "workbench.action.terminal.new",
-    "key": "ctrl+\\",
-    "when": "editorFocus"
-  },
-  {
-    "command": "-workbench.action.terminal.toggleTerminal",
-    "key": "ctrl+`",
-    "when": "terminal.active"
   },
   {
     "command": "-deleteRight",
@@ -133,31 +179,13 @@
     "key": "cmd+b"
   },
   {
-    "command": "workbench.action.toggleSidebarVisibility",
-    "key": "ctrl+w x",
-    "when": "sideBarFocus"
-  },
-  {
-    "command": "-workbench.action.togglePanel",
-    "key": "cmd+j"
-  },
-  {
-    "command": "workbench.action.togglePanel",
-    "key": "ctrl+w x",
-    "when": "panelFocus"
-  },
-  {
     "command": "-workbench.view.explorer",
     "key": "shift+cmd+e",
     "when": "viewContainer.workbench.view.explorer.enabled"
   },
   {
-    "command": "-workbench.action.files.newUntitledFile",
-    "key": "cmd+n"
-  },
-  {
-    "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
-    "key": "ctrl+w w",
+    "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+    "key": "ctrl+tab",
     "when": "!activeEditorGroupEmpty"
   },
   {
@@ -165,23 +193,8 @@
     "key": "cmd+1"
   },
   {
-    "command": "-renameFile",
+    "command": "-list.select",
     "key": "enter",
-    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "command": "-editor.action.quickFix",
-    "key": "cmd+.",
-    "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
-  },
-  {
-    "command": "editor.action.quickFix",
-    "key": "ctrl+.",
-    "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
-  },
-  {
-    "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
-    "key": "ctrl+tab",
-    "when": "!activeEditorGroupEmpty"
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
   }
 ]

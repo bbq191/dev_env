@@ -57,7 +57,7 @@ export curl_path="/opt/homebrew/opt/curl/bin"
 export make_path="/opt/homebrew/opt/make/libexec/gnubin"
 
 # vscode
-export VSCODE_PORTABLE="$XDG_DATA_HOME/vscode"
+export VSCODE_PORTABLE="$XDG_DATA_HOME/vscodium"
 
 # path append
 export PATH="$CARGO_HOME/bin:$PYTHON_HOME:$GOPATH:$GOMODCACHE:$ANDROID_USER_HOME:$VSCODE_PORTABLE:$curl_path:$make_path:$PATH"
@@ -165,4 +165,4 @@ alias gcs="git checkout stable"
 alias svn="svn --config-dir \"$XDG_CONFIG_HOME\"/subversion"
 
 # vscode
-# alias code='code-insiders --extensions-dir /Users/afu/.local/share/vscode-insiders/ext/ --user-data-dir /Users/afu/.local/share/vscode-insiders/data/'
+alias code='codium-insiders --extensions-dir "$VSCODE_PORTABLE/extensions"'
