@@ -23,6 +23,15 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+HISTFILE="$XDG_STATE_HOME"/zsh/history
+# Completion files: Use XDG dirs
+[ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME"/zsh/zcompcache
+
+# 加载补全系统
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-$ZSH_VERSION
+
 # USER Bin
 export USER_BIN="$HOME/.local/bin"
 
@@ -57,7 +66,7 @@ export curl_path="/opt/homebrew/opt/curl/bin"
 export make_path="/opt/homebrew/opt/make/libexec/gnubin"
 
 # vscode
-export VSCODE_PORTABLE="$XDG_DATA_HOME/vscodium"
+export VSCODE_PORTABLE="$XDG_DATA_HOME/vscode"
 
 # path append
 export PATH="$CARGO_HOME/bin:$PYTHON_HOME:$GOPATH:$GOMODCACHE:$ANDROID_USER_HOME:$VSCODE_PORTABLE:$curl_path:$make_path:$PATH"
@@ -165,4 +174,4 @@ alias gcs="git checkout stable"
 alias svn="svn --config-dir \"$XDG_CONFIG_HOME\"/subversion"
 
 # vscode
-alias code='codium-insiders --extensions-dir "$VSCODE_PORTABLE/extensions"'
+alias code='code-insiders --extensions-dir "$VSCODE_PORTABLE/extensions"'
