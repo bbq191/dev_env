@@ -96,7 +96,7 @@ plug "wintermi/zsh-brew"
 plug "Aloxaf/fzf-tab"
 
 ############################################################################################################
-# eval "$(thefuck --alias)"
+eval "$(thefuck --alias)"
 eval "$(gh copilot alias -- zsh)"
 eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
@@ -175,3 +175,8 @@ alias svn="svn --config-dir \"$XDG_CONFIG_HOME\"/subversion"
 
 # vscode
 alias code='code-insiders --extensions-dir "$VSCODE_PORTABLE/extensions"'
+
+# brew
+alias brewuac='brew update -v && brew upgrade -v && brew cleanup --prune=all -v'
+alias brewun='brew uninstall "$@"'
+alias brewin='brew install "$@"'
