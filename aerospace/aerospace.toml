@@ -108,8 +108,8 @@ alt-shift-equal = 'resize smart +50'
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
+alt-4 = 'workspace C'
+alt-5 = 'workspace V'
 alt-b = 'workspace B'
 alt-d = 'workspace D'
 alt-e = 'workspace E'
@@ -120,13 +120,13 @@ alt-t = 'workspace T'
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-b = 'move-node-to-workspace B'
-alt-shift-d = 'move-node-to-workspace D'
-alt-shift-e = 'move-node-to-workspace E'
-alt-shift-g = 'move-node-to-workspace G'
-alt-shift-t = 'move-node-to-workspace T'
+alt-shift-4 = 'move-node-to-workspace V' # V for Visual Machine
+alt-shift-5 = 'move-node-to-workspace C' # C for Chat Tools
+alt-shift-b = 'move-node-to-workspace B' # B for Browser
+alt-shift-d = 'move-node-to-workspace D' # D for Developer Tool
+alt-shift-e = 'move-node-to-workspace E' # E for Explorer
+alt-shift-g = 'move-node-to-workspace G' # G for Game
+alt-shift-t = 'move-node-to-workspace T' # T for Terminal
 alt-shift-f = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -177,6 +177,9 @@ run = "move-node-to-workspace T"
 if.app-id = 'com.codeweavers.CrossOver'
 run = "move-node-to-workspace G"
 [[on-window-detected]]
+if.app-id = 'NULL-APP-BUNDLE-ID'
+run = "move-node-to-workspace G"
+[[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
 run = "move-node-to-workspace B"
 [[on-window-detected]]
@@ -185,3 +188,15 @@ run = "move-node-to-workspace D"
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = "move-node-to-workspace E"
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = "move-node-to-workspace C"
+[[on-window-detected]]
+if.app-id = 'com.tencent.xinWeChat'
+run = "move-node-to-workspace C"
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = "move-node-to-workspace C"
+[[on-window-detected]]
+if.app-id = 'com.parallels.desktop.console'
+run = "move-node-to-workspace V"
