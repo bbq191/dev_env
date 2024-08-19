@@ -198,5 +198,5 @@ run = "move-node-to-workspace C"
 if.app-id = 'com.apple.mail'
 run = "move-node-to-workspace C"
 [[on-window-detected]]
-if.app-id = 'com.parallels.desktop.console'
+if.app-id = 'com.vmware.fusion'
 run = "move-node-to-workspace V"
