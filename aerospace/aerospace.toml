@@ -114,7 +114,6 @@ alt-b = 'workspace B'
 alt-d = 'workspace D'
 alt-e = 'workspace E'
 alt-g = 'workspace G'
-alt-t = 'workspace T'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -126,7 +125,6 @@ alt-shift-b = 'move-node-to-workspace B' # B for Browser
 alt-shift-d = 'move-node-to-workspace D' # D for Developer Tool
 alt-shift-e = 'move-node-to-workspace E' # E for Explorer
 alt-shift-g = 'move-node-to-workspace G' # G for Game
-alt-shift-t = 'move-node-to-workspace T' # T for Terminal
 alt-shift-f = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -172,7 +170,7 @@ alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
-run = "move-node-to-workspace T"
+run = "move-node-to-workspace D"
 [[on-window-detected]]
 if.app-id = 'com.codeweavers.CrossOver'
 run = "move-node-to-workspace G"
