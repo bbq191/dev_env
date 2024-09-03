@@ -175,9 +175,6 @@ run = "move-node-to-workspace D"
 if.app-id = 'com.codeweavers.CrossOver'
 run = "move-node-to-workspace G"
 [[on-window-detected]]
-if.app-id = 'NULL-APP-BUNDLE-ID'
-run = "move-node-to-workspace G"
-[[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
 run = "move-node-to-workspace B"
 [[on-window-detected]]
@@ -187,7 +184,13 @@ run = "move-node-to-workspace D"
 if.app-id = 'com.apple.finder'
 run = "move-node-to-workspace E"
 [[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = "move-node-to-workspace E"
+[[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
+run = "move-node-to-workspace C"
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
 run = "move-node-to-workspace C"
 [[on-window-detected]]
 if.app-id = 'com.tencent.xinWeChat'
