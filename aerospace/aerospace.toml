@@ -178,6 +178,9 @@ run = "move-node-to-workspace G"
 if.app-id = 'company.thebrowser.Browser'
 run = "move-node-to-workspace B"
 [[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = "move-node-to-workspace B"
+[[on-window-detected]]
 if.app-id = 'com.microsoft.VSCodeInsiders'
 run = "move-node-to-workspace D"
 [[on-window-detected]]
@@ -199,5 +202,5 @@ run = "move-node-to-workspace C"
 if.app-id = 'com.apple.mail'
 run = "move-node-to-workspace C"
 [[on-window-detected]]
-if.app-id = 'com.vmware.fusion'
+if.app-id = 'com.parallels.desktop.console'
 run = "move-node-to-workspace V"
