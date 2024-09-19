@@ -37,7 +37,6 @@ return {
 				"emmet_ls",
 				"prismals",
 				"pyright",
-				"rust_analyzer",
 				"cmake",
 			},
 			-- auto-install configured servers (with lspconfig)
