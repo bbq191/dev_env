@@ -149,7 +149,7 @@ _fzf_comprun() {
 }
 
 # Setup fzf-git
-source ~/Workspace/fzf-git.sh/fzf-git.sh
+source ~/Developer/fzf-git.sh/fzf-git.sh
 
 # confirm before overwriting something
 alias cd="z"
