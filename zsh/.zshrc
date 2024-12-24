@@ -22,7 +22,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_RUNTIME_DIR="/var/run/$UID"
+export XDG_RUNTIME_DIR="$HOME/.local/run"
 
 HISTFILE="$XDG_STATE_HOME"/zsh/history
 # Completion files: Use XDG dirs
@@ -42,8 +42,8 @@ export USER_BIN="$HOME/.local/bin"
 
 # ADB platform
 export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
-alias adb='HOME="$ANDROID_USER_HOME" $ANDROID_USER_HOME/platform-tools/adb'
-
+# alias adb='HOME="$ANDROID_USER_HOME" $ANDROID_USER_HOME/platform-tools/adb'
+alias adb='HOME="$XDG_DATA_HOME"/android adb'
 # go home
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
