@@ -42,8 +42,7 @@ export USER_BIN="$HOME/.local/bin"
 
 # ADB platform
 export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
-# alias adb='HOME="$ANDROID_USER_HOME" $ANDROID_USER_HOME/platform-tools/adb'
-alias adb='HOME="$XDG_DATA_HOME"/android adb'
+
 # go home
 export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
