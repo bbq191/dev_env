@@ -1,15 +1,10 @@
 [user]
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM2Ky7/gg8fhgfZuAfk539Kj+AboJ4XUdOyOBLxZyzZx
   email = xsiyuan@gmail.com
   name = Vinci Xu
+
 [gpg]
   format = ssh
 
-[gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-
-[commit]
-  gpgsign = true
 [core]
   excludesfile = /Users/afu/.config/git/gitignore_global
   editor = nvim
