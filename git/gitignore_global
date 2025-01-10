@@ -46,8 +46,10 @@ server/
 .git/
 .vscode/
 .idea/
+.iml
 .fleet/
 output/
+out/
 target/
 .gitignore
 build/

@@ -180,6 +180,9 @@ alias svn="svn --config-dir \"$XDG_CONFIG_HOME\"/subversion"
 # vscode
 alias code='code-insiders --extensions-dir "$VSCODE_PORTABLE/extensions"'
 
+# yarn
+alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
+
 # brew
 alias brewuac='brew update -v && brew upgrade -v && brew cleanup --prune=all -v'
 alias brewun='brew uninstall "$@"'
