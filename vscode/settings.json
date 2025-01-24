@@ -2,9 +2,6 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -17,149 +14,122 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "better-comments.highlightPlainText": false,
-  "better-comments.multilineComments": true,
-  "better-comments.tags": [
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#FF2D00",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "!",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#3498DB",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "?",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#474747",
-      "italic": false,
-      "strikethrough": true,
-      "tag": "//",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#FF8C00",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "todo",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#FF8C00",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "fixme",
-      "underline": false
-    },
-    {
-      "backgroundColor": "transparent",
-      "bold": false,
-      "color": "#98C379",
-      "italic": false,
-      "strikethrough": false,
-      "tag": "*",
-      "underline": false
-    }
-  ],
-  "debug.allowBreakpointsEverywhere": true,
-  "debug.console.fontSize": 15,
-  "debug.internalConsoleOptions": "openOnSessionStart",
-  "debug.openDebug": "neverOpen",
+  "bazel.buildifierFixOnFormat": true,
   "debug.showBreakpointsInOverviewRuler": true,
+  "editor.acceptSuggestionOnEnter": "smart",
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
-    "source.addMissingImports": "explicit",
-    "source.organizeImports": "explicit"
+    "source.addMissingImports": "always",
+    "source.organizeImports": "always"
   },
   "editor.cursorBlinking": "solid",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "block",
-  "editor.cursorSurroundingLines": 5,
-  "editor.detectIndentation": false,
+  "editor.cursorSurroundingLines": 8,
   "editor.dragAndDrop": false,
-  "editor.fontFamily": "Menlo",
-  "editor.fontLigatures": "'calt','zero'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
-  "editor.fontSize": 16,
+  "editor.fontFamily": "'Comic Code Ligatures','Source Han Sans SC','Symbols Nerd Font Mono'",
+  "editor.fontLigatures": "'calt','zero','ss01'", // 参考 https://github.com/JetBrains/JetBrainsMono/wiki/OpenType-features
   "editor.formatOnSave": true,
-  "editor.glyphMargin": false,
   "editor.inlineSuggest.enabled": true,
-  "editor.insertSpaces": true,
-  "editor.lineHeight": 32,
   "editor.lineNumbers": "relative",
   "editor.linkedEditing": true,
   "editor.minimap.enabled": false,
-  "editor.rulers": [80],
+  "editor.rulers": [
+    {
+      "color": "#00FF0010",
+      "column": 80
+    },
+    {
+      "color": "#BDB76B15",
+      "column": 100
+    },
+    {
+      "color": "#FA807219",
+      "column": 120
+    }
+  ],
   "editor.scrollBeyondLastLine": false,
   "editor.smoothScrolling": true,
+  "editor.stickyScroll.enabled": true,
   "editor.suggest.insertMode": "replace",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.suggestFontSize": 13,
-  "editor.tabCompletion": "onlySnippets",
-  "editor.tabSize": 4,
-  "editor.wordBasedSuggestions": "off",
+  "editor.fontSize": 13,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.unicodeHighlight.includeComments": true,
   "editor.wordWrap": "on",
-  "errorLens.gutterIconSet": "letter",
+  "emmet.variables": {
+    "lang": "en"
+  },
+  "errorLens.fontStyleItalic": true,
+  "errorLens.fontWeight": "300",
+  "errorLens.gutterEmoji": {
+    "error": "E",
+    "hint": "H",
+    "info": "I",
+    "warning": "W"
+  },
+  "errorLens.gutterIconSet": "emoji",
+  "errorLens.gutterIconSize": "80%",
   "errorLens.gutterIconsEnabled": true,
-  "errorLens.removeLinebreaks": false,
   "explorer.confirmDelete": false,
-  "explorer.confirmDragAndDrop": true,
+  "explorer.confirmDragAndDrop": false,
   "extensions.autoUpdate": "onlyEnabledExtensions",
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
-  "extensions.ignoreRecommendations": true,
-  "files.autoSave": "off",
+  "extensions.ignoreRecommendations": false,
   "files.exclude": {
     "**/node_modules": true
   },
   "git.autofetch": true,
-  "git.autorefresh": false,
-  "git.confirmSync": false,
-  "git.ignoreLegacyWarning": true,
-  "git.openRepositoryInParentFolders": "never",
-  // "github.copilot.advanced": {},
-  "github.copilot.chat.localeOverride": "zh-CN",
-  "github.copilot.editor.enableAutoCompletions": true,
-  "javascript.suggest.paths": false,
-  "lldb.launch.expressions": "native",
-  "lldb.launch.sourceLanguages": ["rust"],
-  "lldb.launch.terminal": "integrated",
-  "lldb.library": "/Applications/Xcode-beta.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
-  "markdown.preview.openMarkdownLinks": "inEditor",
-  // 用multiCommand插件实现多命令序列
-  "multiCommand.commands": [
+  "git.path": "/opt/homebrew/bin/git",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.detectJdksAtStart": false,
+  "java.configuration.maven.userSettings": "${env:XDG_CONFIG_HOME}/maven/settings.xml",
+  "java.configuration.runtimes": [
     {
-      "command": "multiCommand.openFileAndCloseSidebar",
-      "sequence": ["list.select", "workbench.action.closeSidebar"]
+      "name": "JavaSE-1.8",
+      "default": true,
+      "path": "/Users/afu/.local/share/sdkman/candidates/java/8.0.392-amzn"
+    },
+    {
+      "name": "JavaSE-17",
+      "path": "/Users/afu/.local/share/sdkman/candidates/java/17.0.10-jbr"
+    },
+    {
+      "name": "JavaSE-21",
+      "path": "/Users/afu/.local/share/sdkman/candidates/java/21.0.5-tem"
     }
   ],
-  "path-intellisense.absolutePathToWorkspace": true,
-  "path-intellisense.autoSlashAfterDirectory": false,
-  "path-intellisense.autoTriggerNextSuggestion": false,
-  "path-intellisense.showHiddenFiles": true,
+  "window.zoomLevel": -1,
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.debug.settings.hotCodeReplace": "auto",
+  "java.dependency.packagePresentation": "hierarchical",
+  "java.maxConcurrentBuilds": 12,
+  "java.sources.organizeImports.staticStarThreshold": 1,
+  "maven.executable.path": "$home/.local/share/sdkman/candidates/maven/current/bin/mvn",
+  "maven.terminal.customEnv": [
+    {
+      "environmentVariable": "JAVA_HOME",
+      "value": "$home/.local/share/sdkman/candidates/java/8.0.392-amzn"
+    }
+  ],
   "prettier.semi": false,
   "prettier.singleAttributePerLine": true,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
+  "projectManager.git.baseFolders": ["$home/Developer"],
+  "projectManager.sortList": "Recent",
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}/venv/lib/python3.13/site-packages"
+  ],
+  "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python",
+  "python.envFile": "${userHome}/Developer/py-projects",
+  "python.terminal.activateEnvironment": true,
+  "python.venvPath": "${workspaceFolder}/venv",
+  "redhat.telemetry.enabled": false,
   "rust-analyzer.check.command": "clippy",
-  "search.followSymlinks": false,
-  "security.workspace.trust.untrustedFiles": "open",
   "sortJSON.orderOverride": [
     "name",
     "version",
@@ -182,13 +152,45 @@
     "peerDependencies",
     "cSpell.userWords"
   ],
-  "terminal.explorerKind": "external",
-  "terminal.external.osxExec": "/opt/homebrew/bin/kitty",
+  "spring-boot.ls.java.vmargs": [
+    "-Xmx8G",
+    "-Dlanguageserver.boot.symbolCacheDir=$home/cache/sts4/symbolCache"
+  ],
+  "terminal.external.osxExec": "kitty.app",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.profiles.osx": {
+    "JavaSE-1.8 LTS": {
+      "env": {
+        "JAVA_HOME": "/Users/afu/.local/share/sdkman/candidates/java/8.0.392-amzn"
+      },
+      "overrideName": true,
+      "path": "zsh"
+    },
+    "JavaSE-17 LTS": {
+      "env": {
+        "JAVA_HOME": "/Users/afu/.local/share/sdkman/candidates/java/17.0.10-jbr"
+      },
+      "overrideName": true,
+      "path": "zsh"
+    },
+    "JavaSE-21 LTS": {
+      "env": {
+        "JAVA_HOME": "/Users/afu/.local/share/sdkman/candidates/java/21.0.5-tem"
+      },
+      "overrideName": true,
+      "path": "zsh"
+    },
+    "zsh": {
+      "env": {
+        "JAVA_HOME": "/Users/afu/.local/share/sdkman/candidates/java/21.0.5-tem"
+      },
+      "path": "zsh"
+    }
+  },
+  "terminal.integrated.tabs.hideCondition": "never",
   "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.suggest.paths": false,
-  "typescript.updateImportsOnFileMove.enabled": "always",
   "update.showReleaseNotes": false,
-  // VIM CONFIG----------------------------------------------------------------------------
   "vim.foldfix": true,
   "vim.highlightedyank.color": "rgba(230, 97, 89, 0.7)",
   "vim.highlightedyank.enable": true,
@@ -308,26 +310,31 @@
     }
   ],
   "window.commandCenter": false,
-  "window.titleBarStyle": "custom",
-  "window.zoomLevel": -1,
-  "workbench.activityBar.location": "bottom",
-  // vim statusBar 控制自动生成
+  "window.dialogStyle": "custom",
+  "workbench.activityBar.location": "top",
   "workbench.colorCustomizations": {
+    "[Default Dark Modern]": {
+      "tab.activeBorderTop": "#00FF00",
+      "tab.unfocusedActiveBorderTop": "#00FF0088",
+      "textCodeBlock.background": "#00000055"
+    },
+    "editor.selectionHighlightBorder": "#A9A9A9",
+    "editor.wordHighlightBorder": "#FFD700",
+    "editor.wordHighlightStrongBorder": "#FF6347",
     "statusBar.background": "#8FBCBB",
+    "statusBar.noFolderBackground": "#8FBCBB",
     "statusBar.debuggingBackground": "#8FBCBB",
-    "statusBar.debuggingForeground": "#434C5E",
     "statusBar.foreground": "#434C5E",
-    "statusBar.noFolderBackground": "#8FBCBB"
+    "statusBar.debuggingForeground": "#434C5E"
   },
-  "workbench.colorTheme": "Default Light Modern",
-  "workbench.editor.enablePreview": true,
-  "workbench.editor.enablePreviewFromQuickOpen": true,
-  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.colorTheme": "Visual Studio Light",
+  "workbench.editor.revealIfOpen": true,
   "workbench.editor.showTabs": "multiple",
-  "workbench.editor.wrapTabs": true,
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.list.smoothScrolling": true,
+  "workbench.panel.defaultLocation": "left",
   "workbench.settings.editor": "json",
   "workbench.sideBar.location": "right",
   "workbench.startupEditor": "readme",
+  "workbench.tree.indent": 10,
   "zenMode.hideLineNumbers": false
 }

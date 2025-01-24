@@ -37,8 +37,13 @@ compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-$ZSH_VERSION
 export USER_BIN="$HOME/.local/bin"
 
 # zap
-[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
-[ -f "$XDG_CONFIG_HOME/fzf.zsh" ] && source "$XDG_CONFIG_HOME/fzf.zsh"
+if [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ]; then
+  source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
+fi
+
+if [ -f "$XDG_CONFIG_HOME/fzf.zsh" ]; then
+  source "$XDG_CONFIG_HOME/fzf.zsh"
+fi
 
 # ADB platform
 export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
@@ -49,7 +54,9 @@ export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 
 # java config
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
-[[ -s "/Users/afu/.local/share/sdkman/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
+  source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
 
 # rust home
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -60,6 +67,9 @@ export PYTHON_HOME="/opt/homebrew/opt/python/libexec/bin"
 
 # npm config
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+
+# maven repository
+export MAVEN_OPTS=-Dmaven.repo.local="$XDG_DATA_HOME"/maven/repository
 
 # system tools
 export curl_path="/opt/homebrew/opt/curl/bin"
@@ -95,21 +105,18 @@ plug "zsh-users/zsh-syntax-highlighting"
 plug "wintermi/zsh-brew"
 plug "Aloxaf/fzf-tab"
 
-############################################################################################################
+# Additional configurations
 eval "$(thefuck --alias)"
 eval "$(gh copilot alias -- zsh)"
 eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
-############################################################################################################
 
 # -- Use fd instead of fzf --
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
+# Use fd for listing path candidates
 _fzf_compgen_path() {
   fd --hidden --exclude .git . "$1"
 }
@@ -134,8 +141,6 @@ export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
 # Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
 _fzf_comprun() {
   local command=$1
   shift
@@ -164,7 +169,7 @@ alias free='free -m' # show sizes in MB
 # get top process eating memory
 alias psmem='ps aux | sort -nr -k 4 | head -5'
 
-# get top process eating cpu ##
+# get top process eating cpu
 alias pscpu='ps aux | sort -nr -k 3 | head -5'
 
 alias gcm="git checkout master"

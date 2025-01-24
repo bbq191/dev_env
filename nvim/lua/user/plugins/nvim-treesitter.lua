@@ -24,7 +24,6 @@ return {
 					"c",
 					"cpp",
 					"cmake",
-					"ron",
 					"toml",
 					"rust",
 					"json",
