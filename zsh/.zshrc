@@ -78,8 +78,9 @@ export make_path="/opt/homebrew/opt/make/libexec/gnubin"
 # Added by Toolbox App
 export TOOLBOX="$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+
 # path append
-export PATH="$GNUPGHOME:$CARGO_HOME/bin:$PYTHON_HOME:$GOPATH:$GOMODCACHE:$ANDROID_USER_HOME:$TOOLBOX:$PATH"
+export PATH="$GNUPGHOME:$CARGO_HOME/bin:$PYTHON_HOME:$GOPATH:$GOMODCACHE:$ANDROID_USER_HOME:$make_path:$curl_path:$TOOLBOX:$PATH"
 
 # 个人习惯设定
 HISTSIZE=999
