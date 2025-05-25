@@ -67,7 +67,7 @@ export PYTHON_HOME="/opt/homebrew/opt/python/libexec/bin"
 
 # npm config
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
-
+export PNPM_HOME="/Users/afu/.local/share/pnpm"
 # maven repository
 export MAVEN_OPTS=-Dmaven.repo.local="$XDG_DATA_HOME"/maven/repository
 
@@ -80,7 +80,7 @@ export TOOLBOX="$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 # path append
-export PATH="$GNUPGHOME:$CARGO_HOME/bin:$PYTHON_HOME:$GOPATH:$GOMODCACHE:$ANDROID_USER_HOME:$make_path:$curl_path:$TOOLBOX:$PATH"
+export PATH="$PNPM_HOME:$GNUPGHOME:$CARGO_HOME/bin:$PYTHON_HOME:$GOPATH:$GOMODCACHE:$ANDROID_USER_HOME:$make_path:$curl_path:$TOOLBOX:$PATH"
 
 # 个人习惯设定
 HISTSIZE=999
@@ -189,3 +189,11 @@ alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 alias brewuac='brew update -v && brew upgrade -v && brew cleanup --prune=all -v'
 alias brewun='brew uninstall "$@"'
 alias brewin='brew install "$@"'
+
+# pnpm
+export PNPM_HOME="/Users/afu/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
