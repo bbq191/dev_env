@@ -29,3 +29,5 @@
   colorMoved = default
 [pull]
   rebase = false
+[url "ssh://git@ssh.github.com:443/"]
+	insteadOf = git@github.com:
