@@ -6,10 +6,8 @@
   format = ssh
 
 [core]
-  excludesfile = .\gitignore_global
+  excludesfile = "$Env:XDG_CACHE_HOME\\git\\gitignore_global"
   editor = nvim
-
-[core]
   pager = delta
 
 [interactive]
